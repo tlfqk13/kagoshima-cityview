@@ -13,7 +13,7 @@
   --muted:  #8A8278;
   --rule:   #DDD7D0;
   --accent: #8B4513;
-  --dark:   #1F1E1A;
+  --dark:   #1F1E1A;  /* nav, hero, footer backgrounds — dark UI surfaces */
 
   /* 지도 핀 색상 */
   --pin-default: #1E3A4F;
