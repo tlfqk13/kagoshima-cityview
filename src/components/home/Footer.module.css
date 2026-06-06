@@ -1,0 +1,51 @@
+.footer {
+  background: var(--dark);
+  padding: 36px 52px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.logo {
+  font-family: var(--font-serif);
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.6);
+  letter-spacing: 0.1em;
+}
+
+.logo em {
+  color: var(--accent);
+  font-style: normal;
+}
+
+.right {
+  text-align: right;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.25);
+  line-height: 2;
+  letter-spacing: 0.05em;
+}
+
+.right a {
+  color: rgba(255, 255, 255, 0.35);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.disclaimer {
+  color: rgba(255, 255, 255, 0.2);
+}
+
+@media (max-width: 768px) {
+  .footer {
+    padding: 36px 24px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+  }
+  .right {
+    text-align: left;
+  }
+}

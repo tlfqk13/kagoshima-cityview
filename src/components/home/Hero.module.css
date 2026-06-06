@@ -1,0 +1,122 @@
+.hero {
+  display: grid;
+  grid-template-columns: 5fr 4fr;
+  min-height: calc(100vh - var(--nav-h));
+  background: #1F1E1A;
+}
+
+.left {
+  padding: 80px 60px 80px 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.eyebrow {
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  color: var(--accent);
+  text-transform: uppercase;
+  margin-bottom: 28px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.eyebrow::before {
+  content: '';
+  width: 24px;
+  height: 1px;
+  background: var(--accent);
+  flex-shrink: 0;
+}
+
+.h1 {
+  font-family: var(--font-serif);
+  font-size: clamp(24px, 3vw, 44px);
+  font-weight: 400;
+  line-height: 1.75;
+  letter-spacing: 0.04em;
+  color: var(--white);
+  margin-bottom: 36px;
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.btnPrimary {
+  display: inline-block;
+  padding: 13px 28px;
+  background: var(--accent);
+  color: var(--white);
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  border-radius: var(--radius);
+  transition: opacity 0.15s;
+}
+
+.btnPrimary:hover {
+  opacity: 0.85;
+}
+
+.btnGhost {
+  display: inline-block;
+  padding: 13px 22px;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius);
+  transition: border-color 0.15s;
+}
+
+.btnGhost:hover {
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.right {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #2C3E2D, #0D1A10);
+  display: flex;
+  align-items: flex-end;
+  padding: 28px;
+}
+
+.volcano {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 55%;
+  clip-path: polygon(0 100%, 18% 48%, 36% 68%, 52% 8%, 68% 42%, 82% 22%, 100% 58%, 100% 100%);
+  background: linear-gradient(to top, rgba(139, 69, 19, 0.25), transparent);
+}
+
+.photoNote {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: rgba(255, 255, 255, 0.18);
+  letter-spacing: 0.15em;
+  writing-mode: vertical-rl;
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 768px) {
+  .hero {
+    grid-template-columns: 1fr;
+  }
+
+  .left {
+    padding: 60px 24px;
+  }
+
+  .right {
+    min-height: 200px;
+  }
+}
