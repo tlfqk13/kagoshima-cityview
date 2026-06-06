@@ -2,7 +2,7 @@
 import { useEffect, useRef, useCallback } from 'react'
 import mapboxgl from 'mapbox-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
-import { getAllStops, getStopsGeoJSON, ROUTE_COORDINATES, type BusStop } from '@/lib/stops'
+import { getAllStops, getStopsGeoJSON, getNearestStop, ROUTE_COORDINATES, type BusStop } from '@/lib/stops'
 import styles from './MapCanvas.module.css'
 
 mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN!
@@ -36,10 +36,19 @@ export default function MapCanvas({ selectedStopId, onStopSelect }: MapCanvasPro
     })
 
     map.addControl(new mapboxgl.NavigationControl(), 'top-right')
-    map.addControl(
-      new mapboxgl.GeolocateControl({ positionOptions: { enableHighAccuracy: true } }),
-      'top-right'
-    )
+
+    const geolocate = new mapboxgl.GeolocateControl({
+      positionOptions: { enableHighAccuracy: true },
+      trackUserLocation: false,
+    })
+    map.addControl(geolocate, 'top-right')
+
+    geolocate.on('geolocate', (e: unknown) => {
+      const pos = e as GeolocationPosition
+      const { latitude, longitude } = pos.coords
+      const nearest = getNearestStop(latitude, longitude)
+      if (nearest) onStopSelect(nearest)
+    })
 
     map.on('load', () => {
       const stops = getAllStops()

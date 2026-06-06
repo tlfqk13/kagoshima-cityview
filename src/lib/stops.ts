@@ -86,6 +86,33 @@ export function getStopsByCategory(category: Category): BusStop[] {
   return getAllStops().filter(s => stopIds.has(s.id))
 }
 
+export function getNearestStop(lat: number, lng: number): BusStop | null {
+  const stops = getAllStops()
+  if (stops.length === 0) return null
+
+  let nearest: BusStop | null = null
+  let minDist = Infinity
+
+  for (const stop of stops) {
+    const R = 6371000 // Earth radius in meters
+    const dLat = ((stop.lat - lat) * Math.PI) / 180
+    const dLng = ((stop.lng - lng) * Math.PI) / 180
+    const a =
+      Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+      Math.cos((lat * Math.PI) / 180) *
+        Math.cos((stop.lat * Math.PI) / 180) *
+        Math.sin(dLng / 2) *
+        Math.sin(dLng / 2)
+    const dist = R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
+    if (dist < minDist) {
+      minDist = dist
+      nearest = stop
+    }
+  }
+
+  return nearest
+}
+
 export const ROUTE_COORDINATES: [number, number][] = [
   [130.5403, 31.5839],
   [130.5481, 31.5855],
