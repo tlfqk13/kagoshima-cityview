@@ -20,6 +20,8 @@ export interface BusStop {
   name: Record<Lang, string>
   googleMapsError: boolean
   googleMapsErrorNote: string
+  googleMapsLat?: number
+  googleMapsLng?: number
   destinations: Destination[]
 }
 

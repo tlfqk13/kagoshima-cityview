@@ -38,6 +38,8 @@
       "name": { "ko": "텐몬칸", "en": "Tenmonkan", "ja": "天文館" },
       "googleMapsError": true,
       "googleMapsErrorNote": "구글맵이 실제 위치보다 약 200m 남쪽을 가리킴. 2026-05-31 현장 확인.",
+      "googleMapsLat": 31.5872,
+      "googleMapsLng": 130.5545,
       "destinations": []
     },
     {

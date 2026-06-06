@@ -18,6 +18,7 @@ interface MapCanvasProps {
 export default function MapCanvas({ selectedStopId, onStopSelect }: MapCanvasProps) {
   const containerRef = useRef<HTMLDivElement>(null)
   const mapRef = useRef<mapboxgl.Map | null>(null)
+  const wrongPinRef = useRef<mapboxgl.Marker | null>(null)
 
   const handleStopClick = useCallback((stopId: string) => {
     const stop = getAllStops().find(s => s.id === stopId)
@@ -125,6 +126,7 @@ export default function MapCanvas({ selectedStopId, onStopSelect }: MapCanvasPro
 
     mapRef.current = map
     return () => {
+      wrongPinRef.current?.remove()
       map.remove()
       mapRef.current = null
     }
@@ -148,6 +150,35 @@ export default function MapCanvas({ selectedStopId, onStopSelect }: MapCanvasPro
         ['get', 'googleMapsError'], '#C87A3A',
         '#1E3A4F',
       ])
+    }
+
+    // Remove previous wrong pin
+    if (wrongPinRef.current) {
+      wrongPinRef.current.remove()
+      wrongPinRef.current = null
+    }
+
+    // Show wrong Google Maps pin if this stop has error coordinates
+    if (selectedStopId) {
+      const stop = getAllStops().find(s => s.id === selectedStopId)
+      if (stop?.googleMapsError && stop.googleMapsLat != null && stop.googleMapsLng != null) {
+        const el = document.createElement('div')
+        el.style.cssText = `
+          width: 12px;
+          height: 12px;
+          background: rgba(220, 50, 50, 0.6);
+          border: 2px solid rgba(220, 50, 50, 0.9);
+          border-radius: 50%;
+          cursor: default;
+        `
+        el.title = 'Google Maps incorrect location'
+
+        const marker = new mapboxgl.Marker({ element: el })
+          .setLngLat([stop.googleMapsLng, stop.googleMapsLat])
+          .addTo(map)
+
+        wrongPinRef.current = marker
+      }
     }
   }, [selectedStopId])
 
