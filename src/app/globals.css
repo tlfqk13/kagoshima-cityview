@@ -35,3 +35,36 @@ img {
   display: block;
   max-width: 100%;
 }
+
+/* Stop hover tooltip popup */
+.stop-hover-popup .mapboxgl-popup-content {
+  background: var(--dark);
+  color: var(--bg);
+  border-radius: var(--radius);
+  padding: 6px 10px;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.stop-hover-popup .mapboxgl-popup-tip {
+  border-top-color: var(--dark);
+}
+
+.stop-hover-popup .stop-num {
+  background: var(--accent);
+  color: #fff;
+  border-radius: 2px;
+  padding: 1px 5px;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.stop-hover-popup .stop-name {
+  font-weight: 500;
+}

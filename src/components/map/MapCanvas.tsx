@@ -7,6 +7,14 @@ import styles from './MapCanvas.module.css'
 
 mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN!
 
+function getCurrentLang(): 'ko' | 'en' | 'ja' {
+  if (typeof window === 'undefined') return 'ko'
+  // react-i18next stores language in cookie 'i18next' or localStorage 'i18nextLng'
+  const cookie = document.cookie.split(';').find(c => c.trim().startsWith('i18next='))
+  const lang = cookie?.split('=')[1]?.trim() ?? localStorage.getItem('i18nextLng') ?? 'ko'
+  return (['ko', 'en', 'ja'].includes(lang) ? lang : 'ko') as 'ko' | 'en' | 'ja'
+}
+
 const KAGOSHIMA_CENTER: [number, number] = [130.5581, 31.5897]
 const INITIAL_ZOOM = 13
 
@@ -22,6 +30,7 @@ export default function MapCanvas({ selectedStopId, onStopSelect, onUserLocation
   const mapRef = useRef<mapboxgl.Map | null>(null)
   const wrongPinRef = useRef<mapboxgl.Marker | null>(null)
   const userLocationRef = useRef<[number, number] | null | undefined>(userLocation)
+  const hoverPopupRef = useRef<mapboxgl.Popup | null>(null)
 
   // Keep userLocationRef in sync so the selectedStopId effect can access latest value
   useEffect(() => {
@@ -125,16 +134,36 @@ export default function MapCanvas({ selectedStopId, onStopSelect, onUserLocation
         const id = e.features?.[0]?.properties?.id
         if (id) handleStopClick(id)
       })
-      map.on('mouseenter', 'stops-circle', () => {
+      map.on('mouseenter', 'stops-circle', e => {
         map.getCanvas().style.cursor = 'pointer'
+        const feature = e.features?.[0]
+        if (!feature) return
+        const props = feature.properties as { id: string; number: number; nameKo: string; nameEn: string; nameJa: string }
+        const lang = getCurrentLang()
+        const name = lang === 'en' ? props.nameEn : lang === 'ja' ? props.nameJa : props.nameKo
+        const coordinates = (feature.geometry as { type: string; coordinates: [number, number] }).coordinates as [number, number]
+
+        hoverPopupRef.current?.remove()
+        hoverPopupRef.current = new mapboxgl.Popup({
+          closeButton: false,
+          closeOnClick: false,
+          offset: 12,
+          className: 'stop-hover-popup',
+        })
+          .setLngLat(coordinates)
+          .setHTML(`<span class="stop-num">${props.number}</span><span class="stop-name">${name}</span>`)
+          .addTo(map)
       })
       map.on('mouseleave', 'stops-circle', () => {
         map.getCanvas().style.cursor = ''
+        hoverPopupRef.current?.remove()
+        hoverPopupRef.current = null
       })
     })
 
     mapRef.current = map
     return () => {
+      hoverPopupRef.current?.remove()
       wrongPinRef.current?.remove()
       map.remove()
       mapRef.current = null
