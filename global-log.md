@@ -1,7 +1,7 @@
 # 가고시마 시티뷰 버스 가이드 — 개발 진행 로그
 
 > 다음 세션에서 이 파일을 먼저 읽고 현재 상태를 파악하세요.
-> 최종 업데이트: 2026-06-07 (P0 + P1 UX 개선 완료, P2 진행 중)
+> 최종 업데이트: 2026-06-07 (P0 + P1 + P2 UX 개선 전체 완료)
 
 ---
 
@@ -279,19 +279,22 @@ kagoshima-cityview/
 │   ├── auth.ts                    ← NextAuth v5 config
 │   ├── components/
 │   │   ├── home/                  ← Hero, TrustSection, ProblemGrid, PartnershipSection, Footer
-│   │   ├── map/                   ← MapCanvas(export MapCanvasProps), SidePanel, StopList, StopDetail, CategoryChips, DestinationCards, BottomSheet, StopSearch
+│   │   ├── map/                   ← MapCanvas(export MapCanvasProps), SidePanel, StopList, StopDetail, CategoryChips, DestinationCards, BottomSheet, StopSearch, QRModal
 │   │   ├── story/                 ← EpisodeCard, EpisodeNav
 │   │   ├── OfflineBanner.tsx      ← 오프라인 감지 + PWA 설치 유도 배너
+│   │   ├── ThemeProvider.tsx      ← useTheme 훅 + ThemeContext + prefers-color-scheme 감지
 │   │   ├── I18nProvider.tsx
 │   │   ├── LanguageSwitcher.tsx
-│   │   └── Nav.tsx
+│   │   └── Nav.tsx                ← 테마 토글 버튼 추가됨
 │   ├── data/
 │   │   ├── destinations.json
 │   │   └── stops.json             ← stop_03 googleMapsError+googleMapsLat/Lng, 전체 schedule 필드
 │   ├── lib/
 │   │   ├── devlog.ts              ← getAllEpisodes, getEpisode, ko fallback
+│   │   ├── favorites.ts           ← getFavorites, toggleFavorite, isFavorite (localStorage)
 │   │   ├── i18n.ts                ← react-i18next 초기화
-│   │   └── stops.ts              ← getAllStops, getStopsGeoJSON, getNearestStop, ROUTE_COORDINATES
+│   │   ├── stops.ts              ← getAllStops, getStopsGeoJSON, getNearestStop, ROUTE_COORDINATES
+│   │   └── theme.ts               ← getStoredTheme, setStoredTheme, resolveTheme, applyTheme
 │   ├── messages/
 │   │   ├── en.json
 │   │   ├── ja.json
@@ -331,15 +334,13 @@ kagoshima-cityview/
 **기술 픽스 (P1 중):**
 - `dynamic<MapCanvasProps>(...)` — dynamic() 임포트는 제네릭 명시 필수, `MapCanvasProps` export 추가
 
-**P2 진행 예정:**
-- 즐겨찾기 (localStorage)
-- 다크 모드 (시스템 설정 + 수동 토글)
-- 지도 팝업 (정류장 핀 호버 시 이름)
-- 노선 버스 애니메이션
-- QR 코드 생성 (관광과 제안용)
-- 접근성 정보
-- 혼잡도 안내
-- 지도 스타일 선택 (위성/일반/야간)
+**P2 완료 (2026-06-07):**
+11. ✅ 즐겨찾기 — `src/lib/favorites.ts` (localStorage `stop-favorites`), MapPage 상태 lift, 즐겨찾기 우선 정렬, StopDetail 별 버튼 (#F4C430)
+12. ✅ 다크 모드 — `src/lib/theme.ts` + `ThemeProvider.tsx`, Nav 토글 버튼 (⊙/☀/☾ 사이클), `[data-theme="dark"]` CSS 변수 오버라이드
+13. ✅ 지도 핀 호버 툴팁 — `mapboxgl.Popup` (closeButton: false), 정류장 번호 뱃지 + 다국어 이름, 현재 locale 자동 감지
+14. ✅ QR 코드 생성 — `qrcode` npm 패키지, `QRModal.tsx`, PNG 다운로드 (`kagoshima-cityview-stop-XX.png`), 관광과 제안용
+15. ✅ 지도 스타일 선택 — 🗺일반/🛰위성/🌙야간 토글, `map.setStyle()` + `style.load` 이벤트로 레이어 복원, 레이어 추가 로직 `addMapLayers()` 헬퍼로 추출
+16. ✅ 버스 애니메이션 — 🚌 emoji Marker, `requestAnimationFrame` 60초 루프, `interpolateRoute()` 헬퍼(선분 길이 비례 보간), ▶/⏸ 토글 버튼
 
 ### 우선순위 높음
 - [ ] **Vercel 배포** — 레포 연결 후 환경변수 설정:
@@ -377,6 +378,27 @@ kagoshima-cityview/
 | middleware.ts deprecation warning | 미해결 | 빌드는 통과, 다음 세션에 `proxy.ts`로 이름 변경 |
 | PWA SVG 아이콘 | 미해결 | placeholder, PNG 교체 필요 |
 | dynamic() 타입 추론 | 해결 | `MapCanvasProps` export + `dynamic<MapCanvasProps>()` 명시 필수 |
+
+---
+
+## P2 신규 파일/컴포넌트 요약
+
+| 파일 | 역할 |
+|------|------|
+| `src/lib/favorites.ts` | localStorage 즐겨찾기 CRUD |
+| `src/lib/theme.ts` | 다크모드 유틸 (get/set/apply) |
+| `src/components/ThemeProvider.tsx` | ThemeContext + useTheme 훅 |
+| `src/components/map/QRModal.tsx` | QR 코드 모달 (qrcode 패키지, PNG 다운로드) |
+| `src/components/map/QRModal.module.css` | QR 모달 스타일 |
+
+**MapCanvas.tsx 주요 추가 사항:**
+- `addMapLayers(map, selectedId)` — 모듈레벨 헬퍼, `style.load` 이벤트 후 레이어 복원
+- `interpolateRoute(coords, t)` — 선분 길이 비례 위치 보간
+- `getCurrentLang()` — cookie/localStorage에서 현재 언어 읽기 (툴팁용)
+- `hoverPopupRef` — 핀 호버 팝업
+- `busMarkerRef`, `animFrameRef`, `animStartRef` — 버스 애니메이션
+- `mapStyle` state + `mapStyleRef` — 지도 스타일 선택
+- `selectedStopIdRef` — style.load 클로저에서 선택 정류장 접근용
 
 ---
 
