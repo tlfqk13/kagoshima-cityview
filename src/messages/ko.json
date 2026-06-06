@@ -54,7 +54,12 @@
     "noResults": "검색 결과가 없습니다",
     "walkMin": "도보 약 {{min}}분",
     "addFavorite": "즐겨찾기 추가",
-    "removeFavorite": "즐겨찾기 해제"
+    "removeFavorite": "즐겨찾기 해제",
+    "showQR": "QR 코드",
+    "downloadQR": "PNG 다운로드"
+  },
+  "common": {
+    "close": "닫기"
   },
   "partnership": {
     "h2line1": "가고시마시 관광과와",

@@ -54,7 +54,12 @@
     "noResults": "No results found",
     "walkMin": "~{{min}} min walk",
     "addFavorite": "Add to favorites",
-    "removeFavorite": "Remove from favorites"
+    "removeFavorite": "Remove from favorites",
+    "showQR": "QR Code",
+    "downloadQR": "Download PNG"
+  },
+  "common": {
+    "close": "Close"
   },
   "partnership": {
     "h2line1": "We'd love to work with",

@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { BusStop, Lang } from '@/lib/stops'
 import styles from './StopDetail.module.css'
+import QRModal from './QRModal'
 
 const isIOS = typeof navigator !== 'undefined' && /iPad|iPhone|iPod/.test(navigator.userAgent)
 
@@ -32,6 +33,7 @@ export default function StopDetail({ stop, userLocation, isFavorite, onToggleFav
   const { t, i18n } = useTranslation()
   const lang = (['ko', 'en', 'ja'].includes(i18n.language) ? i18n.language : 'ko') as Lang
   const [toast, setToast] = useState<string | null>(null)
+  const [showQR, setShowQR] = useState(false)
 
   const stopName = stop.name[lang]
 
@@ -87,6 +89,26 @@ export default function StopDetail({ stop, userLocation, isFavorite, onToggleFav
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M10 2L14 6L10 10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
               <path d="M14 6H6C4.343 6 3 7.343 3 9V14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </button>
+          <button
+            className={styles.shareBtn}
+            onClick={() => setShowQR(true)}
+            aria-label={t('map.showQR')}
+            title={t('map.showQR')}
+          >
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="1" y="1" width="5" height="5" rx="0.5" stroke="currentColor" strokeWidth="1.5"/>
+              <rect x="10" y="1" width="5" height="5" rx="0.5" stroke="currentColor" strokeWidth="1.5"/>
+              <rect x="1" y="10" width="5" height="5" rx="0.5" stroke="currentColor" strokeWidth="1.5"/>
+              <rect x="2.5" y="2.5" width="2" height="2" fill="currentColor"/>
+              <rect x="11.5" y="2.5" width="2" height="2" fill="currentColor"/>
+              <rect x="2.5" y="11.5" width="2" height="2" fill="currentColor"/>
+              <path d="M10 10H11.5V11.5H10V10Z" fill="currentColor"/>
+              <path d="M11.5 11.5H13V13H11.5V11.5Z" fill="currentColor"/>
+              <path d="M13 10H14.5V11.5H13V10Z" fill="currentColor"/>
+              <path d="M10 13H11.5V14.5H10V13Z" fill="currentColor"/>
+              <path d="M13 13H14.5V14.5H13V13Z" fill="currentColor"/>
             </svg>
           </button>
         </div>
@@ -200,6 +222,7 @@ export default function StopDetail({ stop, userLocation, isFavorite, onToggleFav
           {toast}
         </div>
       )}
+      {showQR && <QRModal stop={stop} onClose={() => setShowQR(false)} />}
     </div>
   )
 }
