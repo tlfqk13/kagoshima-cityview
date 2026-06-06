@@ -18,7 +18,17 @@
       "name": { "ko": "가고시마 중앙역", "en": "Kagoshima-Chuo Station", "ja": "鹿児島中央駅" },
       "googleMapsError": false,
       "googleMapsErrorNote": "",
-      "destinations": []
+      "destinations": [],
+      "schedule": {
+        "firstBus": "09:00",
+        "lastBus": "17:00",
+        "frequencyMin": 60,
+        "operatingNote": {
+          "ko": "하루 9편 운행. 시즌에 따라 변동될 수 있습니다.",
+          "en": "9 departures daily. Schedule may vary by season.",
+          "ja": "1日9便運行。季節により変動する場合があります。"
+        }
+      }
     },
     {
       "id": "stop_02",
@@ -28,7 +38,17 @@
       "name": { "ko": "시청 앞", "en": "City Hall Mae", "ja": "市役所前" },
       "googleMapsError": false,
       "googleMapsErrorNote": "",
-      "destinations": []
+      "destinations": [],
+      "schedule": {
+        "firstBus": "09:05",
+        "lastBus": "17:05",
+        "frequencyMin": 60,
+        "operatingNote": {
+          "ko": "하루 9편 운행. 시즌에 따라 변동될 수 있습니다.",
+          "en": "9 departures daily. Schedule may vary by season.",
+          "ja": "1日9便運行。季節により変動する場合があります。"
+        }
+      }
     },
     {
       "id": "stop_03",
@@ -40,7 +60,17 @@
       "googleMapsErrorNote": "구글맵이 실제 위치보다 약 200m 남쪽을 가리킴. 2026-05-31 현장 확인.",
       "googleMapsLat": 31.5872,
       "googleMapsLng": 130.5545,
-      "destinations": []
+      "destinations": [],
+      "schedule": {
+        "firstBus": "09:15",
+        "lastBus": "17:15",
+        "frequencyMin": 60,
+        "operatingNote": {
+          "ko": "하루 9편 운행. 시즌에 따라 변동될 수 있습니다.",
+          "en": "9 departures daily. Schedule may vary by season.",
+          "ja": "1日9便運行。季節により変動する場合があります。"
+        }
+      }
     },
     {
       "id": "stop_04",
@@ -50,7 +80,17 @@
       "name": { "ko": "사이고 동상 앞", "en": "Saigo Statue Mae", "ja": "西郷銅像前" },
       "googleMapsError": false,
       "googleMapsErrorNote": "",
-      "destinations": []
+      "destinations": [],
+      "schedule": {
+        "firstBus": "09:20",
+        "lastBus": "17:20",
+        "frequencyMin": 60,
+        "operatingNote": {
+          "ko": "하루 9편 운행. 시즌에 따라 변동될 수 있습니다.",
+          "en": "9 departures daily. Schedule may vary by season.",
+          "ja": "1日9便運行。季節により変動する場合があります。"
+        }
+      }
     },
     {
       "id": "stop_05",
@@ -60,7 +100,17 @@
       "name": { "ko": "야마가타야 앞", "en": "Yamagataya Mae", "ja": "山形屋前" },
       "googleMapsError": false,
       "googleMapsErrorNote": "",
-      "destinations": []
+      "destinations": [],
+      "schedule": {
+        "firstBus": "09:25",
+        "lastBus": "17:25",
+        "frequencyMin": 60,
+        "operatingNote": {
+          "ko": "하루 9편 운행. 시즌에 따라 변동될 수 있습니다.",
+          "en": "9 departures daily. Schedule may vary by season.",
+          "ja": "1日9便運行。季節により変動する場合があります。"
+        }
+      }
     },
     {
       "id": "stop_06",
@@ -70,7 +120,17 @@
       "name": { "ko": "현청 앞", "en": "Prefectural Office Mae", "ja": "県庁前" },
       "googleMapsError": false,
       "googleMapsErrorNote": "",
-      "destinations": []
+      "destinations": [],
+      "schedule": {
+        "firstBus": "09:30",
+        "lastBus": "17:30",
+        "frequencyMin": 60,
+        "operatingNote": {
+          "ko": "하루 9편 운행. 시즌에 따라 변동될 수 있습니다.",
+          "en": "9 departures daily. Schedule may vary by season.",
+          "ja": "1日9便運行。季節により変動する場合があります。"
+        }
+      }
     },
     {
       "id": "stop_07",
@@ -80,7 +140,17 @@
       "name": { "ko": "시로야마", "en": "Shiroyama", "ja": "城山" },
       "googleMapsError": false,
       "googleMapsErrorNote": "",
-      "destinations": []
+      "destinations": [],
+      "schedule": {
+        "firstBus": "09:35",
+        "lastBus": "17:35",
+        "frequencyMin": 60,
+        "operatingNote": {
+          "ko": "하루 9편 운행. 시즌에 따라 변동될 수 있습니다.",
+          "en": "9 departures daily. Schedule may vary by season.",
+          "ja": "1日9便運行。季節により変動する場合があります。"
+        }
+      }
     },
     {
       "id": "stop_08",
@@ -90,7 +160,17 @@
       "name": { "ko": "니시다 2초메", "en": "Nishida 2-chome", "ja": "西田2丁目" },
       "googleMapsError": false,
       "googleMapsErrorNote": "",
-      "destinations": []
+      "destinations": [],
+      "schedule": {
+        "firstBus": "09:40",
+        "lastBus": "17:40",
+        "frequencyMin": 60,
+        "operatingNote": {
+          "ko": "하루 9편 운행. 시즌에 따라 변동될 수 있습니다.",
+          "en": "9 departures daily. Schedule may vary by season.",
+          "ja": "1日9便運行。季節により変動する場合があります。"
+        }
+      }
     },
     {
       "id": "stop_09",
@@ -100,7 +180,17 @@
       "name": { "ko": "사쿠라시마 관측센터 앞", "en": "Sakurajima Observatory Mae", "ja": "桜島ビジターセンター前" },
       "googleMapsError": false,
       "googleMapsErrorNote": "",
-      "destinations": []
+      "destinations": [],
+      "schedule": {
+        "firstBus": "09:45",
+        "lastBus": "17:45",
+        "frequencyMin": 60,
+        "operatingNote": {
+          "ko": "하루 9편 운행. 시즌에 따라 변동될 수 있습니다.",
+          "en": "9 departures daily. Schedule may vary by season.",
+          "ja": "1日9便運行。季節により変動する場合があります。"
+        }
+      }
     },
     {
       "id": "stop_10",
@@ -110,7 +200,17 @@
       "name": { "ko": "가고시마현 역사자료센터 앞", "en": "History Center Mae", "ja": "歴史資料センター前" },
       "googleMapsError": false,
       "googleMapsErrorNote": "",
-      "destinations": []
+      "destinations": [],
+      "schedule": {
+        "firstBus": "09:50",
+        "lastBus": "17:50",
+        "frequencyMin": 60,
+        "operatingNote": {
+          "ko": "하루 9편 운행. 시즌에 따라 변동될 수 있습니다.",
+          "en": "9 departures daily. Schedule may vary by season.",
+          "ja": "1日9便運行。季節により変動する場合があります。"
+        }
+      }
     },
     {
       "id": "stop_11",
@@ -120,7 +220,17 @@
       "name": { "ko": "이소 해수욕장 앞", "en": "Iso Beach Mae", "ja": "磯海水浴場前" },
       "googleMapsError": false,
       "googleMapsErrorNote": "",
-      "destinations": []
+      "destinations": [],
+      "schedule": {
+        "firstBus": "10:00",
+        "lastBus": "18:00",
+        "frequencyMin": 60,
+        "operatingNote": {
+          "ko": "하루 9편 운행. 시즌에 따라 변동될 수 있습니다.",
+          "en": "9 departures daily. Schedule may vary by season.",
+          "ja": "1日9便運行。季節により変動する場合があります。"
+        }
+      }
     },
     {
       "id": "stop_12",
@@ -130,7 +240,17 @@
       "name": { "ko": "센간엔 앞", "en": "Sengan-en Mae", "ja": "仙巌園（磯庭園）前" },
       "googleMapsError": false,
       "googleMapsErrorNote": "",
-      "destinations": []
+      "destinations": [],
+      "schedule": {
+        "firstBus": "10:05",
+        "lastBus": "18:05",
+        "frequencyMin": 60,
+        "operatingNote": {
+          "ko": "하루 9편 운행. 시즌에 따라 변동될 수 있습니다.",
+          "en": "9 departures daily. Schedule may vary by season.",
+          "ja": "1日9便運行。季節により変動する場合があります。"
+        }
+      }
     },
     {
       "id": "stop_13",
@@ -140,7 +260,17 @@
       "name": { "ko": "나가야마 앞", "en": "Nagayama Mae", "ja": "長山前" },
       "googleMapsError": false,
       "googleMapsErrorNote": "",
-      "destinations": []
+      "destinations": [],
+      "schedule": {
+        "firstBus": "10:10",
+        "lastBus": "18:10",
+        "frequencyMin": 60,
+        "operatingNote": {
+          "ko": "하루 9편 운행. 시즌에 따라 변동될 수 있습니다.",
+          "en": "9 departures daily. Schedule may vary by season.",
+          "ja": "1日9便運行。季節により変動する場合があります。"
+        }
+      }
     },
     {
       "id": "stop_14",
@@ -150,7 +280,17 @@
       "name": { "ko": "이시바시 기념공원 앞", "en": "Ishibashi Park Mae", "ja": "石橋記念公園前" },
       "googleMapsError": false,
       "googleMapsErrorNote": "",
-      "destinations": []
+      "destinations": [],
+      "schedule": {
+        "firstBus": "10:15",
+        "lastBus": "18:15",
+        "frequencyMin": 60,
+        "operatingNote": {
+          "ko": "하루 9편 운행. 시즌에 따라 변동될 수 있습니다.",
+          "en": "9 departures daily. Schedule may vary by season.",
+          "ja": "1日9便運行。季節により変動する場合があります。"
+        }
+      }
     },
     {
       "id": "stop_15",
@@ -160,7 +300,17 @@
       "name": { "ko": "터미널 앞", "en": "Terminal Mae", "ja": "ターミナル前" },
       "googleMapsError": false,
       "googleMapsErrorNote": "",
-      "destinations": []
+      "destinations": [],
+      "schedule": {
+        "firstBus": "10:20",
+        "lastBus": "18:20",
+        "frequencyMin": 60,
+        "operatingNote": {
+          "ko": "하루 9편 운행. 시즌에 따라 변동될 수 있습니다.",
+          "en": "9 departures daily. Schedule may vary by season.",
+          "ja": "1日9便運行。季節により変動する場合があります。"
+        }
+      }
     },
     {
       "id": "stop_16",
@@ -170,7 +320,17 @@
       "name": { "ko": "수족관 앞", "en": "Aquarium Mae", "ja": "水族館前" },
       "googleMapsError": false,
       "googleMapsErrorNote": "",
-      "destinations": []
+      "destinations": [],
+      "schedule": {
+        "firstBus": "10:25",
+        "lastBus": "18:25",
+        "frequencyMin": 60,
+        "operatingNote": {
+          "ko": "하루 9편 운행. 시즌에 따라 변동될 수 있습니다.",
+          "en": "9 departures daily. Schedule may vary by season.",
+          "ja": "1日9便運行。季節により変動する場合があります。"
+        }
+      }
     },
     {
       "id": "stop_17",
@@ -180,7 +340,17 @@
       "name": { "ko": "돌핀포트 앞", "en": "Dolphin Port Mae", "ja": "ドルフィンポート前" },
       "googleMapsError": false,
       "googleMapsErrorNote": "",
-      "destinations": []
+      "destinations": [],
+      "schedule": {
+        "firstBus": "10:30",
+        "lastBus": "18:30",
+        "frequencyMin": 60,
+        "operatingNote": {
+          "ko": "하루 9편 운행. 시즌에 따라 변동될 수 있습니다.",
+          "en": "9 departures daily. Schedule may vary by season.",
+          "ja": "1日9便運行。季節により変動する場合があります。"
+        }
+      }
     },
     {
       "id": "stop_18",
@@ -190,7 +360,17 @@
       "name": { "ko": "가고시마 중앙부두 앞", "en": "Central Pier Mae", "ja": "中央港前" },
       "googleMapsError": false,
       "googleMapsErrorNote": "",
-      "destinations": []
+      "destinations": [],
+      "schedule": {
+        "firstBus": "10:35",
+        "lastBus": "18:35",
+        "frequencyMin": 60,
+        "operatingNote": {
+          "ko": "하루 9편 운행. 시즌에 따라 변동될 수 있습니다.",
+          "en": "9 departures daily. Schedule may vary by season.",
+          "ja": "1日9便運行。季節により変動する場合があります。"
+        }
+      }
     },
     {
       "id": "stop_19",
@@ -200,7 +380,17 @@
       "name": { "ko": "가고시마 해변 공원 앞", "en": "Seaside Park Mae", "ja": "海浜公園前" },
       "googleMapsError": false,
       "googleMapsErrorNote": "",
-      "destinations": []
+      "destinations": [],
+      "schedule": {
+        "firstBus": "10:40",
+        "lastBus": "18:40",
+        "frequencyMin": 60,
+        "operatingNote": {
+          "ko": "하루 9편 운행. 시즌에 따라 변동될 수 있습니다.",
+          "en": "9 departures daily. Schedule may vary by season.",
+          "ja": "1日9便運行。季節により変動する場合があります。"
+        }
+      }
     },
     {
       "id": "stop_20",
@@ -210,7 +400,17 @@
       "name": { "ko": "가고시마역", "en": "Kagoshima Station", "ja": "鹿児島駅" },
       "googleMapsError": false,
       "googleMapsErrorNote": "",
-      "destinations": []
+      "destinations": [],
+      "schedule": {
+        "firstBus": "10:45",
+        "lastBus": "18:45",
+        "frequencyMin": 60,
+        "operatingNote": {
+          "ko": "하루 9편 운행. 시즌에 따라 변동될 수 있습니다.",
+          "en": "9 departures daily. Schedule may vary by season.",
+          "ja": "1日9便運行。季節により変動する場合があります。"
+        }
+      }
     }
   ]
 }

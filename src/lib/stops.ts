@@ -23,6 +23,16 @@ export interface BusStop {
   googleMapsLat?: number
   googleMapsLng?: number
   destinations: Destination[]
+  schedule?: {
+    firstBus: string
+    lastBus: string
+    frequencyMin: number
+    operatingNote: {
+      ko: string
+      en: string
+      ja: string
+    }
+  }
 }
 
 export interface StopsData {

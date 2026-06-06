@@ -110,6 +110,65 @@
   flex-wrap: wrap;
 }
 
+.scheduleSection {
+  padding: 16px 20px;
+  border-top: 1px solid var(--rule);
+  background: var(--white);
+}
+
+.scheduleSectionLabel {
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.scheduleTimes {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.scheduleItem {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.scheduleLabel {
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 0.08em;
+}
+
+.scheduleTime {
+  font-family: var(--font-mono);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: 0.04em;
+}
+
+.scheduleDivider {
+  flex: 1;
+  height: 1px;
+  background: var(--rule);
+}
+
+.scheduleFreq {
+  font-size: 11px;
+  color: var(--mid);
+  margin-bottom: 6px;
+}
+
+.scheduleNote {
+  font-size: 11px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
 .mapsSection {
   padding: 16px 20px;
   border-top: 1px solid var(--rule);

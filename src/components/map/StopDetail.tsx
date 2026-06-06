@@ -92,6 +92,28 @@ export default function StopDetail({ stop }: Props) {
           ))}
         </div>
       )}
+      {stop.schedule && (
+        <div className={styles.scheduleSection}>
+          <div className={styles.scheduleSectionLabel}>{t('map.schedule')}</div>
+          <div className={styles.scheduleTimes}>
+            <div className={styles.scheduleItem}>
+              <span className={styles.scheduleLabel}>{t('map.firstBus')}</span>
+              <span className={styles.scheduleTime}>{stop.schedule.firstBus}</span>
+            </div>
+            <div className={styles.scheduleDivider} />
+            <div className={styles.scheduleItem}>
+              <span className={styles.scheduleLabel}>{t('map.lastBus')}</span>
+              <span className={styles.scheduleTime}>{stop.schedule.lastBus}</span>
+            </div>
+          </div>
+          <div className={styles.scheduleFreq}>
+            {t('map.frequency', { min: stop.schedule.frequencyMin })}
+          </div>
+          <div className={styles.scheduleNote}>
+            {stop.schedule.operatingNote[lang]}
+          </div>
+        </div>
+      )}
       <div className={styles.mapsSection}>
         <div className={styles.mapsSectionLabel}>{t('map.stopDetail.openInMaps')}</div>
         <div className={styles.mapsButtons}>

@@ -43,6 +43,10 @@
       "shareStop": "Share this stop",
       "linkCopied": "Link copied!"
     },
+    "schedule": "Schedule",
+    "firstBus": "First bus",
+    "lastBus": "Last bus",
+    "frequency": "Every ~{{min}} min · 9 trips/day",
     "noStops": "No stops for this category",
     "searchPlaceholder": "Search stops & destinations",
     "noResults": "No results found"
