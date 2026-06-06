@@ -80,6 +80,24 @@ export default function StopDetail({ stop }: Props) {
           </button>
         </div>
       </div>
+      {/* Photo section */}
+      <div className={styles.photoSection}>
+        {stop.photos && stop.photos.length > 0 ? (
+          <img
+            src={stop.photos[0]}
+            alt={`${stopName} 정류장`}
+            className={styles.photo}
+          />
+        ) : (
+          <div className={styles.photoPlaceholder}>
+            <img
+              src="/images/stops/placeholder.svg"
+              alt="Photo coming soon"
+              className={styles.placeholderImg}
+            />
+          </div>
+        )}
+      </div>
       {stop.destinations.length > 0 && (
         <div className={styles.destinations}>
           {stop.destinations.map(dest => (

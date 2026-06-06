@@ -47,6 +47,7 @@
     "firstBus": "始発",
     "lastBus": "終発",
     "frequency": "約{{min}}分間隔・1日9便",
+    "photoComingSoon": "写真準備中",
     "noStops": "該当カテゴリの停留所はありません",
     "searchPlaceholder": "停留所・目的地を検索",
     "noResults": "検索結果がありません"

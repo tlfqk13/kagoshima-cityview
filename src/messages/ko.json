@@ -47,6 +47,7 @@
     "firstBus": "첫차",
     "lastBus": "막차",
     "frequency": "약 {{min}}분 간격 · 하루 9편",
+    "photoComingSoon": "사진 준비 중",
     "noStops": "해당 카테고리의 정류장이 없습니다",
     "searchPlaceholder": "정류장·목적지 검색",
     "noResults": "검색 결과가 없습니다"

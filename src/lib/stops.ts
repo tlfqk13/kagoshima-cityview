@@ -22,6 +22,7 @@ export interface BusStop {
   googleMapsErrorNote: string
   googleMapsLat?: number
   googleMapsLng?: number
+  photos?: string[]   // relative paths like "/images/stops/stop_03.jpg"
   destinations: Destination[]
   schedule?: {
     firstBus: string
