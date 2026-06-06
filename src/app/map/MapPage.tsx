@@ -20,11 +20,27 @@ export default function MapPage({ initialStopId }: Props) {
     return getAllStops().find(s => s.id === initialStopId) ?? null
   })
   const [activeCategory, setActiveCategory] = useState<Category | 'all'>('all')
+  const [searchQuery, setSearchQuery] = useState('')
 
   const filteredStops = useMemo(() => {
-    if (activeCategory === 'all') return getAllStops()
-    return getStopsByCategory(activeCategory as Category)
-  }, [activeCategory])
+    let stops = activeCategory === 'all' ? getAllStops() : getStopsByCategory(activeCategory as Category)
+    if (searchQuery.trim()) {
+      const q = searchQuery.toLowerCase().trim()
+      stops = stops.filter(stop => {
+        const nameMatch =
+          stop.name.ko.toLowerCase().includes(q) ||
+          stop.name.en.toLowerCase().includes(q) ||
+          stop.name.ja.toLowerCase().includes(q)
+        const destMatch = stop.destinations.some(d =>
+          d.name.ko.toLowerCase().includes(q) ||
+          d.name.en.toLowerCase().includes(q) ||
+          d.name.ja.toLowerCase().includes(q)
+        )
+        return nameMatch || destMatch
+      })
+    }
+    return stops
+  }, [activeCategory, searchQuery])
 
   const meta = getMetadata()
   const sourceNote = `データ提供：鹿児島市 · ${meta.lastValidatedAt} 검증`
@@ -56,6 +72,8 @@ export default function MapPage({ initialStopId }: Props) {
             selectedStop={selectedStop}
             onSelect={setSelectedStop}
             sourceNote={sourceNote}
+            searchQuery={searchQuery}
+            onSearchChange={setSearchQuery}
           />
         </div>
 
@@ -67,6 +85,8 @@ export default function MapPage({ initialStopId }: Props) {
             activeCategory={activeCategory}
             onStopSelect={setSelectedStop}
             onCategoryChange={handleCategoryChange}
+            searchQuery={searchQuery}
+            onSearchChange={setSearchQuery}
           />
         </div>
       </div>

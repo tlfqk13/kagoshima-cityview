@@ -43,7 +43,9 @@
       "shareStop": "공유",
       "linkCopied": "링크 복사됨!"
     },
-    "noStops": "해당 카테고리의 정류장이 없습니다"
+    "noStops": "해당 카테고리의 정류장이 없습니다",
+    "searchPlaceholder": "정류장·목적지 검색",
+    "noResults": "검색 결과가 없습니다"
   },
   "partnership": {
     "h2line1": "가고시마시 관광과와",

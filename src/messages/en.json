@@ -43,7 +43,9 @@
       "shareStop": "Share this stop",
       "linkCopied": "Link copied!"
     },
-    "noStops": "No stops for this category"
+    "noStops": "No stops for this category",
+    "searchPlaceholder": "Search stops & destinations",
+    "noResults": "No results found"
   },
   "partnership": {
     "h2line1": "We'd love to work with",

@@ -1,9 +1,11 @@
 'use client'
 import { useEffect, useRef, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import type { BusStop, Category } from '@/lib/stops'
 import StopList from './StopList'
 import StopDetail from './StopDetail'
 import CategoryChips from './CategoryChips'
+import StopSearch from './StopSearch'
 import styles from './BottomSheet.module.css'
 
 type SheetState = 'peek' | 'half' | 'full'
@@ -14,6 +16,8 @@ interface Props {
   activeCategory: Category | 'all'
   onStopSelect: (stop: BusStop) => void
   onCategoryChange: (cat: Category | null) => void
+  searchQuery: string
+  onSearchChange: (v: string) => void
 }
 
 const HEIGHTS: Record<SheetState, string> = {
@@ -28,9 +32,12 @@ export default function BottomSheet({
   activeCategory,
   onStopSelect,
   onCategoryChange,
+  searchQuery,
+  onSearchChange,
 }: Props) {
   const [state, setState] = useState<SheetState>('peek')
   const dragStartY = useRef(0)
+  const { t } = useTranslation()
 
   useEffect(() => {
     if (selectedStop) setState('half')
@@ -68,10 +75,14 @@ export default function BottomSheet({
       />
       <div className={styles.content}>
         <CategoryChips active={activeCategory} onChange={onCategoryChange} />
-        {selectedStop
-          ? <StopDetail stop={selectedStop} />
-          : <StopList stops={stops} selectedId={null} onSelect={onStopSelect} />
-        }
+        <StopSearch value={searchQuery} onChange={onSearchChange} />
+        {selectedStop ? (
+          <StopDetail stop={selectedStop} />
+        ) : stops.length === 0 ? (
+          <div className={styles.empty}>{t('map.noResults')}</div>
+        ) : (
+          <StopList stops={stops} selectedId={null} onSelect={onStopSelect} />
+        )}
       </div>
     </div>
   )

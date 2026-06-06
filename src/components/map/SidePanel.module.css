@@ -9,6 +9,13 @@
   height: 100%;
 }
 
+.empty {
+  padding: 32px 20px;
+  text-align: center;
+  font-size: 13px;
+  color: var(--muted);
+}
+
 .note {
   padding: 10px 20px;
   font-size: 10px;

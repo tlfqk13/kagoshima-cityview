@@ -115,6 +115,23 @@ export function getNearestStop(lat: number, lng: number): BusStop | null {
   return nearest
 }
 
+export function searchStops(query: string): BusStop[] {
+  if (!query.trim()) return getAllStops()
+  const q = query.toLowerCase().trim()
+  return getAllStops().filter(stop => {
+    const nameMatch =
+      stop.name.ko.toLowerCase().includes(q) ||
+      stop.name.en.toLowerCase().includes(q) ||
+      stop.name.ja.toLowerCase().includes(q)
+    const destMatch = stop.destinations.some(d =>
+      d.name.ko.toLowerCase().includes(q) ||
+      d.name.en.toLowerCase().includes(q) ||
+      d.name.ja.toLowerCase().includes(q)
+    )
+    return nameMatch || destMatch
+  })
+}
+
 export const ROUTE_COORDINATES: [number, number][] = [
   [130.5403, 31.5839],
   [130.5481, 31.5855],

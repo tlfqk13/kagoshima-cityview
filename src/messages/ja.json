@@ -43,7 +43,9 @@
       "shareStop": "共有",
       "linkCopied": "リンクをコピーしました!"
     },
-    "noStops": "該当カテゴリの停留所はありません"
+    "noStops": "該当カテゴリの停留所はありません",
+    "searchPlaceholder": "停留所・目的地を検索",
+    "noResults": "検索結果がありません"
   },
   "partnership": {
     "h2line1": "鹿児島市観光課と",
