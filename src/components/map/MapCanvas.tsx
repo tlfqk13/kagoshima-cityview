@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useRef, useCallback } from 'react'
+import { useEffect, useRef, useCallback, useState } from 'react'
 import mapboxgl from 'mapbox-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import { getAllStops, getStopsGeoJSON, getNearestStop, ROUTE_COORDINATES, type BusStop } from '@/lib/stops'
@@ -18,6 +18,91 @@ function getCurrentLang(): 'ko' | 'en' | 'ja' {
 const KAGOSHIMA_CENTER: [number, number] = [130.5581, 31.5897]
 const INITIAL_ZOOM = 13
 
+type MapStyle = 'streets' | 'satellite' | 'dark'
+
+const MAP_STYLES: Record<MapStyle, string> = {
+  streets: 'mapbox://styles/mapbox/streets-v12',
+  satellite: 'mapbox://styles/mapbox/satellite-streets-v12',
+  dark: 'mapbox://styles/mapbox/dark-v11',
+}
+
+const STYLE_ICONS: Record<MapStyle, string> = {
+  streets: '🗺',
+  satellite: '🛰',
+  dark: '🌙',
+}
+
+const STYLE_ORDER: MapStyle[] = ['streets', 'satellite', 'dark']
+
+function addMapLayers(map: mapboxgl.Map, selectedId: string | null) {
+  const stops = getAllStops()
+  const geojson = getStopsGeoJSON(stops)
+
+  // 노선 폴리라인
+  if (!map.getSource('route')) {
+    map.addSource('route', {
+      type: 'geojson',
+      data: {
+        type: 'Feature',
+        geometry: { type: 'LineString', coordinates: ROUTE_COORDINATES },
+        properties: {},
+      },
+    })
+  }
+  if (!map.getLayer('route-line')) {
+    map.addLayer({
+      id: 'route-line',
+      type: 'line',
+      source: 'route',
+      paint: {
+        'line-color': '#8B4513',
+        'line-width': 2,
+        'line-dasharray': [2, 2],
+        'line-opacity': 0.7,
+      },
+    })
+  }
+
+  // 정류장 GeoJSON
+  if (!map.getSource('stops')) {
+    map.addSource('stops', { type: 'geojson', data: geojson })
+  }
+
+  if (!map.getLayer('stops-circle')) {
+    map.addLayer({
+      id: 'stops-circle',
+      type: 'circle',
+      source: 'stops',
+      paint: {
+        'circle-radius': ['case', ['get', 'googleMapsError'], 10, 8] as unknown as number,
+        'circle-color': [
+          'case',
+          ['==', ['get', 'id'], selectedId ?? ''], '#8B4513',
+          ['get', 'googleMapsError'], '#C87A3A',
+          '#1E3A4F',
+        ] as unknown as string,
+        'circle-stroke-width': 2,
+        'circle-stroke-color': '#ffffff',
+        'circle-opacity': 0.9,
+      },
+    })
+  }
+
+  if (!map.getLayer('stops-label')) {
+    map.addLayer({
+      id: 'stops-label',
+      type: 'symbol',
+      source: 'stops',
+      layout: {
+        'text-field': ['to-string', ['get', 'number']] as unknown as string,
+        'text-size': 10,
+        'text-font': ['DIN Pro Bold', 'Arial Unicode MS Bold'],
+      },
+      paint: { 'text-color': '#ffffff' },
+    })
+  }
+}
+
 export interface MapCanvasProps {
   selectedStopId: string | null
   onStopSelect: (stop: BusStop) => void
@@ -31,11 +116,23 @@ export default function MapCanvas({ selectedStopId, onStopSelect, onUserLocation
   const wrongPinRef = useRef<mapboxgl.Marker | null>(null)
   const userLocationRef = useRef<[number, number] | null | undefined>(userLocation)
   const hoverPopupRef = useRef<mapboxgl.Popup | null>(null)
+  const selectedStopIdRef = useRef<string | null>(selectedStopId)
 
-  // Keep userLocationRef in sync so the selectedStopId effect can access latest value
+  const [mapStyle, setMapStyle] = useState<MapStyle>('streets')
+  const mapStyleRef = useRef<MapStyle>('streets')
+
+  // Keep refs in sync
   useEffect(() => {
     userLocationRef.current = userLocation
   }, [userLocation])
+
+  useEffect(() => {
+    selectedStopIdRef.current = selectedStopId
+  }, [selectedStopId])
+
+  useEffect(() => {
+    mapStyleRef.current = mapStyle
+  }, [mapStyle])
 
   const handleStopClick = useCallback((stopId: string) => {
     const stop = getAllStops().find(s => s.id === stopId)
@@ -47,7 +144,7 @@ export default function MapCanvas({ selectedStopId, onStopSelect, onUserLocation
 
     const map = new mapboxgl.Map({
       container: containerRef.current,
-      style: 'mapbox://styles/mapbox/streets-v12',
+      style: MAP_STYLES['streets'],
       center: KAGOSHIMA_CENTER,
       zoom: INITIAL_ZOOM,
       language: 'ja',
@@ -70,64 +167,7 @@ export default function MapCanvas({ selectedStopId, onStopSelect, onUserLocation
     })
 
     map.on('load', () => {
-      const stops = getAllStops()
-      const geojson = getStopsGeoJSON(stops)
-
-      // 노선 폴리라인
-      map.addSource('route', {
-        type: 'geojson',
-        data: {
-          type: 'Feature',
-          geometry: { type: 'LineString', coordinates: ROUTE_COORDINATES },
-          properties: {},
-        },
-      })
-      map.addLayer({
-        id: 'route-line',
-        type: 'line',
-        source: 'route',
-        paint: {
-          'line-color': '#8B4513',
-          'line-width': 2,
-          'line-dasharray': [2, 2],
-          'line-opacity': 0.7,
-        },
-      })
-
-      // 정류장 GeoJSON 소스
-      map.addSource('stops', { type: 'geojson', data: geojson })
-
-      // 정류장 원형 핀
-      map.addLayer({
-        id: 'stops-circle',
-        type: 'circle',
-        source: 'stops',
-        paint: {
-          'circle-radius': ['case', ['get', 'googleMapsError'], 10, 8] as unknown as number,
-          'circle-color': [
-            'case',
-            ['==', ['get', 'id'], selectedStopId ?? ''], '#8B4513',
-            ['get', 'googleMapsError'], '#C87A3A',
-            '#1E3A4F',
-          ] as unknown as string,
-          'circle-stroke-width': 2,
-          'circle-stroke-color': '#ffffff',
-          'circle-opacity': 0.9,
-        },
-      })
-
-      // 정류장 번호 텍스트 레이블
-      map.addLayer({
-        id: 'stops-label',
-        type: 'symbol',
-        source: 'stops',
-        layout: {
-          'text-field': ['to-string', ['get', 'number']] as unknown as string,
-          'text-size': 10,
-          'text-font': ['DIN Pro Bold', 'Arial Unicode MS Bold'],
-        },
-        paint: { 'text-color': '#ffffff' },
-      })
+      addMapLayers(map, selectedStopIdRef.current)
 
       // 클릭 이벤트
       map.on('click', 'stops-circle', e => {
@@ -161,6 +201,11 @@ export default function MapCanvas({ selectedStopId, onStopSelect, onUserLocation
       })
     })
 
+    // Re-add layers after style change (setStyle removes all custom layers/sources)
+    map.on('style.load', () => {
+      addMapLayers(map, selectedStopIdRef.current)
+    })
+
     mapRef.current = map
     return () => {
       hoverPopupRef.current?.remove()
@@ -169,6 +214,13 @@ export default function MapCanvas({ selectedStopId, onStopSelect, onUserLocation
       mapRef.current = null
     }
   }, [handleStopClick])
+
+  // Apply style change when mapStyle state changes
+  useEffect(() => {
+    const map = mapRef.current
+    if (!map) return
+    map.setStyle(MAP_STYLES[mapStyle])
+  }, [mapStyle])
 
   // 선택된 정류장 변경 시 지도 이동 + 핀 색상 업데이트 + 도보 경로 표시
   useEffect(() => {
@@ -296,5 +348,21 @@ export default function MapCanvas({ selectedStopId, onStopSelect, onUserLocation
       .catch(() => {}) // silently fail if no network
   }, [userLocation, selectedStopId])
 
-  return <div ref={containerRef} className={styles.canvas} />
+  return (
+    <div className={styles.wrap}>
+      <div ref={containerRef} className={styles.canvas} />
+      <div className={styles.styleToggle}>
+        {STYLE_ORDER.map(s => (
+          <button
+            key={s}
+            className={`${styles.styleBtn} ${mapStyle === s ? styles.styleBtnActive : ''}`}
+            onClick={() => setMapStyle(s)}
+            title={s}
+          >
+            {STYLE_ICONS[s]}
+          </button>
+        ))}
+      </div>
+    </div>
+  )
 }

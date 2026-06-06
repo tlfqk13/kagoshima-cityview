@@ -1,5 +1,47 @@
+.wrap {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
 .canvas {
   width: 100%;
   height: 100%;
   min-height: 400px;
+}
+
+.styleToggle {
+  position: absolute;
+  bottom: 120px;
+  right: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  z-index: 10;
+}
+
+.styleBtn {
+  width: 32px;
+  height: 32px;
+  background: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+  opacity: 0.9;
+  transition: opacity 0.15s, transform 0.1s;
+}
+
+.styleBtn:hover {
+  opacity: 1;
+  transform: scale(1.05);
+}
+
+.styleBtnActive {
+  opacity: 1;
+  box-shadow: 0 0 0 2px #8B4513, 0 1px 4px rgba(0,0,0,0.3);
 }
