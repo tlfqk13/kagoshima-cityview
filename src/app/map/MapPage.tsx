@@ -2,13 +2,14 @@
 import { useState, useMemo } from 'react'
 import dynamic from 'next/dynamic'
 import { getAllStops, getStopsByCategory, getMetadata, type BusStop, type Category } from '@/lib/stops'
+import type { MapCanvasProps } from '@/components/map/MapCanvas'
 import Nav from '@/components/Nav'
 import SidePanel from '@/components/map/SidePanel'
 import BottomSheet from '@/components/map/BottomSheet'
 import CategoryChips from '@/components/map/CategoryChips'
 import styles from './MapPage.module.css'
 
-const MapCanvas = dynamic(() => import('@/components/map/MapCanvas'), { ssr: false })
+const MapCanvas = dynamic<MapCanvasProps>(() => import('@/components/map/MapCanvas'), { ssr: false })
 
 interface Props {
   initialStopId?: string

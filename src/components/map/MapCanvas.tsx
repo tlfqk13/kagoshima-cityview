@@ -10,7 +10,7 @@ mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN!
 const KAGOSHIMA_CENTER: [number, number] = [130.5581, 31.5897]
 const INITIAL_ZOOM = 13
 
-interface MapCanvasProps {
+export interface MapCanvasProps {
   selectedStopId: string | null
   onStopSelect: (stop: BusStop) => void
   onUserLocation?: (coords: [number, number]) => void
