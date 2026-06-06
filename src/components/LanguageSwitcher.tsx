@@ -19,6 +19,7 @@ export default function LanguageSwitcher() {
           className={currentLang === lang ? styles.on : styles.btn}
           onClick={() => i18n.changeLanguage(lang)}
           aria-label={`Switch to ${lang.toUpperCase()}`}
+          aria-pressed={currentLang === lang}
         >
           {lang.toUpperCase()}
         </button>
