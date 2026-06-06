@@ -1,7 +1,7 @@
 # 가고시마 시티뷰 버스 가이드 — 개발 진행 로그
 
 > 다음 세션에서 이 파일을 먼저 읽고 현재 상태를 파악하세요.
-> 최종 업데이트: 2026-06-07
+> 최종 업데이트: 2026-06-07 (P0 UX 개선 완료)
 
 ---
 
@@ -313,12 +313,19 @@ kagoshima-cityview/
 ### UX 개선 기획서
 `docs/ux-improvements.md` — 18개 기능 전수조사 완료, 우선순위 정의됨
 
-**즉시 구현 가능 (P0):**
-1. 지도 앱 연동 링크 (Google/Apple/Naver Maps)
-2. 좌표 복사 버튼
-3. 정류장 URL 공유 (Web Share API)
-4. 가장 가까운 정류장 자동 하이라이트
-5. 구글맵 오류 위치 시각화 (stops.json에 googleMapsLat/Lng 추가 필요)
+**P0 완료 (2026-06-07):**
+1. ✅ Google Maps / Apple Maps(iOS전용) 링크 — StopDetail 하단 "Open in Maps" 섹션
+2. ✅ 좌표 복사 버튼 — GPS 배지 옆 ⎘ 아이콘, 토스트 피드백
+3. ✅ 정류장 URL 공유 — Web Share API (폴백: 클립보드 복사)
+4. ✅ 현재 위치 → 가장 가까운 정류장 자동 선택 — GeolocateControl + haversine
+5. ✅ 구글맵 오류 위치 시각화 — stop_03에 googleMapsLat/Lng 추가, 선택 시 빨간 반투명 핀 표시
+
+**다음 (P1):**
+- 정류장 검색
+- 버스 운행 시간표 (GTFS stop_times.txt 파싱)
+- 오프라인 모드 안내 배너
+- 정류장 사진
+- 도보 경로 미리보기 (Mapbox Directions API)
 
 ### 우선순위 높음
 - [ ] **Vercel 배포** — 레포 연결 후 환경변수 설정:
