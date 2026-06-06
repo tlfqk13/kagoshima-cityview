@@ -1,0 +1,64 @@
+{
+  "nav": {
+    "story": "스토리",
+    "map": "지도",
+    "openMap": "지도 열기"
+  },
+  "hero": {
+    "eyebrow": "Kagoshima City View Bus Guide",
+    "h1line1": "버스 정류장을 찾지 못해",
+    "h1line2": "헤맸던 여행자가",
+    "h1line3": "직접 만든 가이드",
+    "ctaMap": "지도 보기",
+    "ctaStory": "스토리 읽기"
+  },
+  "trust": {
+    "stopsNum": "20",
+    "stopsLabel": "GPS 검증 완료",
+    "langsNum": "3",
+    "langsLabel": "KO · EN · JP",
+    "costNum": "0",
+    "costLabel": "무료 · 광고 없음",
+    "source": "가고시마시 공식 GTFS 오픈데이터 기반",
+    "validated": "현장 검증일"
+  },
+  "map": {
+    "categories": {
+      "all": "전체",
+      "sightseeing": "역사·관광",
+      "nature": "자연",
+      "food": "맛집",
+      "shopping": "쇼핑"
+    },
+    "stopDetail": {
+      "gpsVerified": "GPS 검증 완료",
+      "googleMapsWrong": "구글맵 위치 오류 — 이 앱이 정확합니다",
+      "walkTime": "도보 {{min}}분",
+      "disclaimer": "운행 시간은 공식 앱을 확인하세요"
+    },
+    "noStops": "해당 카테고리의 정류장이 없습니다"
+  },
+  "partnership": {
+    "h2line1": "가고시마시 관광과와",
+    "h2line2": "함께하고 싶습니다",
+    "body": "이 서비스는 가고시마시 공식 GTFS 오픈데이터 기반입니다. 무료이며 광고가 없습니다. 더 많은 여행자가 가고시마를 편하게 즐길 수 있도록.",
+    "cta": "협력 문의하기",
+    "ctaMap": "지도 바로 보기"
+  },
+  "footer": {
+    "source": "データ提供：鹿児島市（原データより加工）",
+    "license": "CC BY 4.0",
+    "disclaimer": "GPS 위치 기준. 운행 시간은 공식 앱 확인 필수."
+  },
+  "devlog": {
+    "sectionTitle": "제작 이야기",
+    "viewAll": "전체 보기",
+    "episode": "에피소드"
+  },
+  "problem": {
+    "title": "구글맵이 틀렸고,\n안내판도 없습니다",
+    "item1": "구글맵이 실제 위치와 다른 곳을 가리킵니다. 어느 여행자는 10분을 기다리다 버스를 놓쳤습니다.",
+    "item2": "현장에 영어·한국어 안내판이 없습니다. 어느 외국인 여행자는 버스가 서도 탑승해야 하는지 몰랐다고 합니다.",
+    "item3": "여러 언어로 된 정확한 정보를 한 곳에서 찾기 어렵습니다. 이 앱이 그 공백을 채웁니다."
+  }
+}

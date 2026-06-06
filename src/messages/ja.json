@@ -1,0 +1,64 @@
+{
+  "nav": {
+    "story": "ストーリー",
+    "map": "地図",
+    "openMap": "地図を開く"
+  },
+  "hero": {
+    "eyebrow": "鹿児島シティビューバスガイド",
+    "h1line1": "バス停を見つけられず",
+    "h1line2": "迷った旅行者が",
+    "h1line3": "作ったガイド",
+    "ctaMap": "地図を見る",
+    "ctaStory": "ストーリーを読む"
+  },
+  "trust": {
+    "stopsNum": "20",
+    "stopsLabel": "GPS確認済み停留所",
+    "langsNum": "3",
+    "langsLabel": "KO · EN · JP",
+    "costNum": "無料",
+    "costLabel": "広告なし",
+    "source": "鹿児島市公式GTFSオープンデータ基準",
+    "validated": "現地確認日"
+  },
+  "map": {
+    "categories": {
+      "all": "すべて",
+      "sightseeing": "観光",
+      "nature": "自然",
+      "food": "グルメ",
+      "shopping": "ショッピング"
+    },
+    "stopDetail": {
+      "gpsVerified": "GPS確認済み",
+      "googleMapsWrong": "Googleマップの位置は誤りです — このアプリが正確です",
+      "walkTime": "徒歩{{min}}分",
+      "disclaimer": "運行時刻は公式アプリでご確認ください"
+    },
+    "noStops": "該当カテゴリの停留所はありません"
+  },
+  "partnership": {
+    "h2line1": "鹿児島市観光課と",
+    "h2line2": "連携したいと思っています",
+    "body": "このサービスは鹿児島市公式GTFSオープンデータに基づいています。無料・広告なし。より多くの旅行者が鹿児島を楽しめるように。",
+    "cta": "連携のお問い合わせ",
+    "ctaMap": "地図を開く"
+  },
+  "footer": {
+    "source": "データ提供：鹿児島市（原データより加工）",
+    "license": "CC BY 4.0",
+    "disclaimer": "GPS位置情報のみ。運行時刻は必ず公式アプリでご確認ください。"
+  },
+  "devlog": {
+    "sectionTitle": "制作の記録",
+    "viewAll": "すべて見る",
+    "episode": "エピソード"
+  },
+  "problem": {
+    "title": "Googleマップは間違っていて、\n案内板もありません",
+    "item1": "Googleマップが実際と異なる場所を示します。ある旅行者は10分待ってバスを逃しました。",
+    "item2": "現地に英語・韓国語の案内板がありません。外国人旅行者の中にはバスが来ても乗るべきか分からなかった方もいます。",
+    "item3": "正確な多言語情報を一か所で見つけるのは難しいです。このアプリがその空白を埋めます。"
+  }
+}

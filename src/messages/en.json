@@ -1,0 +1,64 @@
+{
+  "nav": {
+    "story": "Story",
+    "map": "Map",
+    "openMap": "Open Map"
+  },
+  "hero": {
+    "eyebrow": "Kagoshima City View Bus Guide",
+    "h1line1": "A guide made by a traveler",
+    "h1line2": "who got lost looking",
+    "h1line3": "for the bus stop",
+    "ctaMap": "View Map",
+    "ctaStory": "Read Story"
+  },
+  "trust": {
+    "stopsNum": "20",
+    "stopsLabel": "GPS Verified Stops",
+    "langsNum": "3",
+    "langsLabel": "KO · EN · JP",
+    "costNum": "Free",
+    "costLabel": "No Ads",
+    "source": "Based on official Kagoshima City GTFS open data",
+    "validated": "Last field-verified"
+  },
+  "map": {
+    "categories": {
+      "all": "All",
+      "sightseeing": "Sightseeing",
+      "nature": "Nature",
+      "food": "Food",
+      "shopping": "Shopping"
+    },
+    "stopDetail": {
+      "gpsVerified": "GPS Verified",
+      "googleMapsWrong": "Google Maps location is wrong — this app is accurate",
+      "walkTime": "{{min}} min walk",
+      "disclaimer": "Check official app for schedules"
+    },
+    "noStops": "No stops for this category"
+  },
+  "partnership": {
+    "h2line1": "We'd love to work with",
+    "h2line2": "Kagoshima City Tourism",
+    "body": "This service is based on official Kagoshima City GTFS open data. Free, no ads. So more travelers can enjoy Kagoshima without confusion.",
+    "cta": "Contact Us",
+    "ctaMap": "Open Map"
+  },
+  "footer": {
+    "source": "Data: 鹿児島市 (processed from original)",
+    "license": "CC BY 4.0",
+    "disclaimer": "GPS location only. Always verify schedules via official app."
+  },
+  "devlog": {
+    "sectionTitle": "Making Of",
+    "viewAll": "View All",
+    "episode": "Episode"
+  },
+  "problem": {
+    "title": "Google Maps is wrong,\nand there are no signs",
+    "item1": "Google Maps points to the wrong location. One traveler waited 10 minutes and missed the bus.",
+    "item2": "There are no English or Korean signs at stops. Some foreign travelers didn't know to board when the bus arrived.",
+    "item3": "Accurate multilingual info in one place is hard to find. This app fills that gap."
+  }
+}
