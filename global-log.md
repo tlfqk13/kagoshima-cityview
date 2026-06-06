@@ -310,6 +310,16 @@ kagoshima-cityview/
 
 ## 다음 세션에서 할 일
 
+### UX 개선 기획서
+`docs/ux-improvements.md` — 18개 기능 전수조사 완료, 우선순위 정의됨
+
+**즉시 구현 가능 (P0):**
+1. 지도 앱 연동 링크 (Google/Apple/Naver Maps)
+2. 좌표 복사 버튼
+3. 정류장 URL 공유 (Web Share API)
+4. 가장 가까운 정류장 자동 하이라이트
+5. 구글맵 오류 위치 시각화 (stops.json에 googleMapsLat/Lng 추가 필요)
+
 ### 우선순위 높음
 - [ ] **Vercel 배포** — 레포 연결 후 환경변수 설정:
   ```
