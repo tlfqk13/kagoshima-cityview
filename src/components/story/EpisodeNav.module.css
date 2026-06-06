@@ -1,0 +1,41 @@
+.nav {
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 48px 0;
+  border-top: 1px solid var(--rule);
+  margin-top: 48px;
+}
+
+.side {
+  flex: 1;
+}
+
+.right {
+  text-align: right;
+}
+
+.link {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  transition: opacity 0.15s;
+}
+
+.link:hover {
+  opacity: 0.6;
+}
+
+.label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 0.1em;
+}
+
+.title {
+  font-family: var(--font-serif);
+  font-size: 14px;
+  color: var(--ink);
+  line-height: 1.5;
+}
