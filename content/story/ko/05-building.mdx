@@ -1,0 +1,22 @@
+---
+title: "만들기: 지도와 씨름하다"
+date: "2026-06-01"
+summary: "Next.js + Mapbox GL JS 구현 중 겪은 기술적 난관들. Turbopack 충돌, SSR 크래시, 다국어 감지."
+published: true
+---
+
+구현은 예상보다 복잡했다.
+
+**첫 번째 장벽: Mapbox와 Turbopack**
+
+Next.js 16의 기본 번들러가 Turbopack으로 바뀌었다. Mapbox GL JS는 Web Worker를 사용하는데, Turbopack의 Worker URL 처리 방식과 충돌이 생겼다. 해결책: `next dev --no-turbo` 플래그.
+
+**두 번째 장벽: 서버사이드 렌더링**
+
+`mapboxgl` 라이브러리는 브라우저 전용이다. Next.js 서버에서 import하면 크래시. 해결책: `dynamic(() => import('@/components/map/MapCanvas'), { ssr: false })`.
+
+**세 번째 장벽: 다국어 감지**
+
+처음에는 next-intl을 시도했다. URL 프리픽스(`/ko/`, `/en/`)가 필수였는데, 이미 설계한 `/map/[stopId]` 라우트와 충돌했다. react-i18next로 전환: 쿼리스트링과 쿠키 기반 언어 감지, URL 변경 없음.
+
+삽질이 많았지만 하나씩 해결했다. 그게 개발이다.
