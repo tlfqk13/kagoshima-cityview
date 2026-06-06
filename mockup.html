@@ -1,0 +1,1569 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>가고시마 시티뷰 버스 가이드 — 목업</title>
+<style>
+/* ── 시스템 폰트 (오프라인에서도 완벽하게 작동) ── */
+:root {
+  /* 명조체 계열 — 제목용 */
+  --font-serif: 'Hiragino Mincho ProN', 'HiraMinProN-W3', 'Yu Mincho', 'YuMincho', '游明朝', Georgia, serif;
+  /* 고딕 계열 — 본문용 */
+  --font-sans: 'Hiragino Kaku Gothic ProN', 'HiraKakuProN-W3', 'Yu Gothic', 'YuGothic', '游ゴシック', -apple-system, BlinkMacSystemFont, sans-serif;
+  /* 숫자/영문 */
+  --font-mono: 'SF Mono', 'Menlo', monospace;
+
+  /* 가고시마 컬러 */
+  --ink:       #1C1C1C;       /* 먹색 — 메인 텍스트 */
+  --ash:       #F2EDE8;       /* 화산재 베이지 — 배경 */
+  --lava:      #C94A2A;       /* 용암 오렌지레드 — 포인트 */
+  --ocean:     #1E3A4F;       /* 가고시마만 짙은 남색 — 다크 배경 */
+  --mist:      #7A7A7A;       /* 연기 — 보조 텍스트 */
+  --line:      #E0DAD3;       /* 구분선 */
+  --white:     #FFFFFF;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-sans);
+  background: var(--ash);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ══════════════════════════════
+   탭 네비게이션 (목업 전환)
+══════════════════════════════ */
+.tabs {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 999;
+  display: flex;
+  gap: 0;
+  background: var(--ink);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.tab-btn {
+  flex: 1;
+  padding: 13px 0;
+  border: none;
+  background: transparent;
+  color: rgba(255,255,255,0.45);
+  font-family: var(--font-sans);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  transition: all 0.2s;
+  border-right: 1px solid rgba(255,255,255,0.06);
+}
+.tab-btn:last-child { border-right: none; }
+.tab-btn.on {
+  color: var(--white);
+  background: rgba(255,255,255,0.06);
+}
+.tab-btn.on::after {
+  content: '';
+  display: block;
+  height: 2px;
+  background: var(--lava);
+  margin-top: 10px;
+  margin-bottom: -12px;
+}
+
+
+/* ══════════════════════════════
+   PAGE 1: STORY
+══════════════════════════════ */
+#pg-story { padding-top: 45px; }
+
+/* ─ 글로벌 NAV ─ */
+.site-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 48px;
+  height: 64px;
+  background: var(--ocean);
+}
+.site-nav-logo {
+  font-family: var(--font-serif);
+  font-size: 14px;
+  color: var(--white);
+  letter-spacing: 0.12em;
+}
+.site-nav-logo em { color: var(--lava); font-style: normal; }
+.site-nav-links {
+  display: flex;
+  gap: 36px;
+  list-style: none;
+}
+.site-nav-links a {
+  color: rgba(255,255,255,0.55);
+  text-decoration: none;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  transition: color 0.2s;
+}
+.site-nav-links a:hover { color: var(--white); }
+.lang-row {
+  display: flex;
+  gap: 2px;
+}
+.lang-pill {
+  padding: 4px 10px;
+  border: 1px solid rgba(255,255,255,0.2);
+  background: transparent;
+  color: rgba(255,255,255,0.5);
+  font-size: 11px;
+  font-family: var(--font-sans);
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.lang-pill.on {
+  background: var(--lava);
+  border-color: var(--lava);
+  color: var(--white);
+}
+
+/* ─ HERO ─ */
+.hero {
+  background: var(--ocean);
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: calc(100vh - 109px);
+}
+.hero-left {
+  padding: 80px 60px 80px 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+}
+.hero-kicker {
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  color: var(--lava);
+  text-transform: uppercase;
+  margin-bottom: 28px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.hero-kicker::before {
+  content: '';
+  display: block;
+  width: 24px;
+  height: 1px;
+  background: var(--lava);
+}
+.hero-h1 {
+  font-family: var(--font-serif);
+  font-size: clamp(28px, 3.5vw, 48px);
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--white);
+  margin-bottom: 28px;
+  letter-spacing: 0.04em;
+}
+.hero-h1 strong {
+  color: var(--lava);
+  font-weight: 600;
+}
+.hero-desc {
+  font-size: 14px;
+  line-height: 2;
+  color: rgba(255,255,255,0.55);
+  margin-bottom: 44px;
+  max-width: 400px;
+}
+.hero-cta-row {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+}
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 28px;
+  background: var(--lava);
+  color: var(--white);
+  font-family: var(--font-sans);
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+.btn-primary:hover { opacity: 0.88; }
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 24px;
+  background: transparent;
+  color: rgba(255,255,255,0.6);
+  font-family: var(--font-sans);
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 2px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.btn-ghost:hover {
+  color: var(--white);
+  border-color: rgba(255,255,255,0.4);
+}
+.hero-right {
+  position: relative;
+  overflow: hidden;
+}
+.hero-img-placeholder {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to left, transparent 0%, var(--ocean) 70%),
+    linear-gradient(160deg, #2A4A5E 0%, #1E3A4F 40%, #0E2233 100%);
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  padding: 32px;
+}
+.hero-photo-note {
+  font-size: 10px;
+  color: rgba(255,255,255,0.2);
+  letter-spacing: 0.1em;
+  writing-mode: vertical-rl;
+}
+/* 사쿠라지마 실루엣 */
+.volcano-silhouette {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60%;
+  background: linear-gradient(to top, rgba(201,74,42,0.12) 0%, transparent 100%);
+  clip-path: polygon(0% 100%, 15% 55%, 30% 70%, 45% 20%, 60% 50%, 75% 30%, 90% 60%, 100% 40%, 100% 100%);
+}
+.hero-scroll {
+  position: absolute;
+  bottom: 36px;
+  left: 80px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: rgba(255,255,255,0.3);
+  font-size: 10px;
+  letter-spacing: 0.15em;
+}
+.hero-scroll-line {
+  width: 40px;
+  height: 1px;
+  background: rgba(255,255,255,0.2);
+}
+
+/* ─ STORY ─ */
+.story-wrap {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 100px 48px;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 80px;
+  align-items: start;
+}
+.story-label {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: var(--mist);
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+.story-h2 {
+  font-family: var(--font-serif);
+  font-size: 32px;
+  font-weight: 400;
+  line-height: 1.7;
+  color: var(--ink);
+  margin-bottom: 32px;
+  letter-spacing: 0.03em;
+}
+.story-text {
+  font-size: 15px;
+  line-height: 2.2;
+  color: #444;
+}
+.story-text p + p { margin-top: 18px; }
+.story-sidebar {
+  padding-top: 36px;
+}
+.sidebar-quote {
+  border-left: 2px solid var(--lava);
+  padding-left: 20px;
+  margin-bottom: 32px;
+}
+.sidebar-quote p {
+  font-family: var(--font-serif);
+  font-size: 14px;
+  line-height: 1.9;
+  color: var(--mist);
+  font-style: italic;
+}
+.sidebar-quote cite {
+  display: block;
+  margin-top: 10px;
+  font-size: 11px;
+  color: var(--lava);
+  font-style: normal;
+  letter-spacing: 0.08em;
+}
+.stat-row {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.stat-item {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+.stat-num {
+  font-family: var(--font-mono);
+  font-size: 28px;
+  color: var(--ink);
+  font-weight: 600;
+}
+.stat-label {
+  font-size: 12px;
+  color: var(--mist);
+  line-height: 1.5;
+}
+
+/* ─ DIVIDER ─ */
+.divider {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 48px;
+  height: 1px;
+  background: var(--line);
+}
+
+/* ─ PROBLEM ─ */
+.problem-wrap {
+  background: var(--ink);
+  padding: 80px 48px;
+}
+.problem-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+}
+.section-kicker {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: var(--lava);
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.section-kicker::before {
+  content: '';
+  width: 20px; height: 1px;
+  background: var(--lava);
+}
+.problem-h2 {
+  font-family: var(--font-serif);
+  font-size: 28px;
+  font-weight: 400;
+  color: var(--white);
+  line-height: 1.7;
+  margin-bottom: 48px;
+  letter-spacing: 0.03em;
+}
+.problem-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: rgba(255,255,255,0.08);
+}
+.problem-cell {
+  background: var(--ink);
+  padding: 36px 32px;
+  transition: background 0.2s;
+}
+.problem-cell:hover { background: #2A2A2A; }
+.problem-num {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--lava);
+  letter-spacing: 0.1em;
+  margin-bottom: 20px;
+}
+.problem-title {
+  font-family: var(--font-serif);
+  font-size: 16px;
+  color: var(--white);
+  line-height: 1.6;
+  margin-bottom: 14px;
+  font-weight: 400;
+}
+.problem-quote {
+  font-size: 12px;
+  color: rgba(255,255,255,0.4);
+  line-height: 1.9;
+  font-style: italic;
+}
+.problem-source {
+  display: block;
+  margin-top: 10px;
+  font-size: 10px;
+  color: rgba(255,255,255,0.2);
+  font-style: normal;
+  letter-spacing: 0.05em;
+}
+
+/* ─ CTA ─ */
+.cta-wrap {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 100px 48px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 60px;
+  align-items: center;
+}
+.cta-h2 {
+  font-family: var(--font-serif);
+  font-size: 28px;
+  font-weight: 400;
+  line-height: 1.7;
+  letter-spacing: 0.03em;
+}
+.cta-sub {
+  margin-top: 16px;
+  font-size: 14px;
+  line-height: 2;
+  color: var(--mist);
+}
+.cta-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 200px;
+}
+
+/* ─ FOOTER ─ */
+.site-footer {
+  background: var(--ocean);
+  padding: 40px 80px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.footer-logo {
+  font-family: var(--font-serif);
+  font-size: 13px;
+  color: rgba(255,255,255,0.7);
+  letter-spacing: 0.1em;
+}
+.footer-logo em { color: var(--lava); font-style: normal; }
+.footer-meta {
+  font-size: 11px;
+  color: rgba(255,255,255,0.25);
+  text-align: right;
+  line-height: 1.9;
+  letter-spacing: 0.05em;
+}
+
+
+/* ══════════════════════════════
+   PAGE 2: MAP
+══════════════════════════════ */
+#pg-map {
+  padding-top: 45px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.map-topbar {
+  background: var(--white);
+  border-bottom: 1px solid var(--line);
+  padding: 16px 32px;
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+.map-topbar-logo {
+  font-family: var(--font-serif);
+  font-size: 13px;
+  color: var(--ocean);
+  letter-spacing: 0.1em;
+  white-space: nowrap;
+  margin-right: 8px;
+}
+.destination-select {
+  flex: 1;
+  max-width: 380px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--ash);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 10px 16px;
+  cursor: pointer;
+}
+.destination-icon { font-size: 14px; }
+.destination-label {
+  font-size: 13px;
+  color: var(--ink);
+  flex: 1;
+}
+.destination-arrow { color: var(--mist); font-size: 12px; }
+.map-search-btn {
+  padding: 11px 20px;
+  background: var(--ocean);
+  color: var(--white);
+  border: none;
+  border-radius: 4px;
+  font-family: var(--font-sans);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+.map-search-btn:hover { opacity: 0.85; }
+.map-topbar-langs {
+  display: flex;
+  gap: 2px;
+  margin-left: auto;
+}
+.map-lang {
+  padding: 5px 10px;
+  border: 1px solid var(--line);
+  background: transparent;
+  font-size: 11px;
+  font-family: var(--font-sans);
+  color: var(--mist);
+  border-radius: 2px;
+  cursor: pointer;
+}
+.map-lang.on {
+  background: var(--ocean);
+  border-color: var(--ocean);
+  color: var(--white);
+}
+
+.map-body {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  overflow: hidden;
+}
+
+/* 지도 영역 */
+.map-canvas {
+  background: #E8F0E4;
+  position: relative;
+  min-height: calc(100vh - 109px);
+  overflow: hidden;
+}
+.map-bg-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0,0,0,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,0,0,0.04) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+.map-road {
+  position: absolute;
+  background: rgba(255,255,255,0.7);
+}
+.road-h1 { top: 38%; left: 0; right: 0; height: 8px; }
+.road-h2 { top: 62%; left: 0; right: 0; height: 6px; }
+.road-v1 { left: 33%; top: 0; bottom: 0; width: 7px; }
+.road-v2 { left: 58%; top: 0; bottom: 0; width: 6px; }
+
+/* 노선선 */
+.route-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* 핀 */
+.pin {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  transition: transform 0.15s;
+  z-index: 2;
+}
+.pin:hover { transform: translate(-50%, -50%) scale(1.1); }
+.pin-dot {
+  width: 12px; height: 12px;
+  background: var(--ocean);
+  border-radius: 50%;
+  border: 2px solid var(--white);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+}
+.pin.active .pin-dot {
+  width: 16px; height: 16px;
+  background: var(--lava);
+  box-shadow: 0 0 0 5px rgba(201,74,42,0.2);
+}
+.pin-lbl {
+  background: var(--ocean);
+  color: var(--white);
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 2px;
+  white-space: nowrap;
+  letter-spacing: 0.04em;
+}
+.pin.active .pin-lbl {
+  background: var(--lava);
+}
+.pin-warn {
+  position: absolute;
+  top: -16px;
+  font-size: 12px;
+}
+
+/* 핀 위치 */
+.p-chuo    { top: 72%; left: 22%; }
+.p-tenmon  { top: 55%; left: 35%; }
+.p-saigo   { top: 40%; left: 30%; }
+.p-shiro   { top: 22%; left: 24%; }
+.p-sengan  { top: 28%; left: 68%; }
+.p-suizoku { top: 50%; left: 62%; }
+.p-ishi    { top: 60%; left: 55%; }
+.p-kago    { top: 65%; left: 70%; }
+
+/* 지도 범례 */
+.map-legend {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  background: rgba(255,255,255,0.92);
+  border: 1px solid var(--line);
+  padding: 12px 16px;
+  border-radius: 4px;
+  font-size: 11px;
+  color: var(--ink);
+}
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+.legend-item:last-child { margin-bottom: 0; }
+.legend-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  border: 2px solid var(--white);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+}
+.legend-line {
+  width: 20px; height: 2px;
+  background: var(--lava);
+  opacity: 0.6;
+  border-radius: 1px;
+  background-image: repeating-linear-gradient(90deg, var(--lava) 0, var(--lava) 4px, transparent 4px, transparent 8px);
+}
+
+/* 사이드 패널 */
+.map-side {
+  background: var(--white);
+  border-left: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.side-selected {
+  padding: 24px;
+  background: var(--ocean);
+  flex-shrink: 0;
+}
+.selected-kicker {
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  color: var(--lava);
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.selected-name-ko {
+  font-family: var(--font-serif);
+  font-size: 18px;
+  color: var(--white);
+  font-weight: 400;
+  margin-bottom: 2px;
+}
+.selected-name-jp {
+  font-size: 12px;
+  color: rgba(255,255,255,0.5);
+  margin-bottom: 16px;
+}
+.selected-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.badge {
+  padding: 4px 10px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.12);
+  color: rgba(255,255,255,0.7);
+  font-size: 11px;
+  border-radius: 2px;
+}
+.badge.accent {
+  background: rgba(201,74,42,0.2);
+  border-color: rgba(201,74,42,0.4);
+  color: #E8805A;
+}
+
+.side-list {
+  flex: 1;
+  overflow-y: auto;
+}
+.stop-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--line);
+  cursor: pointer;
+  transition: background 0.12s;
+}
+.stop-row:hover { background: var(--ash); }
+.stop-row.on { background: #FDF6F4; border-left: 2px solid var(--lava); }
+.stop-circle {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: #F0EDE8;
+  color: var(--ocean);
+  font-size: 11px;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border: 1px solid var(--line);
+}
+.stop-row.on .stop-circle {
+  background: var(--lava);
+  color: var(--white);
+  border-color: var(--lava);
+}
+.stop-info { flex: 1; min-width: 0; }
+.stop-ko {
+  font-size: 13px;
+  color: var(--ink);
+  margin-bottom: 2px;
+}
+.stop-jp {
+  font-size: 11px;
+  color: var(--mist);
+}
+.stop-warn {
+  font-size: 11px;
+  color: #C87A3A;
+}
+.stop-chevron {
+  color: var(--line);
+  font-size: 14px;
+}
+.side-data-note {
+  padding: 12px 20px;
+  background: var(--ash);
+  border-top: 1px solid var(--line);
+  font-size: 10px;
+  color: var(--mist);
+  letter-spacing: 0.05em;
+  flex-shrink: 0;
+}
+
+
+/* ══════════════════════════════
+   PAGE 3: MOBILE
+══════════════════════════════ */
+#pg-mobile {
+  padding-top: 45px;
+  background: var(--ocean);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 40px;
+  gap: 40px;
+}
+.mobile-title {
+  text-align: center;
+}
+.mobile-title-kicker {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: var(--lava);
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.mobile-title h2 {
+  font-family: var(--font-serif);
+  font-size: 24px;
+  font-weight: 400;
+  color: var(--white);
+  letter-spacing: 0.04em;
+}
+.phones {
+  display: flex;
+  gap: 28px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.phone-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+.phone-caption {
+  font-size: 11px;
+  color: rgba(255,255,255,0.3);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.phone {
+  width: 220px;
+  background: #0D0D0D;
+  border-radius: 36px;
+  padding: 10px 8px;
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.08),
+    0 32px 80px rgba(0,0,0,0.5);
+}
+.phone-notch {
+  width: 56px;
+  height: 6px;
+  background: #1A1A1A;
+  border-radius: 3px;
+  margin: 0 auto 8px;
+}
+.phone-screen {
+  border-radius: 28px;
+  overflow: hidden;
+}
+
+/* 스크린 1: 스토리 */
+.screen-story {
+  background: var(--ocean);
+  min-height: 380px;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+}
+.screen-story-img {
+  flex: 1;
+  background: linear-gradient(160deg, #1E3A4F 0%, #0E2233 60%);
+  display: flex;
+  align-items: flex-end;
+  padding: 20px 18px;
+  position: relative;
+  overflow: hidden;
+}
+.screen-volcano {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 50%;
+  background: linear-gradient(to top, rgba(201,74,42,0.15), transparent);
+  clip-path: polygon(0% 100%, 20% 40%, 40% 65%, 55% 10%, 70% 45%, 85% 25%, 100% 55%, 100% 100%);
+}
+.screen-story-text {
+  position: relative;
+  z-index: 1;
+}
+.screen-kicker {
+  font-size: 8px;
+  color: var(--lava);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.screen-h1 {
+  font-family: var(--font-serif);
+  font-size: 16px;
+  color: var(--white);
+  line-height: 1.6;
+  font-weight: 400;
+  margin-bottom: 16px;
+}
+.screen-h1 strong { color: var(--lava); font-weight: 600; }
+.screen-btn {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  background: var(--lava);
+  color: var(--white);
+  font-size: 12px;
+  font-family: var(--font-sans);
+  text-align: center;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+  letter-spacing: 0.06em;
+}
+
+/* 스크린 2: 지도 */
+.screen-map {
+  min-height: 380px;
+  display: flex;
+  flex-direction: column;
+}
+.screen-map-area {
+  flex: 1;
+  background: #E8F0E4;
+  position: relative;
+  min-height: 230px;
+}
+.sm-road-h { position:absolute; top:45%; left:0; right:0; height:5px; background:rgba(255,255,255,0.8); }
+.sm-road-v { position:absolute; left:40%; top:0; bottom:0; width:4px; background:rgba(255,255,255,0.8); }
+.sm-pin {
+  position: absolute;
+  width: 9px; height: 9px;
+  background: var(--ocean);
+  border-radius: 50%;
+  border: 1.5px solid white;
+  transform: translate(-50%, -50%);
+}
+.sm-pin.active {
+  width: 13px; height: 13px;
+  background: var(--lava);
+  box-shadow: 0 0 0 4px rgba(201,74,42,0.25);
+}
+.sm-svg { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; }
+.screen-map-panel {
+  background: var(--white);
+  padding: 14px;
+  border-top: 1px solid var(--line);
+}
+.smp-num {
+  font-size: 10px;
+  color: var(--lava);
+  letter-spacing: 0.12em;
+  margin-bottom: 4px;
+  font-family: var(--font-mono);
+}
+.smp-name {
+  font-family: var(--font-serif);
+  font-size: 14px;
+  color: var(--ink);
+  margin-bottom: 3px;
+  font-weight: 400;
+}
+.smp-sub {
+  font-size: 11px;
+  color: var(--mist);
+  margin-bottom: 10px;
+}
+.smp-tags {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+.smp-tag {
+  padding: 3px 8px;
+  background: var(--ash);
+  border: 1px solid var(--line);
+  font-size: 10px;
+  color: var(--ink);
+  border-radius: 2px;
+}
+.smp-tag.lava {
+  background: rgba(201,74,42,0.08);
+  border-color: rgba(201,74,42,0.2);
+  color: var(--lava);
+}
+
+/* 스크린 3: 정류장 상세 */
+.screen-stop {
+  min-height: 380px;
+  background: var(--white);
+  display: flex;
+  flex-direction: column;
+}
+.ss-map {
+  flex: 0 0 180px;
+  background: #E8F0E4;
+  position: relative;
+  overflow: hidden;
+}
+.ss-center-pin {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+}
+.ss-center-dot {
+  width: 16px; height: 16px;
+  background: var(--lava);
+  border-radius: 50%;
+  border: 2.5px solid white;
+  box-shadow: 0 0 0 6px rgba(201,74,42,0.2);
+  margin: 0 auto;
+}
+.ss-pin-label {
+  background: var(--ocean);
+  color: white;
+  font-size: 9px;
+  padding: 3px 7px;
+  border-radius: 2px;
+  margin-top: 5px;
+  white-space: nowrap;
+  text-align: center;
+}
+.ss-info {
+  padding: 16px;
+  flex: 1;
+}
+.ss-num {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--lava);
+  letter-spacing: 0.12em;
+  margin-bottom: 6px;
+}
+.ss-name-jp {
+  font-family: var(--font-serif);
+  font-size: 16px;
+  color: var(--ink);
+  font-weight: 400;
+  margin-bottom: 2px;
+}
+.ss-name-en {
+  font-size: 11px;
+  color: var(--mist);
+  margin-bottom: 14px;
+}
+.ss-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.ss-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  color: #444;
+}
+.ss-icon { font-size: 13px; }
+.ss-badge-correct {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 8px;
+  background: rgba(201,74,42,0.08);
+  border: 1px solid rgba(201,74,42,0.2);
+  color: var(--lava);
+  font-size: 10px;
+  border-radius: 2px;
+  margin-bottom: 10px;
+}
+</style>
+</head>
+<body>
+
+<!-- 탭 -->
+<div class="tabs">
+  <button class="tab-btn on" onclick="show('story',this)">① 스토리 페이지</button>
+  <button class="tab-btn" onclick="show('map',this)">② 지도 페이지</button>
+  <button class="tab-btn" onclick="show('mobile',this)">③ 모바일 뷰</button>
+</div>
+
+
+<!-- ══════════ PAGE 1: STORY ══════════ -->
+<div id="pg-story">
+
+  <nav class="site-nav">
+    <div class="site-nav-logo">가고시마 <em>시티뷰</em> 버스 가이드</div>
+    <ul class="site-nav-links">
+      <li><a href="#">스토리</a></li>
+      <li><a href="#">지도</a></li>
+      <li><a href="#">협력 제안</a></li>
+    </ul>
+    <div class="lang-row">
+      <button class="lang-pill on">한국어</button>
+      <button class="lang-pill">English</button>
+      <button class="lang-pill">日本語</button>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-left">
+      <div class="hero-kicker">Kagoshima City View Bus Guide</div>
+      <h1 class="hero-h1">
+        버스 정류장을 찾지 못해<br>
+        헤맸던 여행자가<br>
+        <strong>직접 만든 가이드</strong>
+      </h1>
+      <p class="hero-desc">
+        구글맵에 오류가 있습니다. 현장 안내판도 없습니다.<br>
+        가고시마를 사랑하는 마음으로, 정확한 정보를 만들었습니다.
+      </p>
+      <div class="hero-cta-row">
+        <button class="btn-primary">지도 보기 →</button>
+        <button class="btn-ghost">스토리 읽기</button>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-img-placeholder">
+        <div class="volcano-silhouette"></div>
+        <span class="hero-photo-note">사쿠라지마 / 촬영 2026.05</span>
+      </div>
+    </div>
+    <div class="hero-scroll">
+      <div class="hero-scroll-line"></div>
+      <span>SCROLL</span>
+    </div>
+  </section>
+
+  <section>
+    <div class="story-wrap">
+      <div>
+        <div class="story-label">나의 이야기 — My Story</div>
+        <h2 class="story-h2">
+          2026년 5월,<br>
+          가고시마를 처음 여행했습니다
+        </h2>
+        <div class="story-text">
+          <p>시티뷰 버스를 타고 센간엔에 가려고 텐몬칸 정류장을 찾았습니다. 구글맵이 가리키는 위치로 갔지만, 그곳엔 버스가 오지 않았습니다.</p>
+          <p>10분을 기다렸습니다. 결국 지나가는 현지인에게 물어본 후에야, 언덕 위 실제 정류장을 찾을 수 있었습니다. 버스는 이미 떠난 뒤였습니다.</p>
+          <p>그럼에도 가고시마는 너무나 아름다웠습니다. 사쿠라지마, 센간엔, 시로야마의 야경. 이 도시를 더 많은 사람들이 편하게 여행할 수 있으면 좋겠다는 마음으로, 가고시마시 공식 데이터를 기반으로 이 서비스를 만들었습니다.</p>
+        </div>
+      </div>
+      <div class="story-sidebar">
+        <div class="sidebar-quote">
+          <p>"The stop at Tenmonkan is wrongly placed on Google Maps and no signs are present at the correct location."</p>
+          <cite>— TripAdvisor, 2025년 11월</cite>
+        </div>
+        <div class="stat-row">
+          <div class="stat-item">
+            <span class="stat-num">20</span>
+            <span class="stat-label">개 정류장<br>정확한 GPS 좌표</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-num">3</span>
+            <span class="stat-label">개 언어<br>한국어 · English · 日本語</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-num">0</span>
+            <span class="stat-label">원<br>무료 · 광고 없음</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <section class="problem-wrap">
+    <div class="problem-inner">
+      <div class="section-kicker">전 세계 여행자들이 겪는 문제</div>
+      <h2 class="problem-h2">구글맵이 틀렸고,<br>안내판도 없습니다</h2>
+      <div class="problem-grid">
+        <div class="problem-cell">
+          <div class="problem-num">01</div>
+          <div class="problem-title">구글맵 위치 오류</div>
+          <p class="problem-quote">
+            "Tenmonkan 정류장이 구글맵에 잘못 표시되어 있고, 올바른 위치에는 안내판이 없습니다."
+            <cite class="problem-source">— TripAdvisor 프랑스 여행자, 2025.11</cite>
+          </p>
+        </div>
+        <div class="problem-cell">
+          <div class="problem-num">02</div>
+          <div class="problem-title">버스가 문도 열지 않고 출발</div>
+          <p class="problem-quote">
+            "버스가 정류장에 섰지만 기사가 문을 열지 않고 그냥 출발해버렸습니다."
+            <cite class="problem-source">— TripAdvisor 호주 여행자, 2025.09</cite>
+          </p>
+        </div>
+        <div class="problem-cell">
+          <div class="problem-num">03</div>
+          <div class="problem-title">인쇄 시간표 정류장 번호 오류</div>
+          <p class="problem-quote">
+            "배포받은 버스 시간표에 정류장 번호가 잘못 인쇄되어 있었습니다. Organised chaos."
+            <cite class="problem-source">— TripAdvisor 영국 여행자, 2017.05</cite>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="cta-wrap">
+      <div>
+        <h2 class="cta-h2">
+          가고시마시 관광과와<br>
+          함께하고 싶습니다
+        </h2>
+        <p class="cta-sub">
+          이 서비스는 가고시마시 공식 GTFS 오픈데이터를 기반으로 합니다.<br>
+          무료이며, 광고가 없습니다. 더 많은 여행자가 가고시마를 즐길 수 있도록.
+        </p>
+      </div>
+      <div class="cta-actions">
+        <button class="btn-primary">지도 보러 가기 →</button>
+        <button class="btn-ghost">협력 문의하기</button>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="footer-logo">가고시마 <em>시티뷰</em> 버스 가이드</div>
+    <div class="footer-meta">
+      가고시마시 공식 GTFS 오픈데이터 기반<br>
+      © 2026 · 무료 서비스 · 광고 없음
+    </div>
+  </footer>
+
+</div>
+
+
+<!-- ══════════ PAGE 2: MAP ══════════ -->
+<div id="pg-map" style="display:none;">
+
+  <div class="map-topbar">
+    <div class="map-topbar-logo">가고시마 시티뷰 버스</div>
+    <div class="destination-select">
+      <span class="destination-icon">🎯</span>
+      <span class="destination-label">어디에 가고 싶으세요?</span>
+      <span class="destination-arrow">▾</span>
+    </div>
+    <button class="map-search-btn">정류장 찾기</button>
+    <div class="map-topbar-langs">
+      <button class="map-lang on">KO</button>
+      <button class="map-lang">EN</button>
+      <button class="map-lang">JP</button>
+    </div>
+  </div>
+
+  <div class="map-body">
+
+    <div class="map-canvas">
+      <div class="map-bg-grid"></div>
+      <div class="map-road road-h1"></div>
+      <div class="map-road road-h2"></div>
+      <div class="map-road road-v1"></div>
+      <div class="map-road road-v2"></div>
+
+      <svg class="route-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
+        <polyline
+          points="22,72 35,55 30,40 24,22 68,28 62,50 55,60 70,65"
+          fill="none"
+          stroke="#C94A2A"
+          stroke-width="0.6"
+          stroke-dasharray="1.5,1.2"
+          opacity="0.7"/>
+      </svg>
+
+      <div class="pin p-chuo">
+        <div class="pin-dot"></div>
+        <div class="pin-lbl">중앙역 (1)</div>
+      </div>
+      <div class="pin p-tenmon">
+        <div class="pin-warn">⚠️</div>
+        <div class="pin-dot"></div>
+        <div class="pin-lbl">텐몬칸 (3)</div>
+      </div>
+      <div class="pin p-saigo">
+        <div class="pin-dot"></div>
+        <div class="pin-lbl">사이고 동상 (4)</div>
+      </div>
+      <div class="pin p-shiro">
+        <div class="pin-dot"></div>
+        <div class="pin-lbl">시로야마 (7)</div>
+      </div>
+      <div class="pin p-sengan active">
+        <div class="pin-dot"></div>
+        <div class="pin-lbl">센간엔 (12) ★</div>
+      </div>
+      <div class="pin p-suizoku">
+        <div class="pin-dot"></div>
+        <div class="pin-lbl">수족관 (16)</div>
+      </div>
+      <div class="pin p-ishi">
+        <div class="pin-dot"></div>
+        <div class="pin-lbl">이시바시 (14)</div>
+      </div>
+      <div class="pin p-kago">
+        <div class="pin-dot"></div>
+        <div class="pin-lbl">가고시마역 (15)</div>
+      </div>
+
+      <div class="map-legend">
+        <div class="legend-item">
+          <div class="legend-dot" style="background:#1E3A4F;"></div>
+          <span>정류장 (GPS 검증 완료)</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-dot" style="background:#C94A2A;"></div>
+          <span>선택된 정류장</span>
+        </div>
+        <div class="legend-item">
+          <div class="legend-line"></div>
+          <span>시티뷰 노선</span>
+        </div>
+        <div class="legend-item">
+          <span style="font-size:12px;">⚠️</span>
+          <span>구글맵 오류 있는 정류장</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="map-side">
+      <div class="side-selected">
+        <div class="selected-kicker">추천 승차 정류장</div>
+        <div class="selected-name-ko">센간엔 앞</div>
+        <div class="selected-name-jp">仙巌園（磯庭園）前 · Sengan-en Mae</div>
+        <div class="selected-badges">
+          <span class="badge accent">✓ GPS 검증 완료</span>
+          <span class="badge">12번 정류장</span>
+          <span class="badge">센간엔 도보 2분</span>
+        </div>
+      </div>
+
+      <div class="side-list">
+        <div class="stop-row">
+          <div class="stop-circle">1</div>
+          <div class="stop-info">
+            <div class="stop-ko">가고시마 중앙역</div>
+            <div class="stop-jp">鹿児島中央駅 · 동쪽출구 4번 승강장</div>
+          </div>
+          <span class="stop-chevron">›</span>
+        </div>
+        <div class="stop-row">
+          <div class="stop-circle">3</div>
+          <div class="stop-info">
+            <div class="stop-ko">텐몬칸</div>
+            <div class="stop-jp">天文館</div>
+            <div class="stop-warn">⚠️ 구글맵 위치 오류 — 이 앱 위치가 정확</div>
+          </div>
+          <span class="stop-chevron">›</span>
+        </div>
+        <div class="stop-row">
+          <div class="stop-circle">4</div>
+          <div class="stop-info">
+            <div class="stop-ko">사이고 동상 앞</div>
+            <div class="stop-jp">西郷銅像前</div>
+          </div>
+          <span class="stop-chevron">›</span>
+        </div>
+        <div class="stop-row">
+          <div class="stop-circle">7</div>
+          <div class="stop-info">
+            <div class="stop-ko">시로야마</div>
+            <div class="stop-jp">城山（シティビュー）</div>
+          </div>
+          <span class="stop-chevron">›</span>
+        </div>
+        <div class="stop-row on">
+          <div class="stop-circle">12</div>
+          <div class="stop-info">
+            <div class="stop-ko">센간엔 앞</div>
+            <div class="stop-jp">仙巌園（磯庭園）前</div>
+          </div>
+          <span class="stop-chevron">›</span>
+        </div>
+        <div class="stop-row">
+          <div class="stop-circle">14</div>
+          <div class="stop-info">
+            <div class="stop-ko">이시바시 기념공원 앞</div>
+            <div class="stop-jp">石橋記念公園前</div>
+          </div>
+          <span class="stop-chevron">›</span>
+        </div>
+        <div class="stop-row">
+          <div class="stop-circle">16</div>
+          <div class="stop-info">
+            <div class="stop-ko">수족관 앞</div>
+            <div class="stop-jp">水族館前</div>
+          </div>
+          <span class="stop-chevron">›</span>
+        </div>
+      </div>
+
+      <div class="side-data-note">
+        가고시마시 공식 GTFS 오픈데이터 기반 · 현장 검증 완료
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ══════════ PAGE 3: MOBILE ══════════ -->
+<div id="pg-mobile" style="display:none; padding-top:45px; background:var(--ocean); min-height:100vh; display:none; flex-direction:column; align-items:center; padding:80px 40px; gap:40px;">
+
+  <div class="mobile-title">
+    <div class="mobile-title-kicker">Mobile Webview</div>
+    <h2 style="font-family:var(--font-serif);font-size:24px;font-weight:400;color:var(--white);letter-spacing:0.04em;">
+      여행 중 꺼내 쓰는 가이드
+    </h2>
+  </div>
+
+  <div class="phones">
+
+    <!-- 스크린 1: 스토리 -->
+    <div class="phone-wrap">
+      <span class="phone-caption">스토리 페이지</span>
+      <div class="phone">
+        <div class="phone-notch"></div>
+        <div class="phone-screen">
+          <div class="screen-story">
+            <div class="screen-story-img">
+              <div class="screen-volcano"></div>
+              <div class="screen-story-text">
+                <div class="screen-kicker">Kagoshima City View Bus</div>
+                <div class="screen-h1">
+                  버스 정류장을 찾지<br>
+                  못해 헤맸던 여행자가<br>
+                  <strong>만든 가이드</strong>
+                </div>
+              </div>
+            </div>
+            <div style="padding:14px;background:var(--ocean);">
+              <button class="screen-btn">지도 보기 →</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 스크린 2: 지도 -->
+    <div class="phone-wrap">
+      <span class="phone-caption">지도 페이지</span>
+      <div class="phone">
+        <div class="phone-notch"></div>
+        <div class="phone-screen">
+          <div class="screen-map">
+            <div style="background:#1E3A4F;padding:10px 12px;display:flex;align-items:center;gap:8px;">
+              <div style="flex:1;background:rgba(255,255,255,0.08);border-radius:3px;padding:7px 10px;font-size:11px;color:rgba(255,255,255,0.6);">어디에 가고 싶으세요? ▾</div>
+            </div>
+            <div class="screen-map-area">
+              <div class="sm-road-h"></div>
+              <div class="sm-road-v"></div>
+              <svg class="sm-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
+                <polyline points="25,70 38,52 32,36 28,20 65,26 58,48 52,60 68,64"
+                  fill="none" stroke="#C94A2A" stroke-width="1.2" stroke-dasharray="2.5,2" opacity="0.8"/>
+              </svg>
+              <div class="sm-pin" style="top:20%;left:28%;"></div>
+              <div class="sm-pin" style="top:36%;left:32%;"></div>
+              <div class="sm-pin" style="top:52%;left:38%;"></div>
+              <div class="sm-pin active" style="top:26%;left:65%;"></div>
+              <div class="sm-pin" style="top:48%;left:58%;"></div>
+              <div class="sm-pin" style="top:64%;left:68%;"></div>
+            </div>
+            <div class="screen-map-panel">
+              <div class="smp-num">12번 정류장</div>
+              <div class="smp-name">센간엔 앞</div>
+              <div class="smp-sub">仙巌園（磯庭園）前</div>
+              <div class="smp-tags">
+                <span class="smp-tag lava">✓ GPS 검증</span>
+                <span class="smp-tag">도보 2분</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 스크린 3: 정류장 상세 -->
+    <div class="phone-wrap">
+      <span class="phone-caption">정류장 상세</span>
+      <div class="phone">
+        <div class="phone-notch"></div>
+        <div class="phone-screen">
+          <div class="screen-stop">
+            <div class="ss-map">
+              <div style="position:absolute;inset:0;background:#E8F0E4;"></div>
+              <div style="position:absolute;top:40%;left:0;right:0;height:5px;background:rgba(255,255,255,0.7);"></div>
+              <div style="position:absolute;left:45%;top:0;bottom:0;width:4px;background:rgba(255,255,255,0.7);"></div>
+              <div class="ss-center-pin">
+                <div class="ss-center-dot"></div>
+                <div class="ss-pin-label">센간엔 앞</div>
+              </div>
+            </div>
+            <div class="ss-info">
+              <div class="ss-badge-correct">✓ 구글맵보다 정확한 위치</div>
+              <div class="ss-num">No. 12</div>
+              <div class="ss-name-jp">仙巌園（磯庭園）前</div>
+              <div class="ss-name-en">Sengan-en Mae</div>
+              <div class="ss-rows">
+                <div class="ss-row">
+                  <span class="ss-icon">🏯</span>
+                  <span>센간엔까지 도보 2분</span>
+                </div>
+                <div class="ss-row">
+                  <span class="ss-icon">🌊</span>
+                  <span>이소 해수욕장 근처</span>
+                </div>
+                <div class="ss-row">
+                  <span class="ss-icon">🚌</span>
+                  <span>30분 간격 운행</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<script>
+function show(page, btn) {
+  ['story','map','mobile'].forEach(p => {
+    const el = document.getElementById('pg-' + p);
+    el.style.display = p === page ? (p === 'mobile' ? 'flex' : 'block') : 'none';
+    if (p === 'mobile' && page === 'mobile') el.style.flexDirection = 'column';
+    if (p === 'mobile' && page === 'mobile') el.style.alignItems = 'center';
+  });
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('on'));
+  btn.classList.add('on');
+}
+
+// 언어 버튼
+document.querySelectorAll('.lang-pill, .map-lang').forEach(b => {
+  b.addEventListener('click', function() {
+    const parent = this.closest('.lang-row, .map-topbar-langs');
+    parent.querySelectorAll('button').forEach(x => x.classList.remove('on'));
+    this.classList.add('on');
+  });
+});
+</script>
+</body>
+</html>
