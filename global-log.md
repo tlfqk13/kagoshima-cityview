@@ -1,7 +1,7 @@
 # 가고시마 시티뷰 버스 가이드 — 개발 진행 로그
 
 > 다음 세션에서 이 파일을 먼저 읽고 현재 상태를 파악하세요.
-> 최종 업데이트: 2026-06-07 (P0 UX 개선 완료)
+> 최종 업데이트: 2026-06-07 (P0 + P1 UX 개선 완료, P2 진행 중)
 
 ---
 
@@ -279,18 +279,19 @@ kagoshima-cityview/
 │   ├── auth.ts                    ← NextAuth v5 config
 │   ├── components/
 │   │   ├── home/                  ← Hero, TrustSection, ProblemGrid, PartnershipSection, Footer
-│   │   ├── map/                   ← MapCanvas, SidePanel, StopList, StopDetail, CategoryChips, DestinationCards, BottomSheet
+│   │   ├── map/                   ← MapCanvas(export MapCanvasProps), SidePanel, StopList, StopDetail, CategoryChips, DestinationCards, BottomSheet, StopSearch
 │   │   ├── story/                 ← EpisodeCard, EpisodeNav
+│   │   ├── OfflineBanner.tsx      ← 오프라인 감지 + PWA 설치 유도 배너
 │   │   ├── I18nProvider.tsx
 │   │   ├── LanguageSwitcher.tsx
 │   │   └── Nav.tsx
 │   ├── data/
 │   │   ├── destinations.json
-│   │   └── stops.json             ← stop_03 googleMapsError:true
+│   │   └── stops.json             ← stop_03 googleMapsError+googleMapsLat/Lng, 전체 schedule 필드
 │   ├── lib/
 │   │   ├── devlog.ts              ← getAllEpisodes, getEpisode, ko fallback
 │   │   ├── i18n.ts                ← react-i18next 초기화
-│   │   └── stops.ts              ← getAllStops, getStopsGeoJSON, ROUTE_COORDINATES
+│   │   └── stops.ts              ← getAllStops, getStopsGeoJSON, getNearestStop, ROUTE_COORDINATES
 │   ├── messages/
 │   │   ├── en.json
 │   │   ├── ja.json
@@ -317,15 +318,28 @@ kagoshima-cityview/
 1. ✅ Google Maps / Apple Maps(iOS전용) 링크 — StopDetail 하단 "Open in Maps" 섹션
 2. ✅ 좌표 복사 버튼 — GPS 배지 옆 ⎘ 아이콘, 토스트 피드백
 3. ✅ 정류장 URL 공유 — Web Share API (폴백: 클립보드 복사)
-4. ✅ 현재 위치 → 가장 가까운 정류장 자동 선택 — GeolocateControl + haversine
+4. ✅ 현재 위치 → 가장 가까운 정류장 자동 선택 — GeolocateControl + haversine(`getNearestStop`)
 5. ✅ 구글맵 오류 위치 시각화 — stop_03에 googleMapsLat/Lng 추가, 선택 시 빨간 반투명 핀 표시
 
-**다음 (P1):**
-- 정류장 검색
-- 버스 운행 시간표 (GTFS stop_times.txt 파싱)
-- 오프라인 모드 안내 배너
-- 정류장 사진
-- 도보 경로 미리보기 (Mapbox Directions API)
+**P1 완료 (2026-06-07):**
+6. ✅ 정류장 검색 — `StopSearch` 컴포넌트, SidePanel+BottomSheet 상단, 이름·목적지 3개 언어 검색
+7. ✅ 버스 운행 시간표 — 20개 정류장 전체 firstBus/lastBus/frequencyMin 추가, StopDetail 시간표 섹션
+8. ✅ 오프라인 안내 배너 — `OfflineBanner` 컴포넌트, navigator.onLine 감지 + PWA 설치 유도 (3초 후, 1회)
+9. ✅ 정류장 사진 — StopDetail 최상단 사진 슬롯, `public/images/stops/placeholder.svg` (실제 사진 촬영 후 교체)
+10. ✅ 도보 경로 미리보기 — userLocation 상태 MapPage로 lift, Mapbox Directions API 경로선, StopDetail 거리+시간 표시
+
+**기술 픽스 (P1 중):**
+- `dynamic<MapCanvasProps>(...)` — dynamic() 임포트는 제네릭 명시 필수, `MapCanvasProps` export 추가
+
+**P2 진행 예정:**
+- 즐겨찾기 (localStorage)
+- 다크 모드 (시스템 설정 + 수동 토글)
+- 지도 팝업 (정류장 핀 호버 시 이름)
+- 노선 버스 애니메이션
+- QR 코드 생성 (관광과 제안용)
+- 접근성 정보
+- 혼잡도 안내
+- 지도 스타일 선택 (위성/일반/야간)
 
 ### 우선순위 높음
 - [ ] **Vercel 배포** — 레포 연결 후 환경변수 설정:
@@ -362,6 +376,7 @@ kagoshima-cityview/
 | i18n 비동기 race condition | 해결 | `initPromise` 가드 |
 | middleware.ts deprecation warning | 미해결 | 빌드는 통과, 다음 세션에 `proxy.ts`로 이름 변경 |
 | PWA SVG 아이콘 | 미해결 | placeholder, PNG 교체 필요 |
+| dynamic() 타입 추론 | 해결 | `MapCanvasProps` export + `dynamic<MapCanvasProps>()` 명시 필수 |
 
 ---
 
@@ -373,3 +388,6 @@ kagoshima-cityview/
 - **Next.js 15+ dynamic params:** `interface Props { params: Promise<{ stopId: string }> }` + `await params`
 - **언어 감지 순서:** `querystring('lang') → cookie('i18next') → navigator`
 - **MDX fallback:** `getEpisodePath(slug, lang) ?? getEpisodePath(slug, 'ko')`
+- **dynamic() 타입:** `dynamic<MapCanvasProps>()` — 제네릭 생략 시 새 props 인식 못함, `MapCanvasProps`는 반드시 export
+- **userLocation 상태 위치:** MapPage에서 관리, MapCanvas → `onUserLocation` 콜백으로 전달 → SidePanel/BottomSheet → StopDetail로 전달
+- **정류장 사진 추가 방법:** stops.json 해당 stop에 `"photos": ["/images/stops/stop_XX.jpg"]` 추가 후 `public/images/stops/`에 파일 배치
