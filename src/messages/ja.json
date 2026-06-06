@@ -51,7 +51,9 @@
     "noStops": "該当カテゴリの停留所はありません",
     "searchPlaceholder": "停留所・目的地を検索",
     "noResults": "検索結果がありません",
-    "walkMin": "徒歩約{{min}}分"
+    "walkMin": "徒歩約{{min}}分",
+    "addFavorite": "お気に入りに追加",
+    "removeFavorite": "お気に入りから削除"
   },
   "partnership": {
     "h2line1": "鹿児島市観光課と",

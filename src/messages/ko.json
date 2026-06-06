@@ -51,7 +51,9 @@
     "noStops": "해당 카테고리의 정류장이 없습니다",
     "searchPlaceholder": "정류장·목적지 검색",
     "noResults": "검색 결과가 없습니다",
-    "walkMin": "도보 약 {{min}}분"
+    "walkMin": "도보 약 {{min}}분",
+    "addFavorite": "즐겨찾기 추가",
+    "removeFavorite": "즐겨찾기 해제"
   },
   "partnership": {
     "h2line1": "가고시마시 관광과와",

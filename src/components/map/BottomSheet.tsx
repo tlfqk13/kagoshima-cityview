@@ -19,6 +19,8 @@ interface Props {
   searchQuery: string
   onSearchChange: (v: string) => void
   userLocation?: [number, number] | null
+  favorites?: string[]
+  onToggleFavorite?: (stopId: string) => void
 }
 
 const HEIGHTS: Record<SheetState, string> = {
@@ -36,6 +38,8 @@ export default function BottomSheet({
   searchQuery,
   onSearchChange,
   userLocation,
+  favorites,
+  onToggleFavorite,
 }: Props) {
   const [state, setState] = useState<SheetState>('peek')
   const dragStartY = useRef(0)
@@ -79,11 +83,16 @@ export default function BottomSheet({
         <CategoryChips active={activeCategory} onChange={onCategoryChange} />
         <StopSearch value={searchQuery} onChange={onSearchChange} />
         {selectedStop ? (
-          <StopDetail stop={selectedStop} userLocation={userLocation} />
+          <StopDetail
+            stop={selectedStop}
+            userLocation={userLocation}
+            isFavorite={favorites?.includes(selectedStop.id)}
+            onToggleFavorite={onToggleFavorite}
+          />
         ) : stops.length === 0 ? (
           <div className={styles.empty}>{t('map.noResults')}</div>
         ) : (
-          <StopList stops={stops} selectedId={null} onSelect={onStopSelect} />
+          <StopList stops={stops} selectedId={null} onSelect={onStopSelect} favorites={favorites} />
         )}
       </div>
     </div>

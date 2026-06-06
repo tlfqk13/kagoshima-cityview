@@ -9,6 +9,8 @@ const isIOS = typeof navigator !== 'undefined' && /iPad|iPhone|iPod/.test(naviga
 interface Props {
   stop: BusStop
   userLocation?: [number, number] | null
+  isFavorite?: boolean
+  onToggleFavorite?: (stopId: string) => void
 }
 
 function getWalkingEstimate(userLat: number, userLng: number, stopLat: number, stopLng: number) {
@@ -26,7 +28,7 @@ function getWalkingEstimate(userLat: number, userLng: number, stopLat: number, s
   return { meters, minutes }
 }
 
-export default function StopDetail({ stop, userLocation }: Props) {
+export default function StopDetail({ stop, userLocation, isFavorite, onToggleFavorite }: Props) {
   const { t, i18n } = useTranslation()
   const lang = (['ko', 'en', 'ja'].includes(i18n.language) ? i18n.language : 'ko') as Lang
   const [toast, setToast] = useState<string | null>(null)
@@ -66,6 +68,16 @@ export default function StopDetail({ stop, userLocation }: Props) {
       <div className={styles.header}>
         <div className={styles.headerTop}>
           <div className={styles.num}>No. {stop.number}</div>
+          {onToggleFavorite && (
+            <button
+              className={`${styles.favBtn} ${isFavorite ? styles.favActive : ''}`}
+              onClick={() => onToggleFavorite(stop.id)}
+              aria-label={isFavorite ? t('map.removeFavorite') : t('map.addFavorite')}
+              aria-pressed={isFavorite}
+            >
+              {isFavorite ? '★' : '☆'}
+            </button>
+          )}
           <button
             className={styles.shareBtn}
             onClick={handleShare}

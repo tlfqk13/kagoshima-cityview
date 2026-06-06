@@ -1,7 +1,8 @@
 'use client'
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import dynamic from 'next/dynamic'
 import { getAllStops, getStopsByCategory, getMetadata, type BusStop, type Category } from '@/lib/stops'
+import { getFavorites, toggleFavorite } from '@/lib/favorites'
 import type { MapCanvasProps } from '@/components/map/MapCanvas'
 import Nav from '@/components/Nav'
 import SidePanel from '@/components/map/SidePanel'
@@ -23,6 +24,15 @@ export default function MapPage({ initialStopId }: Props) {
   const [activeCategory, setActiveCategory] = useState<Category | 'all'>('all')
   const [searchQuery, setSearchQuery] = useState('')
   const [userLocation, setUserLocation] = useState<[number, number] | null>(null)
+  const [favorites, setFavorites] = useState<string[]>([])
+
+  useEffect(() => {
+    setFavorites(getFavorites())
+  }, [])
+
+  function handleToggleFavorite(stopId: string) {
+    setFavorites(toggleFavorite(stopId))
+  }
 
   const filteredStops = useMemo(() => {
     let stops = activeCategory === 'all' ? getAllStops() : getStopsByCategory(activeCategory as Category)
@@ -41,8 +51,13 @@ export default function MapPage({ initialStopId }: Props) {
         return nameMatch || destMatch
       })
     }
-    return stops
-  }, [activeCategory, searchQuery])
+    // Favorites first
+    return [...stops].sort((a, b) => {
+      const aFav = favorites.includes(a.id) ? -1 : 0
+      const bFav = favorites.includes(b.id) ? -1 : 0
+      return aFav - bFav
+    })
+  }, [activeCategory, searchQuery, favorites])
 
   const meta = getMetadata()
   const sourceNote = `データ提供：鹿児島市 · ${meta.lastValidatedAt} 검증`
@@ -79,6 +94,8 @@ export default function MapPage({ initialStopId }: Props) {
             searchQuery={searchQuery}
             onSearchChange={setSearchQuery}
             userLocation={userLocation}
+            favorites={favorites}
+            onToggleFavorite={handleToggleFavorite}
           />
         </div>
 
@@ -93,6 +110,8 @@ export default function MapPage({ initialStopId }: Props) {
             searchQuery={searchQuery}
             onSearchChange={setSearchQuery}
             userLocation={userLocation}
+            favorites={favorites}
+            onToggleFavorite={handleToggleFavorite}
           />
         </div>
       </div>

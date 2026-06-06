@@ -7,9 +7,10 @@ interface Props {
   stops: BusStop[]
   selectedId: string | null
   onSelect: (stop: BusStop) => void
+  favorites?: string[]
 }
 
-export default function StopList({ stops, selectedId, onSelect }: Props) {
+export default function StopList({ stops, selectedId, onSelect, favorites }: Props) {
   const { t, i18n } = useTranslation()
   const lang = (['ko', 'en', 'ja'].includes(i18n.language) ? i18n.language : 'ko') as Lang
 
@@ -32,6 +33,9 @@ export default function StopList({ stops, selectedId, onSelect }: Props) {
               <div className={styles.warn}>⚠ {t('map.stopDetail.googleMapsWrong')}</div>
             )}
           </div>
+          {favorites?.includes(stop.id) && (
+            <span className={styles.star} aria-label="Favorited">★</span>
+          )}
           <span className={styles.chevron} aria-hidden="true">›</span>
         </li>
       ))}

@@ -77,3 +77,9 @@
   color: var(--muted);
   text-align: center;
 }
+
+.star {
+  color: #F4C430;
+  font-size: 11px;
+  flex-shrink: 0;
+}

@@ -14,13 +14,22 @@ interface Props {
   searchQuery: string
   onSearchChange: (v: string) => void
   userLocation?: [number, number] | null
+  favorites?: string[]
+  onToggleFavorite?: (stopId: string) => void
 }
 
-export default function SidePanel({ stops, selectedStop, onSelect, sourceNote, searchQuery, onSearchChange, userLocation }: Props) {
+export default function SidePanel({ stops, selectedStop, onSelect, sourceNote, searchQuery, onSearchChange, userLocation, favorites, onToggleFavorite }: Props) {
   const { t } = useTranslation()
   return (
     <aside className={styles.panel}>
-      {selectedStop && <StopDetail stop={selectedStop} userLocation={userLocation} />}
+      {selectedStop && (
+        <StopDetail
+          stop={selectedStop}
+          userLocation={userLocation}
+          isFavorite={favorites?.includes(selectedStop.id)}
+          onToggleFavorite={onToggleFavorite}
+        />
+      )}
       <StopSearch value={searchQuery} onChange={onSearchChange} />
       {stops.length === 0 ? (
         <div className={styles.empty}>{t('map.noResults')}</div>
@@ -29,6 +38,7 @@ export default function SidePanel({ stops, selectedStop, onSelect, sourceNote, s
           stops={stops}
           selectedId={selectedStop?.id ?? null}
           onSelect={onSelect}
+          favorites={favorites}
         />
       )}
       <div className={styles.note}>{sourceNote}</div>

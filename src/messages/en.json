@@ -51,7 +51,9 @@
     "noStops": "No stops for this category",
     "searchPlaceholder": "Search stops & destinations",
     "noResults": "No results found",
-    "walkMin": "~{{min}} min walk"
+    "walkMin": "~{{min}} min walk",
+    "addFavorite": "Add to favorites",
+    "removeFavorite": "Remove from favorites"
   },
   "partnership": {
     "h2line1": "We'd love to work with",
