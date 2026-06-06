@@ -18,7 +18,7 @@ export default function PartnershipSection() {
         </div>
         <div className={styles.actions}>
           <Link href="/map" className={styles.btnMap}>{t('partnership.ctaMap')} →</Link>
-          <a href="mailto:dev@bas-korea.com" className={styles.btnContact}>
+          <a href="mailto:fkffksk20@gmail.com" className={styles.btnContact}>
             {t('partnership.cta')}
           </a>
         </div>

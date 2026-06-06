@@ -79,5 +79,5 @@ docs/
 
 ## 연락처
 
-- 개발자: dev@bas-korea.com
+- 개발자: fkffksk20@gmail.com
 - 관광과 협력 문의 대상: 鹿児島市 観光課

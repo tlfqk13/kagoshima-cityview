@@ -318,7 +318,7 @@ kagoshima-cityview/
   NEXTAUTH_URL=https://your-domain.vercel.app
   GOOGLE_CLIENT_ID=실제값
   GOOGLE_CLIENT_SECRET=실제값
-  ADMIN_EMAILS=dev@bas-korea.com
+  ADMIN_EMAILS=fkffksk20@gmail.com
   ```
 - [ ] **Google OAuth 콘솔** — 승인된 리다이렉트 URI 추가:
   `https://your-domain.vercel.app/api/auth/callback/google`

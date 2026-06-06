@@ -1925,7 +1925,7 @@ export default function PartnershipSection() {
         </div>
         <div className={styles.actions}>
           <Link href="/map" className={styles.btnMap}>{t('partnership.ctaMap')} →</Link>
-          <a href="mailto:dev@bas-korea.com" className={styles.btnContact}>{t('partnership.cta')}</a>
+          <a href="mailto:fkffksk20@gmail.com" className={styles.btnContact}>{t('partnership.cta')}</a>
         </div>
       </div>
     </section>
@@ -2699,7 +2699,7 @@ NEXTAUTH_SECRET=랜덤32바이트
 NEXTAUTH_URL=https://kagoshima-bus.vercel.app
 GOOGLE_CLIENT_ID=
 GOOGLE_CLIENT_SECRET=
-ADMIN_EMAILS=dev@bas-korea.com
+ADMIN_EMAILS=fkffksk20@gmail.com
 ```
 
 - [ ] **Step 4: Mapbox 토큰 도메인 제한**
