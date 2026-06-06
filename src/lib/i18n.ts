@@ -7,8 +7,10 @@ import ko from '@/messages/ko.json'
 import en from '@/messages/en.json'
 import ja from '@/messages/ja.json'
 
-if (!i18n.isInitialized) {
-  i18n
+let initPromise: Promise<unknown> | null = null
+
+if (!i18n.isInitialized && !initPromise) {
+  initPromise = i18n
     .use(LanguageDetector)
     .use(initReactI18next)
     .init({
