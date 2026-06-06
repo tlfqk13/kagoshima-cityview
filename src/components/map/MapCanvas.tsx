@@ -13,12 +13,20 @@ const INITIAL_ZOOM = 13
 interface MapCanvasProps {
   selectedStopId: string | null
   onStopSelect: (stop: BusStop) => void
+  onUserLocation?: (coords: [number, number]) => void
+  userLocation?: [number, number] | null
 }
 
-export default function MapCanvas({ selectedStopId, onStopSelect }: MapCanvasProps) {
+export default function MapCanvas({ selectedStopId, onStopSelect, onUserLocation, userLocation }: MapCanvasProps) {
   const containerRef = useRef<HTMLDivElement>(null)
   const mapRef = useRef<mapboxgl.Map | null>(null)
   const wrongPinRef = useRef<mapboxgl.Marker | null>(null)
+  const userLocationRef = useRef<[number, number] | null | undefined>(userLocation)
+
+  // Keep userLocationRef in sync so the selectedStopId effect can access latest value
+  useEffect(() => {
+    userLocationRef.current = userLocation
+  }, [userLocation])
 
   const handleStopClick = useCallback((stopId: string) => {
     const stop = getAllStops().find(s => s.id === stopId)
@@ -49,6 +57,7 @@ export default function MapCanvas({ selectedStopId, onStopSelect }: MapCanvasPro
       const { latitude, longitude } = pos.coords
       const nearest = getNearestStop(latitude, longitude)
       if (nearest) onStopSelect(nearest)
+      onUserLocation?.([longitude, latitude])
     })
 
     map.on('load', () => {
@@ -132,7 +141,7 @@ export default function MapCanvas({ selectedStopId, onStopSelect }: MapCanvasPro
     }
   }, [handleStopClick])
 
-  // 선택된 정류장 변경 시 지도 이동 + 핀 색상 업데이트
+  // 선택된 정류장 변경 시 지도 이동 + 핀 색상 업데이트 + 도보 경로 표시
   useEffect(() => {
     const map = mapRef.current
     if (!map || !map.isStyleLoaded()) return
@@ -180,7 +189,83 @@ export default function MapCanvas({ selectedStopId, onStopSelect }: MapCanvasPro
         wrongPinRef.current = marker
       }
     }
+
+    // Clear existing walking route
+    if (map.getLayer('walking-route')) map.removeLayer('walking-route')
+    if (map.getSource('walking-route')) map.removeSource('walking-route')
+
+    // Draw walking route if user location available
+    const currentUserLocation = userLocationRef.current
+    if (currentUserLocation && selectedStopId) {
+      const stop = getAllStops().find(s => s.id === selectedStopId)
+      if (stop) {
+        const url = `https://api.mapbox.com/directions/v5/mapbox/walking/${currentUserLocation[0]},${currentUserLocation[1]};${stop.lng},${stop.lat}?geometries=geojson&access_token=${mapboxgl.accessToken}`
+        fetch(url)
+          .then(r => r.json())
+          .then(data => {
+            const route = data.routes?.[0]?.geometry
+            if (!route || !map.isStyleLoaded()) return
+            if (map.getSource('walking-route')) {
+              (map.getSource('walking-route') as mapboxgl.GeoJSONSource).setData(route)
+            } else {
+              map.addSource('walking-route', { type: 'geojson', data: route })
+              map.addLayer({
+                id: 'walking-route',
+                type: 'line',
+                source: 'walking-route',
+                paint: {
+                  'line-color': '#8B4513',
+                  'line-width': 3,
+                  'line-opacity': 0.8,
+                  'line-dasharray': [1, 2],
+                },
+              })
+            }
+          })
+          .catch(() => {}) // silently fail if no network
+      }
+    }
   }, [selectedStopId])
+
+  // Update walking route when userLocation changes (while stop is already selected)
+  useEffect(() => {
+    const map = mapRef.current
+    if (!map || !map.isStyleLoaded()) return
+    if (!userLocation || !selectedStopId) {
+      // Clear route if no location or no stop selected
+      if (map.getLayer('walking-route')) map.removeLayer('walking-route')
+      if (map.getSource('walking-route')) map.removeSource('walking-route')
+      return
+    }
+
+    const stop = getAllStops().find(s => s.id === selectedStopId)
+    if (!stop) return
+
+    const url = `https://api.mapbox.com/directions/v5/mapbox/walking/${userLocation[0]},${userLocation[1]};${stop.lng},${stop.lat}?geometries=geojson&access_token=${mapboxgl.accessToken}`
+    fetch(url)
+      .then(r => r.json())
+      .then(data => {
+        const route = data.routes?.[0]?.geometry
+        if (!route || !map.isStyleLoaded()) return
+        if (map.getSource('walking-route')) {
+          (map.getSource('walking-route') as mapboxgl.GeoJSONSource).setData(route)
+        } else {
+          map.addSource('walking-route', { type: 'geojson', data: route })
+          map.addLayer({
+            id: 'walking-route',
+            type: 'line',
+            source: 'walking-route',
+            paint: {
+              'line-color': '#8B4513',
+              'line-width': 3,
+              'line-opacity': 0.8,
+              'line-dasharray': [1, 2],
+            },
+          })
+        }
+      })
+      .catch(() => {}) // silently fail if no network
+  }, [userLocation, selectedStopId])
 
   return <div ref={containerRef} className={styles.canvas} />
 }

@@ -287,6 +287,34 @@
   object-fit: cover;
 }
 
+.walkingInfo {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 20px;
+  background: #F0EBE4;
+  font-size: 13px;
+  border-bottom: 1px solid var(--rule);
+}
+
+.walkingIcon {
+  font-size: 14px;
+}
+
+.walkingDist {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.walkingSep {
+  color: var(--muted);
+}
+
+.walkingTime {
+  color: var(--muted);
+}
+
 @keyframes fadeInOut {
   0% { opacity: 0; transform: translateX(-50%) translateY(8px); }
   15% { opacity: 1; transform: translateX(-50%) translateY(0); }

@@ -50,7 +50,8 @@
     "photoComingSoon": "Photo coming soon",
     "noStops": "No stops for this category",
     "searchPlaceholder": "Search stops & destinations",
-    "noResults": "No results found"
+    "noResults": "No results found",
+    "walkMin": "~{{min}} min walk"
   },
   "partnership": {
     "h2line1": "We'd love to work with",

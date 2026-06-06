@@ -21,6 +21,7 @@ export default function MapPage({ initialStopId }: Props) {
   })
   const [activeCategory, setActiveCategory] = useState<Category | 'all'>('all')
   const [searchQuery, setSearchQuery] = useState('')
+  const [userLocation, setUserLocation] = useState<[number, number] | null>(null)
 
   const filteredStops = useMemo(() => {
     let stops = activeCategory === 'all' ? getAllStops() : getStopsByCategory(activeCategory as Category)
@@ -62,6 +63,8 @@ export default function MapPage({ initialStopId }: Props) {
           <MapCanvas
             selectedStopId={selectedStop?.id ?? null}
             onStopSelect={setSelectedStop}
+            onUserLocation={setUserLocation}
+            userLocation={userLocation}
           />
         </div>
 
@@ -74,6 +77,7 @@ export default function MapPage({ initialStopId }: Props) {
             sourceNote={sourceNote}
             searchQuery={searchQuery}
             onSearchChange={setSearchQuery}
+            userLocation={userLocation}
           />
         </div>
 
@@ -87,6 +91,7 @@ export default function MapPage({ initialStopId }: Props) {
             onCategoryChange={handleCategoryChange}
             searchQuery={searchQuery}
             onSearchChange={setSearchQuery}
+            userLocation={userLocation}
           />
         </div>
       </div>

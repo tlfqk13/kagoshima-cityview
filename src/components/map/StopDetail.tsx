@@ -8,9 +8,25 @@ const isIOS = typeof navigator !== 'undefined' && /iPad|iPhone|iPod/.test(naviga
 
 interface Props {
   stop: BusStop
+  userLocation?: [number, number] | null
 }
 
-export default function StopDetail({ stop }: Props) {
+function getWalkingEstimate(userLat: number, userLng: number, stopLat: number, stopLng: number) {
+  const R = 6371000
+  const dLat = ((stopLat - userLat) * Math.PI) / 180
+  const dLng = ((stopLng - userLng) * Math.PI) / 180
+  const a =
+    Math.sin(dLat / 2) ** 2 +
+    Math.cos((userLat * Math.PI) / 180) *
+    Math.cos((stopLat * Math.PI) / 180) *
+    Math.sin(dLng / 2) ** 2
+  const dist = R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
+  const meters = Math.round(dist / 10) * 10  // round to nearest 10m
+  const minutes = Math.max(1, Math.round(dist / 80))  // 80m/min walking speed
+  return { meters, minutes }
+}
+
+export default function StopDetail({ stop, userLocation }: Props) {
   const { t, i18n } = useTranslation()
   const lang = (['ko', 'en', 'ja'].includes(i18n.language) ? i18n.language : 'ko') as Lang
   const [toast, setToast] = useState<string | null>(null)
@@ -80,6 +96,17 @@ export default function StopDetail({ stop }: Props) {
           </button>
         </div>
       </div>
+      {userLocation && (() => {
+        const { meters, minutes } = getWalkingEstimate(userLocation[1], userLocation[0], stop.lat, stop.lng)
+        return (
+          <div className={styles.walkingInfo}>
+            <span className={styles.walkingIcon}>🚶</span>
+            <span className={styles.walkingDist}>{meters < 1000 ? `${meters}m` : `${(meters / 1000).toFixed(1)}km`}</span>
+            <span className={styles.walkingSep}>·</span>
+            <span className={styles.walkingTime}>{t('map.walkMin', { min: minutes })}</span>
+          </div>
+        )
+      })()}
       {/* Photo section */}
       <div className={styles.photoSection}>
         {stop.photos && stop.photos.length > 0 ? (

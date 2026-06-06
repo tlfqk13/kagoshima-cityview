@@ -18,6 +18,7 @@ interface Props {
   onCategoryChange: (cat: Category | null) => void
   searchQuery: string
   onSearchChange: (v: string) => void
+  userLocation?: [number, number] | null
 }
 
 const HEIGHTS: Record<SheetState, string> = {
@@ -34,6 +35,7 @@ export default function BottomSheet({
   onCategoryChange,
   searchQuery,
   onSearchChange,
+  userLocation,
 }: Props) {
   const [state, setState] = useState<SheetState>('peek')
   const dragStartY = useRef(0)
@@ -77,7 +79,7 @@ export default function BottomSheet({
         <CategoryChips active={activeCategory} onChange={onCategoryChange} />
         <StopSearch value={searchQuery} onChange={onSearchChange} />
         {selectedStop ? (
-          <StopDetail stop={selectedStop} />
+          <StopDetail stop={selectedStop} userLocation={userLocation} />
         ) : stops.length === 0 ? (
           <div className={styles.empty}>{t('map.noResults')}</div>
         ) : (

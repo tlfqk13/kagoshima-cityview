@@ -50,7 +50,8 @@
     "photoComingSoon": "写真準備中",
     "noStops": "該当カテゴリの停留所はありません",
     "searchPlaceholder": "停留所・目的地を検索",
-    "noResults": "検索結果がありません"
+    "noResults": "検索結果がありません",
+    "walkMin": "徒歩約{{min}}分"
   },
   "partnership": {
     "h2line1": "鹿児島市観光課と",

@@ -13,13 +13,14 @@ interface Props {
   sourceNote: string
   searchQuery: string
   onSearchChange: (v: string) => void
+  userLocation?: [number, number] | null
 }
 
-export default function SidePanel({ stops, selectedStop, onSelect, sourceNote, searchQuery, onSearchChange }: Props) {
+export default function SidePanel({ stops, selectedStop, onSelect, sourceNote, searchQuery, onSearchChange, userLocation }: Props) {
   const { t } = useTranslation()
   return (
     <aside className={styles.panel}>
-      {selectedStop && <StopDetail stop={selectedStop} />}
+      {selectedStop && <StopDetail stop={selectedStop} userLocation={userLocation} />}
       <StopSearch value={searchQuery} onChange={onSearchChange} />
       {stops.length === 0 ? (
         <div className={styles.empty}>{t('map.noResults')}</div>
