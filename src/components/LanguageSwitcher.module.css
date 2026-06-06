@@ -1,0 +1,28 @@
+.wrap {
+  display: flex;
+  gap: 3px;
+}
+
+.btn,
+.on {
+  padding: 5px 11px;
+  border-radius: 2px;
+  border: 1px solid var(--rule);
+  background: transparent;
+  font-size: 11px;
+  font-family: var(--font-sans);
+  color: var(--muted);
+  transition: all 0.15s;
+  cursor: pointer;
+}
+
+.btn:hover {
+  border-color: var(--muted);
+  color: var(--ink);
+}
+
+.on {
+  background: var(--dark);
+  border-color: var(--dark);
+  color: var(--white);
+}
