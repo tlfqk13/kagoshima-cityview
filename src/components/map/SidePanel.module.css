@@ -1,0 +1,21 @@
+.panel {
+  width: var(--side-w);
+  flex-shrink: 0;
+  border-left: 1px solid var(--rule);
+  background: var(--white);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  height: 100%;
+}
+
+.note {
+  padding: 10px 20px;
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 0.05em;
+  border-top: 1px solid var(--rule);
+  background: var(--bg);
+  flex-shrink: 0;
+  line-height: 1.6;
+}
