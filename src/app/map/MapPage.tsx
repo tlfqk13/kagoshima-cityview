@@ -2,7 +2,6 @@
 import { useState, useMemo } from 'react'
 import dynamic from 'next/dynamic'
 import { getAllStops, getStopsByCategory, getMetadata, type BusStop, type Category } from '@/lib/stops'
-import { useTranslation } from 'react-i18next'
 import Nav from '@/components/Nav'
 import SidePanel from '@/components/map/SidePanel'
 import BottomSheet from '@/components/map/BottomSheet'
@@ -16,9 +15,6 @@ interface Props {
 }
 
 export default function MapPage({ initialStopId }: Props) {
-  const { i18n } = useTranslation()
-  const lang = (['ko', 'en', 'ja'].includes(i18n.language) ? i18n.language : 'ko') as 'ko' | 'en' | 'ja'
-
   const [selectedStop, setSelectedStop] = useState<BusStop | null>(() => {
     if (!initialStopId) return null
     return getAllStops().find(s => s.id === initialStopId) ?? null
