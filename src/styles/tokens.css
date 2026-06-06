@@ -1,0 +1,27 @@
+/* src/styles/tokens.css */
+:root {
+  /* 폰트 — macOS 시스템 폰트 (CDN 불필요, 오프라인 동작) */
+  --font-serif: 'Hiragino Mincho ProN', 'HiraMinProN-W3', 'Yu Mincho', 'YuMincho', Georgia, serif;
+  --font-sans: 'Hiragino Kaku Gothic ProN', 'HiraKakuProN-W3', 'Yu Gothic', 'YuGothic', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'SF Mono', 'Menlo', 'Monaco', monospace;
+
+  /* 색상 팔레트 — 가고시마 브랜드 */
+  --bg:     #F4EFE9;
+  --white:  #FFFFFF;
+  --ink:    #1C1A18;
+  --mid:    #555555;
+  --muted:  #8A8278;
+  --rule:   #DDD7D0;
+  --accent: #8B4513;
+  --dark:   #1F1E1A;
+
+  /* 지도 핀 색상 */
+  --pin-default: #1E3A4F;
+  --pin-active:  #8B4513;
+  --pin-warn:    #C87A3A;
+
+  /* 레이아웃 */
+  --nav-h:  64px;
+  --side-w: 320px;
+  --radius: 4px;
+}
