@@ -73,5 +73,9 @@
     "item1": "Google Maps points to the wrong location. One traveler waited 10 minutes and missed the bus.",
     "item2": "There are no English or Korean signs at stops. Some foreign travelers didn't know to board when the bus arrived.",
     "item3": "Accurate multilingual info in one place is hard to find. This app fills that gap."
+  },
+  "offline": {
+    "message": "You're offline. Stop information is still available.",
+    "installHint": "Add to home screen for offline access."
   }
 }
