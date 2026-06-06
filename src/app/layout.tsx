@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next'
 import './globals.css'
 import I18nProvider from '@/components/I18nProvider'
+import { Analytics } from '@vercel/analytics/react'
 
 export const metadata: Metadata = {
   title: '가고시마 시티뷰 버스 가이드',
@@ -26,6 +27,7 @@ export default function RootLayout({
     <html lang="ko" suppressHydrationWarning>
       <body>
         <I18nProvider>{children}</I18nProvider>
+        <Analytics />
       </body>
     </html>
   )
