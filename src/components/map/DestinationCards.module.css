@@ -1,0 +1,36 @@
+.wrap {
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.card {
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--rule);
+  background: var(--white);
+  cursor: pointer;
+  transition: background 0.12s;
+}
+
+.card:hover {
+  background: var(--bg);
+}
+
+.cardName {
+  font-size: 13px;
+  color: var(--ink);
+  margin-bottom: 3px;
+}
+
+.cardMeta {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.empty {
+  padding: 24px 20px;
+  font-size: 13px;
+  color: var(--muted);
+  text-align: center;
+}
