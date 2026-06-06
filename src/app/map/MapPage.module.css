@@ -1,0 +1,48 @@
+.wrap {
+  display: flex;
+  flex-direction: column;
+  height: 100dvh;
+  overflow: hidden;
+}
+
+.body {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+}
+
+.mapWrap {
+  flex: 1;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.chips {
+  flex-shrink: 0;
+  background: var(--white);
+  border-bottom: 1px solid var(--rule);
+}
+
+.side {
+  display: flex;
+}
+
+.mobile {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .side {
+    display: none;
+  }
+
+  .mobile {
+    display: block;
+  }
+
+  .chips {
+    display: none;
+  }
+}
