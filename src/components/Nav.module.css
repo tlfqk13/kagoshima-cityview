@@ -67,6 +67,22 @@
   opacity: 0.85;
 }
 
+.themeBtn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  color: var(--muted);
+  padding: 4px 6px;
+  line-height: 1;
+  transition: color 0.15s;
+  border-radius: var(--radius);
+}
+
+.themeBtn:hover {
+  color: var(--ink);
+}
+
 @media (max-width: 768px) {
   .nav {
     padding: 0 20px;

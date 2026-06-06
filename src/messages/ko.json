@@ -2,7 +2,8 @@
   "nav": {
     "story": "스토리",
     "map": "지도",
-    "openMap": "지도 열기"
+    "openMap": "지도 열기",
+    "toggleTheme": "테마 전환"
   },
   "hero": {
     "eyebrow": "Kagoshima City View Bus Guide",

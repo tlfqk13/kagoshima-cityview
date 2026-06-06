@@ -2,10 +2,20 @@
 import Link from 'next/link'
 import { useTranslation } from 'react-i18next'
 import LanguageSwitcher from './LanguageSwitcher'
+import { useTheme } from './ThemeProvider'
+import type { Theme } from '@/lib/theme'
 import styles from './Nav.module.css'
 
 export default function Nav() {
   const { t } = useTranslation()
+  const { theme, setTheme } = useTheme()
+
+  function cycleTheme() {
+    const next: Record<string, Theme> = { system: 'light', light: 'dark', dark: 'system' }
+    setTheme(next[theme] as Theme)
+  }
+
+  const themeIcon = theme === 'dark' ? '☾' : theme === 'light' ? '☀' : '⊙'
 
   return (
     <nav className={styles.nav}>
@@ -17,6 +27,14 @@ export default function Nav() {
         <li><Link href="/map">{t('nav.map')}</Link></li>
       </ul>
       <div className={styles.right}>
+        <button
+          className={styles.themeBtn}
+          onClick={cycleTheme}
+          aria-label={t('nav.toggleTheme')}
+          title={theme}
+        >
+          {themeIcon}
+        </button>
         <LanguageSwitcher />
         <Link href="/map" className={styles.ctaBtn}>
           {t('nav.openMap')} →

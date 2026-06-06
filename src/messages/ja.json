@@ -2,7 +2,8 @@
   "nav": {
     "story": "ストーリー",
     "map": "地図",
-    "openMap": "地図を開く"
+    "openMap": "地図を開く",
+    "toggleTheme": "テーマ切替"
   },
   "hero": {
     "eyebrow": "鹿児島シティビューバスガイド",

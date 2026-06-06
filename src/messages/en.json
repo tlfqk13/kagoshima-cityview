@@ -2,7 +2,8 @@
   "nav": {
     "story": "Story",
     "map": "Map",
-    "openMap": "Open Map"
+    "openMap": "Open Map",
+    "toggleTheme": "Toggle theme"
   },
   "hero": {
     "eyebrow": "Kagoshima City View Bus Guide",

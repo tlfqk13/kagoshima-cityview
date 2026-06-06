@@ -25,3 +25,13 @@
   --side-w: 320px;
   --radius: 4px;
 }
+
+[data-theme="dark"] {
+  --bg: #1A1917;
+  --white: #242220;
+  --ink: #E8E4DE;
+  --mid: #A8A29A;
+  --muted: #6B6560;
+  --rule: #2E2C29;
+  --dark: #0F0E0C;
+}
