@@ -34,7 +34,14 @@
       "gpsVerified": "GPS 검증 완료",
       "googleMapsWrong": "구글맵 위치 오류 — 이 앱이 정확합니다",
       "walkTime": "도보 {{min}}분",
-      "disclaimer": "운행 시간은 공식 앱을 확인하세요"
+      "disclaimer": "운행 시간은 공식 앱을 확인하세요",
+      "openInMaps": "지도 앱으로 열기",
+      "googleMaps": "Google Maps",
+      "appleMaps": "Apple Maps",
+      "copyCoords": "좌표 복사",
+      "coordsCopied": "복사됨!",
+      "shareStop": "공유",
+      "linkCopied": "링크 복사됨!"
     },
     "noStops": "해당 카테고리의 정류장이 없습니다"
   },

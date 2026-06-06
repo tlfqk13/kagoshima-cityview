@@ -34,7 +34,14 @@
       "gpsVerified": "GPS Verified",
       "googleMapsWrong": "Google Maps location is wrong — this app is accurate",
       "walkTime": "{{min}} min walk",
-      "disclaimer": "Check official app for schedules"
+      "disclaimer": "Check official app for schedules",
+      "openInMaps": "Open in Maps",
+      "googleMaps": "Google Maps",
+      "appleMaps": "Apple Maps",
+      "copyCoords": "Copy coordinates",
+      "coordsCopied": "Copied!",
+      "shareStop": "Share this stop",
+      "linkCopied": "Link copied!"
     },
     "noStops": "No stops for this category"
   },

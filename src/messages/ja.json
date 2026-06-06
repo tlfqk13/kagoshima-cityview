@@ -34,7 +34,14 @@
       "gpsVerified": "GPS確認済み",
       "googleMapsWrong": "Googleマップの位置は誤りです — このアプリが正確です",
       "walkTime": "徒歩{{min}}分",
-      "disclaimer": "運行時刻は公式アプリでご確認ください"
+      "disclaimer": "運行時刻は公式アプリでご確認ください",
+      "openInMaps": "地図アプリで開く",
+      "googleMaps": "Google マップ",
+      "appleMaps": "Apple マップ",
+      "copyCoords": "座標をコピー",
+      "coordsCopied": "コピーしました!",
+      "shareStop": "共有",
+      "linkCopied": "リンクをコピーしました!"
     },
     "noStops": "該当カテゴリの停留所はありません"
   },
