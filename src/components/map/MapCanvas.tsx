@@ -75,13 +75,13 @@ export default function MapCanvas({ selectedStopId, onStopSelect }: MapCanvasPro
         type: 'circle',
         source: 'stops',
         paint: {
-          'circle-radius': ['case', ['get', 'googleMapsError'], 10, 8] as unknown as mapboxgl.Expression,
+          'circle-radius': ['case', ['get', 'googleMapsError'], 10, 8] as unknown as number,
           'circle-color': [
             'case',
             ['==', ['get', 'id'], selectedStopId ?? ''], '#8B4513',
             ['get', 'googleMapsError'], '#C87A3A',
             '#1E3A4F',
-          ] as unknown as mapboxgl.Expression,
+          ] as unknown as string,
           'circle-stroke-width': 2,
           'circle-stroke-color': '#ffffff',
           'circle-opacity': 0.9,
@@ -94,7 +94,7 @@ export default function MapCanvas({ selectedStopId, onStopSelect }: MapCanvasPro
         type: 'symbol',
         source: 'stops',
         layout: {
-          'text-field': ['to-string', ['get', 'number']] as unknown as mapboxgl.Expression,
+          'text-field': ['to-string', ['get', 'number']] as unknown as string,
           'text-size': 10,
           'text-font': ['DIN Pro Bold', 'Arial Unicode MS Bold'],
         },
