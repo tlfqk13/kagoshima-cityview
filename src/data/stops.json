@@ -1,0 +1,214 @@
+{
+  "metadata": {
+    "sourceVersion": "2026-05",
+    "lastValidatedAt": "2026-05-31",
+    "lastUpdatedAt": "2026-06-06",
+    "disclaimer": {
+      "ko": "이 서비스는 GPS 정류장 위치 정보를 제공합니다. 실제 운행 시간 및 노선은 가고시마시 공식 앱 또는 정류장 안내판을 반드시 확인하세요.",
+      "en": "This service provides GPS stop location data. Always verify actual bus schedules via the official Kagoshima City app or stop signs.",
+      "ja": "本サービスはGPS停留所位置情報を提供します。実際の運行時刻・路線は鹿児島市公式アプリまたは停留所の案内板でご確認ください。"
+    }
+  },
+  "stops": [
+    {
+      "id": "stop_01",
+      "number": 1,
+      "lat": 31.5839,
+      "lng": 130.5403,
+      "name": { "ko": "가고시마 중앙역", "en": "Kagoshima-Chuo Station", "ja": "鹿児島中央駅" },
+      "googleMapsError": false,
+      "googleMapsErrorNote": "",
+      "destinations": []
+    },
+    {
+      "id": "stop_02",
+      "number": 2,
+      "lat": 31.5855,
+      "lng": 130.5481,
+      "name": { "ko": "시청 앞", "en": "City Hall Mae", "ja": "市役所前" },
+      "googleMapsError": false,
+      "googleMapsErrorNote": "",
+      "destinations": []
+    },
+    {
+      "id": "stop_03",
+      "number": 3,
+      "lat": 31.5892,
+      "lng": 130.5545,
+      "name": { "ko": "텐몬칸", "en": "Tenmonkan", "ja": "天文館" },
+      "googleMapsError": true,
+      "googleMapsErrorNote": "구글맵이 실제 위치보다 약 200m 남쪽을 가리킴. 2026-05-31 현장 확인.",
+      "destinations": []
+    },
+    {
+      "id": "stop_04",
+      "number": 4,
+      "lat": 31.5921,
+      "lng": 130.5512,
+      "name": { "ko": "사이고 동상 앞", "en": "Saigo Statue Mae", "ja": "西郷銅像前" },
+      "googleMapsError": false,
+      "googleMapsErrorNote": "",
+      "destinations": []
+    },
+    {
+      "id": "stop_05",
+      "number": 5,
+      "lat": 31.5943,
+      "lng": 130.5499,
+      "name": { "ko": "야마가타야 앞", "en": "Yamagataya Mae", "ja": "山形屋前" },
+      "googleMapsError": false,
+      "googleMapsErrorNote": "",
+      "destinations": []
+    },
+    {
+      "id": "stop_06",
+      "number": 6,
+      "lat": 31.5963,
+      "lng": 130.5511,
+      "name": { "ko": "현청 앞", "en": "Prefectural Office Mae", "ja": "県庁前" },
+      "googleMapsError": false,
+      "googleMapsErrorNote": "",
+      "destinations": []
+    },
+    {
+      "id": "stop_07",
+      "number": 7,
+      "lat": 31.5985,
+      "lng": 130.5525,
+      "name": { "ko": "시로야마", "en": "Shiroyama", "ja": "城山" },
+      "googleMapsError": false,
+      "googleMapsErrorNote": "",
+      "destinations": []
+    },
+    {
+      "id": "stop_08",
+      "number": 8,
+      "lat": 31.6012,
+      "lng": 130.5563,
+      "name": { "ko": "니시다 2초메", "en": "Nishida 2-chome", "ja": "西田2丁目" },
+      "googleMapsError": false,
+      "googleMapsErrorNote": "",
+      "destinations": []
+    },
+    {
+      "id": "stop_09",
+      "number": 9,
+      "lat": 31.6054,
+      "lng": 130.5612,
+      "name": { "ko": "사쿠라시마 관측센터 앞", "en": "Sakurajima Observatory Mae", "ja": "桜島ビジターセンター前" },
+      "googleMapsError": false,
+      "googleMapsErrorNote": "",
+      "destinations": []
+    },
+    {
+      "id": "stop_10",
+      "number": 10,
+      "lat": 31.6089,
+      "lng": 130.5721,
+      "name": { "ko": "가고시마현 역사자료센터 앞", "en": "History Center Mae", "ja": "歴史資料センター前" },
+      "googleMapsError": false,
+      "googleMapsErrorNote": "",
+      "destinations": []
+    },
+    {
+      "id": "stop_11",
+      "number": 11,
+      "lat": 31.6112,
+      "lng": 130.5856,
+      "name": { "ko": "이소 해수욕장 앞", "en": "Iso Beach Mae", "ja": "磯海水浴場前" },
+      "googleMapsError": false,
+      "googleMapsErrorNote": "",
+      "destinations": []
+    },
+    {
+      "id": "stop_12",
+      "number": 12,
+      "lat": 31.6135,
+      "lng": 130.5999,
+      "name": { "ko": "센간엔 앞", "en": "Sengan-en Mae", "ja": "仙巌園（磯庭園）前" },
+      "googleMapsError": false,
+      "googleMapsErrorNote": "",
+      "destinations": []
+    },
+    {
+      "id": "stop_13",
+      "number": 13,
+      "lat": 31.6098,
+      "lng": 130.5887,
+      "name": { "ko": "나가야마 앞", "en": "Nagayama Mae", "ja": "長山前" },
+      "googleMapsError": false,
+      "googleMapsErrorNote": "",
+      "destinations": []
+    },
+    {
+      "id": "stop_14",
+      "number": 14,
+      "lat": 31.5973,
+      "lng": 130.5657,
+      "name": { "ko": "이시바시 기념공원 앞", "en": "Ishibashi Park Mae", "ja": "石橋記念公園前" },
+      "googleMapsError": false,
+      "googleMapsErrorNote": "",
+      "destinations": []
+    },
+    {
+      "id": "stop_15",
+      "number": 15,
+      "lat": 31.5961,
+      "lng": 130.5638,
+      "name": { "ko": "터미널 앞", "en": "Terminal Mae", "ja": "ターミナル前" },
+      "googleMapsError": false,
+      "googleMapsErrorNote": "",
+      "destinations": []
+    },
+    {
+      "id": "stop_16",
+      "number": 16,
+      "lat": 31.5951,
+      "lng": 130.5621,
+      "name": { "ko": "수족관 앞", "en": "Aquarium Mae", "ja": "水族館前" },
+      "googleMapsError": false,
+      "googleMapsErrorNote": "",
+      "destinations": []
+    },
+    {
+      "id": "stop_17",
+      "number": 17,
+      "lat": 31.5934,
+      "lng": 130.5603,
+      "name": { "ko": "돌핀포트 앞", "en": "Dolphin Port Mae", "ja": "ドルフィンポート前" },
+      "googleMapsError": false,
+      "googleMapsErrorNote": "",
+      "destinations": []
+    },
+    {
+      "id": "stop_18",
+      "number": 18,
+      "lat": 31.5919,
+      "lng": 130.5591,
+      "name": { "ko": "가고시마 중앙부두 앞", "en": "Central Pier Mae", "ja": "中央港前" },
+      "googleMapsError": false,
+      "googleMapsErrorNote": "",
+      "destinations": []
+    },
+    {
+      "id": "stop_19",
+      "number": 19,
+      "lat": 31.5908,
+      "lng": 130.5586,
+      "name": { "ko": "가고시마 해변 공원 앞", "en": "Seaside Park Mae", "ja": "海浜公園前" },
+      "googleMapsError": false,
+      "googleMapsErrorNote": "",
+      "destinations": []
+    },
+    {
+      "id": "stop_20",
+      "number": 20,
+      "lat": 31.5897,
+      "lng": 130.5581,
+      "name": { "ko": "가고시마역", "en": "Kagoshima Station", "ja": "鹿児島駅" },
+      "googleMapsError": false,
+      "googleMapsErrorNote": "",
+      "destinations": []
+    }
+  ]
+}

@@ -1,0 +1,72 @@
+[
+  {
+    "id": "sengan-en",
+    "stopId": "stop_12",
+    "name": { "ko": "센간엔 (이소 정원)", "en": "Sengan-en Garden", "ja": "仙巌園（磯庭園）" },
+    "walkMinutes": 2,
+    "category": "sightseeing"
+  },
+  {
+    "id": "shiroyama-obs",
+    "stopId": "stop_07",
+    "name": { "ko": "시로야마 전망대", "en": "Shiroyama Observatory", "ja": "城山展望台" },
+    "walkMinutes": 5,
+    "category": "sightseeing"
+  },
+  {
+    "id": "saigo-statue",
+    "stopId": "stop_04",
+    "name": { "ko": "사이고 다카모리 동상", "en": "Saigo Takamori Statue", "ja": "西郷隆盛銅像" },
+    "walkMinutes": 1,
+    "category": "sightseeing"
+  },
+  {
+    "id": "kagoshima-aquarium",
+    "stopId": "stop_16",
+    "name": { "ko": "가고시마 수족관 (이오월드)", "en": "Ioworld Kagoshima Aquarium", "ja": "いおワールドかごしま水族館" },
+    "walkMinutes": 2,
+    "category": "nature"
+  },
+  {
+    "id": "iso-beach",
+    "stopId": "stop_11",
+    "name": { "ko": "이소 해수욕장", "en": "Iso Beach", "ja": "磯海水浴場" },
+    "walkMinutes": 1,
+    "category": "nature"
+  },
+  {
+    "id": "ishibashi-park",
+    "stopId": "stop_14",
+    "name": { "ko": "이시바시 기념공원", "en": "Ishibashi Memorial Park", "ja": "石橋記念公園" },
+    "walkMinutes": 1,
+    "category": "nature"
+  },
+  {
+    "id": "tenmonkan-arcade",
+    "stopId": "stop_03",
+    "name": { "ko": "텐몬칸 쇼핑 아케이드", "en": "Tenmonkan Shopping Arcade", "ja": "天文館アーケード" },
+    "walkMinutes": 3,
+    "category": "shopping"
+  },
+  {
+    "id": "yamagataya",
+    "stopId": "stop_05",
+    "name": { "ko": "야마가타야 백화점", "en": "Yamagataya Department Store", "ja": "山形屋百貨店" },
+    "walkMinutes": 1,
+    "category": "shopping"
+  },
+  {
+    "id": "kumasotei",
+    "stopId": "stop_03",
+    "name": { "ko": "쿠마소테이 (향토요리)", "en": "Kumasotei (Local Cuisine)", "ja": "熊襲亭（郷土料理）" },
+    "walkMinutes": 5,
+    "category": "food"
+  },
+  {
+    "id": "sakurajima-ferry",
+    "stopId": "stop_18",
+    "name": { "ko": "사쿠라지마 페리 터미널", "en": "Sakurajima Ferry Terminal", "ja": "桜島フェリーターミナル" },
+    "walkMinutes": 3,
+    "category": "sightseeing"
+  }
+]
