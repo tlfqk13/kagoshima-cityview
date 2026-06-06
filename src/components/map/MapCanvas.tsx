@@ -34,6 +34,31 @@ const STYLE_ICONS: Record<MapStyle, string> = {
 
 const STYLE_ORDER: MapStyle[] = ['streets', 'satellite', 'dark']
 
+function interpolateRoute(coords: [number, number][], t: number): [number, number] {
+  if (t <= 0) return coords[0]
+  if (t >= 1) return coords[coords.length - 1]
+
+  const lengths: number[] = [0]
+  for (let i = 1; i < coords.length; i++) {
+    const dx = coords[i][0] - coords[i - 1][0]
+    const dy = coords[i][1] - coords[i - 1][1]
+    lengths.push(lengths[i - 1] + Math.sqrt(dx * dx + dy * dy))
+  }
+  const totalLength = lengths[lengths.length - 1]
+  const targetLength = t * totalLength
+
+  for (let i = 1; i < coords.length; i++) {
+    if (lengths[i] >= targetLength) {
+      const segFraction = (targetLength - lengths[i - 1]) / (lengths[i] - lengths[i - 1])
+      return [
+        coords[i - 1][0] + segFraction * (coords[i][0] - coords[i - 1][0]),
+        coords[i - 1][1] + segFraction * (coords[i][1] - coords[i - 1][1]),
+      ]
+    }
+  }
+  return coords[coords.length - 1]
+}
+
 function addMapLayers(map: mapboxgl.Map, selectedId: string | null) {
   const stops = getAllStops()
   const geojson = getStopsGeoJSON(stops)
@@ -120,6 +145,11 @@ export default function MapCanvas({ selectedStopId, onStopSelect, onUserLocation
 
   const [mapStyle, setMapStyle] = useState<MapStyle>('streets')
   const mapStyleRef = useRef<MapStyle>('streets')
+
+  const [animating, setAnimating] = useState(false)
+  const busMarkerRef = useRef<mapboxgl.Marker | null>(null)
+  const animFrameRef = useRef<number | null>(null)
+  const animStartRef = useRef<number>(0)
 
   // Keep refs in sync
   useEffect(() => {
@@ -210,6 +240,8 @@ export default function MapCanvas({ selectedStopId, onStopSelect, onUserLocation
     return () => {
       hoverPopupRef.current?.remove()
       wrongPinRef.current?.remove()
+      busMarkerRef.current?.remove()
+      if (animFrameRef.current !== null) cancelAnimationFrame(animFrameRef.current)
       map.remove()
       mapRef.current = null
     }
@@ -221,6 +253,60 @@ export default function MapCanvas({ selectedStopId, onStopSelect, onUserLocation
     if (!map) return
     map.setStyle(MAP_STYLES[mapStyle])
   }, [mapStyle])
+
+  // Bus animation along route
+  const ANIMATION_DURATION = 60000 // 60 seconds for full route
+  useEffect(() => {
+    const map = mapRef.current
+    if (!map) return
+
+    if (!animating) {
+      if (animFrameRef.current !== null) {
+        cancelAnimationFrame(animFrameRef.current)
+        animFrameRef.current = null
+      }
+      busMarkerRef.current?.remove()
+      busMarkerRef.current = null
+      return
+    }
+
+    const el = document.createElement('div')
+    el.style.cssText = `
+      font-size: 22px;
+      line-height: 1;
+      cursor: default;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4));
+      transform-origin: center;
+    `
+    el.textContent = '🚌'
+    el.title = '鹿児島シティビューバス'
+
+    busMarkerRef.current?.remove()
+    busMarkerRef.current = new mapboxgl.Marker({ element: el, anchor: 'center' })
+      .setLngLat(ROUTE_COORDINATES[0] as [number, number])
+      .addTo(map)
+
+    animStartRef.current = performance.now()
+
+    function animate(now: number) {
+      const elapsed = (now - animStartRef.current) % ANIMATION_DURATION
+      const t = elapsed / ANIMATION_DURATION
+      const pos = interpolateRoute(ROUTE_COORDINATES as [number, number][], t)
+      busMarkerRef.current?.setLngLat(pos)
+      animFrameRef.current = requestAnimationFrame(animate)
+    }
+
+    animFrameRef.current = requestAnimationFrame(animate)
+
+    return () => {
+      if (animFrameRef.current !== null) {
+        cancelAnimationFrame(animFrameRef.current)
+        animFrameRef.current = null
+      }
+      busMarkerRef.current?.remove()
+      busMarkerRef.current = null
+    }
+  }, [animating])
 
   // 선택된 정류장 변경 시 지도 이동 + 핀 색상 업데이트 + 도보 경로 표시
   useEffect(() => {
@@ -351,6 +437,15 @@ export default function MapCanvas({ selectedStopId, onStopSelect, onUserLocation
   return (
     <div className={styles.wrap}>
       <div ref={containerRef} className={styles.canvas} />
+      <div className={styles.animToggle}>
+        <button
+          className={`${styles.animBtn} ${animating ? styles.animBtnActive : ''}`}
+          onClick={() => setAnimating(a => !a)}
+          title={animating ? '정지' : '버스 애니메이션'}
+        >
+          {animating ? '⏸' : '▶'}
+        </button>
+      </div>
       <div className={styles.styleToggle}>
         {STYLE_ORDER.map(s => (
           <button
