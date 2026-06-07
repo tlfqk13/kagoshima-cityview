@@ -21,7 +21,7 @@
     "sourceVersion": "2026-06",
     "lastUpdatedAt": "2026-06-07",
     "lastValidatedAt": "2026-06-07",
-    "coordinateSource": "cityview.json (derived) + 市役所前 approximate",
+    "coordinateSource": "kotsu-city-kagoshima.jp strEnd.php API (rosenId=1660) — extracted 2026-06-07",
     "scheduleSource": "https://www.kotsu-city-kagoshima.jp/sakurajima-tabi/",
     "scheduleNote": {
       "ko": "매주 토요일 운행 (8·12·1월은 금·토 양일). 정확한 출발 시각은 공식 사이트 확인.",
@@ -38,8 +38,8 @@
     {
       "id": "cn_stop_01",
       "number": 1,
-      "lat": 31.58508327,
-      "lng": 130.5436063,
+      "lat": 31.585083270,
+      "lng": 130.543606300,
       "name": { "ko": "가고시마 중앙역", "en": "Kagoshima-Chuo Station", "ja": "鹿児島中央駅" },
       "connections": [],
       "destinations": [],
@@ -48,9 +48,9 @@
     {
       "id": "cn_stop_02",
       "number": 2,
-      "lat": 31.59034199,
-      "lng": 130.5541581,
-      "name": { "ko": "텐몬칸", "en": "Tenmonkan", "ja": "天文館" },
+      "lat": 31.590341990,
+      "lng": 130.554158100,
+      "name": { "ko": "텐몬칸 (성산 방면)", "en": "Tenmonkan (toward Shiroyama)", "ja": "天文館（城山方面向け）" },
       "connections": [],
       "destinations": [],
       "schedule": { "departures": [], "operatingNote": { "ko": "공식 사이트에서 시각 확인", "en": "Check official site for times", "ja": "公式サイトで時刻確認" } }
@@ -58,9 +58,9 @@
     {
       "id": "cn_stop_03",
       "number": 3,
-      "lat": 31.59482962,
-      "lng": 130.5627573,
-      "name": { "ko": "워터프론트파크 앞", "en": "Waterfront Park Mae", "ja": "ウォーターフロントパーク前" },
+      "lat": 31.592684320,
+      "lng": 130.562947700,
+      "name": { "ko": "워터프론트파크", "en": "Waterfront Park", "ja": "ウォーターフロントパーク" },
       "connections": [],
       "destinations": [],
       "schedule": { "departures": [], "operatingNote": { "ko": "공식 사이트에서 시각 확인", "en": "Check official site for times", "ja": "公式サイトで時刻確認" } }
@@ -68,9 +68,8 @@
     {
       "id": "cn_stop_04",
       "number": 4,
-      "lat": 31.58870,
-      "lng": 130.55010,
-      "coordinatesApproximate": true,
+      "lat": 31.596095680,
+      "lng": 130.558143900,
       "name": { "ko": "시청 앞", "en": "City Hall Mae", "ja": "市役所前" },
       "connections": [],
       "destinations": [],
@@ -79,8 +78,8 @@
     {
       "id": "cn_stop_05",
       "number": 5,
-      "lat": 31.59658192,
-      "lng": 130.5491745,
+      "lat": 31.596581920,
+      "lng": 130.549174500,
       "name": { "ko": "시로야마 (15분 정차)", "en": "Shiroyama (15 min stop)", "ja": "城山（15分停車）" },
       "connections": [],
       "destinations": [],
@@ -89,9 +88,9 @@
     {
       "id": "cn_stop_06",
       "number": 6,
-      "lat": 31.59472224,
-      "lng": 130.5542251,
-      "name": { "ko": "사이고 동상 앞", "en": "Saigo Statue Mae", "ja": "西郷銅像前" },
+      "lat": 31.594841050,
+      "lng": 130.554276100,
+      "name": { "ko": "사이고 동상 앞 (호잔홀 측)", "en": "Saigo Statue Mae (Hozan Hall side)", "ja": "西郷銅像前（宝山ホール側）" },
       "connections": [],
       "destinations": [],
       "schedule": { "departures": [], "operatingNote": { "ko": "공식 사이트에서 시각 확인", "en": "Check official site for times", "ja": "公式サイトで時刻確認" } }
@@ -99,12 +98,12 @@
     {
       "id": "cn_stop_07",
       "number": 7,
-      "lat": 31.59021226,
-      "lng": 130.5543941,
+      "lat": 31.590136370,
+      "lng": 130.554313700,
       "name": { "ko": "텐몬칸 (중앙역 방면)", "en": "Tenmonkan (toward Kagoshima-Chuo)", "ja": "天文館（鹿児島中央駅向け）" },
       "connections": [],
       "destinations": [],
-      "schedule": { "departures": [], "operatingNote": { "ko": "공식 사이트에서 시각 확인", "en": "Check official site for times", "ja": "公式サイトで時刻確認" } }
+      "schedule": { "departures": [], "operatingNote": { "ko": "공식 사이트에서 시각 확인", "en": "Check official site for times", "ja": "공式サイトで時刻確認" } }
     }
   ]
 }
