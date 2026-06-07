@@ -11,8 +11,8 @@
     "dayPass": { "adult": 500, "child": 250 },
     "operatingDays": "daily",
     "loopDurationMin": 55,
-    "center": [130.6100, 31.6600],
-    "zoom": 12,
+    "center": [130.6050, 31.5860],
+    "zoom": 13,
     "frequencyMin": 30,
     "totalRuns": 15,
     "firstDeparture": "09:30",
@@ -25,19 +25,18 @@
     "sourceVersion": "2026-06",
     "lastUpdatedAt": "2026-06-07",
     "lastValidatedAt": "2026-06-07",
-    "coordinateSource": "approximate — needs extraction from kotsu-city-kagoshima.jp (Island View rosenId). See docs/data-update-guide.md.",
+    "coordinateSource": "OpenStreetMap Nominatim/Overpass (stops 1,3-6,8,11 confirmed; stops 2,7,9,10,12 approximate). strEnd.php API not available for this route.",
     "scheduleSource": "https://www.kotsu-city-kagoshima.jp/wp/wp-content/uploads/2024/08/78f5e11c28ce68319147a117a1a5cf00.pdf",
     "disclaimer": {
-      "ko": "사쿠라지마 아일랜드뷰. A/B 2코스 교대 운행, 30분 간격. 좌표는 근사치입니다.",
-      "en": "Sakurajima Island View. Courses A and B alternate every 30 min. Coordinates are approximate.",
-      "ja": "サクラジマアイランドビュー。A・Bコース交互運行、30分間隔。座標は概算値です。"
+      "ko": "사쿠라지마 아일랜드뷰. A/B 2코스 교대 운행, 30분 간격. 일부 좌표는 근사치입니다.",
+      "en": "Sakurajima Island View. Courses A and B alternate every 30 min. Some coordinates are approximate.",
+      "ja": "サクラジマアイランドビュー。A・Bコース交互運行、30分間隔。一部座標は概算値です。"
     }
   },
   "stops": [
     {
       "id": "iv_stop_01", "number": 1,
-      "lat": 31.6603, "lng": 130.6035,
-      "coordinatesApproximate": true,
+      "lat": 31.594100, "lng": 130.598200,
       "courses": ["A", "B"],
       "name": { "ko": "사쿠라지마항", "en": "Sakurajima Port", "ja": "桜島港" },
       "connections": [{
@@ -53,7 +52,7 @@
     },
     {
       "id": "iv_stop_02", "number": 2,
-      "lat": 31.6627, "lng": 130.5967,
+      "lat": 31.593500, "lng": 130.597300,
       "coordinatesApproximate": true,
       "courses": ["A", "B"],
       "name": { "ko": "히노시마 메구미칸", "en": "Hinoshima Megumikan", "ja": "火の島めぐみ館" },
@@ -62,8 +61,7 @@
     },
     {
       "id": "iv_stop_03", "number": 3,
-      "lat": 31.6673, "lng": 130.5895,
-      "coordinatesApproximate": true,
+      "lat": 31.591168, "lng": 130.595872,
       "courses": ["A", "B"],
       "name": { "ko": "레인보우 사쿠라지마", "en": "Rainbow Sakurajima", "ja": "レインボー桜島" },
       "connections": [], "destinations": [],
@@ -71,8 +69,7 @@
     },
     {
       "id": "iv_stop_04", "number": 4,
-      "lat": 31.6714, "lng": 130.5839,
-      "coordinatesApproximate": true,
+      "lat": 31.590824, "lng": 130.594186,
       "courses": ["A", "B"],
       "name": { "ko": "비지터센터", "en": "Sakurajima Visitor Center", "ja": "ビジターセンター" },
       "connections": [], "destinations": [],
@@ -80,8 +77,7 @@
     },
     {
       "id": "iv_stop_05", "number": 5,
-      "lat": 31.6771, "lng": 130.5778,
-      "coordinatesApproximate": true,
+      "lat": 31.581775, "lng": 130.601150,
       "courses": ["A", "B"],
       "name": { "ko": "카라스지마 전망소", "en": "Karasujima Observatory", "ja": "烏島展望所" },
       "connections": [], "destinations": [],
@@ -89,8 +85,7 @@
     },
     {
       "id": "iv_stop_06", "number": 6,
-      "lat": 31.6687, "lng": 130.5716,
-      "coordinatesApproximate": true,
+      "lat": 31.576852, "lng": 130.603097,
       "courses": ["A", "B"],
       "name": { "ko": "아카미즈 전망광장", "en": "Akamizu Observatory Square", "ja": "赤水展望広場" },
       "connections": [], "destinations": [],
@@ -98,7 +93,7 @@
     },
     {
       "id": "iv_stop_07", "number": 7,
-      "lat": 31.6618, "lng": 130.5693,
+      "lat": 31.572600, "lng": 130.610000,
       "coordinatesApproximate": true,
       "courses": ["B"],
       "name": { "ko": "아카미즈 후모토 (B코스)", "en": "Akamizu Fumoto (Course B)", "ja": "赤水麓（Bコース）" },
@@ -107,8 +102,7 @@
     },
     {
       "id": "iv_stop_08", "number": 8,
-      "lat": 31.6553, "lng": 130.5673,
-      "coordinatesApproximate": true,
+      "lat": 31.566601, "lng": 130.617464,
       "courses": ["B"],
       "name": { "ko": "국제화산사방센터", "en": "Int'l Volcanic Sabo Center", "ja": "国際火山砂防センター" },
       "connections": [], "destinations": [],
@@ -116,7 +110,7 @@
     },
     {
       "id": "iv_stop_09", "number": 9,
-      "lat": 31.6618, "lng": 130.5693,
+      "lat": 31.572600, "lng": 130.610000,
       "coordinatesApproximate": true,
       "courses": ["B"],
       "name": { "ko": "아카미즈 후모토 (B코스, 귀환)", "en": "Akamizu Fumoto (Course B, return)", "ja": "赤水麓（Bコース帰路）" },
@@ -125,7 +119,7 @@
     },
     {
       "id": "iv_stop_10", "number": 10,
-      "lat": 31.6638, "lng": 130.5750,
+      "lat": 31.575600, "lng": 130.615000,
       "coordinatesApproximate": true,
       "courses": ["A", "B"],
       "name": { "ko": "아카미즈 유노히라구치", "en": "Akamizu Yunohira Guchi", "ja": "赤水湯之平口" },
@@ -134,8 +128,7 @@
     },
     {
       "id": "iv_stop_11", "number": 11,
-      "lat": 31.6486, "lng": 130.6410,
-      "coordinatesApproximate": true,
+      "lat": 31.591489, "lng": 130.629977,
       "courses": ["A", "B"],
       "name": { "ko": "유노히라 전망소", "en": "Yunohira Observatory", "ja": "湯之平展望所" },
       "connections": [], "destinations": [],
@@ -143,7 +136,7 @@
     },
     {
       "id": "iv_stop_12", "number": 12,
-      "lat": 31.6543, "lng": 130.6218,
+      "lat": 31.617000, "lng": 130.621000,
       "coordinatesApproximate": true,
       "courses": ["A", "B"],
       "name": { "ko": "오우 초등학교 앞", "en": "Ohu Elementary School Mae", "ja": "桜洲小学校前" },
