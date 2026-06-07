@@ -62,12 +62,23 @@ console.table(stops.map(s => ({
 
 **현황:** `cn_stop_04` (市役所前) 외 6개 정류장이 시티뷰 인접 정류장 좌표를 사용 중 (`coordinatesApproximate: true`).
 
-**공식 소스:** 야경 코스 노선도 페이지 (rosenId 확인 필요)
-- 시티뷰 페이지와 동일 방법으로 `bus_json` 추출 시도
+**공식 소스:** rosenId=**1660** (확인 완료 2026-06-07)
+
+```
+https://www.kotsu-city-kagoshima.jp/wp/timesearch/line_rosen_map.php?rosenId=1660
+```
+
+**추출 방법 (브라우저 콘솔):**
 
 ```js
-// rosenId가 다를 수 있음 — 교통국 홈페이지에서 야경 코스 페이지 확인
-// https://www.kotsu-city-kagoshima.jp 에서 "夜景" 검색
+const stops = JSON.parse(bus_json)['1660']
+console.table(stops.map(s => ({
+  num: s.num,
+  id: s.id,
+  name: s.bus,
+  lat: s.ido,
+  lng: s.keido
+})))
 ```
 
 업데이트 시:
@@ -80,17 +91,21 @@ console.table(stops.map(s => ({
 
 ## 3. 아일랜드뷰 — 좌표 업데이트
 
-**현황:** 전 정류장 `coordinatesApproximate: true`.
+**현황:** 전 정류장 `coordinatesApproximate: true`. 시간표·요금·메타데이터는 공식 PDF와 일치 확인 완료.
 
-**공식 소스:**
-```
-https://www.kotsu-city-kagoshima.jp/wp/timesearch/line_rosen_map.php?rosenId=<ISLAND_VIEW_ID>
-```
+**rosenId 현황 (2026-06-07 조사):** 교통국 표준 버스 노선 목록(syubetuId=0)에 아일랜드뷰가 없음.
+사쿠라지마 섬 내 순환 운행이라 별도 시스템일 가능성 있음.
 
-rosenId 확인 방법:
-1. `https://www.kotsu-city-kagoshima.jp` 에서 "アイランドビュー" 검색
-2. 노선 지도 페이지 URL에서 `rosenId=XXXX` 확인
-3. 콘솔에서 `Object.keys(JSON.parse(bus_json))` 로 사용 가능한 rosenId 목록 확인
+rosenId 확인 방법 (브라우저에서 직접):
+1. `https://www.kotsu-city-kagoshima.jp/wp/timesearch/line_rosen_map.php?rosenId=1680` 열기
+2. DevTools Console에서 `Object.keys(JSON.parse(bus_json))` 실행
+3. 반환된 ID 목록에서 1660·1680 외 미지의 ID 중 아일랜드뷰 해당 ID 찾기
+
+```js
+// rosenId 전체 목록 확인
+Object.keys(JSON.parse(bus_json))
+// 예시 결과: ["1660", "1680", "XXXX", ...]  ← XXXX가 아일랜드뷰 rosenId
+```
 
 업데이트 시 `src/data/routes/islandview.json`:
 - 각 정류장 `lat`, `lng` 수정
