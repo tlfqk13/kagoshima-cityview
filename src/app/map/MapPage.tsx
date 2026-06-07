@@ -91,6 +91,7 @@ export default function MapPage({ initialStopId, initialRouteId = 'cityview' }: 
             <CategoryChips active={activeCategory} onChange={handleCategoryChange} />
           </div>
           <MapCanvas
+            routeId={activeRoute}
             selectedStopId={selectedStop?.id ?? null}
             onStopSelect={setSelectedStop}
             onUserLocation={setUserLocation}
