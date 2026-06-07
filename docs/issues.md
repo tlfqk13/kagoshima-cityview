@@ -47,16 +47,18 @@ export const ROUTE_COORDINATES: [number, number][] = (stopsData as StopsData).st
 
 ### 재발 방지 규칙
 
-> **규칙 ISS-001:** 정류장 좌표는 `src/data/stops.json`이 유일한 진실의 원천.
-> `stops.ts`나 다른 파일에 좌표를 중복 선언하지 않는다.
-> 지도 렌더링에 필요한 좌표 배열은 반드시 `getAllStops()` 또는 `stopsData`에서 파생한다.
+> **규칙 ISS-001:** 정류장 좌표는 `src/data/routes/*.json`이 유일한 진실의 원천.
+> TypeScript 파일(`lib/routes.ts`, `lib/stops.ts`, 컴포넌트 등)에 좌표를 직접 선언하지 않는다.
+> 지도 렌더링에 필요한 좌표 배열은 반드시 `getStopsForRoute(routeId)` 또는 `getRouteCoordinates(routeId)`로 파생한다.
+>
+> *(2026-06-07: `stops.json` → `routes/cityview.json`으로 마이그레이션 완료. 야경·아일랜드뷰 노선 추가)*
 
-### 체크리스트 (앞으로 stops.json 업데이트 시)
+### 체크리스트 (앞으로 노선 데이터 업데이트 시)
 
-- [ ] `npm run dev` → 지도 마커 위치 확인
-- [ ] `npm run dev` → 노선 폴리라인 경로 확인 (갈색 점선이 실제 도로를 따르는지)
+- [ ] `npm run dev` → 해당 노선 탭 선택 후 지도 마커 위치 확인
+- [ ] `npm run dev` → 노선 폴리라인 경로 확인 (노선 색상 점선이 실제 도로를 따르는지)
 - [ ] `npm run dev` → 버스 애니메이션 경로 확인 (🚌 이 정류장을 순서대로 통과하는지)
-- [ ] `src/lib/stops.ts`에 좌표 하드코딩이 새로 추가되지 않았는지 확인
+- [ ] `src/lib/routes.ts` 또는 컴포넌트에 좌표 하드코딩이 새로 추가되지 않았는지 확인
 
 ---
 
