@@ -87,5 +87,12 @@
   "offline": {
     "message": "オフラインです。停留所情報はご確認いただけます。",
     "installHint": "ホーム画面に追加するとオフラインでも使用できます。"
+  },
+  "routes": {
+    "cityview": { "name": "シティビュー" },
+    "cityview-night": { "name": "夜景コース" },
+    "islandview": { "name": "アイランドビュー" },
+    "saturdayOnly": "土曜のみ",
+    "coordsApproximate": "座標は概算"
   }
 }

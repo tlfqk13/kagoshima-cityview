@@ -87,5 +87,12 @@
   "offline": {
     "message": "You're offline. Stop information is still available.",
     "installHint": "Add to home screen for offline access."
+  },
+  "routes": {
+    "cityview": { "name": "City View" },
+    "cityview-night": { "name": "Night View" },
+    "islandview": { "name": "Island View" },
+    "saturdayOnly": "Sat only",
+    "coordsApproximate": "Approx. coords"
   }
 }
