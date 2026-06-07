@@ -42,7 +42,9 @@
       "copyCoords": "좌표 복사",
       "coordsCopied": "복사됨!",
       "shareStop": "공유",
-      "linkCopied": "링크 복사됨!"
+      "linkCopied": "링크 복사됨!",
+      "coordsApproximate": "좌표 근사치 (미검증)",
+      "bCourseOnly": "B코스 전용"
     },
     "schedule": "운행 시간",
     "firstBus": "첫차",

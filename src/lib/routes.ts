@@ -129,6 +129,7 @@ export function getStopsGeoJSON(stops: RouteStop[]) {
         googleMapsError: stop.googleMapsError ?? false,
         coordinatesApproximate: stop.coordinatesApproximate ?? false,
         hasConnection: (stop.connections ?? []).length > 0,
+        isBCourseOnly: (stop.courses?.length === 1 && stop.courses[0] === 'B') ?? false,
       },
     })),
   }

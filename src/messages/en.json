@@ -42,7 +42,9 @@
       "copyCoords": "Copy coordinates",
       "coordsCopied": "Copied!",
       "shareStop": "Share this stop",
-      "linkCopied": "Link copied!"
+      "linkCopied": "Link copied!",
+      "coordsApproximate": "Approx. location (unverified)",
+      "bCourseOnly": "Course B only"
     },
     "schedule": "Schedule",
     "firstBus": "First bus",

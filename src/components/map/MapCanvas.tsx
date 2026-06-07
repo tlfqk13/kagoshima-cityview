@@ -120,8 +120,16 @@ function addMapLayers(map: mapboxgl.Map, selectedId: string | null, routeId: Rou
           '#1E3A4F',
         ] as unknown as string,
         'circle-stroke-width': 2,
-        'circle-stroke-color': '#ffffff',
-        'circle-opacity': 0.9,
+        'circle-stroke-color': [
+          'case',
+          ['get', 'coordinatesApproximate'], '#C87A3A',
+          '#ffffff',
+        ] as unknown as string,
+        'circle-opacity': [
+          'case',
+          ['get', 'isBCourseOnly'], 0.55,
+          0.9,
+        ] as unknown as number,
       },
     })
   }

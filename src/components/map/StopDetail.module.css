@@ -55,6 +55,29 @@
   font-family: var(--font-sans);
 }
 
+.badgeApprox {
+  display: inline-block;
+  padding: 4px 10px;
+  background: rgba(200, 122, 58, 0.12);
+  border: 1px dashed rgba(200, 122, 58, 0.5);
+  color: #C87A3A;
+  font-size: 11px;
+  border-radius: 2px;
+  font-family: var(--font-sans);
+}
+
+.badgeCourse {
+  display: inline-block;
+  padding: 4px 10px;
+  background: rgba(42, 90, 150, 0.12);
+  border: 1px solid rgba(42, 90, 150, 0.3);
+  color: rgba(42, 90, 150, 0.9);
+  font-size: 11px;
+  border-radius: 2px;
+  font-family: var(--font-mono);
+  letter-spacing: 0.06em;
+}
+
 .destinations {
   padding: 16px 20px;
   display: flex;

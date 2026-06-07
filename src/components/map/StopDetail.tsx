@@ -118,8 +118,13 @@ export default function StopDetail({ stop, routeId, userLocation, isFavorite, on
         <div className={styles.badgeRow}>
           {stop.googleMapsError ? (
             <div className={styles.badgeWarn}>⚠ {t('map.stopDetail.googleMapsWrong')}</div>
+          ) : stop.coordinatesApproximate ? (
+            <div className={styles.badgeApprox}>~ {t('map.stopDetail.coordsApproximate')}</div>
           ) : (
             <div className={styles.badgeOk}>✓ {t('map.stopDetail.gpsVerified')}</div>
+          )}
+          {stop.courses && !stop.courses.includes('A') && (
+            <div className={styles.badgeCourse}>{t('map.stopDetail.bCourseOnly')}</div>
           )}
           <button
             className={styles.copyBtn}
@@ -172,28 +177,30 @@ export default function StopDetail({ stop, routeId, userLocation, isFavorite, on
           ))}
         </div>
       )}
-      {stop.schedule && stop.schedule.departures.length > 0 && (() => {
+      {stop.schedule && (() => {
         const deps = stop.schedule.departures
-        const firstBus = deps[0]
-        const lastBus = deps[deps.length - 1]
-        const totalRuns = deps.length
+        const hasExactTimes = deps.length > 0
         return (
           <div className={styles.scheduleSection}>
             <div className={styles.scheduleSectionLabel}>{t('map.schedule')}</div>
-            <div className={styles.scheduleTimes}>
-              <div className={styles.scheduleItem}>
-                <span className={styles.scheduleLabel}>{t('map.firstBus')}</span>
-                <span className={styles.scheduleTime}>{firstBus}</span>
-              </div>
-              <div className={styles.scheduleDivider} />
-              <div className={styles.scheduleItem}>
-                <span className={styles.scheduleLabel}>{t('map.lastBus')}</span>
-                <span className={styles.scheduleTime}>{lastBus}</span>
-              </div>
-            </div>
-            <div className={styles.scheduleFreq}>
-              {t('map.frequency', { count: totalRuns })}
-            </div>
+            {hasExactTimes && (
+              <>
+                <div className={styles.scheduleTimes}>
+                  <div className={styles.scheduleItem}>
+                    <span className={styles.scheduleLabel}>{t('map.firstBus')}</span>
+                    <span className={styles.scheduleTime}>{deps[0]}</span>
+                  </div>
+                  <div className={styles.scheduleDivider} />
+                  <div className={styles.scheduleItem}>
+                    <span className={styles.scheduleLabel}>{t('map.lastBus')}</span>
+                    <span className={styles.scheduleTime}>{deps[deps.length - 1]}</span>
+                  </div>
+                </div>
+                <div className={styles.scheduleFreq}>
+                  {t('map.frequency', { count: deps.length })}
+                </div>
+              </>
+            )}
             <div className={styles.scheduleNote}>
               {stop.schedule.operatingNote[lang]}
             </div>

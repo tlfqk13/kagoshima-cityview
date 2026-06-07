@@ -42,7 +42,9 @@
       "copyCoords": "座標をコピー",
       "coordsCopied": "コピーしました!",
       "shareStop": "共有",
-      "linkCopied": "リンクをコピーしました!"
+      "linkCopied": "リンクをコピーしました!",
+      "coordsApproximate": "座標近似値（未確認）",
+      "bCourseOnly": "Bコースのみ"
     },
     "schedule": "時刻表",
     "firstBus": "始発",
