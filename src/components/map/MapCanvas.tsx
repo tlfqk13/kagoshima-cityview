@@ -2,7 +2,10 @@
 import { useEffect, useRef, useCallback, useState } from 'react'
 import mapboxgl from 'mapbox-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
-import { getAllStops, getStopsGeoJSON, getNearestStop, ROUTE_COORDINATES, type BusStop } from '@/lib/stops'
+import {
+  getStopsForRoute, getStopsGeoJSON, getRouteCoordinates, getRoute,
+  getNearestStop, type RouteStop, type RouteId,
+} from '@/lib/routes'
 import styles from './MapCanvas.module.css'
 
 mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN!
@@ -59,9 +62,19 @@ function interpolateRoute(coords: [number, number][], t: number): [number, numbe
   return coords[coords.length - 1]
 }
 
-function addMapLayers(map: mapboxgl.Map, selectedId: string | null) {
-  const stops = getAllStops()
+function clearMapLayers(map: mapboxgl.Map) {
+  if (map.getLayer('stops-label')) map.removeLayer('stops-label')
+  if (map.getLayer('stops-circle')) map.removeLayer('stops-circle')
+  if (map.getLayer('route-line')) map.removeLayer('route-line')
+  if (map.getSource('stops')) map.removeSource('stops')
+  if (map.getSource('route')) map.removeSource('route')
+}
+
+function addMapLayers(map: mapboxgl.Map, selectedId: string | null, routeId: RouteId) {
+  const stops = getStopsForRoute(routeId)
   const geojson = getStopsGeoJSON(stops)
+  const routeCoords = getRouteCoordinates(routeId)
+  const routeColor = getRoute(routeId).color
 
   // 노선 폴리라인
   if (!map.getSource('route')) {
@@ -69,7 +82,7 @@ function addMapLayers(map: mapboxgl.Map, selectedId: string | null) {
       type: 'geojson',
       data: {
         type: 'Feature',
-        geometry: { type: 'LineString', coordinates: ROUTE_COORDINATES },
+        geometry: { type: 'LineString', coordinates: routeCoords },
         properties: {},
       },
     })
@@ -80,7 +93,7 @@ function addMapLayers(map: mapboxgl.Map, selectedId: string | null) {
       type: 'line',
       source: 'route',
       paint: {
-        'line-color': '#8B4513',
+        'line-color': routeColor,
         'line-width': 2,
         'line-dasharray': [2, 2],
         'line-opacity': 0.7,
@@ -102,7 +115,7 @@ function addMapLayers(map: mapboxgl.Map, selectedId: string | null) {
         'circle-radius': ['case', ['get', 'googleMapsError'], 10, 8] as unknown as number,
         'circle-color': [
           'case',
-          ['==', ['get', 'id'], selectedId ?? ''], '#8B4513',
+          ['==', ['get', 'id'], selectedId ?? ''], routeColor,
           ['get', 'googleMapsError'], '#C87A3A',
           '#1E3A4F',
         ] as unknown as string,
@@ -129,19 +142,21 @@ function addMapLayers(map: mapboxgl.Map, selectedId: string | null) {
 }
 
 export interface MapCanvasProps {
+  routeId: RouteId
   selectedStopId: string | null
-  onStopSelect: (stop: BusStop) => void
+  onStopSelect: (stop: RouteStop) => void
   onUserLocation?: (coords: [number, number]) => void
   userLocation?: [number, number] | null
 }
 
-export default function MapCanvas({ selectedStopId, onStopSelect, onUserLocation, userLocation }: MapCanvasProps) {
+export default function MapCanvas({ routeId, selectedStopId, onStopSelect, onUserLocation, userLocation }: MapCanvasProps) {
   const containerRef = useRef<HTMLDivElement>(null)
   const mapRef = useRef<mapboxgl.Map | null>(null)
   const wrongPinRef = useRef<mapboxgl.Marker | null>(null)
   const userLocationRef = useRef<[number, number] | null | undefined>(userLocation)
   const hoverPopupRef = useRef<mapboxgl.Popup | null>(null)
   const selectedStopIdRef = useRef<string | null>(selectedStopId)
+  const routeIdRef = useRef<RouteId>(routeId)
 
   const [mapStyle, setMapStyle] = useState<MapStyle>('streets')
   const mapStyleRef = useRef<MapStyle>('streets')
@@ -161,11 +176,15 @@ export default function MapCanvas({ selectedStopId, onStopSelect, onUserLocation
   }, [selectedStopId])
 
   useEffect(() => {
+    routeIdRef.current = routeId
+  }, [routeId])
+
+  useEffect(() => {
     mapStyleRef.current = mapStyle
   }, [mapStyle])
 
   const handleStopClick = useCallback((stopId: string) => {
-    const stop = getAllStops().find(s => s.id === stopId)
+    const stop = getStopsForRoute(routeIdRef.current).find(s => s.id === stopId)
     if (stop) onStopSelect(stop)
   }, [onStopSelect])
 
@@ -191,13 +210,13 @@ export default function MapCanvas({ selectedStopId, onStopSelect, onUserLocation
     geolocate.on('geolocate', (e: unknown) => {
       const pos = e as GeolocationPosition
       const { latitude, longitude } = pos.coords
-      const nearest = getNearestStop(latitude, longitude)
+      const nearest = getNearestStop(routeIdRef.current, latitude, longitude)
       if (nearest) onStopSelect(nearest)
       onUserLocation?.([longitude, latitude])
     })
 
     map.on('load', () => {
-      addMapLayers(map, selectedStopIdRef.current)
+      addMapLayers(map, selectedStopIdRef.current, routeIdRef.current)
 
       // 클릭 이벤트
       map.on('click', 'stops-circle', e => {
@@ -233,7 +252,7 @@ export default function MapCanvas({ selectedStopId, onStopSelect, onUserLocation
 
     // Re-add layers after style change (setStyle removes all custom layers/sources)
     map.on('style.load', () => {
-      addMapLayers(map, selectedStopIdRef.current)
+      addMapLayers(map, selectedStopIdRef.current, routeIdRef.current)
     })
 
     mapRef.current = map
@@ -253,6 +272,18 @@ export default function MapCanvas({ selectedStopId, onStopSelect, onUserLocation
     if (!map) return
     map.setStyle(MAP_STYLES[mapStyle])
   }, [mapStyle])
+
+  // Re-render layers and fly to center when routeId changes
+  useEffect(() => {
+    const map = mapRef.current
+    if (!map || !map.isStyleLoaded()) return
+    clearMapLayers(map)
+    addMapLayers(map, selectedStopIdRef.current, routeId)
+    const meta = getRoute(routeId)
+    map.flyTo({ center: meta.center, zoom: meta.zoom, duration: 800 })
+    // Stop bus animation when switching routes
+    setAnimating(false)
+  }, [routeId])
 
   // Bus animation along route
   const ANIMATION_DURATION = 60000 // 60 seconds for full route
@@ -281,9 +312,11 @@ export default function MapCanvas({ selectedStopId, onStopSelect, onUserLocation
     el.textContent = '🚌'
     el.title = '鹿児島シティビューバス'
 
+    const routeCoords = getRouteCoordinates(routeIdRef.current)
+
     busMarkerRef.current?.remove()
     busMarkerRef.current = new mapboxgl.Marker({ element: el, anchor: 'center' })
-      .setLngLat(ROUTE_COORDINATES[0] as [number, number])
+      .setLngLat(routeCoords[0] as [number, number])
       .addTo(map)
 
     animStartRef.current = performance.now()
@@ -291,7 +324,7 @@ export default function MapCanvas({ selectedStopId, onStopSelect, onUserLocation
     function animate(now: number) {
       const elapsed = (now - animStartRef.current) % ANIMATION_DURATION
       const t = elapsed / ANIMATION_DURATION
-      const pos = interpolateRoute(ROUTE_COORDINATES as [number, number][], t)
+      const pos = interpolateRoute(routeCoords, t)
       busMarkerRef.current?.setLngLat(pos)
       animFrameRef.current = requestAnimationFrame(animate)
     }
@@ -313,7 +346,7 @@ export default function MapCanvas({ selectedStopId, onStopSelect, onUserLocation
     const map = mapRef.current
     if (!map || !map.isStyleLoaded()) return
     if (selectedStopId) {
-      const stop = getAllStops().find(s => s.id === selectedStopId)
+      const stop = getStopsForRoute(routeIdRef.current).find(s => s.id === selectedStopId)
       if (stop) {
         map.flyTo({ center: [stop.lng, stop.lat], zoom: 15, duration: 600 })
       }
@@ -336,7 +369,7 @@ export default function MapCanvas({ selectedStopId, onStopSelect, onUserLocation
 
     // Show wrong Google Maps pin if this stop has error coordinates
     if (selectedStopId) {
-      const stop = getAllStops().find(s => s.id === selectedStopId)
+      const stop = getStopsForRoute(routeIdRef.current).find(s => s.id === selectedStopId)
       if (stop?.googleMapsError && stop.googleMapsLat != null && stop.googleMapsLng != null) {
         const el = document.createElement('div')
         el.style.cssText = `
@@ -364,7 +397,7 @@ export default function MapCanvas({ selectedStopId, onStopSelect, onUserLocation
     // Draw walking route if user location available
     const currentUserLocation = userLocationRef.current
     if (currentUserLocation && selectedStopId) {
-      const stop = getAllStops().find(s => s.id === selectedStopId)
+      const stop = getStopsForRoute(routeIdRef.current).find(s => s.id === selectedStopId)
       if (stop) {
         const url = `https://api.mapbox.com/directions/v5/mapbox/walking/${currentUserLocation[0]},${currentUserLocation[1]};${stop.lng},${stop.lat}?geometries=geojson&access_token=${mapboxgl.accessToken}`
         fetch(url)
@@ -405,7 +438,7 @@ export default function MapCanvas({ selectedStopId, onStopSelect, onUserLocation
       return
     }
 
-    const stop = getAllStops().find(s => s.id === selectedStopId)
+    const stop = getStopsForRoute(routeIdRef.current).find(s => s.id === selectedStopId)
     if (!stop) return
 
     const url = `https://api.mapbox.com/directions/v5/mapbox/walking/${userLocation[0]},${userLocation[1]};${stop.lng},${stop.lat}?geometries=geojson&access_token=${mapboxgl.accessToken}`
