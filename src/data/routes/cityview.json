@@ -1,0 +1,423 @@
+{
+  "metadata": {
+    "routeId": "cityview",
+    "name": {
+      "ko": "카고시마 시티뷰",
+      "en": "Kagoshima City View",
+      "ja": "カゴシマシティビュー"
+    },
+    "color": "#8B4513",
+    "fare": { "adult": 230, "child": 120 },
+    "dayPass": { "adult": 600, "child": 300 },
+    "operatingDays": "daily",
+    "loopDurationMin": 80,
+    "center": [130.5581, 31.5897],
+    "zoom": 13,
+    "frequencyMin": 30,
+    "totalRuns": 19,
+    "firstDeparture": "08:30",
+    "lastDeparture": "17:30",
+    "sourceVersion": "2026-06",
+    "lastUpdatedAt": "2026-06-07",
+    "lastValidatedAt": "2026-06-07",
+    "coordinateSource": "https://www.kotsu-city-kagoshima.jp/wp/timesearch/line_rosen_map.php?rosenId=1680",
+    "scheduleSource": "https://www.kotsu-city-kagoshima.jp/wp/timesearch/bus_list.php?rosenId=1680&syubetuId=0",
+    "disclaimer": {
+      "ko": "이 서비스는 GPS 정류장 위치 정보를 제공합니다. 실제 운행 시간 및 노선은 가고시마시 공식 앱 또는 정류장 안내판을 반드시 확인하세요.",
+      "en": "This service provides GPS stop location data. Always verify actual bus schedules via the official Kagoshima City app or stop signs.",
+      "ja": "本サービスはGPS停留所位置情報を提供します。実際の運行時刻・路線は鹿児島市公式アプリまたは停留所の案内板でご確認ください。"
+    }
+  },
+  "stops": [
+    {
+      "id": "stop_01",
+      "number": 1,
+      "lat": 31.58508327,
+      "lng": 130.5436063,
+      "name": { "ko": "가고시마 중앙역", "en": "Kagoshima-Chuo Station", "ja": "鹿児島中央駅" },
+      "googleMapsError": false,
+      "googleMapsErrorNote": "",
+      "destinations": [],
+      "connections": [],
+      "schedule": {
+        "departures": ["08:30","09:00","09:30","10:00","10:30","11:00","11:30","12:00","12:30","13:00","13:30","14:00","14:30","15:00","15:30","16:00","16:30","17:00","17:30"],
+        "operatingNote": {
+          "ko": "하루 19편 운행 (08:30~17:30). 30분 간격.",
+          "en": "19 daily runs (08:30–17:30). Every 30 min.",
+          "ja": "1日19便（08:30〜17:30）。30分間隔。"
+        }
+      }
+    },
+    {
+      "id": "stop_02",
+      "number": 2,
+      "lat": 31.58379916,
+      "lng": 130.5473077,
+      "name": { "ko": "유신 고향관 앞", "en": "Ishin Furusato-kan Mae", "ja": "維新ふるさと館前" },
+      "googleMapsError": false,
+      "googleMapsErrorNote": "",
+      "destinations": [],
+      "connections": [],
+      "schedule": {
+        "departures": ["08:32","09:02","09:32","10:02","10:32","11:02","11:32","12:02","12:32","13:02","13:32","14:02","14:32","15:02","15:32","16:02","16:32","17:02","17:32"],
+        "operatingNote": {
+          "ko": "하루 19편 운행. 30분 간격.",
+          "en": "19 daily runs. Every 30 min.",
+          "ja": "1日19便。30分間隔。"
+        }
+      }
+    },
+    {
+      "id": "stop_03",
+      "number": 3,
+      "lat": 31.59034199,
+      "lng": 130.5541581,
+      "name": { "ko": "텐몬칸 (센간엔 방면)", "en": "Tenmonkan (toward Sengan-en)", "ja": "天文館（仙巌園方面向け）" },
+      "googleMapsError": false,
+      "googleMapsErrorNote": "",
+      "destinations": [],
+      "connections": [],
+      "schedule": {
+        "departures": ["08:39","09:09","09:39","10:09","10:39","11:09","11:39","12:09","12:39","13:09","13:39","14:09","14:39","15:09","15:39","16:09","16:39","17:09","17:39"],
+        "operatingNote": {
+          "ko": "하루 19편 운행. 30분 간격.",
+          "en": "19 daily runs. Every 30 min.",
+          "ja": "1日19便。30分間隔。"
+        }
+      }
+    },
+    {
+      "id": "stop_04",
+      "number": 4,
+      "lat": 31.59472224,
+      "lng": 130.5542251,
+      "name": { "ko": "사이고 동상 앞 (중앙공원 측)", "en": "Saigo Statue Mae (Central Park)", "ja": "西郷銅像前（中央公園側）" },
+      "googleMapsError": false,
+      "googleMapsErrorNote": "",
+      "destinations": [],
+      "connections": [],
+      "schedule": {
+        "departures": ["08:44","09:14","09:44","10:14","10:44","11:14","11:44","12:14","12:44","13:14","13:44","14:14","14:44","15:14","15:44","16:14","16:44","17:14","17:44"],
+        "operatingNote": {
+          "ko": "하루 19편 운행. 30분 간격.",
+          "en": "19 daily runs. Every 30 min.",
+          "ja": "1日19便。30分間隔。"
+        }
+      }
+    },
+    {
+      "id": "stop_05",
+      "number": 5,
+      "lat": 31.59957012,
+      "lng": 130.5550727,
+      "name": { "ko": "사쓰마 의사비 앞 (시로야마 방면)", "en": "Satsuma Gishi-hi Mae (toward Shiroyama)", "ja": "薩摩義士碑前（城山向け）" },
+      "googleMapsError": false,
+      "googleMapsErrorNote": "",
+      "destinations": [],
+      "connections": [],
+      "schedule": {
+        "departures": ["08:46","09:16","09:46","10:16","10:46","11:16","11:46","12:16","12:46","13:16","13:46","14:16","14:46","15:16","15:46","16:16","16:46","17:16","17:46"],
+        "operatingNote": {
+          "ko": "하루 19편 운행. 30분 간격.",
+          "en": "19 daily runs. Every 30 min.",
+          "ja": "1日19便。30分間隔。"
+        }
+      }
+    },
+    {
+      "id": "stop_06",
+      "number": 6,
+      "lat": 31.5996478,
+      "lng": 130.550293,
+      "name": { "ko": "사이고 동굴 앞 (시로야마 방면)", "en": "Saigo's Cave Mae (toward Shiroyama)", "ja": "西郷洞窟前（城山向け）" },
+      "googleMapsError": false,
+      "googleMapsErrorNote": "",
+      "destinations": [],
+      "connections": [],
+      "schedule": {
+        "departures": ["08:48","09:18","09:48","10:18","10:48","11:18","11:48","12:18","12:48","13:18","13:48","14:18","14:48","15:18","15:48","16:18","16:48","17:18","17:48"],
+        "operatingNote": {
+          "ko": "하루 19편 운행. 30분 간격.",
+          "en": "19 daily runs. Every 30 min.",
+          "ja": "1日19便。30分間隔。"
+        }
+      }
+    },
+    {
+      "id": "stop_07",
+      "number": 7,
+      "lat": 31.59658192,
+      "lng": 130.5491745,
+      "name": { "ko": "시로야마", "en": "Shiroyama", "ja": "城山" },
+      "googleMapsError": false,
+      "googleMapsErrorNote": "",
+      "destinations": [],
+      "connections": [],
+      "schedule": {
+        "departures": ["08:54","09:24","09:54","10:24","10:54","11:24","11:54","12:24","12:54","13:24","13:54","14:24","14:54","15:24","15:54","16:24","16:54","17:24","17:54"],
+        "operatingNote": {
+          "ko": "하루 19편 운행. 30분 간격.",
+          "en": "19 daily runs. Every 30 min.",
+          "ja": "1日19便。30分間隔。"
+        }
+      }
+    },
+    {
+      "id": "stop_08",
+      "number": 8,
+      "lat": 31.59964094,
+      "lng": 130.5501321,
+      "name": { "ko": "사이고 동굴 앞 (센간엔 방면)", "en": "Saigo's Cave Mae (toward Sengan-en)", "ja": "西郷洞窟前（仙巌園方面向け）" },
+      "googleMapsError": false,
+      "googleMapsErrorNote": "",
+      "destinations": [],
+      "connections": [],
+      "schedule": {
+        "departures": ["08:56","09:26","09:56","10:26","10:56","11:26","11:56","12:26","12:56","13:26","13:56","14:26","14:56","15:26","15:56","16:26","16:56","17:26","17:56"],
+        "operatingNote": {
+          "ko": "하루 19편 운행. 30분 간격.",
+          "en": "19 daily runs. Every 30 min.",
+          "ja": "1日19便。30分間隔。"
+        }
+      }
+    },
+    {
+      "id": "stop_09",
+      "number": 9,
+      "lat": 31.59957469,
+      "lng": 130.5553624,
+      "name": { "ko": "사쓰마 의사비 앞 (센간엔 방면)", "en": "Satsuma Gishi-hi Mae (toward Sengan-en)", "ja": "薩摩義士碑前（仙巌園方面向け）" },
+      "googleMapsError": false,
+      "googleMapsErrorNote": "",
+      "destinations": [],
+      "connections": [],
+      "schedule": {
+        "departures": ["08:59","09:29","09:59","10:29","10:59","11:29","11:59","12:29","12:59","13:29","13:59","14:29","14:59","15:29","15:59","16:29","16:59","17:29","17:59"],
+        "operatingNote": {
+          "ko": "하루 19편 운행. 30분 간격.",
+          "en": "19 daily runs. Every 30 min.",
+          "ja": "1日19便。30分間隔。"
+        }
+      }
+    },
+    {
+      "id": "stop_10",
+      "number": 10,
+      "lat": 31.6055371,
+      "lng": 130.5581787,
+      "name": { "ko": "사이고 난슈 현창관 앞", "en": "Saigo Nanshu Museum Mae", "ja": "西郷南洲顕彰館前" },
+      "googleMapsError": false,
+      "googleMapsErrorNote": "",
+      "destinations": [],
+      "connections": [],
+      "schedule": {
+        "departures": ["09:06","09:36","10:06","10:36","11:06","11:36","12:06","12:36","13:06","13:36","14:06","14:36","15:06","15:36","16:06","16:36","17:06","17:36","18:06"],
+        "operatingNote": {
+          "ko": "하루 19편 운행. 30분 간격.",
+          "en": "19 daily runs. Every 30 min.",
+          "ja": "1日19便。30分間隔。"
+        }
+      }
+    },
+    {
+      "id": "stop_11",
+      "number": 11,
+      "lat": 31.60552111,
+      "lng": 130.5618319,
+      "name": { "ko": "아쓰히메 출생지 앞", "en": "Atsu-hime Birthplace Mae", "ja": "今和泉島津家本邸跡（篤姫誕生地）前" },
+      "googleMapsError": false,
+      "googleMapsErrorNote": "",
+      "destinations": [],
+      "connections": [],
+      "schedule": {
+        "departures": ["09:11","09:41","10:11","10:41","11:11","11:41","12:11","12:41","13:11","13:41","14:11","14:41","15:11","15:41","16:11","16:41","17:11","17:41","18:11"],
+        "operatingNote": {
+          "ko": "하루 19편 운행. 30분 간격.",
+          "en": "19 daily runs. Every 30 min.",
+          "ja": "1日19便。30分間隔。"
+        }
+      }
+    },
+    {
+      "id": "stop_12",
+      "number": 12,
+      "lat": 31.61738082,
+      "lng": 130.5771232,
+      "name": { "ko": "센간엔 (이소 정원)", "en": "Sengan-en (Iso Garden)", "ja": "仙巌園（磯庭園）" },
+      "googleMapsError": false,
+      "googleMapsErrorNote": "",
+      "destinations": [],
+      "connections": [],
+      "schedule": {
+        "departures": ["09:19","09:49","10:19","10:49","11:19","11:49","12:19","12:49","13:19","13:49","14:19","14:49","15:19","15:49","16:19","16:49","17:19","17:49","18:19"],
+        "operatingNote": {
+          "ko": "하루 19편 운행. 30분 간격.",
+          "en": "19 daily runs. Every 30 min.",
+          "ja": "1日19便。30分間隔。"
+        }
+      }
+    },
+    {
+      "id": "stop_13",
+      "number": 13,
+      "lat": 31.614019,
+      "lng": 130.574689,
+      "name": { "ko": "이진칸 앞 (이소 해수욕장)", "en": "Ijinkan Mae (Iso Beach)", "ja": "異人館（磯海水浴場）前" },
+      "googleMapsError": false,
+      "googleMapsErrorNote": "",
+      "destinations": [],
+      "connections": [],
+      "schedule": {
+        "departures": ["09:21","09:51","10:21","10:51","11:21","11:51","12:21","12:51","13:21","13:51","14:21","14:51","15:21","15:51","16:21","16:51","17:21","17:51","18:21"],
+        "operatingNote": {
+          "ko": "하루 19편 운행. 30분 간격.",
+          "en": "19 daily runs. Every 30 min.",
+          "ja": "1日19便。30分間隔。"
+        }
+      }
+    },
+    {
+      "id": "stop_14",
+      "number": 14,
+      "lat": 31.6033258,
+      "lng": 130.5676603,
+      "name": { "ko": "이시바시 기념공원 앞", "en": "Ishibashi Memorial Park Mae", "ja": "石橋記念公園前" },
+      "googleMapsError": false,
+      "googleMapsErrorNote": "",
+      "destinations": [],
+      "connections": [],
+      "schedule": {
+        "departures": ["09:26","09:56","10:26","10:56","11:26","11:56","12:26","12:56","13:26","13:56","14:26","14:56","15:26","15:56","16:26","16:56","17:26","17:56","18:26"],
+        "operatingNote": {
+          "ko": "하루 19편 운행. 30분 간격.",
+          "en": "19 daily runs. Every 30 min.",
+          "ja": "1日19便。30分間隔。"
+        }
+      }
+    },
+    {
+      "id": "stop_15",
+      "number": 15,
+      "lat": 31.600995,
+      "lng": 130.563508,
+      "name": { "ko": "가고시마역 앞 (칸마치아)", "en": "Kagoshima Station Mae (Kanmachia)", "ja": "鹿児島駅（かんまちあ）前" },
+      "googleMapsError": false,
+      "googleMapsErrorNote": "",
+      "destinations": [],
+      "connections": [],
+      "schedule": {
+        "departures": ["09:31","10:01","10:31","11:01","11:31","12:01","12:31","13:01","13:31","14:01","14:31","15:01","15:31","16:01","16:31","17:01","17:31","18:01","18:31"],
+        "operatingNote": {
+          "ko": "하루 19편 운행. 30분 간격.",
+          "en": "19 daily runs. Every 30 min.",
+          "ja": "1日19便。30分間隔。"
+        }
+      }
+    },
+    {
+      "id": "stop_16",
+      "number": 16,
+      "lat": 31.59618566,
+      "lng": 130.562776,
+      "name": { "ko": "수족관 앞 (사쿠라지마 페리)", "en": "Aquarium Mae (Sakurajima Ferry)", "ja": "水族館前（桜島桟橋）" },
+      "googleMapsError": false,
+      "googleMapsErrorNote": "",
+      "destinations": [],
+      "connections": [
+        {
+          "type": "ferry",
+          "to": "islandview",
+          "note": {
+            "ko": "사쿠라지마 페리 선착장 (약 15분)",
+            "en": "Sakurajima Ferry Terminal (~15 min to island)",
+            "ja": "桜島フェリー乗り場（約15分）"
+          }
+        }
+      ],
+      "schedule": {
+        "departures": ["09:34","10:04","10:34","11:04","11:34","12:04","12:34","13:04","13:34","14:04","14:34","15:04","15:34","16:04","16:34","17:04","17:34","18:04","18:34"],
+        "operatingNote": {
+          "ko": "하루 19편 운행. 30분 간격.",
+          "en": "19 daily runs. Every 30 min.",
+          "ja": "1日19便。30分間隔。"
+        }
+      }
+    },
+    {
+      "id": "stop_17",
+      "number": 17,
+      "lat": 31.59482962,
+      "lng": 130.5627573,
+      "name": { "ko": "워터프론트파크 앞", "en": "Waterfront Park Mae", "ja": "ウォーターフロントパーク前（湾岸交番側）" },
+      "googleMapsError": false,
+      "googleMapsErrorNote": "",
+      "destinations": [],
+      "connections": [],
+      "schedule": {
+        "departures": ["09:36","10:06","10:36","11:06","11:36","12:06","12:36","13:06","13:36","14:06","14:36","15:06","15:36","16:06","16:36","17:06","17:36","18:06","18:36"],
+        "operatingNote": {
+          "ko": "하루 19편 운행. 30분 간격.",
+          "en": "19 daily runs. Every 30 min.",
+          "ja": "1日19便。30分間隔。"
+        }
+      }
+    },
+    {
+      "id": "stop_18",
+      "number": 18,
+      "lat": 31.593116,
+      "lng": 130.557564,
+      "name": { "ko": "가나쇼마치", "en": "Kanasho-machi", "ja": "金生町" },
+      "googleMapsError": false,
+      "googleMapsErrorNote": "",
+      "destinations": [],
+      "connections": [],
+      "schedule": {
+        "departures": ["09:39","10:09","10:39","11:09","11:39","12:09","12:39","13:09","13:39","14:09","14:39","15:09","15:39","16:09","16:39","17:09","17:39","18:09","18:39"],
+        "operatingNote": {
+          "ko": "하루 19편 운행. 30분 간격.",
+          "en": "19 daily runs. Every 30 min.",
+          "ja": "1日19便。30分間隔。"
+        }
+      }
+    },
+    {
+      "id": "stop_19",
+      "number": 19,
+      "lat": 31.59021226,
+      "lng": 130.5543941,
+      "name": { "ko": "텐몬칸 (중앙역 방면)", "en": "Tenmonkan (toward Kagoshima-Chuo)", "ja": "天文館（鹿児島中央駅向け）" },
+      "googleMapsError": false,
+      "googleMapsErrorNote": "",
+      "destinations": [],
+      "connections": [],
+      "schedule": {
+        "departures": ["09:42","10:12","10:42","11:12","11:42","12:12","12:42","13:12","13:42","14:12","14:42","15:12","15:42","16:12","16:42","17:12","17:42","18:12","18:42"],
+        "operatingNote": {
+          "ko": "하루 19편 운행. 30분 간격.",
+          "en": "19 daily runs. Every 30 min.",
+          "ja": "1日19便。30分間隔。"
+        }
+      }
+    },
+    {
+      "id": "stop_20",
+      "number": 20,
+      "lat": 31.58508327,
+      "lng": 130.5436063,
+      "name": { "ko": "가고시마 중앙역 (순환 종점)", "en": "Kagoshima-Chuo Station (Loop End)", "ja": "鹿児島中央駅（終点）" },
+      "googleMapsError": false,
+      "googleMapsErrorNote": "",
+      "destinations": [],
+      "connections": [],
+      "schedule": {
+        "departures": ["09:50","10:20","10:50","11:20","11:50","12:20","12:50","13:20","13:50","14:20","14:50","15:20","15:50","16:20","16:50","17:20","17:50","18:20","18:50"],
+        "operatingNote": {
+          "ko": "하루 19편 운행. 순환 종점 (stop_01과 동일 위치).",
+          "en": "19 daily runs. Loop terminus (same location as stop_01).",
+          "ja": "1日19便。循環終点（stop_01と同一地点）。"
+        }
+      }
+    }
+  ]
+}
