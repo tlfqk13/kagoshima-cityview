@@ -1,14 +1,15 @@
 'use client'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import type { BusStop, Lang } from '@/lib/stops'
+import type { RouteStop, RouteId, Lang } from '@/lib/routes'
 import styles from './StopDetail.module.css'
 import QRModal from './QRModal'
 
 const isIOS = typeof navigator !== 'undefined' && /iPad|iPhone|iPod/.test(navigator.userAgent)
 
 interface Props {
-  stop: BusStop
+  stop: RouteStop
+  routeId: RouteId
   userLocation?: [number, number] | null
   isFavorite?: boolean
   onToggleFavorite?: (stopId: string) => void
@@ -29,7 +30,7 @@ function getWalkingEstimate(userLat: number, userLng: number, stopLat: number, s
   return { meters, minutes }
 }
 
-export default function StopDetail({ stop, userLocation, isFavorite, onToggleFavorite }: Props) {
+export default function StopDetail({ stop, routeId, userLocation, isFavorite, onToggleFavorite }: Props) {
   const { t, i18n } = useTranslation()
   const lang = (['ko', 'en', 'ja'].includes(i18n.language) ? i18n.language : 'ko') as Lang
   const [toast, setToast] = useState<string | null>(null)
@@ -53,7 +54,7 @@ export default function StopDetail({ stop, userLocation, isFavorite, onToggleFav
   }
 
   function handleShare() {
-    const url = `${window.location.origin}/map/${stop.id}`
+    const url = `${window.location.origin}/map?route=${routeId}&stop=${stop.id}`
     if (navigator.share) {
       navigator.share({ title: stopName, url })
     } else {
@@ -228,7 +229,7 @@ export default function StopDetail({ stop, userLocation, isFavorite, onToggleFav
           {toast}
         </div>
       )}
-      {showQR && <QRModal stop={stop} onClose={() => setShowQR(false)} />}
+      {showQR && <QRModal routeId={routeId} stop={stop} onClose={() => setShowQR(false)} />}
     </div>
   )
 }

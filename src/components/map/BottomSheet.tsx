@@ -1,7 +1,7 @@
 'use client'
 import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import type { BusStop, Category } from '@/lib/stops'
+import type { RouteStop, RouteId, Category } from '@/lib/routes'
 import StopList from './StopList'
 import StopDetail from './StopDetail'
 import CategoryChips from './CategoryChips'
@@ -11,10 +11,11 @@ import styles from './BottomSheet.module.css'
 type SheetState = 'peek' | 'half' | 'full'
 
 interface Props {
-  stops: BusStop[]
-  selectedStop: BusStop | null
+  stops: RouteStop[]
+  selectedStop: RouteStop | null
+  routeId: RouteId
   activeCategory: Category | 'all'
-  onStopSelect: (stop: BusStop) => void
+  onStopSelect: (stop: RouteStop) => void
   onCategoryChange: (cat: Category | null) => void
   searchQuery: string
   onSearchChange: (v: string) => void
@@ -32,6 +33,7 @@ const HEIGHTS: Record<SheetState, string> = {
 export default function BottomSheet({
   stops,
   selectedStop,
+  routeId,
   activeCategory,
   onStopSelect,
   onCategoryChange,
@@ -84,6 +86,7 @@ export default function BottomSheet({
         <StopSearch value={searchQuery} onChange={onSearchChange} />
         {selectedStop ? (
           <StopDetail
+            routeId={routeId}
             stop={selectedStop}
             userLocation={userLocation}
             isFavorite={favorites?.includes(selectedStop.id)}

@@ -104,6 +104,7 @@ export default function MapPage({ initialStopId, initialRouteId = 'cityview' }: 
           <SidePanel
             stops={filteredStops}
             selectedStop={selectedStop}
+            routeId={activeRoute}
             onSelect={setSelectedStop}
             sourceNote={sourceNote}
             searchQuery={searchQuery}
@@ -119,6 +120,7 @@ export default function MapPage({ initialStopId, initialRouteId = 'cityview' }: 
           <BottomSheet
             stops={filteredStops}
             selectedStop={selectedStop}
+            routeId={activeRoute}
             activeCategory={activeCategory}
             onStopSelect={setSelectedStop}
             onCategoryChange={handleCategoryChange}
