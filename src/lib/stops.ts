@@ -22,25 +22,25 @@ export interface BusStop {
   googleMapsErrorNote: string
   googleMapsLat?: number
   googleMapsLng?: number
-  photos?: string[]   // relative paths like "/images/stops/stop_03.jpg"
+  photos?: string[]
   destinations: Destination[]
   schedule?: {
-    firstBus: string
-    lastBus: string
-    frequencyMin: number
-    operatingNote: {
-      ko: string
-      en: string
-      ja: string
-    }
+    departures: string[]
+    operatingNote: Record<Lang, string>
   }
 }
 
 export interface StopsData {
   metadata: {
     sourceVersion: string
-    lastValidatedAt: string
     lastUpdatedAt: string
+    lastValidatedAt: string
+    totalRuns: number
+    firstDeparture: string
+    lastDeparture: string
+    frequencyMin: number
+    coordinateSource: string
+    scheduleSource: string
     disclaimer: Record<Lang, string>
   }
   stops: BusStop[]
@@ -143,25 +143,27 @@ export function searchStops(query: string): BusStop[] {
   })
 }
 
+// Official stop coordinates in route order (stop_01 → stop_20)
+// Source: kotsu-city-kagoshima.jp rosenId=1680 bus_json
 export const ROUTE_COORDINATES: [number, number][] = [
-  [130.5403, 31.5839],
-  [130.5481, 31.5855],
-  [130.5545, 31.5892],
-  [130.5512, 31.5921],
-  [130.5499, 31.5943],
-  [130.5511, 31.5963],
-  [130.5525, 31.5985],
-  [130.5563, 31.6012],
-  [130.5612, 31.6054],
-  [130.5721, 31.6089],
-  [130.5856, 31.6112],
-  [130.5999, 31.6135],
-  [130.5887, 31.6098],
-  [130.5657, 31.5973],
-  [130.5638, 31.5961],
-  [130.5621, 31.5951],
-  [130.5603, 31.5934],
-  [130.5591, 31.5919],
-  [130.5586, 31.5908],
-  [130.5581, 31.5897],
+  [130.5436063, 31.58508327], // 01 가고시마 중앙역
+  [130.5473077, 31.58379916], // 02 유신 고향관
+  [130.5541581, 31.59034199], // 03 텐몬칸 (센간엔방면)
+  [130.5542251, 31.59472224], // 04 사이고 동상앞
+  [130.5550727, 31.59957012], // 05 사쓰마 의사비 (시로야마방면)
+  [130.550293,  31.5996478],  // 06 사이고 동굴앞 (시로야마방면)
+  [130.5491745, 31.59658192], // 07 시로야마
+  [130.5501321, 31.59964094], // 08 사이고 동굴앞 (센간엔방면)
+  [130.5553624, 31.59957469], // 09 사쓰마 의사비 (센간엔방면)
+  [130.5581787, 31.6055371],  // 10 사이고 난슈 현창관
+  [130.5618319, 31.60552111], // 11 아쓰히메 출생지
+  [130.5771232, 31.61738082], // 12 센간엔
+  [130.574689,  31.614019],   // 13 이진칸
+  [130.5676603, 31.6033258],  // 14 이시바시 기념공원
+  [130.563508,  31.600995],   // 15 가고시마역
+  [130.562776,  31.59618566], // 16 수족관
+  [130.5627573, 31.59482962], // 17 워터프론트파크
+  [130.557564,  31.593116],   // 18 가나쇼마치
+  [130.5543941, 31.59021226], // 19 텐몬칸 (중앙역방면)
+  [130.5436063, 31.58508327], // 20 가고시마 중앙역 (종점)
 ]

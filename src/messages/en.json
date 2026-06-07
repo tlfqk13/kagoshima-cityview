@@ -47,7 +47,7 @@
     "schedule": "Schedule",
     "firstBus": "First bus",
     "lastBus": "Last bus",
-    "frequency": "Every ~{{min}} min · 9 trips/day",
+    "frequency": "Every 30 min · {{count}} daily runs",
     "photoComingSoon": "Photo coming soon",
     "noStops": "No stops for this category",
     "searchPlaceholder": "Search stops & destinations",

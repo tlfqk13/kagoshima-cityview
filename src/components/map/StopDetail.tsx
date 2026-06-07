@@ -171,28 +171,34 @@ export default function StopDetail({ stop, userLocation, isFavorite, onToggleFav
           ))}
         </div>
       )}
-      {stop.schedule && (
-        <div className={styles.scheduleSection}>
-          <div className={styles.scheduleSectionLabel}>{t('map.schedule')}</div>
-          <div className={styles.scheduleTimes}>
-            <div className={styles.scheduleItem}>
-              <span className={styles.scheduleLabel}>{t('map.firstBus')}</span>
-              <span className={styles.scheduleTime}>{stop.schedule.firstBus}</span>
+      {stop.schedule && stop.schedule.departures.length > 0 && (() => {
+        const deps = stop.schedule.departures
+        const firstBus = deps[0]
+        const lastBus = deps[deps.length - 1]
+        const totalRuns = deps.length
+        return (
+          <div className={styles.scheduleSection}>
+            <div className={styles.scheduleSectionLabel}>{t('map.schedule')}</div>
+            <div className={styles.scheduleTimes}>
+              <div className={styles.scheduleItem}>
+                <span className={styles.scheduleLabel}>{t('map.firstBus')}</span>
+                <span className={styles.scheduleTime}>{firstBus}</span>
+              </div>
+              <div className={styles.scheduleDivider} />
+              <div className={styles.scheduleItem}>
+                <span className={styles.scheduleLabel}>{t('map.lastBus')}</span>
+                <span className={styles.scheduleTime}>{lastBus}</span>
+              </div>
             </div>
-            <div className={styles.scheduleDivider} />
-            <div className={styles.scheduleItem}>
-              <span className={styles.scheduleLabel}>{t('map.lastBus')}</span>
-              <span className={styles.scheduleTime}>{stop.schedule.lastBus}</span>
+            <div className={styles.scheduleFreq}>
+              {t('map.frequency', { count: totalRuns })}
+            </div>
+            <div className={styles.scheduleNote}>
+              {stop.schedule.operatingNote[lang]}
             </div>
           </div>
-          <div className={styles.scheduleFreq}>
-            {t('map.frequency', { min: stop.schedule.frequencyMin })}
-          </div>
-          <div className={styles.scheduleNote}>
-            {stop.schedule.operatingNote[lang]}
-          </div>
-        </div>
-      )}
+        )
+      })()}
       <div className={styles.mapsSection}>
         <div className={styles.mapsSectionLabel}>{t('map.stopDetail.openInMaps')}</div>
         <div className={styles.mapsButtons}>
