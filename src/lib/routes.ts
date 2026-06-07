@@ -31,6 +31,9 @@ export interface RouteStop {
   name: Record<Lang, string>
   googleMapsError?: boolean
   googleMapsErrorNote?: string
+  googleMapsLat?: number
+  googleMapsLng?: number
+  photos?: string[]
   connections: Connection[]
   destinations: Destination[]
   schedule?: {
