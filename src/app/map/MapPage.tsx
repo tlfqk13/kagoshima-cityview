@@ -1,10 +1,11 @@
 'use client'
 import { useState, useMemo, useEffect } from 'react'
 import dynamic from 'next/dynamic'
-import { getAllStops, getStopsByCategory, getMetadata, type BusStop, type Category } from '@/lib/stops'
+import { getStopsForRoute, getStopsByCategory, getRoute, type RouteStop, type RouteId, type Category } from '@/lib/routes'
 import { getFavorites, toggleFavorite } from '@/lib/favorites'
 import type { MapCanvasProps } from '@/components/map/MapCanvas'
 import Nav from '@/components/Nav'
+import RouteTab from '@/components/map/RouteTab'
 import SidePanel from '@/components/map/SidePanel'
 import BottomSheet from '@/components/map/BottomSheet'
 import CategoryChips from '@/components/map/CategoryChips'
@@ -14,12 +15,14 @@ const MapCanvas = dynamic<MapCanvasProps>(() => import('@/components/map/MapCanv
 
 interface Props {
   initialStopId?: string
+  initialRouteId?: RouteId
 }
 
-export default function MapPage({ initialStopId }: Props) {
-  const [selectedStop, setSelectedStop] = useState<BusStop | null>(() => {
+export default function MapPage({ initialStopId, initialRouteId = 'cityview' }: Props) {
+  const [activeRoute, setActiveRoute] = useState<RouteId>(initialRouteId)
+  const [selectedStop, setSelectedStop] = useState<RouteStop | null>(() => {
     if (!initialStopId) return null
-    return getAllStops().find(s => s.id === initialStopId) ?? null
+    return getStopsForRoute(initialRouteId).find(s => s.id === initialStopId) ?? null
   })
   const [activeCategory, setActiveCategory] = useState<Category | 'all'>('all')
   const [searchQuery, setSearchQuery] = useState('')
@@ -34,8 +37,18 @@ export default function MapPage({ initialStopId }: Props) {
     setFavorites(toggleFavorite(stopId))
   }
 
+  function handleRouteChange(routeId: RouteId) {
+    setActiveRoute(routeId)
+    setSelectedStop(null)
+    setActiveCategory('all')
+    setSearchQuery('')
+  }
+
   const filteredStops = useMemo(() => {
-    let stops = activeCategory === 'all' ? getAllStops() : getStopsByCategory(activeCategory as Category)
+    let stops =
+      activeCategory === 'all'
+        ? getStopsForRoute(activeRoute)
+        : getStopsByCategory(activeRoute, activeCategory as Category)
     if (searchQuery.trim()) {
       const q = searchQuery.toLowerCase().trim()
       stops = stops.filter(stop => {
@@ -57,10 +70,10 @@ export default function MapPage({ initialStopId }: Props) {
       const bFav = favorites.includes(b.id) ? -1 : 0
       return aFav - bFav
     })
-  }, [activeCategory, searchQuery, favorites])
+  }, [activeRoute, activeCategory, searchQuery, favorites])
 
-  const meta = getMetadata()
-  const sourceNote = `データ提供：鹿児島市 · ${meta.lastValidatedAt} 검증`
+  const routeMeta = getRoute(activeRoute)
+  const sourceNote = `データ提供：鹿児島市 · ${routeMeta.lastValidatedAt} 검증`
 
   function handleCategoryChange(cat: Category | null) {
     setActiveCategory(cat ?? 'all')
@@ -69,6 +82,7 @@ export default function MapPage({ initialStopId }: Props) {
   return (
     <div className={styles.wrap}>
       <Nav />
+      <RouteTab activeRoute={activeRoute} onChange={handleRouteChange} />
       <div className={styles.body}>
         {/* 지도 영역 */}
         <div className={styles.mapWrap}>
