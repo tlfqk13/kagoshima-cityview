@@ -1,7 +1,7 @@
 # 가고시마 시티뷰 버스 가이드 — 개발 진행 로그
 
 > 다음 세션에서 이 파일을 먼저 읽고 현재 상태를 파악하세요.
-> 최종 업데이트: 2026-06-07 (P0 + P1 + P2 UX 개선 전체 완료)
+> 최종 업데이트: 2026-06-07 (다중 노선 아키텍처 + 좌표 업데이트 + P2/P3 완료)
 
 ---
 
@@ -32,9 +32,11 @@
 
 ---
 
-## 현재 상태: 전체 구현 완료 ✅
+## 현재 상태: 다중 노선 아키텍처 + P2/P3 완료 ✅
 
-**총 17개 태스크 완료. 빌드 클린. TypeScript 에러 없음.**
+**최신 커밋:** `f5c3904` (origin/main 동기화 완료)  
+**빌드:** 클린. TypeScript 에러 없음.  
+**노선:** cityview 20정류장 (전좌표 확인), cityview-night 7정류장 (전좌표 확인), islandview 12정류장 (7확인 / 5근사치)
 
 ---
 
@@ -215,6 +217,70 @@
 
 ---
 
+### Phase 11 — 다중 노선 아키텍처 (2026-06-07)
+
+**커밋:** `aa50ee9` → `f5c3904`
+
+**완료 내용:**
+
+**데이터 레이어 전환 (stops.ts 삭제 → routes.ts 신설):**
+- `src/lib/routes.ts` 신설 — `RouteId`, `RouteStop`, `RouteMetadata` 타입, `getRoute()`, `getStopsForRoute()`, `getStopById()`, `getRouteCoordinates()`, `getStopsGeoJSON()`, `getNearestStop()`, `isRouteAvailableToday()` 등 다중 노선 함수
+- `src/lib/stops.ts` **삭제** — 하위호환 shim이었으나 모든 consumer 마이그레이션 완료 후 제거 (커밋 `159953a`)
+- `src/data/routes/cityview.json` — 기존 stops.json 데이터 이전 + RouteMetadata 구조로 재편
+- `src/data/routes/cityview-night.json` — 야경코스 7정류장, strEnd.php API (rosenId=1660)로 좌표 전면 갱신
+- `src/data/routes/islandview.json` — 아일랜드뷰 12정류장, A/B 코스 구분
+
+**cityview-night.json 좌표 업데이트 (`0e80825`):**
+- 소스: `kotsu-city-kagoshima.jp strEnd.php API` (rosenId=1660, 2026-06-07 추출)
+- 7개 정류장 전부 공식 GPS 좌표로 교체 — `coordinatesApproximate` 필드 전부 제거
+- cn_stop_03 (워터프론트파크): 기존 대비 ~275m 보정
+- cn_stop_04 (시청 앞): 기존 추정치 → 공식값으로 대폭 수정
+- cn_stop_06 이름 갱신: `西郷銅像前（宝山ホール側）`
+
+**islandview.json 좌표 업데이트 (`fbb22db`):**
+- 기존 좌표: 전부 31.66~31.68°N (실제보다 ~8-10km 북쪽)
+- OSM Nominatim/Overpass로 7개 정류장 확인:
+  - iv_stop_01 (桜島港): 31.5941, 130.5982
+  - iv_stop_03 (レインボー桜島): 31.5912, 130.5959
+  - iv_stop_04 (ビジターセンター): 31.5908, 130.5942
+  - iv_stop_05 (烏島展望所): 31.5818, 130.6011
+  - iv_stop_06 (赤水展望広場): 31.5769, 130.6031
+  - iv_stop_08 (砂防センター): 31.5666, 130.6175
+  - iv_stop_11 (湯之平展望所): 31.5915, 130.6300
+- 나머지 5개 (iv_stop_02, 07, 09, 10, 12): 추정치, `coordinatesApproximate: true` 유지
+- strEnd.php가 Island View를 지원하지 않음 확인 (rosenId 1~5000 전수 스캔)
+
+**컴포넌트 routeId 전파 (`9eddbd9`, `26f68da`, `df45fd6`):**
+- `MapCanvas.tsx`: `routeId: RouteId` prop 추가, `clearMapLayers()` + `addMapLayers()` 헬퍼, routeId 변경 시 flyTo + 레이어 리셋
+- `MapPage.tsx`: `activeRoute` state (`RouteId`), `?route=` URL 파라미터 지원, `routeId` → MapCanvas/SidePanel/BottomSheet 전달
+- `RouteTab.tsx`: 노선 선택 탭 컴포넌트 신설
+- SidePanel, BottomSheet, StopDetail, QRModal 전부 `routeId: RouteId` prop 수용, 공유 URL에 `?route=` 포함
+- `TrustSection.tsx`: `getMetadata()` → `getRoute('cityview')` 전환 (TS 타입 오류 해소)
+
+**P2 — 야경코스 시간표 표시 (`f5c3904`):**
+- 기존: `departures.length > 0` 조건부로 스케줄 섹션 숨김 → 야경코스는 아무것도 표시 안 됨
+- 변경: `schedule` 객체가 있으면 항상 섹션 표시, 시각 없을 때는 `operatingNote`만 표시
+- 야경코스 정류장에 "매주 토요일 운행 — 공식 사이트에서 시각 확인" 문구 노출
+
+**P3 — UI 시각 개선 (`f5c3904`):**
+- `StopDetail.tsx` 배지:
+  - 좌표 근사치: 점선 amber 배지 `~ 좌표 근사치 (미검증)`
+  - B코스 전용: 파란 mono 배지 `B코스 전용` (`!courses.includes('A')` 기준)
+- `routes.ts`: GeoJSON properties에 `isBCourseOnly` 추가
+- `MapCanvas.tsx` 지도 마커:
+  - 근사 좌표 정류장: circle-stroke-color = `#C87A3A` (orange)
+  - B코스 전용: circle-opacity = 0.55
+- `StopDetail.module.css`: `.badgeApprox`, `.badgeCourse` 스타일 추가
+- i18n: `map.stopDetail.coordsApproximate`, `map.stopDetail.bCourseOnly` 키 추가 (ko/en/ja)
+
+**커밋:** `059e257`
+
+**완료 내용:**
+- `@vercel/analytics` 설치 및 `<Analytics />` layout.tsx에 추가
+- `vercel.json` — 빌드 커맨드, 도쿄 리전 `nrt1`, manifest/icons 캐시 헤더
+
+---
+
 ## 현재 라우트 구조
 
 ```
@@ -288,12 +354,15 @@ kagoshima-cityview/
 │   │   └── Nav.tsx                ← 테마 토글 버튼 추가됨
 │   ├── data/
 │   │   ├── destinations.json
-│   │   └── stops.json             ← stop_03 googleMapsError+googleMapsLat/Lng, 전체 schedule 필드
+│   │   └── routes/
+│   │       ├── cityview.json      ← 20정류장, GPS 전좌표 확인 (strEnd.php rosenId=1680)
+│   │       ├── cityview-night.json← 7정류장, GPS 전좌표 확인 (strEnd.php rosenId=1660)
+│   │       └── islandview.json    ← 12정류장, 7확인(OSM) / 5근사치(coordinatesApproximate: true)
 │   ├── lib/
 │   │   ├── devlog.ts              ← getAllEpisodes, getEpisode, ko fallback
 │   │   ├── favorites.ts           ← getFavorites, toggleFavorite, isFavorite (localStorage)
 │   │   ├── i18n.ts                ← react-i18next 초기화
-│   │   ├── stops.ts              ← getAllStops, getStopsGeoJSON, getNearestStop, ROUTE_COORDINATES
+│   │   ├── routes.ts              ← 다중노선 타입+함수 (stops.ts 대체, 삭제됨)
 │   │   └── theme.ts               ← getStoredTheme, setStoredTheme, resolveTheme, applyTheme
 │   ├── messages/
 │   │   ├── en.json
@@ -314,36 +383,52 @@ kagoshima-cityview/
 
 ## 다음 세션에서 할 일
 
-### UX 개선 기획서
-`docs/ux-improvements.md` — 18개 기능 전수조사 완료, 우선순위 정의됨
+### UX 개선 완료 현황
 
 **P0 완료 (2026-06-07):**
-1. ✅ Google Maps / Apple Maps(iOS전용) 링크 — StopDetail 하단 "Open in Maps" 섹션
-2. ✅ 좌표 복사 버튼 — GPS 배지 옆 ⎘ 아이콘, 토스트 피드백
-3. ✅ 정류장 URL 공유 — Web Share API (폴백: 클립보드 복사)
-4. ✅ 현재 위치 → 가장 가까운 정류장 자동 선택 — GeolocateControl + haversine(`getNearestStop`)
-5. ✅ 구글맵 오류 위치 시각화 — stop_03에 googleMapsLat/Lng 추가, 선택 시 빨간 반투명 핀 표시
+1. ✅ Google Maps / Apple Maps(iOS전용) 링크
+2. ✅ 좌표 복사 버튼
+3. ✅ 정류장 URL 공유
+4. ✅ 현재 위치 → 가장 가까운 정류장 자동 선택
+5. ✅ 구글맵 오류 위치 시각화
 
 **P1 완료 (2026-06-07):**
-6. ✅ 정류장 검색 — `StopSearch` 컴포넌트, SidePanel+BottomSheet 상단, 이름·목적지 3개 언어 검색
-7. ✅ 버스 운행 시간표 — 20개 정류장 전체 firstBus/lastBus/frequencyMin 추가, StopDetail 시간표 섹션
-8. ✅ 오프라인 안내 배너 — `OfflineBanner` 컴포넌트, navigator.onLine 감지 + PWA 설치 유도 (3초 후, 1회)
-9. ✅ 정류장 사진 — StopDetail 최상단 사진 슬롯, `public/images/stops/placeholder.svg` (실제 사진 촬영 후 교체)
-10. ✅ 도보 경로 미리보기 — userLocation 상태 MapPage로 lift, Mapbox Directions API 경로선, StopDetail 거리+시간 표시
-
-**기술 픽스 (P1 중):**
-- `dynamic<MapCanvasProps>(...)` — dynamic() 임포트는 제네릭 명시 필수, `MapCanvasProps` export 추가
+6. ✅ 정류장 검색
+7. ✅ 버스 운행 시간표
+8. ✅ 오프라인 안내 배너
+9. ✅ 정류장 사진 슬롯 (placeholder, 실제 사진 교체 필요)
+10. ✅ 도보 경로 미리보기
 
 **P2 완료 (2026-06-07):**
-11. ✅ 즐겨찾기 — `src/lib/favorites.ts` (localStorage `stop-favorites`), MapPage 상태 lift, 즐겨찾기 우선 정렬, StopDetail 별 버튼 (#F4C430)
-12. ✅ 다크 모드 — `src/lib/theme.ts` + `ThemeProvider.tsx`, Nav 토글 버튼 (⊙/☀/☾ 사이클), `[data-theme="dark"]` CSS 변수 오버라이드
-13. ✅ 지도 핀 호버 툴팁 — `mapboxgl.Popup` (closeButton: false), 정류장 번호 뱃지 + 다국어 이름, 현재 locale 자동 감지
-14. ✅ QR 코드 생성 — `qrcode` npm 패키지, `QRModal.tsx`, PNG 다운로드 (`kagoshima-cityview-stop-XX.png`), 관광과 제안용
-15. ✅ 지도 스타일 선택 — 🗺일반/🛰위성/🌙야간 토글, `map.setStyle()` + `style.load` 이벤트로 레이어 복원, 레이어 추가 로직 `addMapLayers()` 헬퍼로 추출
-16. ✅ 버스 애니메이션 — 🚌 emoji Marker, `requestAnimationFrame` 60초 루프, `interpolateRoute()` 헬퍼(선분 길이 비례 보간), ▶/⏸ 토글 버튼
+11. ✅ 즐겨찾기
+12. ✅ 다크 모드
+13. ✅ 지도 핀 호버 툴팁
+14. ✅ QR 코드 생성
+15. ✅ 지도 스타일 선택 (일반/위성/야간)
+16. ✅ 버스 애니메이션
 
-### 우선순위 높음
-- [ ] **Vercel 배포** — 레포 연결 후 환경변수 설정:
+**다중 노선 + 데이터 (2026-06-07):**
+17. ✅ 다중 노선 아키텍처 (cityview / cityview-night / islandview)
+18. ✅ cityview-night.json 좌표 전면 갱신 (strEnd.php, rosenId=1660)
+19. ✅ islandview.json 좌표 갱신 (7/12 OSM 확인)
+20. ✅ 야경코스 scheduleNote 표시 (P2 시간표)
+21. ✅ 좌표 근사치 / B코스 전용 배지 (P3-A)
+22. ✅ 지도 마커 시각 구분 (orange stroke / 55% opacity) (P3-B)
+
+---
+
+### 남은 작업
+
+**P1 — 아일랜드뷰 나머지 좌표 확인**
+- iv_stop_02 (火の島めぐみ館), iv_stop_07/09 (赤水麓 B), iv_stop_10 (赤水湯之平口), iv_stop_12 (桜洲小学校前)
+- 현장 방문 또는 가고시마 관광정보 공식 PDF 추가 자료 분석
+
+**P2 — 야경코스 실제 시간표 채우기**
+- 현재: `departures: []` (공식 사이트 확인 문구 표시)
+- 정확한 출발 시각 공식 홈페이지 확인 후 JSON 업데이트
+
+**P3 — 배포 설정**
+- [ ] **Vercel 환경변수:**
   ```
   NEXT_PUBLIC_MAPBOX_TOKEN=pk.실제토큰
   NEXTAUTH_SECRET=랜덤32자
@@ -352,18 +437,14 @@ kagoshima-cityview/
   GOOGLE_CLIENT_SECRET=실제값
   ADMIN_EMAILS=fkffksk20@gmail.com
   ```
-- [ ] **Google OAuth 콘솔** — 승인된 리다이렉트 URI 추가:
-  `https://your-domain.vercel.app/api/auth/callback/google`
+- [ ] **Mapbox 토큰 도메인 제한** — Mapbox 대시보드에서 URL 허용 목록 설정
+- [ ] **Google OAuth 콘솔** — 승인된 리다이렉트 URI: `https://your-domain.vercel.app/api/auth/callback/google`
 
-### 우선순위 중간
-- [ ] **PWA 아이콘 교체** — SVG placeholder(`public/icons/icon-*.svg`) → 실제 PNG (192x192, 512x512)
-- [ ] **에피소드 06 공개** — 관광과 제안 결과 나오면 `06-pitch.mdx`에서 `published: false` → `true`
+**P4 — 우선순위 중간**
+- [ ] **PWA 아이콘 교체** — `public/icons/icon-*.svg` → 실제 PNG (192x192, 512x512)
+- [ ] **에피소드 06 공개** — 관광과 제안 결과 후 `06-pitch.mdx` published: true
 - [ ] **middleware.ts → proxy.ts 이름 변경** — Next.js 16 deprecation warning 해소
-
-### 우선순위 낮음
-- [ ] **en/ja 번역** — `content/story/en/`, `content/story/ja/` MDX 파일 추가 (현재 ko만 존재, fallback으로 동작)
-- [ ] **generateStaticParams for /map/[stopId]** — 20개 정류장을 SSG로 사전 생성하려면 추가
-- [ ] **실제 GTFS 데이터 재검증** — 다음 현장 방문 시 좌표 재확인 및 `data-sources.md` 업데이트
+- [ ] **en/ja 스토리 번역** — `content/story/en/`, `content/story/ja/` MDX 파일 추가
 
 ---
 
@@ -378,6 +459,8 @@ kagoshima-cityview/
 | middleware.ts deprecation warning | 미해결 | 빌드는 통과, 다음 세션에 `proxy.ts`로 이름 변경 |
 | PWA SVG 아이콘 | 미해결 | placeholder, PNG 교체 필요 |
 | dynamic() 타입 추론 | 해결 | `MapCanvasProps` export + `dynamic<MapCanvasProps>()` 명시 필수 |
+| islandview 좌표 5개 근사치 | 미해결 | iv_stop_02,07,09,10,12 — coordinatesApproximate: true, 현장 또는 자료로 확인 필요 |
+| 야경코스 departures[] 비어있음 | 미해결 | 공식 사이트 문구 표시 중, 실제 시각 채워야 함 |
 
 ---
 
