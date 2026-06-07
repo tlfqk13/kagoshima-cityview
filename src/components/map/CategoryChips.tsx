@@ -1,6 +1,6 @@
 'use client'
 import { useTranslation } from 'react-i18next'
-import type { Category } from '@/lib/stops'
+import type { Category } from '@/lib/routes'
 import styles from './CategoryChips.module.css'
 
 const CATEGORIES: { key: Category | 'all'; icon: string }[] = [

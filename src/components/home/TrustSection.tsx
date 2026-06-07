@@ -1,11 +1,11 @@
 'use client'
 import { useTranslation } from 'react-i18next'
-import { getMetadata } from '@/lib/stops'
+import { getRoute } from '@/lib/routes'
 import styles from './TrustSection.module.css'
 
 export default function TrustSection() {
   const { t } = useTranslation()
-  const meta = getMetadata()
+  const meta = getRoute('cityview')
 
   return (
     <section className={styles.section}>

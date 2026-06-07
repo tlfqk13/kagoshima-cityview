@@ -1,6 +1,6 @@
 'use client'
 import { useTranslation } from 'react-i18next'
-import type { BusStop, Lang, Category } from '@/lib/stops'
+import type { RouteStop as BusStop, Lang, Category } from '@/lib/routes'
 import styles from './DestinationCards.module.css'
 
 interface Props {
