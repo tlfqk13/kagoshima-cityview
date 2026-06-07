@@ -1,0 +1,154 @@
+{
+  "metadata": {
+    "routeId": "islandview",
+    "name": {
+      "ko": "사쿠라지마 아일랜드뷰",
+      "en": "Sakurajima Island View",
+      "ja": "サクラジマアイランドビュー"
+    },
+    "color": "#1A6B3A",
+    "fare": { "adult": 230, "child": 120 },
+    "dayPass": { "adult": 500, "child": 250 },
+    "operatingDays": "daily",
+    "loopDurationMin": 55,
+    "center": [130.6100, 31.6600],
+    "zoom": 12,
+    "frequencyMin": 30,
+    "totalRuns": 15,
+    "firstDeparture": "09:30",
+    "lastDeparture": "16:30",
+    "courses": {
+      "A": { "description": { "ko": "A코스 (사방센터 미경유)", "en": "Course A (skips Sabo Center)", "ja": "Aコース（砂防センター経由なし）" } },
+      "B": { "description": { "ko": "B코스 (전 정류장 경유)", "en": "Course B (all stops)", "ja": "Bコース（全停留所経由）" } }
+    },
+    "coordinatesApproximate": true,
+    "sourceVersion": "2026-06",
+    "lastUpdatedAt": "2026-06-07",
+    "lastValidatedAt": "2026-06-07",
+    "coordinateSource": "approximate — needs extraction from kotsu-city-kagoshima.jp (Island View rosenId). See docs/data-update-guide.md.",
+    "scheduleSource": "https://www.kotsu-city-kagoshima.jp/wp/wp-content/uploads/2024/08/78f5e11c28ce68319147a117a1a5cf00.pdf",
+    "disclaimer": {
+      "ko": "사쿠라지마 아일랜드뷰. A/B 2코스 교대 운행, 30분 간격. 좌표는 근사치입니다.",
+      "en": "Sakurajima Island View. Courses A and B alternate every 30 min. Coordinates are approximate.",
+      "ja": "サクラジマアイランドビュー。A・Bコース交互運行、30分間隔。座標は概算値です。"
+    }
+  },
+  "stops": [
+    {
+      "id": "iv_stop_01", "number": 1,
+      "lat": 31.6603, "lng": 130.6035,
+      "coordinatesApproximate": true,
+      "courses": ["A", "B"],
+      "name": { "ko": "사쿠라지마항", "en": "Sakurajima Port", "ja": "桜島港" },
+      "connections": [{
+        "type": "ferry",
+        "to": "cityview",
+        "note": { "ko": "가고시마 시내 페리 (약 15분)", "en": "Ferry to Kagoshima city (~15 min)", "ja": "鹿児島市内へフェリー（約15分）" }
+      }],
+      "destinations": [],
+      "schedule": {
+        "departures": ["09:30","10:00","10:30","11:00","11:30","12:00","12:30","13:00","13:30","14:00","14:30","15:00","15:30","16:00","16:30"],
+        "operatingNote": { "ko": "하루 15편 (09:30~16:30). 30분 간격.", "en": "15 daily runs (09:30–16:30). Every 30 min.", "ja": "1日15便（09:30〜16:30）。30分間隔。" }
+      }
+    },
+    {
+      "id": "iv_stop_02", "number": 2,
+      "lat": 31.6627, "lng": 130.5967,
+      "coordinatesApproximate": true,
+      "courses": ["A", "B"],
+      "name": { "ko": "히노시마 메구미칸", "en": "Hinoshima Megumikan", "ja": "火の島めぐみ館" },
+      "connections": [], "destinations": [],
+      "schedule": { "departures": ["09:31","10:01","10:31","11:01","11:31","12:01","12:31","13:01","13:31","14:01","14:31","15:01","15:31","16:01","16:31"], "operatingNote": { "ko": "하루 15편", "en": "15 daily runs", "ja": "1日15便" } }
+    },
+    {
+      "id": "iv_stop_03", "number": 3,
+      "lat": 31.6673, "lng": 130.5895,
+      "coordinatesApproximate": true,
+      "courses": ["A", "B"],
+      "name": { "ko": "레인보우 사쿠라지마", "en": "Rainbow Sakurajima", "ja": "レインボー桜島" },
+      "connections": [], "destinations": [],
+      "schedule": { "departures": ["09:33","10:03","10:33","11:03","11:33","12:03","12:33","13:03","13:33","14:03","14:33","15:03","15:33","16:03","16:33"], "operatingNote": { "ko": "하루 15편", "en": "15 daily runs", "ja": "1日15便" } }
+    },
+    {
+      "id": "iv_stop_04", "number": 4,
+      "lat": 31.6714, "lng": 130.5839,
+      "coordinatesApproximate": true,
+      "courses": ["A", "B"],
+      "name": { "ko": "비지터센터", "en": "Sakurajima Visitor Center", "ja": "ビジターセンター" },
+      "connections": [], "destinations": [],
+      "schedule": { "departures": ["09:36","10:06","10:36","11:06","11:36","12:06","12:36","13:06","13:36","14:06","14:36","15:06","15:36","16:06","16:36"], "operatingNote": { "ko": "하루 15편", "en": "15 daily runs", "ja": "1日15便" } }
+    },
+    {
+      "id": "iv_stop_05", "number": 5,
+      "lat": 31.6771, "lng": 130.5778,
+      "coordinatesApproximate": true,
+      "courses": ["A", "B"],
+      "name": { "ko": "카라스지마 전망소", "en": "Karasujima Observatory", "ja": "烏島展望所" },
+      "connections": [], "destinations": [],
+      "schedule": { "departures": ["09:39","10:09","10:39","11:09","11:39","12:09","12:39","13:09","13:39","14:09","14:39","15:09","15:39","16:09","16:39"], "operatingNote": { "ko": "하루 15편", "en": "15 daily runs", "ja": "1日15便" } }
+    },
+    {
+      "id": "iv_stop_06", "number": 6,
+      "lat": 31.6687, "lng": 130.5716,
+      "coordinatesApproximate": true,
+      "courses": ["A", "B"],
+      "name": { "ko": "아카미즈 전망광장", "en": "Akamizu Observatory Square", "ja": "赤水展望広場" },
+      "connections": [], "destinations": [],
+      "schedule": { "departures": ["09:41","10:11","10:41","11:11","11:41","12:11","12:41","13:11","13:41","14:11","14:41","15:11","15:41","16:11","16:41"], "operatingNote": { "ko": "하루 15편", "en": "15 daily runs", "ja": "1日15便" } }
+    },
+    {
+      "id": "iv_stop_07", "number": 7,
+      "lat": 31.6618, "lng": 130.5693,
+      "coordinatesApproximate": true,
+      "courses": ["B"],
+      "name": { "ko": "아카미즈 후모토 (B코스)", "en": "Akamizu Fumoto (Course B)", "ja": "赤水麓（Bコース）" },
+      "connections": [], "destinations": [],
+      "schedule": { "departures": ["09:44","10:44","11:44","12:44","13:44","14:44","15:44","16:44"], "operatingNote": { "ko": "B코스만 정차 (홀수 편)", "en": "B course only (odd runs)", "ja": "Bコースのみ停車" } }
+    },
+    {
+      "id": "iv_stop_08", "number": 8,
+      "lat": 31.6553, "lng": 130.5673,
+      "coordinatesApproximate": true,
+      "courses": ["B"],
+      "name": { "ko": "국제화산사방센터", "en": "Int'l Volcanic Sabo Center", "ja": "国際火山砂防センター" },
+      "connections": [], "destinations": [],
+      "schedule": { "departures": ["09:47","10:47","11:47","12:47","13:47","14:47","15:47","16:47"], "operatingNote": { "ko": "B코스만 정차", "en": "B course only", "ja": "Bコースのみ停車" } }
+    },
+    {
+      "id": "iv_stop_09", "number": 9,
+      "lat": 31.6618, "lng": 130.5693,
+      "coordinatesApproximate": true,
+      "courses": ["B"],
+      "name": { "ko": "아카미즈 후모토 (B코스, 귀환)", "en": "Akamizu Fumoto (Course B, return)", "ja": "赤水麓（Bコース帰路）" },
+      "connections": [], "destinations": [],
+      "schedule": { "departures": ["09:50","10:50","11:50","12:50","13:50","14:50","15:50","16:50"], "operatingNote": { "ko": "B코스만 정차", "en": "B course only", "ja": "Bコースのみ停車" } }
+    },
+    {
+      "id": "iv_stop_10", "number": 10,
+      "lat": 31.6638, "lng": 130.5750,
+      "coordinatesApproximate": true,
+      "courses": ["A", "B"],
+      "name": { "ko": "아카미즈 유노히라구치", "en": "Akamizu Yunohira Guchi", "ja": "赤水湯之平口" },
+      "connections": [], "destinations": [],
+      "schedule": { "departures": ["09:51","10:14","10:51","11:14","11:51","12:14","12:51","13:14","13:51","14:14","14:51","15:14","15:51","16:14","16:51"], "operatingNote": { "ko": "하루 15편", "en": "15 daily runs", "ja": "1日15便" } }
+    },
+    {
+      "id": "iv_stop_11", "number": 11,
+      "lat": 31.6486, "lng": 130.6410,
+      "coordinatesApproximate": true,
+      "courses": ["A", "B"],
+      "name": { "ko": "유노히라 전망소", "en": "Yunohira Observatory", "ja": "湯之平展望所" },
+      "connections": [], "destinations": [],
+      "schedule": { "departures": ["10:10","10:40","11:10","11:40","12:10","12:40","13:10","13:40","14:10","14:40","15:10","15:40","16:10","16:40","17:10"], "operatingNote": { "ko": "하루 15편", "en": "15 daily runs", "ja": "1日15便" } }
+    },
+    {
+      "id": "iv_stop_12", "number": 12,
+      "lat": 31.6543, "lng": 130.6218,
+      "coordinatesApproximate": true,
+      "courses": ["A", "B"],
+      "name": { "ko": "오우 초등학교 앞", "en": "Ohu Elementary School Mae", "ja": "桜洲小学校前" },
+      "connections": [], "destinations": [],
+      "schedule": { "departures": ["10:20","10:50","11:20","11:50","12:20","12:50","13:20","13:50","14:20","14:50","15:20","15:50","16:20","16:50","17:20"], "operatingNote": { "ko": "하루 15편", "en": "15 daily runs", "ja": "1日15便" } }
+    }
+  ]
+}
