@@ -1,0 +1,110 @@
+{
+  "metadata": {
+    "routeId": "cityview-night",
+    "name": {
+      "ko": "야경 코스",
+      "en": "Night View Course",
+      "ja": "夜景コース"
+    },
+    "color": "#2C3E7A",
+    "fare": { "adult": 250, "child": 130 },
+    "dayPass": null,
+    "operatingDays": "saturday",
+    "seasonalExtra": ["august", "december", "january"],
+    "loopDurationMin": 60,
+    "center": [130.5530, 31.5930],
+    "zoom": 14,
+    "frequencyMin": null,
+    "totalRuns": null,
+    "firstDeparture": null,
+    "lastDeparture": null,
+    "sourceVersion": "2026-06",
+    "lastUpdatedAt": "2026-06-07",
+    "lastValidatedAt": "2026-06-07",
+    "coordinateSource": "cityview.json (derived) + 市役所前 approximate",
+    "scheduleSource": "https://www.kotsu-city-kagoshima.jp/sakurajima-tabi/",
+    "scheduleNote": {
+      "ko": "매주 토요일 운행 (8·12·1월은 금·토 양일). 정확한 출발 시각은 공식 사이트 확인.",
+      "en": "Runs every Saturday (also Friday in Aug/Dec/Jan). Check official site for exact times.",
+      "ja": "毎週土曜日運行（8・12・1月は金土両日）。正確な時刻は公式サイトをご確認ください。"
+    },
+    "disclaimer": {
+      "ko": "야경 코스는 토요일만 운행합니다 (8·12·1월 금요일 추가).",
+      "en": "Night View Course runs Saturdays only (also Fridays in Aug/Dec/Jan).",
+      "ja": "夜景コースは毎週土曜日のみ運行（8・12・1月は金曜日も運行）。"
+    }
+  },
+  "stops": [
+    {
+      "id": "cn_stop_01",
+      "number": 1,
+      "lat": 31.58508327,
+      "lng": 130.5436063,
+      "name": { "ko": "가고시마 중앙역", "en": "Kagoshima-Chuo Station", "ja": "鹿児島中央駅" },
+      "connections": [],
+      "destinations": [],
+      "schedule": { "departures": [], "operatingNote": { "ko": "출발지 — 공식 사이트에서 시각 확인", "en": "Departure — check official site for times", "ja": "出発地 — 公式サイトで時刻確認" } }
+    },
+    {
+      "id": "cn_stop_02",
+      "number": 2,
+      "lat": 31.59034199,
+      "lng": 130.5541581,
+      "name": { "ko": "텐몬칸", "en": "Tenmonkan", "ja": "天文館" },
+      "connections": [],
+      "destinations": [],
+      "schedule": { "departures": [], "operatingNote": { "ko": "공식 사이트에서 시각 확인", "en": "Check official site for times", "ja": "公式サイトで時刻確認" } }
+    },
+    {
+      "id": "cn_stop_03",
+      "number": 3,
+      "lat": 31.59482962,
+      "lng": 130.5627573,
+      "name": { "ko": "워터프론트파크 앞", "en": "Waterfront Park Mae", "ja": "ウォーターフロントパーク前" },
+      "connections": [],
+      "destinations": [],
+      "schedule": { "departures": [], "operatingNote": { "ko": "공식 사이트에서 시각 확인", "en": "Check official site for times", "ja": "公式サイトで時刻確認" } }
+    },
+    {
+      "id": "cn_stop_04",
+      "number": 4,
+      "lat": 31.58870,
+      "lng": 130.55010,
+      "coordinatesApproximate": true,
+      "name": { "ko": "시청 앞", "en": "City Hall Mae", "ja": "市役所前" },
+      "connections": [],
+      "destinations": [],
+      "schedule": { "departures": [], "operatingNote": { "ko": "공식 사이트에서 시각 확인", "en": "Check official site for times", "ja": "公式サイトで時刻確認" } }
+    },
+    {
+      "id": "cn_stop_05",
+      "number": 5,
+      "lat": 31.59658192,
+      "lng": 130.5491745,
+      "name": { "ko": "시로야마 (15분 정차)", "en": "Shiroyama (15 min stop)", "ja": "城山（15分停車）" },
+      "connections": [],
+      "destinations": [],
+      "schedule": { "departures": [], "operatingNote": { "ko": "야경 감상 15분 정차 후 출발", "en": "15 min night view stop then departs", "ja": "15分停車後出発" } }
+    },
+    {
+      "id": "cn_stop_06",
+      "number": 6,
+      "lat": 31.59472224,
+      "lng": 130.5542251,
+      "name": { "ko": "사이고 동상 앞", "en": "Saigo Statue Mae", "ja": "西郷銅像前" },
+      "connections": [],
+      "destinations": [],
+      "schedule": { "departures": [], "operatingNote": { "ko": "공식 사이트에서 시각 확인", "en": "Check official site for times", "ja": "公式サイトで時刻確認" } }
+    },
+    {
+      "id": "cn_stop_07",
+      "number": 7,
+      "lat": 31.59021226,
+      "lng": 130.5543941,
+      "name": { "ko": "텐몬칸 (중앙역 방면)", "en": "Tenmonkan (toward Kagoshima-Chuo)", "ja": "天文館（鹿児島中央駅向け）" },
+      "connections": [],
+      "destinations": [],
+      "schedule": { "departures": [], "operatingNote": { "ko": "공식 사이트에서 시각 확인", "en": "Check official site for times", "ja": "公式サイトで時刻確認" } }
+    }
+  ]
+}
