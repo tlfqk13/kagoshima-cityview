@@ -316,6 +316,8 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  /* 포스터 시리즈는 좌상단 타이틀이 있으므로 상단 기준으로 크롭 */
+  object-position: center top;
   display: block;
 }
 
