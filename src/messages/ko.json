@@ -59,7 +59,8 @@
     "addFavorite": "즐겨찾기 추가",
     "removeFavorite": "즐겨찾기 해제",
     "showQR": "QR 코드",
-    "downloadQR": "PNG 다운로드"
+    "downloadQR": "PNG 다운로드",
+    "sourceNote": "データ提供：鹿児島市（原データより加工） · {{date}} 검증"
   },
   "common": {
     "close": "닫기"

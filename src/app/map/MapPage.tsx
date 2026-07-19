@@ -1,6 +1,7 @@
 'use client'
 import { useState, useMemo, useEffect } from 'react'
 import dynamic from 'next/dynamic'
+import { useTranslation } from 'react-i18next'
 import { getStopsForRoute, getStopsByCategory, getRoute, type RouteStop, type RouteId, type Category } from '@/lib/routes'
 import { getFavorites, toggleFavorite } from '@/lib/favorites'
 import type { MapCanvasProps } from '@/components/map/MapCanvas'
@@ -19,6 +20,7 @@ interface Props {
 }
 
 export default function MapPage({ initialStopId, initialRouteId = 'cityview' }: Props) {
+  const { t } = useTranslation()
   const [activeRoute, setActiveRoute] = useState<RouteId>(initialRouteId)
   const [selectedStop, setSelectedStop] = useState<RouteStop | null>(() => {
     if (!initialStopId) return null
@@ -73,7 +75,7 @@ export default function MapPage({ initialStopId, initialRouteId = 'cityview' }: 
   }, [activeRoute, activeCategory, searchQuery, favorites])
 
   const routeMeta = getRoute(activeRoute)
-  const sourceNote = `データ提供：鹿児島市 · ${routeMeta.lastValidatedAt} 검증`
+  const sourceNote = t('map.sourceNote', { date: routeMeta.lastValidatedAt })
 
   function handleCategoryChange(cat: Category | null) {
     setActiveCategory(cat ?? 'all')

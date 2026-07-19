@@ -59,7 +59,8 @@
     "addFavorite": "Add to favorites",
     "removeFavorite": "Remove from favorites",
     "showQR": "QR Code",
-    "downloadQR": "Download PNG"
+    "downloadQR": "Download PNG",
+    "sourceNote": "Data: 鹿児島市 (processed from original) · Verified {{date}}"
   },
   "common": {
     "close": "Close"
