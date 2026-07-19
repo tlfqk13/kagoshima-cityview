@@ -1,0 +1,18 @@
+---
+title: "What Should I Build to Fix This?"
+date: "2026-05-20"
+summary: "I defined the problem and planned what kind of service could help travelers going through the same pain I did."
+published: true
+---
+
+Back in Seoul, I defined the problem all over again.
+
+**The core problem:** The bus stops for the Kagoshima City View bus are misplaced on Google Maps. Korean and English guidance is lacking.
+
+**The direction for a solution:** A dedicated map service with accurate GPS coordinates plus multilingual guidance.
+
+I found the official GTFS open data published by the City of Kagoshima. It included bus stop coordinates released in the standard format for transit data. Under the CC BY 4.0 license, I was free to use it as long as I credited the source.
+
+I also verified things on the ground myself. Comparing the GTFS coordinates for the Tenmonkan bus stop with what Google Maps showed, there was a gap of about 200 meters. The GTFS data was the accurate one.
+
+That settled the plan: an accurate map + three languages + a mobile-friendly PWA.

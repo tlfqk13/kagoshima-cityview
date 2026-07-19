@@ -1,0 +1,22 @@
+---
+title: "Building It: Wrestling with the Map"
+date: "2026-06-01"
+summary: "Technical hurdles while implementing Next.js + Mapbox GL JS: Turbopack conflicts, SSR crashes, and multilingual detection."
+published: true
+---
+
+Implementation turned out to be more complicated than I expected.
+
+**First wall: Mapbox and Turbopack**
+
+Next.js 16 switched its default bundler to Turbopack. Mapbox GL JS uses a Web Worker, which clashed with how Turbopack handles Worker URLs. The fix: the `next dev --no-turbo` flag.
+
+**Second wall: server-side rendering**
+
+The `mapboxgl` library is browser-only. Import it on the Next.js server and it crashes. The fix: `dynamic(() => import('@/components/map/MapCanvas'), { ssr: false })`.
+
+**Third wall: multilingual detection**
+
+I tried next-intl at first. It required URL prefixes (`/ko/`, `/en/`), which conflicted with the `/map/[stopId]` route I had already designed. So I switched to react-i18next: language detection via query string and cookies, with no URL changes.
+
+There was a lot of flailing around, but I solved each problem one by one. That's development.

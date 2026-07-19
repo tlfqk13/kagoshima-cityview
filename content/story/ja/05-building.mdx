@@ -1,0 +1,22 @@
+---
+title: "作る：地図との格闘"
+date: "2026-06-01"
+summary: "Next.js + Mapbox GL JS の実装で直面した技術的な壁。Turbopack との衝突、SSR クラッシュ、多言語判定。"
+published: true
+---
+
+実装は思っていたより複雑でした。
+
+**一つ目の壁：Mapbox と Turbopack**
+
+Next.js 16 からデフォルトのバンドラーが Turbopack に変わりました。Mapbox GL JS は Web Worker を使うのですが、Turbopack の Worker URL の処理方式と衝突してしまいました。解決策：`next dev --no-turbo` フラグ。
+
+**二つ目の壁：サーバーサイドレンダリング**
+
+`mapboxgl` ライブラリはブラウザ専用です。Next.js のサーバーで import するとクラッシュします。解決策：`dynamic(() => import('@/components/map/MapCanvas'), { ssr: false })`。
+
+**三つ目の壁：多言語判定**
+
+最初は next-intl を試しました。URL プレフィックス（`/ko/`、`/en/`）が必須で、すでに設計していた `/map/[stopId]` ルートと衝突しました。react-i18next に切り替えました。クエリ文字列とクッキーベースの言語判定で、URL の変更はありません。
+
+試行錯誤は多かったですが、一つずつ解決していきました。それが開発です。
