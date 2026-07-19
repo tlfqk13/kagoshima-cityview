@@ -1,0 +1,176 @@
+/* /card/[stopId] — 호텔·관광안내소 비치용 프린트 카드 (A6) */
+
+.screen {
+  min-height: 100vh;
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 20px;
+  gap: 20px;
+}
+
+.toolbar {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.printBtn {
+  padding: 12px 28px;
+  background: var(--accent);
+  color: #FFFFFF;
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  border-radius: var(--radius);
+}
+
+.backLink {
+  font-size: 12px;
+  color: var(--muted);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* ---------- 카드 본체 (A6: 105mm × 148mm) ---------- */
+
+.card {
+  width: 105mm;
+  min-height: 148mm;
+  background: #F4EFE9;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.cardHeader {
+  background: var(--dark);
+  padding: 5mm 6mm;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.cardService {
+  font-size: 8.5pt;
+  letter-spacing: 0.14em;
+  color: rgba(255, 255, 255, 0.85);
+  text-transform: uppercase;
+}
+
+.cardRoute {
+  font-size: 7.5pt;
+  color: rgba(255, 255, 255, 0.45);
+  letter-spacing: 0.08em;
+  white-space: nowrap;
+}
+
+.cardBody {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 6mm 6mm 4mm;
+}
+
+.stopNum {
+  font-family: var(--font-mono);
+  font-size: 20pt;
+  font-weight: 700;
+  color: var(--accent);
+  line-height: 1;
+  margin-bottom: 2mm;
+}
+
+.stopNameJa {
+  font-family: var(--font-serif);
+  font-size: 15pt;
+  color: #1C1A18;
+  text-align: center;
+  line-height: 1.4;
+  margin-bottom: 1mm;
+}
+
+.stopNameSub {
+  font-size: 8pt;
+  color: #555555;
+  text-align: center;
+  line-height: 1.6;
+  margin-bottom: 5mm;
+}
+
+.qr {
+  width: 52mm;
+  height: 52mm;
+  display: block;
+  margin-bottom: 3mm;
+}
+
+.url {
+  font-family: var(--font-mono);
+  font-size: 6.5pt;
+  color: #8A8278;
+  letter-spacing: 0.02em;
+  margin-bottom: 4mm;
+  word-break: break-all;
+  text-align: center;
+}
+
+.guide {
+  font-size: 7.5pt;
+  color: #555555;
+  text-align: center;
+  line-height: 1.7;
+}
+
+.cardFooter {
+  border-top: 1px solid var(--rule);
+  padding: 3mm 6mm;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.attribution {
+  font-size: 6.5pt;
+  color: #8A8278;
+}
+
+.domain {
+  font-family: var(--font-mono);
+  font-size: 7pt;
+  color: #1C1A18;
+  font-weight: 700;
+}
+
+/* ---------- 프린트 ---------- */
+
+@page {
+  size: A6 portrait;
+  margin: 0;
+}
+
+@media print {
+  .screen {
+    padding: 0;
+    background: none;
+    display: block;
+  }
+
+  .toolbar {
+    display: none;
+  }
+
+  .card {
+    box-shadow: none;
+    border: none;
+    border-radius: 0;
+    width: 105mm;
+    height: 148mm;
+  }
+}

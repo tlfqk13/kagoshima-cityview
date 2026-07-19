@@ -64,3 +64,10 @@
     bottom: 80px;
   }
 }
+
+/* 프린트 시(정류장 카드 등)에는 설치/오프라인 배너 숨김 */
+@media print {
+  .banner {
+    display: none;
+  }
+}
