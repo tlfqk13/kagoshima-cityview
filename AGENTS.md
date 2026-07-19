@@ -22,6 +22,8 @@
 | `/story/[slug]` | 개별 에피소드 상세 (MDX) |
 | `/admin` | 관리자 페이지 (NextAuth 보호) |
 | `/admin/login` | 관리자 로그인 (Google OAuth) |
+| `/card` | 정류장 카드 인쇄 인덱스 (호텔·관광안내소 배포용, 색인 제외) |
+| `/card/[stopId]` | A6 프린트용 정류장 QR 카드. QR은 `QRModal`과 동일한 도메인/URL 규칙 사용 |
 
 ## 기술 스택
 
