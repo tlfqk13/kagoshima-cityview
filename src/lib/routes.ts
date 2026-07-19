@@ -60,7 +60,10 @@ export interface RouteMetadata {
   coordinatesApproximate?: boolean
   sourceVersion: string
   lastUpdatedAt: string
-  lastValidatedAt: string
+  /** 현장 GPS 실측일 — 미실측 노선은 null */
+  lastFieldVerifiedAt: string | null
+  /** 공식 출처와 마지막으로 대조한 날 */
+  lastSourceCheckedAt: string
   coordinateSource: string
   scheduleSource: string
   scheduleNote?: Record<Lang, string>

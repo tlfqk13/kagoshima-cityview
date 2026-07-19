@@ -252,7 +252,7 @@ ADMIN_EMAILS=your@email.com
 - [ ] 노선 폴리라인이 실제 운행 경로를 따르는지
 - [ ] `stop_01`과 `stop_20`이 동일 위치(가고시마 중앙역)인지
 - [ ] 시간표 첫/막차 시간이 공식 데이터와 일치하는지
-- [ ] `coordinatesApproximate`와 `metadata.lastValidatedAt` 등 메타데이터가 갱신되었는지
+- [ ] `coordinatesApproximate`와 `metadata.lastSourceCheckedAt`(실측 시 `lastFieldVerifiedAt`) 등 메타데이터가 갱신되었는지
 
 ## 배포 프로세스
 
@@ -305,7 +305,7 @@ ADMIN_EMAILS=your@email.com
 ## 개발 시 참고 문서
 
 - `docs/project-overview.md` — 서비스 개요, 핵심 기능, 기술 스택
-- `docs/data-sources.md` — 데이터 출처, 라이선스(CC BY 4.0), 현장 검증 기록
+- `docs/data-sources.md` — 노선별 데이터 출처, 라이선스(CC BY 4.0 · islandview는 ODbL), 현장 검증 기록
 - `docs/data-update-guide.md` — 노선 데이터 정기 업데이트 절차
 - `docs/ux-improvements.md` — UX 기능 우선순위 및 기획
 - `docs/issues.md` — 이슈 트래커 (ISS-001 등)

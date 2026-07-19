@@ -22,6 +22,7 @@ interface Props {
   userLocation?: [number, number] | null
   favorites?: string[]
   onToggleFavorite?: (stopId: string) => void
+  sourceNote: string
 }
 
 const HEIGHTS: Record<SheetState, string> = {
@@ -42,6 +43,7 @@ export default function BottomSheet({
   userLocation,
   favorites,
   onToggleFavorite,
+  sourceNote,
 }: Props) {
   const [state, setState] = useState<SheetState>('peek')
   const dragStartY = useRef(0)
@@ -71,13 +73,13 @@ export default function BottomSheet({
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
       role="complementary"
-      aria-label="정류장 목록"
+      aria-label={t('map.stopListAria')}
     >
       <div
         className={styles.handle}
         onClick={() => setState(prev => prev === 'peek' ? 'half' : 'peek')}
         role="button"
-        aria-label={state === 'peek' ? '목록 펼치기' : '목록 접기'}
+        aria-label={state === 'peek' ? t('map.sheetExpand') : t('map.sheetCollapse')}
         tabIndex={0}
         onKeyDown={e => e.key === 'Enter' && setState(prev => prev === 'peek' ? 'half' : 'peek')}
       />
@@ -97,6 +99,7 @@ export default function BottomSheet({
         ) : (
           <StopList stops={stops} selectedId={null} onSelect={onStopSelect} favorites={favorites} />
         )}
+        <div className={styles.attribution}>{sourceNote}</div>
       </div>
     </div>
   )

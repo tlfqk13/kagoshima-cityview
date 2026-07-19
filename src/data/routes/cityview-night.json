@@ -20,7 +20,8 @@
     "lastDeparture": null,
     "sourceVersion": "2026-06",
     "lastUpdatedAt": "2026-06-07",
-    "lastValidatedAt": "2026-06-07",
+    "lastFieldVerifiedAt": null,
+    "lastSourceCheckedAt": "2026-06-07",
     "coordinateSource": "kotsu-city-kagoshima.jp strEnd.php API (rosenId=1660) — extracted 2026-06-07",
     "scheduleSource": "https://www.kotsu-city-kagoshima.jp/sakurajima-tabi/",
     "scheduleNote": {

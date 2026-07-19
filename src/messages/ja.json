@@ -7,6 +7,7 @@
   },
   "hero": {
     "eyebrow": "鹿児島シティビューバスガイド",
+    "photoAlt": "桜島",
     "h1line1": "バス停を見つけられず",
     "h1line2": "迷った旅行者が",
     "h1line3": "作ったガイド",
@@ -45,7 +46,8 @@
       "shareStop": "共有",
       "linkCopied": "リンクをコピーしました!",
       "coordsApproximate": "座標近似値（未確認）",
-      "bCourseOnly": "Bコースのみ"
+      "bCourseOnly": "Bコースのみ",
+      "photoAlt": "{{name}} 停留所の写真"
     },
     "schedule": "時刻表",
     "firstBus": "始発",
@@ -60,7 +62,18 @@
     "removeFavorite": "お気に入りから削除",
     "showQR": "QRコード",
     "downloadQR": "PNG保存",
-    "sourceNote": "データ提供：鹿児島市（原データより加工） · {{date}} 検証"
+    "sourceNote": "データ提供：鹿児島市（原データより加工） · {{date}} 検証",
+    "sourceNoteChecked": "データ提供：鹿児島市（原データより加工） · {{date}} データ確認",
+    "sourceNoteOsm": "© OpenStreetMap contributors · 時刻表: 鹿児島市（原データより加工） · {{date}} データ確認",
+    "stopListAria": "停留所リスト",
+    "sheetExpand": "リストを開く",
+    "sheetCollapse": "リストを閉じる",
+    "categoryFilter": "カテゴリ絞り込み",
+    "busMarker": "シティビューバス",
+    "wrongPin": "Googleマップの誤った位置情報",
+    "animPause": "アニメーション停止",
+    "animPlay": "バスアニメーション",
+    "favorited": "お気に入り登録済み"
   },
   "common": {
     "close": "閉じる"
@@ -80,7 +93,12 @@
   "devlog": {
     "sectionTitle": "制作の記録",
     "viewAll": "すべて見る",
-    "episode": "エピソード"
+    "episode": "エピソード",
+    "prev": "前へ",
+    "next": "次へ",
+    "pageEyebrow": "開発日誌",
+    "pageHeading": "このサービスができた経緯",
+    "metaDescription": "鹿児島シティビューバスガイドの開発過程を記した物語"
   },
   "problem": {
     "title": "Googleマップは間違っていて、\n案内板もありません",

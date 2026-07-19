@@ -86,7 +86,7 @@ fetch('/wp/timesearch/strEnd.php?rosen_id=1680&str_id=&end_id=&kubun=&color=')
 
 > stop_20(순환 종점)은 stop_01과 동일 좌표 (`id: 531` 중복 확인).
 
-업데이트 후 `coordinatesApproximate` 필드를 제거하고 `metadata.lastValidatedAt` 을 갱신한다.
+업데이트 후 `coordinatesApproximate` 필드를 제거하고 `metadata.lastSourceCheckedAt`을 갱신한다. 현장 실측을 했다면 `metadata.lastFieldVerifiedAt`도 함께 갱신한다.
 
 ---
 
@@ -151,7 +151,7 @@ num  id   name                           lat              lng
 1. 각 정류장 `lat`, `lng` 수정
 2. `coordinatesApproximate: true` 필드 제거
 3. `metadata.coordinateSource` 갱신 (예: `"kotsu-city-kagoshima.jp strEnd.php API (rosenId=1660) — extracted YYYY-MM-DD"`)
-4. `metadata.lastValidatedAt` 갱신
+4. `metadata.lastSourceCheckedAt` 갱신 (현장 실측을 했다면 `lastFieldVerifiedAt`도 갱신)
 
 ---
 
@@ -277,6 +277,7 @@ console.log(JSON.stringify(timetable, null, 2))
 ```
 1. 해당 노선 JSON 파일 편집 (src/data/routes/<routeId>.json)
    - metadata.lastUpdatedAt 갱신 (YYYY-MM-DD)
+   - metadata.lastSourceCheckedAt 갱신 (현장 실측 시 lastFieldVerifiedAt도 갱신)
    - metadata.sourceVersion 갱신 (YYYY-MM)
    - 변경된 정류장 lat/lng/name 수정
    - coordinatesApproximate 필드 업데이트

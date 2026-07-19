@@ -7,6 +7,7 @@
   },
   "hero": {
     "eyebrow": "Kagoshima City View Bus Guide",
+    "photoAlt": "사쿠라지마",
     "h1line1": "버스 정류장을 찾지 못해",
     "h1line2": "헤맸던 여행자가",
     "h1line3": "직접 만든 가이드",
@@ -45,7 +46,8 @@
       "shareStop": "공유",
       "linkCopied": "링크 복사됨!",
       "coordsApproximate": "좌표 근사치 (미검증)",
-      "bCourseOnly": "B코스 전용"
+      "bCourseOnly": "B코스 전용",
+      "photoAlt": "{{name}} 정류장 사진"
     },
     "schedule": "운행 시간",
     "firstBus": "첫차",
@@ -60,7 +62,18 @@
     "removeFavorite": "즐겨찾기 해제",
     "showQR": "QR 코드",
     "downloadQR": "PNG 다운로드",
-    "sourceNote": "データ提供：鹿児島市（原データより加工） · {{date}} 검증"
+    "sourceNote": "データ提供：鹿児島市（原データより加工） · {{date}} 검증",
+    "sourceNoteChecked": "データ提供：鹿児島市（原データより加工） · {{date}} 데이터 확인",
+    "sourceNoteOsm": "© OpenStreetMap contributors · 時刻表: 鹿児島市（原データより加工） · {{date}} 데이터 확인",
+    "stopListAria": "정류장 목록",
+    "sheetExpand": "목록 펼치기",
+    "sheetCollapse": "목록 접기",
+    "categoryFilter": "카테고리 필터",
+    "busMarker": "시티뷰 버스",
+    "wrongPin": "구글맵 오류 위치",
+    "animPause": "애니메이션 정지",
+    "animPlay": "버스 애니메이션",
+    "favorited": "즐겨찾기됨"
   },
   "common": {
     "close": "닫기"
@@ -80,7 +93,12 @@
   "devlog": {
     "sectionTitle": "제작 이야기",
     "viewAll": "전체 보기",
-    "episode": "에피소드"
+    "episode": "에피소드",
+    "prev": "이전",
+    "next": "다음",
+    "pageEyebrow": "개발 일지",
+    "pageHeading": "이 서비스가 만들어진 이야기",
+    "metaDescription": "가고시마 시티뷰 버스 가이드 서비스 개발 과정을 담은 이야기"
   },
   "problem": {
     "title": "구글맵이 틀렸고,\n안내판도 없습니다",

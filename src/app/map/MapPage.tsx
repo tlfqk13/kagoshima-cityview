@@ -75,7 +75,13 @@ export default function MapPage({ initialStopId, initialRouteId = 'cityview' }: 
   }, [activeRoute, activeCategory, searchQuery, favorites])
 
   const routeMeta = getRoute(activeRoute)
-  const sourceNote = t('map.sourceNote', { date: routeMeta.lastValidatedAt })
+  // 실측 노선은 실측일 + "검증" 표기, 미실측 노선은 대조일 + "확인" 표기
+  // islandview는 좌표 출처가 OpenStreetMap(ODbL)이라 attribution 병기 (ISS-002)
+  const sourceNote = activeRoute === 'islandview'
+    ? t('map.sourceNoteOsm', { date: routeMeta.lastSourceCheckedAt })
+    : routeMeta.lastFieldVerifiedAt
+      ? t('map.sourceNote', { date: routeMeta.lastFieldVerifiedAt })
+      : t('map.sourceNoteChecked', { date: routeMeta.lastSourceCheckedAt })
 
   function handleCategoryChange(cat: Category | null) {
     setActiveCategory(cat ?? 'all')
@@ -131,6 +137,7 @@ export default function MapPage({ initialStopId, initialRouteId = 'cityview' }: 
             userLocation={userLocation}
             favorites={favorites}
             onToggleFavorite={handleToggleFavorite}
+            sourceNote={sourceNote}
           />
         </div>
       </div>

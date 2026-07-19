@@ -19,7 +19,8 @@
     "lastDeparture": "17:30",
     "sourceVersion": "2026-06",
     "lastUpdatedAt": "2026-06-07",
-    "lastValidatedAt": "2026-06-07",
+    "lastFieldVerifiedAt": "2026-05-31",
+    "lastSourceCheckedAt": "2026-06-07",
     "coordinateSource": "https://www.kotsu-city-kagoshima.jp/wp/timesearch/line_rosen_map.php?rosenId=1680",
     "scheduleSource": "https://www.kotsu-city-kagoshima.jp/wp/timesearch/bus_list.php?rosenId=1680&syubetuId=0",
     "disclaimer": {
@@ -73,8 +74,10 @@
       "lat": 31.59034199,
       "lng": 130.5541581,
       "name": { "ko": "텐몬칸 (센간엔 방면)", "en": "Tenmonkan (toward Sengan-en)", "ja": "天文館（仙巌園方面向け）" },
-      "googleMapsError": false,
-      "googleMapsErrorNote": "",
+      "googleMapsError": true,
+      "googleMapsErrorNote": "구글맵이 약 200m 떨어진 위치를 가리킴 (2026-05 현장 확인 — 데브로그 EP.01)",
+      "googleMapsLat": 31.5912,
+      "googleMapsLng": 130.5563,
       "destinations": [],
       "connections": [],
       "schedule": {

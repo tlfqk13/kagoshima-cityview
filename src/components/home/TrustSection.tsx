@@ -26,7 +26,7 @@ export default function TrustSection() {
         </div>
         <div className={styles.source}>
           <span>{t('trust.source')}</span>
-          <span className={styles.date}>{t('trust.validated')}: {meta.lastValidatedAt}</span>
+          <span className={styles.date}>{t('trust.validated')}: {meta.lastFieldVerifiedAt ?? meta.lastSourceCheckedAt}</span>
         </div>
       </div>
     </section>

@@ -7,6 +7,7 @@
   },
   "hero": {
     "eyebrow": "Kagoshima City View Bus Guide",
+    "photoAlt": "Sakurajima",
     "h1line1": "A guide made by a traveler",
     "h1line2": "who got lost looking",
     "h1line3": "for the bus stop",
@@ -45,7 +46,8 @@
       "shareStop": "Share this stop",
       "linkCopied": "Link copied!",
       "coordsApproximate": "Approx. location (unverified)",
-      "bCourseOnly": "Course B only"
+      "bCourseOnly": "Course B only",
+      "photoAlt": "Photo of {{name}} bus stop"
     },
     "schedule": "Schedule",
     "firstBus": "First bus",
@@ -60,7 +62,18 @@
     "removeFavorite": "Remove from favorites",
     "showQR": "QR Code",
     "downloadQR": "Download PNG",
-    "sourceNote": "Data: 鹿児島市 (processed from original) · Verified {{date}}"
+    "sourceNote": "Data: 鹿児島市 (processed from original) · Verified {{date}}",
+    "sourceNoteChecked": "Data: 鹿児島市 (processed from original) · Checked {{date}}",
+    "sourceNoteOsm": "© OpenStreetMap contributors · Timetable: 鹿児島市 · Checked {{date}}",
+    "stopListAria": "Bus stop list",
+    "sheetExpand": "Expand list",
+    "sheetCollapse": "Collapse list",
+    "categoryFilter": "Category filter",
+    "busMarker": "City View bus",
+    "wrongPin": "Incorrect location on Google Maps",
+    "animPause": "Pause animation",
+    "animPlay": "Bus animation",
+    "favorited": "Favorited"
   },
   "common": {
     "close": "Close"
@@ -80,7 +93,12 @@
   "devlog": {
     "sectionTitle": "Making Of",
     "viewAll": "View All",
-    "episode": "Episode"
+    "episode": "Episode",
+    "prev": "Prev",
+    "next": "Next",
+    "pageEyebrow": "Dev Log",
+    "pageHeading": "The story behind this service",
+    "metaDescription": "The making of the Kagoshima City View bus guide"
   },
   "problem": {
     "title": "Google Maps is wrong,\nand there are no signs",

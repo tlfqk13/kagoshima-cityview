@@ -24,7 +24,8 @@
     "coordinatesApproximate": true,
     "sourceVersion": "2026-06",
     "lastUpdatedAt": "2026-06-07",
-    "lastValidatedAt": "2026-06-07",
+    "lastFieldVerifiedAt": null,
+    "lastSourceCheckedAt": "2026-06-07",
     "coordinateSource": "OpenStreetMap Nominatim/Overpass (stops 1,3-6,8,11 confirmed; stops 2,7,9,10,12 approximate). strEnd.php API not available for this route.",
     "scheduleSource": "https://www.kotsu-city-kagoshima.jp/wp/wp-content/uploads/2024/08/78f5e11c28ce68319147a117a1a5cf00.pdf",
     "disclaimer": {

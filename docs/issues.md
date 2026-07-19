@@ -5,6 +5,45 @@
 
 ---
 
+## ISS-003 · `lastValidatedAt` 의미가 노선마다 다르게 사용됨
+
+**상태:** 해결 (2026-07-18 — `lastFieldVerifiedAt`/`lastSourceCheckedAt`로 분리)
+**발생일:** 2026-07-18 (평가 중 발견)
+**심각도:** Medium — 관광과 제출 시 "현장 검증일"의 신뢰도 문제
+
+### 내용
+
+`metadata.lastValidatedAt`가 cityview는 "현장 실측일"(2026-05-31 실측), night/islandview는
+"공식 데이터와 대조한 날"(2026-06-07 추출일)로 의미가 다르게 쓰임.
+특히 islandview는 스스로 `coordinatesApproximate`를 선언하면서 동일한 검증일을 가짐.
+
+### 수정 내용
+
+- 필드 분리: `lastFieldVerifiedAt`(현장 실측일, 미실측 노선은 `null`) / `lastSourceCheckedAt`(공식 데이터 대조일)
+- 표시 분기: 실측 노선은 "검증", 미실측 노선은 "데이터 확인" 문구 사용 (`map.sourceNote` / `map.sourceNoteChecked`)
+- `lib/routes.ts` 타입, 3개 노선 JSON, `MapPage`, `TrustSection`, 관리자 페이지 반영
+
+---
+
+## ISS-002 · islandview OpenStreetMap attribution 미표기
+
+**상태:** 해결 (2026-07-18 — 노선 선택 시 OSM 병기 + 모바일 표기 누락 수정)
+**발생일:** 2026-07-18 (평가 중 발견)
+**심각도:** Medium — ODbL 라이선스 컴플라이언스
+
+### 내용
+
+`islandview.json` 좌표 출처가 OpenStreetMap(ODbL)이지만 UI에 `© OpenStreetMap contributors`
+표기가 없음. 가고시마시 CC BY 표기(`データ提供：鹿児島市（原データより加工）`)만 존재.
+
+### 수정 내용
+
+- `map.sourceNoteOsm` 키 추가 (ko/en/ja): `© OpenStreetMap contributors · 時刻表: 鹿児島市（原データより加工）`
+- `MapPage`에서 islandview 선택 시 해당 문구 표시
+- 부수 수정: 모바일 바텀시트에는 출처 표기가 아예 없던 문제 → `BottomSheet`에 `sourceNote` 표시 추가
+
+---
+
 ## ISS-001 · ROUTE_COORDINATES 좌표 중복 선언으로 인한 동기화 실패
 
 **상태:** 해결 (`a182e80` → `stops.ts` 하드코딩 제거)
