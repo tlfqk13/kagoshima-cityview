@@ -20,7 +20,8 @@
 .name {
   font-family: var(--font-serif);
   font-size: 18px;
-  color: var(--white);
+  /* 헤더는 항상 어두운(var(--dark)) 배경이므로 고정 화이트 — 다크 테마에서 묻히지 않도록 */
+  color: #FFFFFF;
   font-weight: 400;
   margin-bottom: 2px;
   line-height: 1.4;
@@ -262,7 +263,7 @@
 }
 
 .shareBtn:hover {
-  color: var(--white);
+  color: #FFFFFF; /* 어두운 헤더 위이므로 고정 화이트 */
 }
 
 .favBtn {
