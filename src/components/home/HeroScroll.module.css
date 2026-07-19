@@ -1,0 +1,467 @@
+/* HeroScroll — 스크롤 스크럽 히어로
+   분화하는 사쿠라지마의 연기 속을 뚫고 나가는 연출.
+   JS는 --p(0~1)만 갱신하고, 모든 애니메이션은 아래 단계 변수(--p1~--p5)로 계산한다. */
+
+.wrap {
+  height: 300vh;
+  position: relative;
+  background: #1F1E1A;
+}
+
+/* iOS Safari 주소창 show/hide 시 vh 점프를 피하기 위해 dvh/svh 대신 100vh 고정 */
+.sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
+  background: #1F1E1A;
+  --p: 0;
+  /* 단계별 로컬 진행률(0~1) — 스토리보드 구간 대응 */
+  --p1: min(1, max(0, calc((var(--p) - 0.05) / 0.15))); /* 문구 퇴장  0.05→0.20 */
+  --p2: min(1, max(0, calc((var(--p) - 0.15) / 0.20))); /* 사진 풀블리드 0.15→0.35 */
+  --p3: min(1, max(0, calc((var(--p) - 0.30) / 0.25))); /* 분화·잿빛 하늘 0.30→0.55 */
+  --p4: min(1, max(0, calc((var(--p) - 0.45) / 0.25))); /* 중간 연기층 0.45→0.70 */
+  --p5: min(1, max(0, calc((var(--p) - 0.65) / 0.25))); /* 전면 연기(관통) 0.65→0.90 */
+}
+
+/* ---------- 사진 레이어 (z1) ---------- */
+
+.photoLayer {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(135deg, #2C3E2D, #0D1A10);
+  clip-path: inset(0 0 0 calc((1 - var(--p2)) * 55.56%));
+  will-change: clip-path;
+}
+
+.photoBg {
+  position: absolute;
+  inset: 0;
+}
+
+/* 사진 fallback: 사쿠라지마 실루엣 (사진이 로드되면 그 아래에 묻힘) */
+.volcano {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 55%;
+  clip-path: polygon(0 100%, 18% 48%, 36% 68%, 52% 8%, 68% 42%, 82% 22%, 100% 58%, 100% 100%);
+  background: linear-gradient(to top, rgba(139, 69, 19, 0.25), transparent);
+}
+
+.photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transform: scale(calc(1 + var(--p) * 0.14));
+  transform-origin: 60% 40%;
+  transition: opacity 0.6s ease;
+}
+
+.hasPhoto .photo {
+  opacity: 1;
+}
+
+/* ---------- 잿빛 하늘 틴트 (z2) ---------- */
+
+.skyTint {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: linear-gradient(to bottom, rgba(96, 92, 88, 0.9), rgba(96, 92, 88, 0.15) 60%, transparent);
+  opacity: calc(var(--p3) * 0.75);
+}
+
+/* ---------- 분화 연기 기둥 (z3) ---------- */
+
+.plume {
+  position: absolute;
+  z-index: 3;
+  left: 54%;
+  bottom: 38%;
+  width: 54vmin;
+  height: 88vmin;
+  transform: translateX(-50%) translateY(calc((1 - var(--p3)) * 10vh)) scale(calc(0.5 + var(--p3) * 0.9));
+  opacity: min(1, calc(var(--p3) * 1.4));
+  will-change: transform, opacity;
+}
+
+.plume span {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(110, 104, 98, 0.9), rgba(110, 104, 98, 0));
+  filter: blur(18px);
+}
+
+/* 실제 사쿠라지마 분연처럼 하부는 진한 갈회색, 상부는 밝은 회색.
+   상부로 갈수록 상공의 바람에 밀려 좌측으로 휘어진다 (파티클 드리프트와 같은 방향) */
+.plume span:nth-child(1) { bottom: 0;   width: 60%;  height: 30%; background: radial-gradient(closest-side, rgba(90, 82, 76, 0.95), rgba(90, 82, 76, 0)); }
+.plume span:nth-child(2) { bottom: 22%; width: 85%;  height: 38%; margin-left: -14%; }
+.plume span:nth-child(3) { bottom: 50%; width: 135%; height: 50%; margin-left: -28%; filter: blur(26px); background: radial-gradient(closest-side, rgba(150, 144, 138, 0.85), rgba(150, 144, 138, 0)); }
+
+/* ---------- 분화구 백열광/火映 (z2) ---------- */
+
+/* 야간 분화구에서 관측되는 백열광. 액센트 계열 주황빛이 천천히 맥동 */
+.glow {
+  position: absolute;
+  z-index: 2;
+  left: 54%;
+  bottom: 34%;
+  width: 40vmin;
+  height: 28vmin;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(232, 126, 44, 0.75), rgba(200, 122, 58, 0.35) 55%, transparent);
+  filter: blur(18px);
+  opacity: calc(min(1, var(--p3) * 2) * (1 - var(--p5)));
+  animation: glowPulse 3.6s ease-in-out infinite;
+}
+
+@keyframes glowPulse {
+  0%, 100% { transform: translateX(-50%) scale(1); }
+  50%      { transform: translateX(-50%) scale(1.12); }
+}
+
+/* ---------- 화산뢰 (z3) ---------- */
+
+/* 분연 남동부의 방전 — 스크럽 구간(0.35~0.45에 등장) 게이트 + 시간 기반 불규칙 점멸 */
+.boltWrap {
+  position: absolute;
+  z-index: 3;
+  left: 54%;
+  bottom: 38%;
+  width: 48vmin;
+  height: 66vmin;
+  transform: translateX(-50%);
+  opacity: calc(min(1, max(0, (var(--p) - 0.35) / 0.1)) * (1 - var(--p5)));
+  pointer-events: none;
+}
+
+/* 번개가 분연 남동을 환하게 비추는 섬광 */
+.flash {
+  position: absolute;
+  left: 50%;
+  bottom: 10%;
+  width: 90%;
+  height: 70%;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(235, 242, 255, 0.8), transparent);
+  filter: blur(24px);
+  opacity: 0;
+  animation: boltFlash 6.3s linear infinite;
+}
+
+.bolt {
+  position: absolute;
+  bottom: 12%;
+  width: 22%;
+  height: 46%;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 1), rgba(190, 214, 255, 0.7));
+  clip-path: polygon(46% 0, 58% 2%, 50% 26%, 64% 30%, 44% 58%, 56% 62%, 38% 100%, 30% 100%, 40% 64%, 28% 60%, 46% 32%, 36% 28%);
+  filter: blur(1px);
+  opacity: 0;
+  animation: boltFlash 6.3s linear infinite;
+}
+
+.bolt:nth-of-type(1) { left: 32%; }
+.bolt:nth-of-type(2) { left: 60%; height: 36%; transform: scaleX(-1); animation-delay: -2.9s; }
+
+/* 불규칙한 연속 스트라이크 패턴 — 사쿠라지마 화산뢰의 잦은 소형 방전 */
+@keyframes boltFlash {
+  0%, 10%, 12.5%, 38%, 40.5%, 55%, 57%, 82%, 84.5%, 100% { opacity: 0; }
+  10.4% { opacity: 0.9; }
+  11%   { opacity: 0.25; }
+  11.6% { opacity: 0.8; }
+  38.4% { opacity: 0.95; }
+  39%   { opacity: 0.2; }
+  39.8% { opacity: 0.85; }
+  55.4% { opacity: 0.7; }
+  82.4% { opacity: 0.9; }
+  83%   { opacity: 0.3; }
+  83.6% { opacity: 0.75; }
+}
+
+/* ---------- 지표 부유회 (z4) ---------- */
+
+/* 분화 후 저공에 깔리는 재 안개 — 시가지 도로에 쌓인 재가 다시 날리는 모습 */
+.groundHaze {
+  position: absolute;
+  z-index: 4;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 24vh;
+  background: linear-gradient(to top, rgba(140, 134, 128, 0.55), transparent);
+  opacity: calc(var(--p4) * 0.7);
+}
+
+/* ---------- 중간 연기층 (z4) ---------- */
+
+.smokeMid {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  opacity: min(1, calc(var(--p4) * 1.6));
+}
+
+.smokeMid span {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(134, 128, 122, 0.65), rgba(134, 128, 122, 0));
+  filter: blur(34px);
+  transform: translateX(calc((var(--p4) - 0.5) * 30vw)) scale(calc(0.75 + var(--p4) * 0.75));
+}
+
+.smokeMid span:nth-child(1) { left: -12%; top: 4%;  width: 60vw; height: 44vh; }
+.smokeMid span:nth-child(2) { left: 30%;  top: -8%; width: 55vw; height: 40vh; transform: translateX(calc((0.5 - var(--p4)) * 26vw)) scale(calc(0.75 + var(--p4) * 0.75)); }
+.smokeMid span:nth-child(3) { left: 62%;  top: 12%; width: 52vw; height: 42vh; }
+.smokeMid span:nth-child(4) { left: 8%;   top: 40%; width: 58vw; height: 46vh; transform: translateX(calc((0.5 - var(--p4)) * 26vw)) scale(calc(0.75 + var(--p4) * 0.75)); }
+.smokeMid span:nth-child(5) { left: 55%;  top: 44%; width: 60vw; height: 48vh; }
+
+/* ---------- 전면 연기층 (z6) — 마지막에 화면을 덮고 다음 섹션이 뚫고 나옴 ---------- */
+
+.smokeFront {
+  position: absolute;
+  inset: 0;
+  z-index: 6;
+  opacity: min(1, calc(var(--p5) * 1.8));
+  will-change: opacity;
+}
+
+.smokeFront span {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(148, 142, 135, 0.8), rgba(148, 142, 135, 0));
+  filter: blur(48px);
+  transform: translateY(calc(10vh - var(--p5) * 18vh)) scale(calc(0.9 + var(--p5) * 0.6));
+}
+
+.smokeFront span:nth-child(1) { left: -15%; top: 10%; width: 80vw; height: 70vh; }
+.smokeFront span:nth-child(2) { left: 35%;  top: 0;   width: 85vw; height: 75vh; }
+.smokeFront span:nth-child(3) { left: 10%;  top: 35%; width: 90vw; height: 80vh; }
+
+/* 관통 순간의 전체 잿빛 베일 — 후반으로 갈수록 강해짐 */
+.frontBase {
+  position: absolute;
+  inset: -30%;
+  background:
+    radial-gradient(ellipse 70% 70% at 50% 45%, rgba(150, 144, 137, 0.98) 0%, rgba(150, 144, 137, 0.75) 55%, rgba(150, 144, 137, 0.35) 80%, transparent 100%),
+    linear-gradient(rgba(150, 144, 137, 0.35), rgba(150, 144, 137, 0.35));
+  opacity: calc(var(--p5) * var(--p5));
+}
+
+/* ---------- 카피 (z5) ---------- */
+
+.copy {
+  position: absolute;
+  z-index: 5;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 55.56%;
+  padding: 80px 60px 80px 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  opacity: calc(1 - var(--p1));
+  transform: translateY(calc(var(--p1) * -48px));
+}
+
+/* 문구가 사라진 뒤에는 포커스/클릭 대상에서 제외 */
+.pastCopy .copy {
+  visibility: hidden;
+}
+
+.eyebrow {
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  color: var(--accent);
+  text-transform: uppercase;
+  margin-bottom: 28px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.eyebrow::before {
+  content: '';
+  width: 24px;
+  height: 1px;
+  background: var(--accent);
+  flex-shrink: 0;
+}
+
+.h1 {
+  font-family: var(--font-serif);
+  font-size: clamp(24px, 3vw, 44px);
+  font-weight: 400;
+  line-height: 1.75;
+  letter-spacing: 0.04em;
+  /* 히어로는 테마와 무관하게 항상 어두운 배경이므로 고정 화이트
+     (var(--white)는 다크 테마에서 #242220로 뒤집혀 글자가 묻힌다) */
+  color: #FFFFFF;
+  margin-bottom: 36px;
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.btnPrimary {
+  display: inline-block;
+  padding: 13px 28px;
+  background: var(--accent);
+  color: #FFFFFF; /* h1과 동일 — 다크 테마에서 묻히지 않도록 고정 */
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  border-radius: var(--radius);
+  transition: opacity 0.15s;
+}
+
+.btnPrimary:hover {
+  opacity: 0.85;
+}
+
+.btnGhost {
+  display: inline-block;
+  padding: 13px 22px;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius);
+  transition: border-color 0.15s;
+}
+
+.btnGhost:hover {
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+/* ---------- 화산재 파티클 canvas (z7) ---------- */
+
+.canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 7;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* ---------- 스크롤 힌트 (z8) ---------- */
+
+.scrollHint {
+  position: absolute;
+  z-index: 8;
+  left: 50%;
+  bottom: 28px;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  opacity: calc(1 - min(1, var(--p) * 12));
+  pointer-events: none;
+}
+
+.scrollHintText {
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+}
+
+.scrollHintLine {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.5), transparent);
+  transform-origin: top;
+  animation: hintPulse 2.2s ease-in-out infinite;
+}
+
+@keyframes hintPulse {
+  0%, 100% { transform: scaleY(0.3); opacity: 0.3; }
+  50%      { transform: scaleY(1);   opacity: 0.8; }
+}
+
+/* ---------- reduced-motion: 정적 히어로 fallback ---------- */
+
+.static {
+  height: auto;
+}
+
+.static .sticky {
+  position: relative;
+  height: calc(100vh - var(--nav-h));
+  min-height: 520px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .plume,
+  .glow,
+  .boltWrap,
+  .groundHaze,
+  .smokeMid,
+  .smokeFront,
+  .scrollHint {
+    display: none;
+  }
+
+  .scrollHintLine {
+    animation: none;
+  }
+}
+
+/* ---------- 모바일 ---------- */
+
+@media (max-width: 768px) {
+  .wrap {
+    height: 280vh;
+  }
+
+  /* 모바일에서는 사진이 하단 스트립에서 시작해 위로 열리며 풀블리드 */
+  .photoLayer {
+    clip-path: inset(calc((1 - var(--p2)) * 55%) 0 0 0);
+  }
+
+  .copy {
+    width: 100%;
+    padding: 16vh 24px 0;
+    justify-content: flex-start;
+  }
+
+  .plume {
+    left: 50%;
+    bottom: 30%;
+  }
+
+  /* 백열광·화산뢰도 모바일 분연 위치에 맞춘다 */
+  .glow,
+  .boltWrap {
+    left: 50%;
+  }
+
+  .glow {
+    bottom: 27%;
+  }
+
+  .boltWrap {
+    bottom: 30%;
+  }
+
+  .scrollHint {
+    bottom: 20px;
+  }
+}
+

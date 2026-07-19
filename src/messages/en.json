@@ -11,7 +11,8 @@
     "h1line2": "who got lost looking",
     "h1line3": "for the bus stop",
     "ctaMap": "View Map",
-    "ctaStory": "Read Story"
+    "ctaStory": "Read Story",
+    "scrollHint": "Scroll"
   },
   "trust": {
     "stopsNum": "20",

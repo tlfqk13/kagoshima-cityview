@@ -11,7 +11,8 @@
     "h1line2": "헤맸던 여행자가",
     "h1line3": "직접 만든 가이드",
     "ctaMap": "지도 보기",
-    "ctaStory": "스토리 읽기"
+    "ctaStory": "스토리 읽기",
+    "scrollHint": "스크롤"
   },
   "trust": {
     "stopsNum": "20",

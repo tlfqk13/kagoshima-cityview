@@ -1,5 +1,5 @@
 import Nav from '@/components/Nav'
-import Hero from '@/components/home/Hero'
+import HeroScroll from '@/components/home/HeroScroll'
 import TrustSection from '@/components/home/TrustSection'
 import ProblemGrid from '@/components/home/ProblemGrid'
 import PartnershipSection from '@/components/home/PartnershipSection'
@@ -10,7 +10,7 @@ export default function HomePage() {
     <>
       <Nav />
       <main>
-        <Hero />
+        <HeroScroll />
         <TrustSection />
         <ProblemGrid />
         <PartnershipSection />
