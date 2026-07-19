@@ -24,19 +24,25 @@ export default function StopList({ stops, selectedId, onSelect, favorites }: Pro
         <li
           key={stop.id}
           className={`${styles.item} ${stop.id === selectedId ? styles.on : ''}`}
-          onClick={() => onSelect(stop)}
         >
-          <div className={styles.num}>{stop.number}</div>
-          <div className={styles.info}>
-            <div className={styles.name}>{stop.name[lang]}</div>
-            {stop.googleMapsError && (
-              <div className={styles.warn}>⚠ {t('map.stopDetail.googleMapsWrong')}</div>
+          <button
+            type="button"
+            className={styles.itemBtn}
+            onClick={() => onSelect(stop)}
+            aria-current={stop.id === selectedId ? 'true' : undefined}
+          >
+            <div className={styles.num}>{stop.number}</div>
+            <div className={styles.info}>
+              <div className={styles.name}>{stop.name[lang]}</div>
+              {stop.googleMapsError && (
+                <div className={styles.warn}>⚠ {t('map.stopDetail.googleMapsWrong')}</div>
+              )}
+            </div>
+            {favorites?.includes(stop.id) && (
+              <span className={styles.star} aria-label="Favorited">★</span>
             )}
-          </div>
-          {favorites?.includes(stop.id) && (
-            <span className={styles.star} aria-label="Favorited">★</span>
-          )}
-          <span className={styles.chevron} aria-hidden="true">›</span>
+            <span className={styles.chevron} aria-hidden="true">›</span>
+          </button>
         </li>
       ))}
     </ul>

@@ -1,11 +1,9 @@
 'use client'
-import { useState } from 'react'
+import { useState, useSyncExternalStore } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { RouteStop, RouteId, Lang } from '@/lib/routes'
 import styles from './StopDetail.module.css'
 import QRModal from './QRModal'
-
-const isIOS = typeof navigator !== 'undefined' && /iPad|iPhone|iPod/.test(navigator.userAgent)
 
 interface Props {
   stop: RouteStop
@@ -34,7 +32,14 @@ export default function StopDetail({ stop, routeId, userLocation, isFavorite, on
   const { t, i18n } = useTranslation()
   const lang = (['ko', 'en', 'ja'].includes(i18n.language) ? i18n.language : 'ko') as Lang
   const [toast, setToast] = useState<string | null>(null)
+  const [toastKey, setToastKey] = useState(0)
   const [showQR, setShowQR] = useState(false)
+  // hydration mismatch 방지: SSR/초기 렌더는 false(getServerSnapshot), 클라이언트에서 UA 판별
+  const isIOS = useSyncExternalStore(
+    () => () => {},
+    () => /iPad|iPhone|iPod/.test(navigator.userAgent),
+    () => false
+  )
 
   const stopName = stop.name[lang]
 
@@ -45,6 +50,7 @@ export default function StopDetail({ stop, routeId, userLocation, isFavorite, on
 
   function showToast(message: string) {
     setToast(message)
+    setToastKey(k => k + 1)  // 같은 토스트 반복 시 애니메이션 재시작용
     setTimeout(() => setToast(null), 2000)
   }
 
@@ -232,7 +238,7 @@ export default function StopDetail({ stop, routeId, userLocation, isFavorite, on
       </div>
       <div className={styles.disclaimer}>{t('map.stopDetail.disclaimer')}</div>
       {toast && (
-        <div className={styles.toast} key={toast + Date.now()}>
+        <div className={styles.toast} key={toastKey}>
           {toast}
         </div>
       )}
