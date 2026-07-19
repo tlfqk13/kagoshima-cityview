@@ -29,9 +29,9 @@
   },
   {
     "id": "iso-beach",
-    "stopId": "stop_11",
+    "stopId": "stop_13",
     "name": { "ko": "이소 해수욕장", "en": "Iso Beach", "ja": "磯海水浴場" },
-    "walkMinutes": 1,
+    "walkMinutes": 3,
     "category": "nature"
   },
   {
@@ -50,9 +50,9 @@
   },
   {
     "id": "yamagataya",
-    "stopId": "stop_05",
+    "stopId": "stop_18",
     "name": { "ko": "야마가타야 백화점", "en": "Yamagataya Department Store", "ja": "山形屋百貨店" },
-    "walkMinutes": 1,
+    "walkMinutes": 2,
     "category": "shopping"
   },
   {
@@ -64,7 +64,7 @@
   },
   {
     "id": "sakurajima-ferry",
-    "stopId": "stop_18",
+    "stopId": "stop_16",
     "name": { "ko": "사쿠라지마 페리 터미널", "en": "Sakurajima Ferry Terminal", "ja": "桜島フェリーターミナル" },
     "walkMinutes": 3,
     "category": "sightseeing"
