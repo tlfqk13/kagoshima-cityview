@@ -161,7 +161,6 @@ export default function MapCanvas({ routeId, selectedStopId, onStopSelect, onUse
   const containerRef = useRef<HTMLDivElement>(null)
   const mapRef = useRef<mapboxgl.Map | null>(null)
   const wrongPinRef = useRef<mapboxgl.Marker | null>(null)
-  const userLocationRef = useRef<[number, number] | null | undefined>(userLocation)
   const hoverPopupRef = useRef<mapboxgl.Popup | null>(null)
   const selectedStopIdRef = useRef<string | null>(selectedStopId)
   const routeIdRef = useRef<RouteId>(routeId)
@@ -175,10 +174,6 @@ export default function MapCanvas({ routeId, selectedStopId, onStopSelect, onUse
   const animStartRef = useRef<number>(0)
 
   // Keep refs in sync
-  useEffect(() => {
-    userLocationRef.current = userLocation
-  }, [userLocation])
-
   useEffect(() => {
     selectedStopIdRef.current = selectedStopId
   }, [selectedStopId])
@@ -349,7 +344,7 @@ export default function MapCanvas({ routeId, selectedStopId, onStopSelect, onUse
     }
   }, [animating])
 
-  // 선택된 정류장 변경 시 지도 이동 + 핀 색상 업데이트 + 도보 경로 표시
+  // 선택된 정류장 변경 시 지도 이동 + 핀 색상 업데이트 + 구글맵 오류 핀 표시
   useEffect(() => {
     const map = mapRef.current
     if (!map || !map.isStyleLoaded()) return
@@ -397,61 +392,29 @@ export default function MapCanvas({ routeId, selectedStopId, onStopSelect, onUse
         wrongPinRef.current = marker
       }
     }
-
-    // Clear existing walking route
-    if (map.getLayer('walking-route')) map.removeLayer('walking-route')
-    if (map.getSource('walking-route')) map.removeSource('walking-route')
-
-    // Draw walking route if user location available
-    const currentUserLocation = userLocationRef.current
-    if (currentUserLocation && selectedStopId) {
-      const stop = getStopsForRoute(routeIdRef.current).find(s => s.id === selectedStopId)
-      if (stop) {
-        const url = `https://api.mapbox.com/directions/v5/mapbox/walking/${currentUserLocation[0]},${currentUserLocation[1]};${stop.lng},${stop.lat}?geometries=geojson&access_token=${mapboxgl.accessToken}`
-        fetch(url)
-          .then(r => r.json())
-          .then(data => {
-            const route = data.routes?.[0]?.geometry
-            if (!route || !map.isStyleLoaded()) return
-            if (map.getSource('walking-route')) {
-              (map.getSource('walking-route') as mapboxgl.GeoJSONSource).setData(route)
-            } else {
-              map.addSource('walking-route', { type: 'geojson', data: route })
-              map.addLayer({
-                id: 'walking-route',
-                type: 'line',
-                source: 'walking-route',
-                paint: {
-                  'line-color': '#8B4513',
-                  'line-width': 3,
-                  'line-opacity': 0.8,
-                  'line-dasharray': [1, 2],
-                },
-              })
-            }
-          })
-          .catch(() => {}) // silently fail if no network
-      }
-    }
   }, [selectedStopId])
 
-  // Update walking route when userLocation changes (while stop is already selected)
+  // 도보 경로 표시 — 정류장 선택/위치 변경 시 하나의 이펙트에서만 fetch
+  // cleanup에서 이전 요청을 abort해 중복 요청과 stale 응답 덮어쓰기를 방지
   useEffect(() => {
     const map = mapRef.current
     if (!map || !map.isStyleLoaded()) return
-    if (!userLocation || !selectedStopId) {
-      // Clear route if no location or no stop selected
-      if (map.getLayer('walking-route')) map.removeLayer('walking-route')
-      if (map.getSource('walking-route')) map.removeSource('walking-route')
-      return
-    }
 
+    // 기존 도보 경로 제거
+    if (map.getLayer('walking-route')) map.removeLayer('walking-route')
+    if (map.getSource('walking-route')) map.removeSource('walking-route')
+
+    if (!userLocation || !selectedStopId) return
     const stop = getStopsForRoute(routeIdRef.current).find(s => s.id === selectedStopId)
     if (!stop) return
 
+    const controller = new AbortController()
     const url = `https://api.mapbox.com/directions/v5/mapbox/walking/${userLocation[0]},${userLocation[1]};${stop.lng},${stop.lat}?geometries=geojson&access_token=${mapboxgl.accessToken}`
-    fetch(url)
-      .then(r => r.json())
+    fetch(url, { signal: controller.signal })
+      .then(r => {
+        if (!r.ok) throw new Error(`Directions API 응답 오류: ${r.status}`)
+        return r.json()
+      })
       .then(data => {
         const route = data.routes?.[0]?.geometry
         if (!route || !map.isStyleLoaded()) return
@@ -472,7 +435,12 @@ export default function MapCanvas({ routeId, selectedStopId, onStopSelect, onUse
           })
         }
       })
-      .catch(() => {}) // silently fail if no network
+      .catch((err: unknown) => {
+        if (controller.signal.aborted) return // 정상적인 취소
+        console.warn('도보 경로 조회 실패:', err) // 오프라인 등 — 추적 가능하도록 로깅
+      })
+
+    return () => controller.abort()
   }, [userLocation, selectedStopId])
 
   return (
