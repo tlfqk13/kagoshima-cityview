@@ -39,7 +39,7 @@ export default function StopList({ stops, selectedId, onSelect, favorites }: Pro
               )}
             </div>
             {favorites?.includes(stop.id) && (
-              <span className={styles.star} aria-label="Favorited">★</span>
+              <span className={styles.star} aria-label={t('map.favorited')}>★</span>
             )}
             <span className={styles.chevron} aria-hidden="true">›</span>
           </button>

@@ -76,7 +76,7 @@ export default function HeroScroll() {
           </div>
           <img
             src={HERO_PHOTO}
-            alt="桜島"
+            alt={t('hero.photoAlt')}
             className={styles.photo}
             onLoad={() => setPhotoLoaded(true)}
             onError={() => setPhotoLoaded(false)}

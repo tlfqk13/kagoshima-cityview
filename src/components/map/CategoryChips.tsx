@@ -20,7 +20,7 @@ export default function CategoryChips({ active, onChange }: Props) {
   const { t } = useTranslation()
 
   return (
-    <div className={styles.row} role="group" aria-label="카테고리 필터">
+    <div className={styles.row} role="group" aria-label={t('map.categoryFilter')}>
       {CATEGORIES.map(({ key, icon }) => (
         <button
           key={key}

@@ -2,6 +2,8 @@
 import { useEffect, useRef, useCallback, useState } from 'react'
 import mapboxgl from 'mapbox-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
+import { useTranslation } from 'react-i18next'
+import i18n from '@/lib/i18n'
 import {
   getStopsForRoute, getStopsGeoJSON, getRouteCoordinates, getRoute,
   getNearestStop, type RouteStop, type RouteId,
@@ -158,6 +160,7 @@ export interface MapCanvasProps {
 }
 
 export default function MapCanvas({ routeId, selectedStopId, onStopSelect, onUserLocation, userLocation }: MapCanvasProps) {
+  const { t } = useTranslation()
   const containerRef = useRef<HTMLDivElement>(null)
   const mapRef = useRef<mapboxgl.Map | null>(null)
   const wrongPinRef = useRef<mapboxgl.Marker | null>(null)
@@ -313,7 +316,7 @@ export default function MapCanvas({ routeId, selectedStopId, onStopSelect, onUse
       transform-origin: center;
     `
     el.textContent = '🚌'
-    el.title = '鹿児島シティビューバス'
+    el.title = i18n.t('map.busMarker')
 
     const routeCoords = getRouteCoordinates(routeIdRef.current)
 
@@ -383,7 +386,7 @@ export default function MapCanvas({ routeId, selectedStopId, onStopSelect, onUse
           border-radius: 50%;
           cursor: default;
         `
-        el.title = 'Google Maps incorrect location'
+        el.title = i18n.t('map.wrongPin')
 
         const marker = new mapboxgl.Marker({ element: el })
           .setLngLat([stop.googleMapsLng, stop.googleMapsLat])
@@ -450,7 +453,7 @@ export default function MapCanvas({ routeId, selectedStopId, onStopSelect, onUse
         <button
           className={`${styles.animBtn} ${animating ? styles.animBtnActive : ''}`}
           onClick={() => setAnimating(a => !a)}
-          title={animating ? '정지' : '버스 애니메이션'}
+          title={animating ? t('map.animPause') : t('map.animPlay')}
         >
           {animating ? '⏸' : '▶'}
         </button>

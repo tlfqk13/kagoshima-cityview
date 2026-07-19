@@ -56,7 +56,7 @@ export default function OfflineBanner() {
     return (
       <div className={`${styles.banner} ${styles.install}`} role="complementary">
         <span className={styles.text}>{t('offline.installHint')}</span>
-        <button className={styles.dismiss} onClick={dismissInstall} aria-label="Dismiss">
+        <button className={styles.dismiss} onClick={dismissInstall} aria-label={t('common.close')}>
           ×
         </button>
       </div>

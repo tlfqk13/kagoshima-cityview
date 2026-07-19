@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
-import { cookies } from 'next/headers'
 import MapPage from '../MapPage'
-import { getStopsForRoute, type Lang } from '@/lib/routes'
+import { getStopsForRoute } from '@/lib/routes'
+import { getServerLang } from '@/lib/serverLang'
 
 interface Props {
   params: Promise<{ stopId: string }>
@@ -18,8 +18,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const stop = findStop(stopId)
   if (!stop) return {}
   // UI 언어 쿠키(i18next)에 맞춰 타이틀 로컬라이즈
-  const cookieLang = (await cookies()).get('i18next')?.value
-  const lang: Lang = cookieLang === 'en' || cookieLang === 'ja' ? cookieLang : 'ko'
+  const lang = await getServerLang()
   return {
     title: `${stop.name[lang]} (No. ${stop.number}) | 가고시마 시티뷰 버스 가이드`,
     description: `${stop.name.ko} · ${stop.name.en} · ${stop.name.ja} — 정류장 No. ${stop.number}의 정확한 GPS 위치.`,

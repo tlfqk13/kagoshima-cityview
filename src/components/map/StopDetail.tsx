@@ -158,7 +158,7 @@ export default function StopDetail({ stop, routeId, userLocation, isFavorite, on
         {stop.photos && stop.photos.length > 0 ? (
           <img
             src={stop.photos[0]}
-            alt={`${stopName} 정류장`}
+            alt={t('map.stopDetail.photoAlt', { name: stopName })}
             className={styles.photo}
           />
         ) : (
