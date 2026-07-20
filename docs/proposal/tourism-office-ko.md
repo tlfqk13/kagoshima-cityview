@@ -5,7 +5,7 @@
 
 **수신:** 가고시마시 관광과 귀중
 **날짜:** 2026년  월  일
-**제안자:** [이름 / 연락처 이메일]
+**제안자:** [이름] / fkffksk20@gmail.com
 
 ---
 
@@ -43,7 +43,7 @@ URL: https://www.kagoshima-cityview.com
 ## 5. 문의처
 
 - 이름: [　　]
-- 이메일: [　　]
+- 이메일: fkffksk20@gmail.com
 - 서비스 URL: https://www.kagoshima-cityview.com
 
 ---

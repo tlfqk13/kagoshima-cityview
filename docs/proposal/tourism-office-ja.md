@@ -2,7 +2,7 @@
 
 **宛先:** 鹿児島市 観光課 御中
 **日付:** 2026年　月　日
-**提案者:** [氏名 / 連絡先メールアドレス]
+**提案者:** [氏名] / fkffksk20@gmail.com
 
 ---
 
@@ -40,7 +40,7 @@ URL: https://www.kagoshima-cityview.com
 ## 5. お問い合わせ先
 
 - 氏名: [　　]
-- メールアドレス: [　　]
+- メールアドレス: fkffksk20@gmail.com
 - サービスURL: https://www.kagoshima-cityview.com
 
 何卒ご検討のほど、よろしくお願い申し上げます。
