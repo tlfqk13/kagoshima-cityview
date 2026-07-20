@@ -1,0 +1,206 @@
+{
+  "auditedAt": "2026-07-20",
+  "baselineVerifiedAt": "2026-07-20",
+  "stops": [
+    {
+      "id": "stop_01",
+      "number": 1,
+      "googleName": "鹿児島中央駅 バス停 鹿児島",
+      "googleLat": 31.5836599,
+      "googleLng": 130.5440535,
+      "similarity": 0.75,
+      "errorMeters": 164,
+      "grade": "error"
+    },
+    {
+      "id": "stop_02",
+      "number": 2,
+      "googleName": "維新ふるさと館前(シティビュー)",
+      "googleLat": 31.583797,
+      "googleLng": 130.547372,
+      "similarity": 1.0,
+      "errorMeters": 6,
+      "grade": "ok"
+    },
+    {
+      "id": "stop_03",
+      "number": 3,
+      "googleName": "天文館 バス停 鹿児島",
+      "googleLat": 31.59063,
+      "googleLng": 130.555,
+      "similarity": 0.6,
+      "errorMeters": 86,
+      "grade": "warn"
+    },
+    {
+      "id": "stop_04",
+      "number": 4,
+      "googleName": "西郷銅像前 バス停 鹿児島",
+      "googleLat": 31.594809,
+      "googleLng": 130.554303,
+      "similarity": 0.71,
+      "errorMeters": 12,
+      "grade": "ok"
+    },
+    {
+      "id": "stop_05",
+      "number": 5,
+      "googleName": "薩摩義士碑前 バス停 鹿児島",
+      "googleLat": 31.599502,
+      "googleLng": 130.5554724,
+      "similarity": 0.75,
+      "errorMeters": 39,
+      "grade": "ok"
+    },
+    {
+      "id": "stop_06",
+      "number": 6,
+      "googleName": "西郷洞窟前 バス停 鹿児島",
+      "googleLat": 31.599598,
+      "googleLng": 130.550292,
+      "similarity": 0.71,
+      "errorMeters": 6,
+      "grade": "ok"
+    },
+    {
+      "id": "stop_07",
+      "number": 7,
+      "googleName": "城山 バス停 鹿児島",
+      "googleLat": 31.596667,
+      "googleLng": 130.54919,
+      "similarity": 0.5,
+      "errorMeters": 10,
+      "grade": "ok"
+    },
+    {
+      "id": "stop_08",
+      "number": 8,
+      "googleName": "西郷洞窟前 バス停 鹿児島",
+      "googleLat": 31.599598,
+      "googleLng": 130.550292,
+      "similarity": 0.71,
+      "errorMeters": 16,
+      "grade": "ok"
+    },
+    {
+      "id": "stop_09",
+      "number": 9,
+      "googleName": "薩摩義士碑前 バス停 鹿児島",
+      "googleLat": 31.599502,
+      "googleLng": 130.5554724,
+      "similarity": 0.75,
+      "errorMeters": 13,
+      "grade": "ok"
+    },
+    {
+      "id": "stop_10",
+      "number": 10,
+      "googleName": "西郷南洲顕彰館前(シティビュー)",
+      "googleLat": 31.6056,
+      "googleLng": 130.55827,
+      "similarity": 1.0,
+      "errorMeters": 11,
+      "grade": "ok"
+    },
+    {
+      "id": "stop_11",
+      "number": 11,
+      "googleName": "今和泉島津家本邸跡(篤姫誕生地)前(シティビュー)",
+      "googleLat": 31.605504,
+      "googleLng": 130.561742,
+      "similarity": 1.0,
+      "errorMeters": 9,
+      "grade": "ok"
+    },
+    {
+      "id": "stop_12",
+      "number": 12,
+      "googleName": "仙巌園 バス停 鹿児島",
+      "googleLat": 31.6169481,
+      "googleLng": 130.576822,
+      "similarity": 0.6,
+      "errorMeters": 56,
+      "grade": "warn"
+    },
+    {
+      "id": "stop_13",
+      "number": 13,
+      "googleName": "異人館前 バス停 鹿児島",
+      "googleLat": 31.6159169,
+      "googleLng": 130.5740333,
+      "similarity": 0.67,
+      "errorMeters": 220,
+      "grade": "error"
+    },
+    {
+      "id": "stop_14",
+      "number": 14,
+      "googleName": "石橋記念公園前(シティビュー)",
+      "googleLat": 31.603764,
+      "googleLng": 130.567938,
+      "similarity": 1.0,
+      "errorMeters": 55,
+      "grade": "warn"
+    },
+    {
+      "id": "stop_15",
+      "number": 15,
+      "googleName": "鹿児島駅前 バス停 鹿児島",
+      "googleLat": 31.6008775,
+      "googleLng": 130.5622562,
+      "similarity": 0.71,
+      "errorMeters": 119,
+      "grade": "error"
+    },
+    {
+      "id": "stop_16",
+      "number": 16,
+      "googleName": "かごしま水族館(下り)",
+      "googleLat": 31.5961331,
+      "googleLng": 130.562821,
+      "similarity": 0.55,
+      "errorMeters": 7,
+      "grade": "ok"
+    },
+    {
+      "id": "stop_17",
+      "number": 17,
+      "googleName": "ウォーターフロントパーク前(上り)",
+      "googleLat": 31.594835,
+      "googleLng": 130.562833,
+      "similarity": 1.0,
+      "errorMeters": 7,
+      "grade": "ok"
+    },
+    {
+      "id": "stop_18",
+      "number": 18,
+      "googleName": "金生町 バス停 鹿児島",
+      "googleLat": 31.5932706,
+      "googleLng": 130.5575746,
+      "similarity": 0.6,
+      "errorMeters": 17,
+      "grade": "ok"
+    },
+    {
+      "id": "stop_19",
+      "number": 19,
+      "googleName": "天文館 バス停 鹿児島",
+      "googleLat": 31.59063,
+      "googleLng": 130.555,
+      "similarity": 0.6,
+      "errorMeters": 74,
+      "grade": "warn"
+    },
+    {
+      "id": "stop_20",
+      "number": 20,
+      "googleName": "鹿児島中央駅 バス停 鹿児島",
+      "googleLat": 31.5836599,
+      "googleLng": 130.5440535,
+      "similarity": 0.75,
+      "errorMeters": 164,
+      "grade": "error"
+    }
+  ]
+}

@@ -23,7 +23,26 @@
     "costNum": "Free",
     "costLabel": "No Ads",
     "source": "Based on official Kagoshima City GTFS open data",
-    "validated": "Last field-verified"
+    "validated": "Last field-verified",
+    "accuracyLink": "Accuracy audit vs Google Maps →"
+  },
+  "accuracy": {
+    "eyebrow": "Accuracy Audit — July 2026",
+    "title": "How accurate is Google Maps for these bus stops?",
+    "intro": "A full audit comparing the locations Google Maps shows against the official coordinates published by the Kagoshima City Transportation Bureau, for all 20 City View bus stops.",
+    "statOk": "Accurate",
+    "statWarn": "Caution",
+    "statError": "Wrong",
+    "colStop": "Stop",
+    "colGoogle": "Google Maps result (Japanese)",
+    "colError": "Error",
+    "gradeOk": "OK",
+    "gradeWarn": "Caution",
+    "gradeError": "Wrong",
+    "sameSpot": "No. 1 and No. 20 are the same location (Kagoshima-Chuo Station).",
+    "baseline": "The baseline coordinates used for comparison were verified to match the official values published by the Kagoshima City Transportation Bureau for all 20 stops (verified 2026-07-20).",
+    "method": "Method: for each stop's Japanese name, we searched Google Maps and measured the distance (haversine) between the top candidate and the official coordinates. Under 50m is within smartphone GPS error ('OK'); 100m or more is graded 'Wrong'.",
+    "ctaMap": "Open the accurate stop map"
   },
   "map": {
     "categories": {

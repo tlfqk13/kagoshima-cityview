@@ -23,7 +23,26 @@
     "costNum": "0",
     "costLabel": "무료 · 광고 없음",
     "source": "가고시마시 공식 GTFS 오픈데이터 기반",
-    "validated": "현장 검증일"
+    "validated": "현장 검증일",
+    "accuracyLink": "구글맵과의 정확도 비교 감사 →"
+  },
+  "accuracy": {
+    "eyebrow": "Accuracy Audit — 2026.07",
+    "title": "구글맵은 정류장을 얼마나 정확히 안내할까",
+    "intro": "시티뷰 전 20개 정류장에 대해, 구글맵이 안내하는 위치와 공식 좌표(가고시마시 교통국 공표)를 전수 비교한 감사 결과입니다.",
+    "statOk": "정상",
+    "statWarn": "주의",
+    "statError": "오류",
+    "colStop": "정류장",
+    "colGoogle": "구글맵 표시 (일본어명)",
+    "colError": "오차",
+    "gradeOk": "정상",
+    "gradeWarn": "주의",
+    "gradeError": "오류",
+    "sameSpot": "No. 1과 No. 20은 같은 위치(가고시마 중앙역)입니다.",
+    "baseline": "비교 기준 좌표는 가고시마시 교통국의 공식 공표값과 전 20개 정류장에서 완전히 일치함을 확인했습니다 (2026-07-20 검증).",
+    "method": "방법: 각 정류장의 일본어명으로 구글맵을 검색해 최상위 후보와 공식 좌표 간 거리(haversine)를 측정. 50m 미만은 스마트폰 GPS 오차 범위로 '정상', 100m 이상을 '오류'로 판정했습니다.",
+    "ctaMap": "정확한 정류장 지도 열기"
   },
   "map": {
     "categories": {

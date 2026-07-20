@@ -23,7 +23,26 @@
     "costNum": "無料",
     "costLabel": "広告なし",
     "source": "鹿児島市公式GTFSオープンデータ基準",
-    "validated": "現地確認日"
+    "validated": "現地確認日",
+    "accuracyLink": "Googleマップとの正確性比較調査 →"
+  },
+  "accuracy": {
+    "eyebrow": "Accuracy Audit — 2026年7月",
+    "title": "Googleマップの停留所表示はどれくらい正確か",
+    "intro": "鹿児島シティビュー全20停留所について、Googleマップの表示位置と公式座標(鹿児島市交通局の公表値)を照合した全数調査の結果です。",
+    "statOk": "正常",
+    "statWarn": "注意",
+    "statError": "誤り",
+    "colStop": "停留所",
+    "colGoogle": "Googleマップの表示 (日本語名)",
+    "colError": "誤差",
+    "gradeOk": "正常",
+    "gradeWarn": "注意",
+    "gradeError": "誤り",
+    "sameSpot": "No. 1とNo. 20は同じ場所(鹿児島中央駅)です。",
+    "baseline": "比較の基準とした停留所座標は、鹿児島市交通局の公表値と全20停留所で一致していることを確認済みです(2026年7月20日検証)。",
+    "method": "方法: 各停留所の日本語名でGoogleマップを検索し、最上位候補と公式座標の距離(haversine)を計測。50m未満はスマートフォンGPS誤差の範囲として「正常」、100m以上を「誤り」と判定しました。",
+    "ctaMap": "正確な停留所マップを開く"
   },
   "map": {
     "categories": {

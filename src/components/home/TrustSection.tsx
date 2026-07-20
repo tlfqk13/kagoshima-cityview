@@ -1,4 +1,5 @@
 'use client'
+import Link from 'next/link'
 import { useTranslation } from 'react-i18next'
 import { getRoute } from '@/lib/routes'
 import styles from './TrustSection.module.css'
@@ -27,6 +28,7 @@ export default function TrustSection() {
         <div className={styles.source}>
           <span>{t('trust.source')}</span>
           <span className={styles.date}>{t('trust.validated')}: {meta.lastFieldVerifiedAt ?? meta.lastSourceCheckedAt}</span>
+          <Link href="/accuracy" className={styles.accuracyLink}>{t('trust.accuracyLink')}</Link>
         </div>
       </div>
     </section>

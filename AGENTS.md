@@ -24,6 +24,7 @@
 | `/admin/login` | 관리자 로그인 (Google OAuth) |
 | `/card` | 정류장 카드 인쇄 인덱스 (호텔·관광안내소 배포용, 색인 제외) |
 | `/card/[stopId]` | A6 프린트용 정류장 QR 카드. QR은 `QRModal`과 동일한 도메인/URL 규칙 사용 |
+| `/accuracy` | 구글맵 정확도 감사 공개 페이지. 데이터는 `src/data/accuracy-audit.json` (`scripts/google-maps-audit` 파이프라인 산출물) |
 
 ## 기술 스택
 
