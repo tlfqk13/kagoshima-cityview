@@ -19,7 +19,10 @@ if (!i18n.isInitialized && !initPromise) {
         en: { translation: en },
         ja: { translation: ja },
       },
-      fallbackLng: 'ko',
+      // SSR/첫 렌더를 항상 ja로 고정 — hydration 일치용 (Node의 navigator.language='en-US'가
+      // 감지되어 SSR이 영어로 렌더링되는 문제 방지). 실제 언어는 I18nProvider가 마운트 후 전환.
+      lng: 'ja',
+      fallbackLng: 'ja',
       supportedLngs: ['ko', 'en', 'ja'],
       detection: {
         order: ['querystring', 'cookie', 'navigator'],
