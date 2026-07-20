@@ -3,9 +3,9 @@ import MapPage from './MapPage'
 import type { RouteId } from '@/lib/routes'
 
 export const metadata: Metadata = {
-  title: '정류장 지도 | 가고시마 시티뷰 버스 가이드',
+  title: '停留所マップ | 鹿児島シティビューバスガイド',
   description:
-    '가고시마 시티뷰 버스 20개 정류장의 정확한 GPS 위치 지도. Kagoshima City View bus stop map. カゴシマシティビュー停留所マップ.',
+    '鹿児島シティビューバス20停留所の正確なGPS位置マップ。Kagoshima City View bus stop map. 가고시마 시티뷰 버스 정류장 지도.',
 }
 
 const VALID_ROUTES: RouteId[] = ['cityview', 'cityview-night', 'islandview']

@@ -30,7 +30,7 @@ function getWalkingEstimate(userLat: number, userLng: number, stopLat: number, s
 
 export default function StopDetail({ stop, routeId, userLocation, isFavorite, onToggleFavorite }: Props) {
   const { t, i18n } = useTranslation()
-  const lang = (['ko', 'en', 'ja'].includes(i18n.language) ? i18n.language : 'ko') as Lang
+  const lang = (['ko', 'en', 'ja'].includes(i18n.language) ? i18n.language : 'ja') as Lang
   const [toast, setToast] = useState<string | null>(null)
   const [toastKey, setToastKey] = useState(0)
   const [showQR, setShowQR] = useState(false)

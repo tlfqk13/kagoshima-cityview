@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: Props) {
   const episode = getEpisode(slug, lang)
   if (!episode) return {}
   return {
-    title: `${episode.title} | 가고시마 시티뷰 버스 가이드`,
+    title: `${episode.title} | 鹿児島シティビューバスガイド`,
     description: episode.summary,
   }
 }

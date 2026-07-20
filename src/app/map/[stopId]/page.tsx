@@ -19,9 +19,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!stop) return {}
   // UI 언어 쿠키(i18next)에 맞춰 타이틀 로컬라이즈
   const lang = await getServerLang()
+  const descSuffix = {
+    ko: `정류장 No. ${stop.number}의 정확한 GPS 위치.`,
+    en: `Accurate GPS location of bus stop No. ${stop.number}.`,
+    ja: `停留所 No. ${stop.number}の正確なGPS位置。`,
+  } as const
   return {
-    title: `${stop.name[lang]} (No. ${stop.number}) | 가고시마 시티뷰 버스 가이드`,
-    description: `${stop.name.ko} · ${stop.name.en} · ${stop.name.ja} — 정류장 No. ${stop.number}의 정확한 GPS 위치.`,
+    title: `${stop.name[lang]} (No. ${stop.number}) | 鹿児島シティビューバスガイド`,
+    description: `${stop.name.ko} · ${stop.name.en} · ${stop.name.ja} — ${descSuffix[lang]}`,
   }
 }
 

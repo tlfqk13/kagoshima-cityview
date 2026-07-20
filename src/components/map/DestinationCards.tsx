@@ -11,7 +11,7 @@ interface Props {
 
 export default function DestinationCards({ stops, category, onStopSelect }: Props) {
   const { t, i18n } = useTranslation()
-  const lang = (['ko', 'en', 'ja'].includes(i18n.language) ? i18n.language : 'ko') as Lang
+  const lang = (['ko', 'en', 'ja'].includes(i18n.language) ? i18n.language : 'ja') as Lang
 
   const items = stops.flatMap(stop =>
     stop.destinations

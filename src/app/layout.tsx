@@ -6,13 +6,13 @@ import { Analytics } from '@vercel/analytics/react'
 import OfflineBanner from '@/components/OfflineBanner'
 
 export const metadata: Metadata = {
-  title: '가고시마 시티뷰 버스 가이드',
-  description: '가고시마 시티뷰 버스 20개 정류장 정확한 GPS 위치 가이드. 한국어·English·日本語.',
+  title: '鹿児島シティビューバスガイド',
+  description: '鹿児島シティビューバス全20停留所の正確なGPS位置ガイド。日本語·English·한국어.',
   manifest: '/manifest.json',
   appleWebApp: {
     capable: true,
     statusBarStyle: 'default',
-    title: '시티뷰 버스',
+    title: 'シティビューバス',
   },
 }
 
@@ -26,7 +26,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="ko" suppressHydrationWarning>
+    <html lang="ja" suppressHydrationWarning>
       <body>
         <I18nProvider>
           <ThemeProvider>

@@ -1,13 +1,13 @@
 {
-  "name": "가고시마 시티뷰 버스 가이드",
-  "short_name": "시티뷰 버스",
-  "description": "가고시마 시티뷰 버스 정류장 정확한 GPS 지도. 한국어·English·日本語",
+  "name": "鹿児島シティビューバスガイド",
+  "short_name": "シティビューバス",
+  "description": "鹿児島シティビューバス停留所の正確なGPS地図。日本語·English·한국어",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#F4EFE9",
   "theme_color": "#8B4513",
   "orientation": "portrait-primary",
-  "lang": "ko",
+  "lang": "ja",
   "icons": [
     {
       "src": "/icons/icon-192.svg",

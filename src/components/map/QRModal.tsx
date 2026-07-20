@@ -15,7 +15,7 @@ const BASE_URL = 'https://www.kagoshima-cityview.com'
 export default function QRModal({ stop, routeId, onClose }: Props) {
   const { t, i18n } = useTranslation()
   const canvasRef = useRef<HTMLCanvasElement>(null)
-  const lang = (['ko', 'en', 'ja'].includes(i18n.language) ? i18n.language : 'ko') as 'ko' | 'en' | 'ja'
+  const lang = (['ko', 'en', 'ja'].includes(i18n.language) ? i18n.language : 'ja') as 'ko' | 'en' | 'ja'
   const stopName = stop.name[lang]
   const url = `${BASE_URL}/map?route=${routeId}&stop=${stop.id}`
 

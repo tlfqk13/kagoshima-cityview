@@ -9,7 +9,7 @@ export default function LanguageSwitcher() {
   const { i18n } = useTranslation()
   const currentLang = LANGS.includes(i18n.language as LangCode)
     ? i18n.language
-    : 'ko'
+    : 'ja'
 
   return (
     <div className={styles.wrap}>

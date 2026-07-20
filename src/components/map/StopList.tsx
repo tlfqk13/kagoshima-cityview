@@ -12,7 +12,7 @@ interface Props {
 
 export default function StopList({ stops, selectedId, onSelect, favorites }: Props) {
   const { t, i18n } = useTranslation()
-  const lang = (['ko', 'en', 'ja'].includes(i18n.language) ? i18n.language : 'ko') as Lang
+  const lang = (['ko', 'en', 'ja'].includes(i18n.language) ? i18n.language : 'ja') as Lang
 
   if (stops.length === 0) {
     return <p className={styles.empty}>{t('map.noStops')}</p>

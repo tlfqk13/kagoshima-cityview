@@ -15,7 +15,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const lang = await getServerLang()
   const t = messages[lang].devlog
   return {
-    title: `${t.pageEyebrow} | 가고시마 시티뷰 버스 가이드`,
+    title: `${t.pageEyebrow} | 鹿児島シティビューバスガイド`,
     description: t.metaDescription,
   }
 }

@@ -13,11 +13,11 @@ import styles from './MapCanvas.module.css'
 mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN!
 
 function getCurrentLang(): 'ko' | 'en' | 'ja' {
-  if (typeof window === 'undefined') return 'ko'
+  if (typeof window === 'undefined') return 'ja'
   // react-i18next stores language in cookie 'i18next' or localStorage 'i18nextLng'
   const cookie = document.cookie.split(';').find(c => c.trim().startsWith('i18next='))
-  const lang = cookie?.split('=')[1]?.trim() ?? localStorage.getItem('i18nextLng') ?? 'ko'
-  return (['ko', 'en', 'ja'].includes(lang) ? lang : 'ko') as 'ko' | 'en' | 'ja'
+  const lang = cookie?.split('=')[1]?.trim() ?? localStorage.getItem('i18nextLng') ?? 'ja'
+  return (['ko', 'en', 'ja'].includes(lang) ? lang : 'ja') as 'ko' | 'en' | 'ja'
 }
 
 const KAGOSHIMA_CENTER: [number, number] = [130.5581, 31.5897]
