@@ -15,7 +15,7 @@ const isDev = process.env.NODE_ENV === 'development'
 // Next.js nonce 미들웨어가 없으므로 인라인 스크립트 허용이 필요 — 'unsafe-inline' 유지
 const csp = [
   "default-src 'self'",
-  `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ''}`,
+  `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval' https://va.vercel-scripts.com" : ''}`,
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data: blob: https://*.mapbox.com",
   "font-src 'self' data:",
