@@ -5,6 +5,46 @@
 
 ---
 
+## ISS-005 · SSR hydration 불일치 — Node의 `navigator.language`를 언어 감지가 읽음
+
+**상태:** 해결 (2026-07-18 — SSR 언어 ko 고정 + 마운트 후 전환)
+**발견:** 전체 QA 헤드리스 브라우저 테스트 중 React #418 (모든 지도 페이지에서 발생)
+**심각도:** High — 한국어 사용자가 매 페이지에서 hydration 실패로 전체 트리 재생성
+
+### 근본 원인
+
+`i18next-browser-languagedetector`가 **서버(Node.js)에서도 `navigator.language`를 읽음**.
+Node 21+의 글로벌 `navigator.language`는 `'en-US'`이므로 SSR이 영어로 렌더링되고,
+실제 브라우저 언어(예: ko)로 hydrate하는 클라이언트와 텍스트 불일치 발생
+(예: Nav 링크 — SSR "Story" vs 클라이언트 "스토리").
+
+### 수정 내용
+
+- `lib/i18n.ts`: init에 `lng: 'ko'` 명시 — SSR과 클라이언트 첫 렌더를 항상 ko로 고정해 hydration 일치.
+- `I18nProvider.tsx`: 마운트 후 `languageDetector.detect()`로 감지 언어로 `changeLanguage`.
+- 부수 효과: 첫 방문 en/ja 사용자는 짧은 한국어 플래시 후 전환 (스토리 RSC 콘텐츠는
+  쿠키가 생긴 다음 방문부터 감지 언어로 제공).
+
+---
+
+## ISS-004 · NextAuth `UntrustedHost` 시 인증 fail-open — `/admin` 무인증 노출
+
+**상태:** 해결 (2026-07-18 — `trustHost: true` 추가)
+**발견:** 전체 QA HTTP 스모크 테스트 중 `/admin`이 세션 없이 200 + 대시보드 렌더
+**심각도:** Critical — 로컬 프로덕션 빌드(`next start`)에서 관리자 페이지 공개
+
+### 근본 원인
+
+프로덕션 모드에서 Auth.js가 요청 호스트를 신뢰하지 않아 세션 해석이 `UntrustedHost`로 실패하고,
+미들웨어 auth 래퍼가 **fail-open**(요청 통과)하여 `/admin`이 무인증 렌더링됨.
+(Vercel 배포 환경에서는 자동 신뢰되지만, 명시 설정이 없으면 환경에 따라 재현 가능.)
+
+### 수정 내용
+
+- `src/auth.ts`에 `trustHost: true` 추가 → 비인증 `/admin` 접근 시 307 → `/admin/login` 확인.
+
+---
+
 ## ISS-003 · `lastValidatedAt` 의미가 노선마다 다르게 사용됨
 
 **상태:** 해결 (2026-07-18 — `lastFieldVerifiedAt`/`lastSourceCheckedAt`로 분리)
