@@ -102,7 +102,11 @@
     "h2line2": "Kagoshima City Tourism",
     "body": "This service is based on official Kagoshima City GTFS open data. Free, no ads. So more travelers can enjoy Kagoshima without confusion.",
     "cta": "Contact Us",
-    "ctaMap": "Open Map"
+    "ctaMap": "Open Map",
+    "aboutTitle": "About this project",
+    "aboutBody": "Built by a traveler who missed the bus in Kagoshima. Run free, ad-free, and non-commercial so no one else has the same experience.",
+    "aboutMaintenance": "We re-verify all stop locations quarterly and publish the results",
+    "emailLabel": "Contact"
   },
   "footer": {
     "source": "Data: 鹿児島市 (processed from original)",

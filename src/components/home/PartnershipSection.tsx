@@ -23,6 +23,16 @@ export default function PartnershipSection() {
           </a>
         </div>
       </div>
+      <div className={styles.about}>
+        <h3 className={styles.aboutTitle}>{t('partnership.aboutTitle')}</h3>
+        <p className={styles.aboutBody}>{t('partnership.aboutBody')}</p>
+        <p className={styles.aboutMaintenance}>
+          {t('partnership.aboutMaintenance')} — <Link href="/accuracy" className={styles.aboutLink}>Accuracy Audit →</Link>
+        </p>
+        <p className={styles.aboutEmail}>
+          <span className={styles.emailLabel}>{t('partnership.emailLabel')}:</span> fkffksk20@gmail.com
+        </p>
+      </div>
     </section>
   )
 }
