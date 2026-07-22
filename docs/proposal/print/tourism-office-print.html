@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<!-- A4 인쇄용 — 원본: docs/proposal/tourism-office-ja.md (md 변경 시 이 파일도 수동 동기화) -->
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>鹿児島シティビューバス停留所案内サービスの公式採用に関するご提案</title>
+<style>
+  @page { size: A4 portrait; margin: 22mm 20mm; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Hiragino Kaku Gothic ProN', 'Yu Gothic', Meiryo, sans-serif;
+    font-size: 10.5pt; line-height: 1.8; color: #1a1a1a;
+  }
+  h1 { font-size: 14pt; text-align: center; letter-spacing: 0.04em; margin-bottom: 14mm; }
+  .meta { margin-bottom: 10mm; font-size: 10pt; }
+  .meta p { margin-bottom: 2mm; }
+  .meta .label { display: inline-block; width: 22mm; color: #555; }
+  h2 { font-size: 11.5pt; border-bottom: 1px solid #999; padding-bottom: 1.5mm; margin: 8mm 0 3mm; }
+  p { margin-bottom: 3mm; }
+  ul { margin: 0 0 3mm 6mm; }
+  li { margin-bottom: 1.5mm; }
+  ol { margin: 0 0 3mm 6mm; }
+  .sign { margin-top: 8mm; text-align: right; }
+</style>
+</head>
+<body>
+  <h1>鹿児島シティビューバス停留所案内サービスの<br>公式採用に関するご提案</h1>
+
+  <div class="meta">
+    <p><span class="label">宛先</span>鹿児島市 観光課 御中</p>
+    <p><span class="label">日付</span>2026年　月　日</p>
+    <p><span class="label">提案者</span>[氏名] / fkffksk20@gmail.com</p>
+  </div>
+
+  <h2>1. ご提案の背景</h2>
+  <p>鹿児島シティビューバスの一部の停留所は、主要な地図サービスにおいて実際の乗車位置と異なる場所に表示されています。私自身、韓国から鹿児島を訪れた際、地図アプリが示す停留所の位置が実際より約200メートルずれていたためにバスに乗り遅れる経験をいたしました。また、旅行口コミサイト等を調査したところ、同様に停留所を見つけられず困惑した外国人観光客の声が多数確認できました。</p>
+  <p>なお2026年7月には、全20停留所について地図サービスの表示位置を検証いたしました。その結果、<strong>7停留所(35%)で50メートル以上、うち3停留所で100メートル以上の位置ずれ</strong>(最大220メートル)を確認しております。また過去に誤表示だった地点が後日修正されていた事例もあり、地図サービスの表示は予告なく変動するため、常に検証された案内が必要であると考えております。</p>
+  <p>鹿児島市様が整備された素晴らしい観光周遊バスでありながら、「停留所の位置が分からない」という一点の理由で利用を諦める観光客がいることは、本市の観光振興にとっても損失と考えます。</p>
+
+  <h2>2. サービスの概要</h2>
+  <p>この問題を解決するため、シティビューバス全20停留所の正確なGPS位置を案内する無料のWebサービス「かごしまシティビューバスガイド」を個人で開発・公開しています。</p>
+  <ul>
+    <li><strong>正確な位置情報</strong> — 鹿児島市様のGTFS-JPオープンデータ(CC BY 4.0)を加工し、現地でのGPS検証を実施。2026年7月には鹿児島市交通局の公表情報と全20停留所で一致することを確認済みです</li>
+    <li><strong>多言語対応</strong> — 韓国語・英語・日本語の3言語(端末の言語を自動検出)</li>
+    <li><strong>無料・広告なし</strong> — 営利目的ではなく、旅行者の利便性のためだけに運営</li>
+    <li><strong>オフライン動作</strong> — PWA(Progressive Web App)対応で、通信環境が不安定な場所でも利用可能</li>
+    <li><strong>停留所QRコード</strong> — 停留所ごとのQRコードで、正確な位置をすぐに共有可能</li>
+    <li><strong>対応コース</strong> — シティビュー(20停留所)、夜景コース(7停留所)、桜島アイランドビュー(12停留所)</li>
+  </ul>
+  <p>URL: https://www.kagoshima-cityview.com</p>
+
+  <h2>3. ご提案内容</h2>
+  <ol>
+    <li><strong>公式案内としてのご紹介</strong> — 鹿児島市様の観光ウェブサイト・観光案内所にて、本サービスを停留所の正確な位置案内としてご紹介いただきたく存じます</li>
+    <li><strong>QRカードのご掲示</strong> — 停留所標識・観光案内所・主要ホテル等に掲示できる印刷用QRカード(A6サイズ)を用意しており、無償でご提供可能です</li>
+    <li><strong>データ更新の連携</strong> — GTFSデータ更新時には速やかに反映いたします。更新情報のご共有ルートをいただけますと幸いです</li>
+  </ol>
+
+  <h2>4. 保守・運営について</h2>
+  <p>本サービスは個人による開発・運営ではありますが、以下の通り継続的な保守体制を整えております。</p>
+  <ul>
+    <li><strong>定期点検</strong> — 四半期ごとに全停留所の表示位置検証(自動化スクリプト)を再実施し、結果をサービス内で公開します</li>
+    <li><strong>データ更新</strong> — GTFSデータの更新時には速やかに反映し、最終確認日をサービス内に明記します</li>
+    <li><strong>移管のご相談</strong> — ご希望の場合には、鹿児島市様またはご指定の管理者へのソースコードおよびデータの移管にも応じます</li>
+  </ul>
+
+  <h2>5. データの取り扱いについて</h2>
+  <p>本サービスは鹿児島市様のオープンデータをCC BY 4.0ライセンスに基づき加工して利用しており、サービス内に「データ提供：鹿児島市（原データより加工）」と明記しております。</p>
+
+  <h2>6. お問い合わせ先</h2>
+  <ul>
+    <li>氏名: [　　]</li>
+    <li>メールアドレス: fkffksk20@gmail.com</li>
+    <li>サービスURL: https://www.kagoshima-cityview.com</li>
+  </ul>
+
+  <p>何卒ご検討のほど、よろしくお願い申し上げます。</p>
+</body>
+</html>
