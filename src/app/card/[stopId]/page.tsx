@@ -3,14 +3,19 @@ import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import QRCode from 'qrcode'
 import { getStopsForRoute, getRoute } from '@/lib/routes'
+import rawHotels from '@/data/hotels.json'
 import PrintButton from './PrintButton'
 import styles from './card.module.css'
 
 // QRModal과 동일한 도메인/URL 규칙 사용
 const BASE_URL = 'https://www.kagoshima-cityview.com'
 
+interface Hotel { slug: string; nameJa: string; stopId: string; walkMeters: number }
+const hotels = (rawHotels as unknown as { hotels: Hotel[] }).hotels
+
 interface Props {
   params: Promise<{ stopId: string }>
+  searchParams: Promise<{ hotel?: string }>
 }
 
 function findStop(stopId: string) {
@@ -33,10 +38,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 // 호텔 프런트·관광안내소 비치용 A6 프린트 카드.
 // QR을 스캔하면 해당 정류장의 정확한 위치가 지도로 열린다.
-export default async function StopCardPage({ params }: Props) {
+// ?hotel=<slug> 지정 시 호텔 이름이 들어간 브랜드 카드 (hotels.json 참조).
+export default async function StopCardPage({ params, searchParams }: Props) {
   const { stopId } = await params
+  const { hotel: hotelSlug } = await searchParams
   const stop = findStop(stopId)
   if (!stop) notFound()
+  const hotel = hotelSlug ? hotels.find(h => h.slug === hotelSlug) : undefined
 
   const route = getRoute('cityview')
   const url = `${BASE_URL}/map?route=cityview&stop=${stop.id}`
@@ -58,6 +66,12 @@ export default async function StopCardPage({ params }: Props) {
           <span className={styles.cardRoute}>{route.name.ja}</span>
         </div>
         <div className={styles.cardBody}>
+          {hotel && (
+            <div className={styles.hotelBand}>
+              <span className={styles.hotelName}>{hotel.nameJa}</span>
+              <span className={styles.hotelNote}>宿泊ゲスト様へ · For our guests · 투숙객 안내</span>
+            </div>
+          )}
           <div className={styles.stopNum}>No. {stop.number}</div>
           <div className={styles.stopNameJa}>{stop.name.ja}</div>
           <div className={styles.stopNameSub}>

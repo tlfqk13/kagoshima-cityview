@@ -1,0 +1,14 @@
+{
+  "updatedAt": "2026-07-20",
+  "note": "호텔 브랜드 카드(/card/[stopId]?hotel=slug)용 매핑. walkMeters는 직선거리(2026-07-20 Nominatim 측정)",
+  "hotels": [
+    { "slug": "remm", "nameJa": "レム鹿児島", "stopId": "stop_03", "walkMeters": 98 },
+    { "slug": "richmond-kinseicho", "nameJa": "リッチモンドホテル鹿児島金生町", "stopId": "stop_18", "walkMeters": 122 },
+    { "slug": "solaria", "nameJa": "ソラリア西鉄ホテル鹿児島", "stopId": "stop_01", "walkMeters": 186 },
+    { "slug": "jr-kyushu", "nameJa": "JR九州ホテル鹿児島", "stopId": "stop_01", "walkMeters": 228 },
+    { "slug": "shiroyama", "nameJa": "城山ホテル鹿児島", "stopId": "stop_07", "walkMeters": 233 },
+    { "slug": "fav-lux", "nameJa": "FAV LUX KAGOSHIMA", "stopId": "stop_19", "walkMeters": 258 },
+    { "slug": "dormy-inn", "nameJa": "ドーミーイン鹿児島", "stopId": "stop_03", "walkMeters": 276 },
+    { "slug": "sheraton", "nameJa": "シェラトン鹿児島", "stopId": "stop_02", "walkMeters": 780 }
+  ]
+}
