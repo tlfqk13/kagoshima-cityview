@@ -52,3 +52,27 @@
 - 다크 모드 토글, 바텀시트 드래그 제스처
 - Vercel 배포 환경에서 `/admin` 로그인 플로우(로컬과 인증 동작이 다를 수 있음 — ISS-004 참고)
 
+---
+
+## QA 결과 (2026-07-23 재실행 — 프로덕션 빌드 기준)
+
+> 대규모 추가 변경(히어로 스크롤, /accuracy, /card+호텔 브랜드, googleMapsError 5곳, 운영자 섹션, 기본 언어 ja 전환) 이후 운영급 재검증. `npm run build` + `npm run start` 프로덕션 환경에서 수행.
+
+| # | 영역 | 결과 | 비고 |
+|---|------|------|------|
+| Q1 | 정적 게이트 | **PASS** | lint 0 errors, build 성공 |
+| Q2 | 데이터 무결성 | **PASS 6/6** | 39정류장 좌표 범위, stop_01==stop_20, destinations 참조, i18n 패리티(113키), accuracy-audit 20건(등급/좌표), hotels 8곳(stopId 참조), googleMapsError 5곳 좌표 존재. 야경 departures=[]는 설계상 정상(토요 운행·시각 미공개) |
+| Q3 | 라우팅/응답 | **PASS 24/24** | 전 페이지 200, bogus stop/slug/card 404, `/admin` 307, 카드 브랜드/무효 slug 200. 보안 헤더 6종 + X-Powered-By 없음. 프로덕션 서버 로그 에러 0 |
+| Q4 | 다국어 | **PASS** | CDP 실브라우저 검증: `/accuracy?lang=ko/en/ja` 각각 해당 언어 h1 렌더 (SSR ja 고정 후 클라이언트 전환 정상). 스토리 ja 쿠키 콘텐츠, `/map/stop_03` ja 메타데이터, 홈 運営について 블록 |
+| Q5 | 지도 런타임 | **PASS** | CDP WebGL(swiftshader): `/map` 타일 로드·노선 폴리라인·번호 핀 렌더 확인, `/map/stop_13` 오류 배지+상세 패널. CLI --screenshot의 빈 지도는 virtual-time 아티팩트(실제는 정상 렌더) |
+| Q6 | PWA | **PASS** | sw.js 9.4KB, manifest 유효(鹿児島シティビューバスガイド), 아이콘 2종 200 |
+
+### 이번 실행에서 발견된 이슈
+
+- 없음 (신규 페이지·기능 전부 정상)
+
+### 검증 방법 메모 (재사용 가능)
+
+- CLI `--screenshot`/`--dump-dom`은 이 환경(실제 Chrome 상주)에서 불안정 — **CDP(`--remote-debugging-port` + Node 내장 WebSocket)로 Runtime.evaluate/Page.captureScreenshot을 쓰는 방식이 안정적** (`/tmp/cdp-*.mjs` 패턴)
+- 프로덕션 서버 로그 확인은 SSR 예외 검출에 유효
+
