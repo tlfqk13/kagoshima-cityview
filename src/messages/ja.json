@@ -106,12 +106,29 @@
     "aboutTitle": "運営について",
     "aboutBody": "鹿児島を旅行してバスに乗り遅れた旅行者が個人で開発しました。同じ経験をする旅行者がいなくなるよう、無料・広告なし・非営利で運営しています。",
     "aboutMaintenance": "四半期ごとに全停留所の位置検証を再実施し、結果を公開しています",
-    "emailLabel": "連絡先"
+    "emailLabel": "連絡先",
+    "copied": "メールアドレスをコピーしました"
   },
   "footer": {
     "source": "データ提供：鹿児島市（原データより加工）",
     "license": "CC BY 4.0",
-    "disclaimer": "GPS位置情報のみ。運行時刻は必ず公式アプリでご確認ください。"
+    "disclaimer": "GPS位置情報のみ。運行時刻は必ず公式アプリでご確認ください。",
+    "downloads": "ダウンロード"
+  },
+  "downloads": {
+    "eyebrow": "Downloads",
+    "title": "ダウンロード",
+    "intro": "停留所案内QRカードと提案文書のダウンロードページです。",
+    "cardTitle": "停留所QRカード (A6印刷用)",
+    "cardDesc": "全20停留所。ホテルフロント・観光案内所の掲示用。ホテル名入りカードにも対応。",
+    "cardCta": "カードを選ぶ",
+    "tourismTitle": "観光課への提案書 (PDF)",
+    "tourismDesc": "公式採用のご提案 — 問題の背景・サービス概要・保守および移管の体制。",
+    "hotelTitle": "ホテルへの提案書 (PDF)",
+    "hotelDesc": "宿泊ゲスト向けQRカード設置のご提案 — 主要ホテル最寄り停留所マッピング付き。",
+    "incidentTitle": "トラブル時のご案内 (PDF)",
+    "incidentDesc": "掲示担当者向け — サイト障害・QRの不具合時の対応マニュアル。",
+    "open": "開く →"
   },
   "devlog": {
     "sectionTitle": "制作の記録",

@@ -106,12 +106,29 @@
     "aboutTitle": "About this project",
     "aboutBody": "Built by a traveler who missed the bus in Kagoshima. Run free, ad-free, and non-commercial so no one else has the same experience.",
     "aboutMaintenance": "We re-verify all stop locations quarterly and publish the results",
-    "emailLabel": "Contact"
+    "emailLabel": "Contact",
+    "copied": "Email address copied"
   },
   "footer": {
     "source": "Data: 鹿児島市 (processed from original)",
     "license": "CC BY 4.0",
-    "disclaimer": "GPS location only. Always verify schedules via official app."
+    "disclaimer": "GPS location only. Always verify schedules via official app.",
+    "downloads": "Downloads"
+  },
+  "downloads": {
+    "eyebrow": "Downloads",
+    "title": "Downloads",
+    "intro": "Bus stop QR cards and proposal documents.",
+    "cardTitle": "Stop QR Cards (A6 printable)",
+    "cardDesc": "All 20 stops. For hotel front desks and tourist information centers. Hotel-branded cards supported.",
+    "cardCta": "Choose a card",
+    "tourismTitle": "Tourism Office Proposal (PDF)",
+    "tourismDesc": "Official adoption proposal — problem background, service overview, maintenance & handover plan.",
+    "hotelTitle": "Hotel Proposal (PDF)",
+    "hotelDesc": "QR card placement proposal as a guest service — includes nearest-stop mapping for major hotels.",
+    "incidentTitle": "Incident Guide (PDF)",
+    "incidentDesc": "For staff displaying the card — what to do if the site is down or the QR fails.",
+    "open": "Open →"
   },
   "devlog": {
     "sectionTitle": "Making Of",
