@@ -24,5 +24,5 @@
 .on {
   background: var(--dark);
   border-color: var(--dark);
-  color: var(--white);
+  color: #FFFFFF; /* 어두운 배경 고정 — 다크 테마에서 묻히지 않도록 */
 }

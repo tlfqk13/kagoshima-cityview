@@ -39,7 +39,8 @@ img {
 /* Stop hover tooltip popup */
 .stop-hover-popup .mapboxgl-popup-content {
   background: var(--dark);
-  color: var(--bg);
+  /* 고정 밝은색 — var(--bg)는 다크 테마에서 어두워져 텍스트가 묻힘 */
+  color: #F4EFE9;
   border-radius: var(--radius);
   padding: 6px 10px;
   font-family: var(--font-sans);

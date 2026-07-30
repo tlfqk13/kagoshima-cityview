@@ -54,7 +54,7 @@
   display: inline-block;
   padding: 9px 20px;
   background: var(--dark);
-  color: var(--white);
+  color: #FFFFFF; /* 어두운 배경 고정 — 다크 테마에서 묻히지 않도록 */
   font-size: 12px;
   letter-spacing: 0.06em;
   border-radius: var(--radius);

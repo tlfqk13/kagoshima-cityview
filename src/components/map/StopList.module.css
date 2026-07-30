@@ -56,7 +56,7 @@
 
 .on .num {
   background: var(--accent);
-  color: var(--white);
+  color: #FFFFFF; /* accent 배경 고정 — 다크 테마에서 묻히지 않도록 */
   border-color: var(--accent);
 }
 
