@@ -46,11 +46,11 @@
 }
 
 .date {
-  color: var(--accent);
+  color: var(--accent-text);
 }
 
 .accuracyLink {
-  color: var(--accent);
+  color: var(--accent-text);
   text-decoration: underline;
   text-underline-offset: 2px;
 }

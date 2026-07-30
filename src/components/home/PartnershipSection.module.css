@@ -92,7 +92,7 @@
 .aboutTitle {
   font-size: 11px;
   letter-spacing: 0.18em;
-  color: var(--accent);
+  color: var(--accent-text);
   text-transform: uppercase;
   margin-bottom: 14px;
 }
@@ -113,7 +113,7 @@
 }
 
 .aboutLink {
-  color: var(--accent);
+  color: var(--accent-text);
   text-decoration: underline;
   text-underline-offset: 2px;
 }

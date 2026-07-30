@@ -1,4 +1,5 @@
 'use client'
+import Link from 'next/link'
 import { useTranslation } from 'react-i18next'
 import styles from './Footer.module.css'
 
@@ -13,6 +14,9 @@ export default function Footer() {
         </div>
       </div>
       <div className={styles.right}>
+        <div>
+          <Link href="/downloads" className={styles.downloadsLink}>{t('footer.downloads')}</Link>
+        </div>
         <div>{t('footer.source')}</div>
         <div>
           <a

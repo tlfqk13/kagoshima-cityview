@@ -20,7 +20,7 @@
 }
 
 .logo em {
-  color: var(--accent);
+  color: var(--accent-text);
   font-style: normal;
 }
 

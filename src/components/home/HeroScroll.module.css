@@ -283,7 +283,7 @@
 .eyebrow {
   font-size: 10px;
   letter-spacing: 0.22em;
-  color: var(--accent);
+  color: var(--accent-text);
   text-transform: uppercase;
   margin-bottom: 28px;
   display: flex;

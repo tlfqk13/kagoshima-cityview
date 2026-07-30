@@ -1,7 +1,23 @@
 /* src/styles/tokens.css */
+
+/* 다국어 세리프 — unicode-range로 한글은 한국 세리프(AppleMyungjo/Batang/Noto Serif KR),
+   일본어 가나·한자는 히라기노 민초로 결정론적 배정.
+   (일본 민초의 한글 글리프는 한국 독자에게 깨져 보이는 문제 방지) */
+@font-face {
+  font-family: 'KCV Serif';
+  src: local('AppleMyungjo'), local('Batang'), local('Noto Serif CJK KR');
+  unicode-range: U+1100-11FF, U+3130-318F, U+A960-A97F, U+AC00-D7A3, U+D7B0-D7FF;
+}
+
+@font-face {
+  font-family: 'KCV Serif';
+  src: local('Hiragino Mincho ProN'), local('HiraMinProN-W3'), local('Yu Mincho'), local('YuMincho');
+  unicode-range: U+0000-2FFF, U+3000-303F, U+3040-30FF, U+3400-4DBF, U+4E00-9FFF, U+F900-FAFF, U+FF00-FFEF;
+}
+
 :root {
   /* 폰트 — macOS 시스템 폰트 (CDN 불필요, 오프라인 동작) */
-  --font-serif: 'Hiragino Mincho ProN', 'HiraMinProN-W3', 'Yu Mincho', 'YuMincho', Georgia, serif;
+  --font-serif: 'KCV Serif', 'Hiragino Mincho ProN', 'HiraMinProN-W3', 'Yu Mincho', 'YuMincho', Georgia, serif;
   --font-sans: 'Hiragino Kaku Gothic ProN', 'HiraKakuProN-W3', 'Yu Gothic', 'YuGothic', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-mono: 'SF Mono', 'Menlo', 'Monaco', monospace;
 
@@ -13,6 +29,8 @@
   --muted:  #8A8278;
   --rule:   #DDD7D0;
   --accent: #8B4513;
+  /* accent를 '텍스트'로 쓸 때 — 라이트는 accent 동일, 다크는 밝게(대비 확보) */
+  --accent-text: #8B4513;
   --dark:   #1F1E1A;  /* nav, hero, footer backgrounds — dark UI surfaces */
 
   /* 지도 핀 색상 */
@@ -34,4 +52,5 @@
   --muted: #6B6560;
   --rule: #2E2C29;
   --dark: #0F0E0C;
+  --accent-text: #C87A3A;
 }

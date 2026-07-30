@@ -42,13 +42,13 @@
 }
 
 .item:hover {
-  border-color: var(--accent);
+  border-color: var(--accent-text);
 }
 
 .num {
   font-family: var(--font-mono);
   font-size: 11px;
-  color: var(--accent);
+  color: var(--accent-text);
   font-weight: 700;
 }
 

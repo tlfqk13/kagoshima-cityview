@@ -14,7 +14,7 @@
 .num {
   font-family: var(--font-mono);
   font-size: 11px;
-  color: var(--accent);
+  color: var(--accent-text);
   letter-spacing: 0.12em;
   padding-top: 4px;
 }

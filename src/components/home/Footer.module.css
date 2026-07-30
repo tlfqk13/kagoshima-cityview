@@ -16,7 +16,7 @@
 }
 
 .logo em {
-  color: var(--accent);
+  color: var(--accent-text);
   font-style: normal;
 }
 
@@ -32,6 +32,10 @@
   color: rgba(255, 255, 255, 0.35);
   text-decoration: underline;
   text-underline-offset: 2px;
+}
+
+.downloadsLink {
+  color: rgba(255, 255, 255, 0.6) !important;
 }
 
 .disclaimer {

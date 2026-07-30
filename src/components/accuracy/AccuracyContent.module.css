@@ -13,7 +13,7 @@
 .eyebrow {
   font-size: 10px;
   letter-spacing: 0.22em;
-  color: var(--accent);
+  color: var(--accent-text);
   text-transform: uppercase;
   margin-bottom: 16px;
 }
@@ -61,7 +61,7 @@
 }
 
 .numError {
-  color: var(--accent);
+  color: var(--accent-text);
 }
 
 .label {
@@ -100,7 +100,7 @@
   font-family: var(--font-mono);
   font-size: 12px;
   font-weight: 700;
-  color: var(--accent);
+  color: var(--accent-text);
 }
 
 .colStop {
@@ -154,8 +154,8 @@
 }
 
 .badge.error {
-  color: var(--accent);
-  border-color: var(--accent);
+  color: var(--accent-text);
+  border-color: var(--accent-text);
 }
 
 .sameSpot {

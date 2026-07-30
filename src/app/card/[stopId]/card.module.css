@@ -81,7 +81,7 @@
   font-family: var(--font-mono);
   font-size: 20pt;
   font-weight: 700;
-  color: var(--accent);
+  color: var(--accent-text);
   line-height: 1;
   margin-bottom: 2mm;
 }
@@ -101,7 +101,7 @@
 .hotelName {
   font-family: var(--font-serif);
   font-size: 10pt;
-  color: var(--accent);
+  color: var(--accent-text);
   font-weight: 700;
 }
 
