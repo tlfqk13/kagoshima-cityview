@@ -92,3 +92,29 @@
     display: none;
   }
 }
+
+@media (max-width: 480px) {
+  .nav {
+    padding: 0 12px;
+    gap: 8px;
+  }
+
+  .logo {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .right {
+    flex-shrink: 0;
+    gap: 4px;
+  }
+
+  .ctaBtn {
+    padding: 8px 6px;
+    font-size: 11px;
+    letter-spacing: 0;
+    white-space: nowrap;
+  }
+}

@@ -36,11 +36,11 @@
 
 | 레이어 | 기술 | 버전/비고 |
 |--------|------|-----------|
-| 프레임워크 | Next.js | 16.2.7 (App Router) |
-| 런타임 | React | 19.2.4 |
+| 프레임워크 | Next.js | 16.3.5 (App Router) |
+| 런타임 | React | 19.2.7 |
 | 언어 | TypeScript | 5.x |
 | 번들러 | webpack | Turbopack 비활성화 (Mapbox Worker URL 충돌 회피) |
-| 지도 | Mapbox GL JS | 3.24.0 |
+| 지도 | Mapbox GL JS | 3.26.0 |
 | 국제화(i18n) | react-i18next | next-intl 대신 사용. URL prefix 없이 쿠키/쿼리스트링 기반 |
 | 콘텐츠 | next-mdx-remote + gray-matter | 데브로그 MDX 렌더링 |
 | 인증 | NextAuth.js v5 | `/admin` 라우트 보호 전용 |
@@ -57,16 +57,16 @@
     "@ducanh2912/next-pwa": "^10.2.9",
     "@vercel/analytics": "^2.0.1",
     "gray-matter": "^4.0.3",
-    "i18next": "^26.3.1",
+    "i18next": "^26.3.6",
     "i18next-browser-languagedetector": "^8.2.1",
-    "mapbox-gl": "^3.24.0",
-    "next": "16.2.7",
-    "next-auth": "^5.0.0-beta.31",
+    "mapbox-gl": "^3.26.0",
+    "next": "^16.3.5",
+    "next-auth": "^5.0.0-beta.32",
     "next-mdx-remote": "^6.0.0",
     "qrcode": "^1.5.4",
-    "react": "19.2.4",
-    "react-dom": "19.2.4",
-    "react-i18next": "^17.0.8"
+    "react": "19.2.7",
+    "react-dom": "19.2.7",
+    "react-i18next": "^17.0.10"
   }
 }
 ```
@@ -210,6 +210,8 @@ ADMIN_EMAILS=your@email.com
 
 이 규칙은 좌표 원본의 관리 위치를 제한하며, JSON 이외의 파일 수정을 금지하는 규칙은 아닙니다. 요청된 데이터 구조 변경에 필요한 타입·조회 함수·화면·검증 코드는 함께 수정할 수 있습니다. 좌표 값을 TypeScript에 복제하지 마세요.
 
+정류장과 운행 경로는 별도 데이터입니다. 노선 JSON의 `geometry`에 출처·확인일·코스별 도로 형상을 저장하고 `getRouteCoordinates(routeId, course)`로 조회합니다. 공식 출처 대조는 현장 GPS 실측과 다릅니다. 실제 실측 없이 `lastFieldVerifiedAt`을 갱신하지 마세요. 아일랜드뷰 도로 형상은 OSM 기반 참고 경로이며 공식 GPS 궤적이 아닙니다.
+
 ### 사진 에셋 경로 규칙
 
 - 사진 파일은 `public/images/` 아래 용도별 디렉터리에 둡니다.
@@ -245,12 +247,11 @@ ADMIN_EMAILS=your@email.com
 
 ## 테스트
 
-현재 프로젝트에 별도의 테스트 프레임워크(Jest, Vitest, Playwright 등)는 설치되어 있지 않습니다.  
-품질 확인은 다음 방법으로 수행합니다.
+1. **정적·단위·빌드 검사:** `npm run check` (ESLint → Vitest → Next.js 빌드 및 타입 검사).
+2. **브라우저 회귀:** 처음에는 `npx playwright install chromium`, 빌드 후 `npm run test:e2e`. 데스크톱·모바일의 언어, 탐색, 배지, 관리자 접근 보호를 검사합니다.
+3. **실제 지도 확인:** 로컬 브라우저에서 마커, 노선 형상, A/B 코스, 스타일 전환, 모바일 바텀시트를 확인합니다. 자동 UI 테스트는 외부 지도 요청을 차단하므로 실제 지도 검증을 대신하지 않습니다.
 
-1. **TypeScript 컴파일:** `npm run build` (빌드 실패 = 타입 오류)
-2. **ESLint:** `npm run lint`
-3. **수동 확인:** `npm run dev` 후 브라우저에서 지도 마커 위치, 노선 폴리라인, 언어 전환, 모바일 바텀시트 등을 확인
+`.github/workflows/ci.yml`은 같은 검사를 실행합니다. 로컬 통과와 원격 CI 통과는 구분해서 보고합니다.
 
 ### 노선 데이터 업데이트 후 체크리스트
 
@@ -286,7 +287,7 @@ ADMIN_EMAILS=your@email.com
 2. **인증:**
    - NextAuth v5(Google OAuth)를 사용합니다.
    - `ADMIN_EMAILS` 환경변수에 등록된 이메일만 로그인할 수 있습니다.
-   - `/admin/:path*`는 `src/middleware.ts`에서 보호됩니다.
+   - `/admin/:path*`는 `src/proxy.ts`와 관리자 페이지의 서버 인증 검사에서 보호됩니다.
    - 관리자 페이지는 현재 데이터 편집 UI 없이 라우트 보호만 구현되어 있습니다.
 
 3. **.env 파일:**
@@ -295,7 +296,7 @@ ADMIN_EMAILS=your@email.com
 
 4. **외부 API:**
    - Mapbox Directions API를 클라이언트에서 직접 호출합니다(`MapCanvas.tsx`). 요청 URL에 토큰이 포함되므로 네트워크 탭에서 노출됩니다.
-   - 오류 발생 시 `.catch(() => {})`로 무방비하게 실패 처리되어 있으므로, 실패 원인을 추적하려면 로깅을 추가해야 합니다.
+   - 도보 경로 요청은 선택 변경 시 취소하고 오류 종류만 기록합니다. 토큰이 포함된 요청 URL이나 응답 원문을 로그에 남기지 마세요.
 
 5. **법적/라이선스:**
    - 정류장 GPS 데이터는 가고시마시 공식 GTFS-JP 오픈데이터(CC BY 4.0)를 가공하여 사용합니다.
@@ -311,11 +312,12 @@ ADMIN_EMAILS=your@email.com
 - **ADR 003:** Turbopack 비활성화. Mapbox GL JS의 Web Worker URL 처리와 충돌(`Cannot find module './mapbox-gl-csp-worker'`)을 회피하기 위함.
 - **ADR 004:** `/map/[stopId]` 동적 라우트 사용. `useSearchParams()`는 Suspense boundary가 필요해 지도 컴포넌트에 부적합.
 - **ADR 005:** MDX 다국어를 `content/story/{ko,en,ja}/`로 분리. 번역 파일이 독립적이고, 번역이 없으면 `ko`로 fallback.
+- **ADR 006:** 쿼리·쿠키·요청 헤더 순으로 언어를 결정하고 요청별 i18n 인스턴스로 SSR/본문을 일치시킵니다. 노선 형상은 출처가 있는 JSON으로 관리합니다.
 
 ## 개발 시 참고 문서
 
 - `docs/project-overview.md` — 서비스 개요, 핵심 기능, 기술 스택
-- `docs/data-sources.md` — 노선별 데이터 출처, 라이선스(CC BY 4.0 · islandview는 ODbL), 현장 검증 기록
+- `docs/data-sources.md` — 노선별 데이터 출처, 라이선스(공식 정류장 CC BY 4.0 · OSM 도로 ODbL), 현장 검증 기록
 - `docs/data-update-guide.md` — 노선 데이터 정기 업데이트 절차
 - `docs/ux-improvements.md` — UX 기능 우선순위 및 기획
 - `docs/issues.md` — 이슈 트래커 (ISS-001 등)
@@ -326,6 +328,6 @@ ADMIN_EMAILS=your@email.com
 
 1. 새 기능 추가 전 `docs/ux-improvements.md`의 우선순위와 `docs/adr/`의 결정을 확인하세요.
 2. 노선 데이터를 변경할 때는 위 **데이터 관리 규칙(ISS-001)**을 따르세요. 좌표 원본은 JSON에서 관리하고, 요청에 필요한 관련 코드도 함께 수정할 수 있습니다.
-3. `npm run build`와 `npm run lint`를 실행해 타입 및 린트 오류를 확인하세요.
-4. 로컬에서 `npm run dev`로 브라우저 테스트를 수행하세요.
+3. `npm run check`로 린트·단위 테스트·타입·빌드를 확인하세요.
+4. 변경에 관련된 브라우저 회귀 및 실제 지도 검증을 위 **테스트** 절차에 따라 수행하세요.
 5. 커밋·푸시·배포는 위 **배포 프로세스**의 승인 범위를 따르세요. 절차가 문서에 있다는 이유만으로 실행하지 않습니다.

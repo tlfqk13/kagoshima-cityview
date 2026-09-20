@@ -27,6 +27,7 @@ export interface RouteStop {
   lat: number
   lng: number
   coordinatesApproximate?: boolean
+  gtfsStopId?: string
   courses?: string[]
   name: Record<Lang, string>
   googleMapsError?: boolean
@@ -38,6 +39,7 @@ export interface RouteStop {
   destinations: Destination[]
   schedule?: {
     departures: string[]
+    arrivalOnly?: boolean
     operatingNote: Record<Lang, string>
   }
 }
@@ -73,6 +75,15 @@ export interface RouteMetadata {
 interface RawRouteData {
   metadata: RouteMetadata
   stops: Omit<RouteStop, 'destinations'>[]
+  geometry?: RouteGeometry[]
+}
+
+export interface RouteGeometry {
+  course: 'default' | 'A' | 'B'
+  coordinates: [number, number][]
+  source: string
+  method: 'official-polyline' | 'road-reference'
+  checkedAt: string
 }
 
 const allDestinations = destinationsRaw as Destination[]
@@ -110,7 +121,20 @@ export function getStopById(routeId: RouteId, stopId: string): RouteStop | undef
   return raw ? attachDestinations(raw) : undefined
 }
 
-export function getRouteCoordinates(routeId: RouteId): [number, number][] {
+/** 근사치와 출처 대조는 현장 GPS 실측을 의미하지 않는다. */
+export function getStopVerification(routeId: RouteId, stop: RouteStop): 'approximate' | 'field' | 'source' {
+  if (stop.coordinatesApproximate) return 'approximate'
+  return getRoute(routeId).lastFieldVerifiedAt ? 'field' : 'source'
+}
+
+export function getRouteGeometry(routeId: RouteId): RouteGeometry[] {
+  return rawRoutes[routeId].geometry ?? []
+}
+
+export function getRouteCoordinates(routeId: RouteId, course: 'A' | 'B' = 'B'): [number, number][] {
+  const geometry = getRouteGeometry(routeId)
+  const shape = geometry.find(item => item.course === course) ?? geometry[0]
+  if (shape) return shape.coordinates
   return rawRoutes[routeId].stops
     .slice()
     .sort((a, b) => a.number - b.number)
@@ -136,6 +160,12 @@ export function getStopsGeoJSON(stops: RouteStop[]) {
       },
     })),
   }
+}
+
+export function getDepartureInterval(departures: string[]): number | null {
+  const minutes = departures.map(time => { const [hours, mins] = time.split(':').map(Number); return hours * 60 + mins })
+  const intervals = minutes.slice(1).map((value, index) => value - minutes[index])
+  return intervals.length && intervals.every(value => value === intervals[0]) ? intervals[0] : null
 }
 
 export function getNearestStop(routeId: RouteId, lat: number, lng: number): RouteStop | null {
@@ -176,9 +206,13 @@ export function searchStops(routeId: RouteId, query: string): RouteStop[] {
   )
 }
 
-export function isRouteAvailableToday(routeId: RouteId): boolean {
-  if (routeId === 'cityview' || routeId === 'islandview') return true
-  const day = new Date().getDay()
-  const month = new Date().getMonth() + 1
-  return day === 6 || (day === 5 && [8, 12, 1].includes(month))
+export function isRouteAvailableToday(routeId: RouteId, now = new Date()): boolean {
+  const route = getRoute(routeId)
+  if (route.operatingDays === 'daily') return true
+  const parts = new Intl.DateTimeFormat('en-US', {
+    timeZone: 'Asia/Tokyo', weekday: 'short', month: 'long',
+  }).formatToParts(now)
+  const day = parts.find(part => part.type === 'weekday')?.value
+  const month = parts.find(part => part.type === 'month')?.value.toLowerCase() ?? ''
+  return day === 'Sat' || (day === 'Fri' && (route.seasonalExtra ?? []).includes(month))
 }

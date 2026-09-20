@@ -1,6 +1,8 @@
 'use client'
 import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
+import { useMediaQuery } from '@/lib/useMediaQuery'
 import { useTranslation } from 'react-i18next'
 import AshParticles from './AshParticles'
 import styles from './HeroScroll.module.css'
@@ -18,7 +20,7 @@ export default function HeroScroll() {
   const progressRef = useRef(0)
   // 사진 파일이 아직 없으면(로드 실패) 기존 그라디언트+실루엣 fallback 유지
   const [photoLoaded, setPhotoLoaded] = useState(false)
-  const [reduced, setReduced] = useState(false)
+  const reduced = useMediaQuery('(prefers-reduced-motion: reduce)')
 
   useEffect(() => {
     const wrap = wrapRef.current
@@ -33,8 +35,7 @@ export default function HeroScroll() {
       sticky.classList.toggle(styles.pastCopy, p > 0.2)
     }
 
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      setReduced(true)
+    if (reduced) {
       apply(0)
       return
     }
@@ -64,7 +65,7 @@ export default function HeroScroll() {
       window.removeEventListener('resize', onScroll)
       if (raf) cancelAnimationFrame(raf)
     }
-  }, [])
+  }, [reduced])
 
   return (
     <section ref={wrapRef} className={`${styles.wrap} ${reduced ? styles.static : ''}`}>
@@ -74,7 +75,11 @@ export default function HeroScroll() {
           <div className={styles.photoBg} aria-hidden="true">
             <div className={styles.volcano} />
           </div>
-          <img
+          <Image
+            fill
+            sizes="100vw"
+            unoptimized
+            priority
             src={HERO_PHOTO}
             alt={t('hero.photoAlt')}
             className={styles.photo}

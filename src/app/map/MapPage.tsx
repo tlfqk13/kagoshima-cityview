@@ -1,9 +1,9 @@
 'use client'
-import { useState, useMemo, useEffect } from 'react'
+import { useState, useMemo, useSyncExternalStore } from 'react'
 import dynamic from 'next/dynamic'
 import { useTranslation } from 'react-i18next'
 import { getStopsForRoute, getStopsByCategory, getRoute, type RouteStop, type RouteId, type Category } from '@/lib/routes'
-import { getFavorites, toggleFavorite } from '@/lib/favorites'
+import { getFavorites, toggleFavorite, subscribeFavorites, getServerFavorites } from '@/lib/favorites'
 import type { MapCanvasProps } from '@/components/map/MapCanvas'
 import Nav from '@/components/Nav'
 import RouteTab from '@/components/map/RouteTab'
@@ -29,14 +29,10 @@ export default function MapPage({ initialStopId, initialRouteId = 'cityview' }: 
   const [activeCategory, setActiveCategory] = useState<Category | 'all'>('all')
   const [searchQuery, setSearchQuery] = useState('')
   const [userLocation, setUserLocation] = useState<[number, number] | null>(null)
-  const [favorites, setFavorites] = useState<string[]>([])
-
-  useEffect(() => {
-    setFavorites(getFavorites())
-  }, [])
+  const favorites = useSyncExternalStore(subscribeFavorites, getFavorites, getServerFavorites)
 
   function handleToggleFavorite(stopId: string) {
-    setFavorites(toggleFavorite(stopId))
+    toggleFavorite(stopId)
   }
 
   function handleRouteChange(routeId: RouteId) {
@@ -76,7 +72,7 @@ export default function MapPage({ initialStopId, initialRouteId = 'cityview' }: 
 
   const routeMeta = getRoute(activeRoute)
   // 실측 노선은 실측일 + "검증" 표기, 미실측 노선은 대조일 + "확인" 표기
-  // islandview는 좌표 출처가 OpenStreetMap(ODbL)이라 attribution 병기 (ISS-002)
+  // islandview 정류장은 GTFS, 도로 형상은 OpenStreetMap(ODbL)이므로 출처를 구분한다.
   const sourceNote = activeRoute === 'islandview'
     ? t('map.sourceNoteOsm', { date: routeMeta.lastSourceCheckedAt })
     : routeMeta.lastFieldVerifiedAt
@@ -85,6 +81,12 @@ export default function MapPage({ initialStopId, initialRouteId = 'cityview' }: 
 
   function handleCategoryChange(cat: Category | null) {
     setActiveCategory(cat ?? 'all')
+    setSelectedStop(null)
+  }
+
+  function handleSearchChange(query: string) {
+    setSearchQuery(query)
+    setSelectedStop(null)
   }
 
   return (
@@ -116,7 +118,7 @@ export default function MapPage({ initialStopId, initialRouteId = 'cityview' }: 
             onSelect={setSelectedStop}
             sourceNote={sourceNote}
             searchQuery={searchQuery}
-            onSearchChange={setSearchQuery}
+            onSearchChange={handleSearchChange}
             userLocation={userLocation}
             favorites={favorites}
             onToggleFavorite={handleToggleFavorite}
@@ -131,9 +133,10 @@ export default function MapPage({ initialStopId, initialRouteId = 'cityview' }: 
             routeId={activeRoute}
             activeCategory={activeCategory}
             onStopSelect={setSelectedStop}
+            onClearSelection={() => setSelectedStop(null)}
             onCategoryChange={handleCategoryChange}
             searchQuery={searchQuery}
-            onSearchChange={setSearchQuery}
+            onSearchChange={handleSearchChange}
             userLocation={userLocation}
             favorites={favorites}
             onToggleFavorite={handleToggleFavorite}

@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { RouteStop, RouteId, Category } from '@/lib/routes'
 import StopList from './StopList'
@@ -16,6 +16,7 @@ interface Props {
   routeId: RouteId
   activeCategory: Category | 'all'
   onStopSelect: (stop: RouteStop) => void
+  onClearSelection: () => void
   onCategoryChange: (cat: Category | null) => void
   searchQuery: string
   onSearchChange: (v: string) => void
@@ -37,6 +38,7 @@ export default function BottomSheet({
   routeId,
   activeCategory,
   onStopSelect,
+  onClearSelection,
   onCategoryChange,
   searchQuery,
   onSearchChange,
@@ -45,13 +47,15 @@ export default function BottomSheet({
   onToggleFavorite,
   sourceNote,
 }: Props) {
-  const [state, setState] = useState<SheetState>('peek')
+  const [state, setState] = useState<SheetState>(selectedStop ? 'half' : 'peek')
+  const [previousStopId, setPreviousStopId] = useState(selectedStop?.id)
   const dragStartY = useRef(0)
   const { t } = useTranslation()
 
-  useEffect(() => {
+  if (previousStopId !== selectedStop?.id) {
+    setPreviousStopId(selectedStop?.id)
     if (selectedStop) setState('half')
-  }, [selectedStop])
+  }
 
   function handleTouchStart(e: React.TouchEvent) {
     dragStartY.current = e.touches[0].clientY
@@ -70,23 +74,26 @@ export default function BottomSheet({
     <div
       className={styles.sheet}
       style={{ height: HEIGHTS[state] }}
-      onTouchStart={handleTouchStart}
-      onTouchEnd={handleTouchEnd}
       role="complementary"
       aria-label={t('map.stopListAria')}
     >
-      <div
+      <button
+        type="button"
         className={styles.handle}
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
         onClick={() => setState(prev => prev === 'peek' ? 'half' : 'peek')}
-        role="button"
         aria-label={state === 'peek' ? t('map.sheetExpand') : t('map.sheetCollapse')}
-        tabIndex={0}
-        onKeyDown={e => e.key === 'Enter' && setState(prev => prev === 'peek' ? 'half' : 'peek')}
+        aria-expanded={state !== 'peek'}
       />
       <div className={styles.content}>
         <CategoryChips active={activeCategory} onChange={onCategoryChange} />
         <StopSearch value={searchQuery} onChange={onSearchChange} />
         {selectedStop ? (
+          <>
+          <button type="button" className={styles.back} onClick={onClearSelection}>
+            ← {t('map.backToList')}
+          </button>
           <StopDetail
             routeId={routeId}
             stop={selectedStop}
@@ -94,6 +101,7 @@ export default function BottomSheet({
             isFavorite={favorites?.includes(selectedStop.id)}
             onToggleFavorite={onToggleFavorite}
           />
+          </>
         ) : stops.length === 0 ? (
           <div className={styles.empty}>{t('map.noResults')}</div>
         ) : (

@@ -1,23 +1,25 @@
 'use client'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useSyncExternalStore } from 'react'
 import { useTranslation } from 'react-i18next'
 import styles from './OfflineBanner.module.css'
 
 const DISMISSED_KEY = 'pwa-install-dismissed'
 
+function subscribeOnline(callback: () => void) {
+  window.addEventListener('online', callback)
+  window.addEventListener('offline', callback)
+  return () => {
+    window.removeEventListener('online', callback)
+    window.removeEventListener('offline', callback)
+  }
+}
+
 export default function OfflineBanner() {
   const { t } = useTranslation()
-  const [isOnline, setIsOnline] = useState(true)
+  const isOnline = useSyncExternalStore(subscribeOnline, () => navigator.onLine, () => true)
   const [showInstall, setShowInstall] = useState(false)
 
   useEffect(() => {
-    // Online/offline detection
-    setIsOnline(navigator.onLine)
-    const handleOnline = () => setIsOnline(true)
-    const handleOffline = () => setIsOnline(false)
-    window.addEventListener('online', handleOnline)
-    window.addEventListener('offline', handleOffline)
-
     // Install banner: show if not dismissed AND not already installed (standalone)
     const dismissed = localStorage.getItem(DISMISSED_KEY)
     const isStandalone = window.matchMedia('(display-mode: standalone)').matches
@@ -26,15 +28,9 @@ export default function OfflineBanner() {
       const timer = setTimeout(() => setShowInstall(true), 3000)
       return () => {
         clearTimeout(timer)
-        window.removeEventListener('online', handleOnline)
-        window.removeEventListener('offline', handleOffline)
       }
     }
 
-    return () => {
-      window.removeEventListener('online', handleOnline)
-      window.removeEventListener('offline', handleOffline)
-    }
   }, [])
 
   function dismissInstall() {

@@ -6,15 +6,32 @@
 
 ---
 
-## 데이터 파일 구조 (2026-06-07 기준)
+## 데이터 파일 구조 (2026-09-20 기준)
 
 | 노선 | 파일 | 좌표 | 시간표 |
 |---|---|---|---|
 | 시티뷰 (City View) | `src/data/routes/cityview.json` | GPS 확인 완료 (20/20) | 완료 (19편) |
-| 야경 코스 (Night View) | `src/data/routes/cityview-night.json` | GPS 확인 완료 (7/7) | 미확인 (`departures: []`) |
-| 아일랜드뷰 (Island View) | `src/data/routes/islandview.json` | 7확인 / 5근사치 | 완료 (15편) |
+| 야경 코스 (Night View) | `src/data/routes/cityview-night.json` | 공식 웹 좌표 확인 (7/7), 현장 미검증 | 계절·날짜별 공식 시간표 링크 안내 |
+| 아일랜드뷰 (Island View) | `src/data/routes/islandview.json` | 공식 GTFS 좌표 확인 (12/12), 현장 미검증 | A 7편 / B 8편, 공식 GTFS·PDF 대조 |
 
 > **중요 (ISS-001):** 정류장 좌표는 각 노선 JSON 파일이 유일한 진실의 원천. TypeScript 파일에 좌표를 하드코딩하지 않는다.
+
+## 현재 권장 갱신 절차
+
+출처 URL·피드 버전·해시·라이선스는 [데이터 출처](data-sources.md)를 기준으로 확인한다. 공식 GTFS는 세 노선을 모두 제공하므로 아일랜드뷰 정류장을 관광지 중심점이나 임의 추정치로 되돌리지 않는다.
+
+1. BODIK 공식 GTFS ZIP을 내려받고 피드 적용 기간, 공식 시간표·운행 공지를 확인한다.
+2. `node scripts/import-transit-data.mjs /path/to/feed.zip YYYY-MM-DD`로 변경 후보를 확인한다. 적용은 같은 명령에 `--write`를 붙인다. 정류장 ID 매핑이 바뀌었다면 먼저 승강장·진행 방향을 원본과 대조한다.
+3. 시티뷰의 기존 현장 좌표는 자동 덮어쓰지 않는다. 현장 기록과 새 원본의 차이는 따로 검토한다. 실제 현장 방문 없이 `lastFieldVerifiedAt`을 갱신하지 않는다.
+4. `node scripts/import-route-geometry.mjs YYYY-MM-DD --write`로 공식 웹 노선 형상 및 아일랜드뷰 참고 도로 형상을 갱신한다. 외부 공개 API를 읽는 명령이므로 네트워크가 필요하다. 아일랜드뷰 산길은 `scripts/data/island-mountain-road.json`의 OSM way 스냅샷도 공식 노선도와 대조한다.
+5. `npm run check`와 `npm run test:e2e`를 실행하고 실제 지도에서 A/B 분기·산길·순환 복귀를 공식 노선도와 비교한다. 자동 테스트는 실제 지도나 현장 실측을 대체하지 않는다.
+6. 출처·확인일·변경 이유·검증 결과를 기록한다. 커밋·푸시·배포는 별도 승인 범위를 따른다.
+
+야경 운행일 표시는 일본 표준시 기준의 정기 운행 안내다. GTFS의 여러 날짜/계절에 걸친 출발 시각을 합쳐 매일 시간표처럼 표시하지 않는다. 임시 운행·휴무는 공식 안내에서 별도 확인한다. 아일랜드뷰 12번 정류장은 공식 PDF의 2026년 10월 명칭 변경 시점도 확인한다.
+
+## 과거 수동 추출 기록 (2026-06-07)
+
+아래 1~5절은 당시 조사 방법·좌표의 이력이다. 현재 값이나 필수 작업 지시가 아니며, 특히 OSM 근사 좌표 표는 더 이상 런타임 원본으로 사용하지 않는다. 갱신은 위 절차를 우선한다.
 
 ---
 
@@ -282,7 +299,7 @@ console.log(JSON.stringify(timetable, null, 2))
    - 변경된 정류장 lat/lng/name 수정
    - coordinatesApproximate 필드 업데이트
    - metadata.coordinateSource 갱신
-2. npm run build 및 npm run lint
+2. npm run check 및 npm run test:e2e
 3. 아래 확인 체크리스트에 따라 로컬 브라우저 검증
 4. 승인 범위에 포함된 경우에만 커밋·푸시·배포
 ```
@@ -308,7 +325,9 @@ console.log(JSON.stringify(timetable, null, 2))
 **아일랜드뷰:**
 - [ ] 12개 마커가 사쿠라지마 실제 위치에 찍히는지 (31.56~31.64°N 범위)
 - [ ] A/B 코스 분기 정류장(iv_stop_07~09)이 올바른 위치에 찍히는지
-- [ ] 근사치 정류장(5개)에 orange stroke + 점선 배지 표시 확인
+- [ ] 공식 출처 확인 배지가 표시되고 현장 GPS 검증으로 잘못 표시되지 않는지
+- [ ] A 코스는 7~9번을 경유하지 않고, B 코스는 해당 왕복 구간을 지나는지
+- [ ] 10→11 산길 및 11→12→1 복귀 경로가 공식 노선도와 일치하는지
 
 ---
 
@@ -316,6 +335,7 @@ console.log(JSON.stringify(timetable, null, 2))
 
 | 날짜 | 내용 | 담당 |
 |---|---|---|
+| 2026-09-20 | 공식 GTFS로 39개 정류장 ID·시간표 대조, 아일랜드뷰 12개 좌표 교체, 공식/OSM 경로·가져오기 스크립트·회귀 테스트 추가. 현장 실측은 미수행 | Codex |
 | 2026-06-07 | 최초 공식 데이터 반영. bus_json 콘솔 추출로 시티뷰 좌표 전면 교체, PDF 시간표(19편) 반영 | 손동규 |
 | 2026-06-07 | 다중 노선 아키텍처 도입. stops.json → routes/cityview.json 마이그레이션. cityview-night.json, islandview.json 초안 생성 | Claude |
 | 2026-06-07 | strEnd.php API로 야경코스(rosenId=1660) 전 정류장 좌표 교체. bus_json이 야경코스 페이지에서 미정의임을 확인. rosenId 1~5000 스캔으로 아일랜드뷰 미지원 확인 | Claude |

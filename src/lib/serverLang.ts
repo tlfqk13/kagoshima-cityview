@@ -1,10 +1,10 @@
-import { cookies } from 'next/headers'
+import { cookies, headers } from 'next/headers'
 import type { Lang } from '@/lib/devlog'
+import { normalizeLanguage, resolveLanguage } from './locale'
 
-// RSC에서 UI 언어 판별 — react-i18next 감지 순서(querystring > cookie > navigator) 중
-// 서버가 읽을 수 있는 건 cookie 뿐. 없으면 기본 언어 ja.
+// proxy가 쿼리·쿠키·Accept-Language로 결정한 언어를 모든 RSC가 공유한다.
 export async function getServerLang(): Promise<Lang> {
-  const store = await cookies()
-  const v = store.get('i18next')?.value
-  return v === 'en' || v === 'ko' ? v : 'ja'
+  const [store, requestHeaders] = await Promise.all([cookies(), headers()])
+  return normalizeLanguage(requestHeaders.get('x-cityview-language'))
+    ?? resolveLanguage(null, store.get('i18next')?.value, requestHeaders.get('accept-language'))
 }

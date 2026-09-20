@@ -1,143 +1,64 @@
 # 데이터 출처 및 검증
 
-> 이 문서는 `src/data/routes/*.json`에 수록된 정류장 좌표가 **어디서 왔는지(출처)** 와
-> **얼마나 신뢰할 수 있는지(검증 상태)** 를 설명한다.
-> 마지막 개정: 2026-07-18 — 다중 노선 구조(`routes/*.json`) 기준으로 전면 개정.
+마지막 대조: 2026-09-20. 런타임 원본은 `src/data/routes/*.json`입니다.
 
-## 노선별 출처 요약
+## 현재 출처
 
-| 노선 | 데이터 파일 | 좌표 출처 | 시간표 출처 | 좌표 신뢰도 |
-|------|-------------|-----------|-------------|-------------|
-| 시티뷰 | `cityview.json` | 가고시마시 교통국 노선도 페이지 | 가고시마시 교통국 버스 목록 페이지 | 20개 전부 현장 실측 (2026-05-31) |
-| 시티뷰 야경 | `cityview-night.json` | 교통국 `strEnd.php` API 추출 (2026-06-07) | 교통국 공식 사이트 | 현장 미검증 |
-| 아일랜드뷰 | `islandview.json` | OpenStreetMap (ODbL) | 교통국 시각표 PDF | 7개 확정 / 5개 근사치 |
+| 노선 | 정류장 좌표 | 시간표 | 도로 형상 |
+|---|---|---|---|
+| 시티뷰 20곳 | 기존 현장 검증 좌표 유지, 교통국 노선도와 대조 | 공식 GTFS route 9121, 19편 | 공식 노선도 strEnd.php + line.php, 271점 |
+| 야경 7곳 | 공식 노선도 route 1660 | 공식 안내/노선별 시각표 링크 | 공식 노선도, 종점 귀환 포함 156점 |
+| 아일랜드뷰 12곳 | 공식 GTFS 승강장 좌표, 현장 미검증 | GTFS 9061(A 7편) / 9071(B 8편), PDF 대조 | 공식 PDF와 대조한 OSM 도로 참고 형상, A/B 분리 |
 
-각 파일의 `metadata.coordinateSource` / `metadata.scheduleSource` 필드가 위 내용을 그대로 담고 있다.
-데이터와 문서가 어긋나면 **JSON 파일이 진실의 원천**이다 (ISS-001).
+[공식 GTFS 카탈로그](https://data.bodik.jp/dataset/462012_bus-kagoshimacity-kagoshima-jp)의 2026-02-01 개정본을 사용했습니다. 유효기간은 2026-02-01~2027-03-31입니다. ZIP SHA-256:
 
----
+```
+c1d6e8401835db6a4d9534825e15c35c3ef7c01420e5b2d8ed4dc6d02853bc5a
+```
 
-## 1. 시티뷰 (`cityview.json`, 20개 정류장)
+[교통국 공식 관광 안내](https://www.kotsu-city-kagoshima.jp/sakurajima-tabi/)와 [2026-07 아일랜드뷰 PDF](https://www.kotsu-city-kagoshima.jp/wp/wp-content/uploads/2026/07/b1bf84b7578394e6a205dcd3d0461da5.pdf)를 함께 확인했습니다.
 
-### 좌표 출처
+## 정확도와 변경
 
-- **1차 출처:** 가고시마시 교통국 노선 검색 페이지 (rosenId=1680)  
-  `https://www.kotsu-city-kagoshima.jp/wp/timesearch/line_rosen_map.php?rosenId=1680`
-- **배경:** MVP 단계에서는 가고시마시 GTFS-JP 오픈데이터의 `stops.txt`를 수동 정규화해 사용했다
-  (오픈데이터 포털 `https://www.city.kagoshima.lg.jp/ict/opendata.html`, 카탈로그 3-30
-  「シティビューバス・まち歩きバス」, CC BY 4.0). 2026-06 다중 노선 개편에서 교통국 노선도
-  페이지 기준으로 재정렬했다.
-- **시간표 출처:** `https://www.kotsu-city-kagoshima.jp/wp/timesearch/bus_list.php?rosenId=1680&syubetuId=0`
+- 시티뷰의 `lastFieldVerifiedAt: 2026-05-31`은 기존 개발자의 실측 기록입니다. 이번 작업에서 재실측한 날짜가 아닙니다.
+- GTFS와 교통국 지도는 일부 승강장 좌표가 다릅니다(예: 중앙역 출발/도착, 이시바시 공원). 시티뷰의 기존 현장 좌표를 GTFS로 자동 덮어쓰지 않았습니다. GTFS 매핑·원본 좌표는 `tests/fixtures/official-gtfs.json`에 별도로 보존합니다.
+- 아일랜드뷰는 OSM POI/근사 좌표를 GTFS 승강장 좌표로 전면 교체했습니다. 2·7·9·10·12번의 근사치 표시를 제거하되 GPS 현장 검증으로 승격하지 않습니다.
+- 7번은 `38-2`, 9번은 `38-1`로 구분합니다. 12번은 `40-3`(桜洲小学校前)이며 기존 좌표와 약 2.4km 차이가 납니다.
+- 12번 다국어 이름은 오슈/Oshu/桜洲로 통일했습니다. 공식 PDF의 2026년 10월 개칭 예고는 안내 문구로 보존하고, 현재 이름을 미리 바꾸지 않았습니다.
+- 야경은 1회 요금 230/120엔과 전용 1일권 250/130엔을 구분했습니다. 계절별 시각·임시 운휴가 있어 화면에서는 공식 시각표 확인을 안내합니다.
+- 운행일은 Asia/Tokyo 기준입니다. 정기 운행 규칙은 임시 운휴·증편을 보장하지 않습니다.
 
-### 현장 GPS 검증 (2026-05-31)
+## 도로 형상
 
-- **검증자:** 개발자 (가고시마 현지 방문)
-- **방법:** 스마트폰 GPS로 실제 정류장 위치 측정 후 데이터 좌표와 비교
-- **결과:** 20개 중 19개 정류장이 허용 오차(±30m) 이내 일치
-- **오류 발견:** 텐몬칸(`stop_03`) — 구글맵이 실제보다 약 200m 어긋난 위치를 표시.
-  이 정류장에는 `googleMapsError: true`와 구글맵 오류 좌표(`googleMapsLat/Lng`)를 기록하고,
-  지도 UI에 반투명 경고 핀으로 시각화한다. (배경: 데브로그 EP.01~02)
+GTFS에는 `shapes.txt`가 없습니다. 시티뷰/야경의 각 구간은 교통국 공개 `line.php` 응답이며 요청 URL을 JSON에 보관합니다.
 
----
+아일랜드뷰는 GTFS의 정류장 순서와 공식 PDF의 코스 지도를 기준으로 OSM 도로를 연결했습니다. 일반 자동차 경로 엔진이 10→11번을 북쪽으로 우회하므로 해당 산길은 `scripts/data/island-mountain-road.json`에 보존한 OSM way 좌표로 대체합니다. 나머지 구간은 OSRM 도로 참고 경로입니다. 승강장과 도로 중심선은 최대 100m 차이를 허용해 검사하며, 실측 버스 궤적으로 표시하지 않습니다.
 
-## 2. 시티뷰 야경 (`cityview-night.json`, 7개 정류장)
+## 라이선스
 
-- **좌표 출처:** 교통국 `strEnd.php` API (rosenId=1660), 2026-06-07 추출.
-- **운행일:** 매주 토요일 (8·12·1월은 금·토 양일). 정확한 출발 시각은 공식 사이트 확인이 필요해
-  정류장별 시각 대신 `metadata.scheduleNote`로 안내한다.
-- **검증 상태:** 현장 미검증. 공식 데이터 기반 좌표이나 실측 대조는 아직 없다.
-- **알려진 과제:** `metadata.scheduleSource`가 현재 사쿠라지마 안내 페이지
-  (`/sakurajima-tabi/`)를 가리키고 있어, 다음 데이터 갱신 때 야경 코스 전용 페이지로
-  확인·교체가 필요하다.
+- 공식 GTFS: 鹿児島市, CC BY 4.0. 표기: `データ提供：鹿児島市（原データより加工）`.
+- OSM 도로 형상: © OpenStreetMap contributors, ODbL. 해당 원본 스냅샷과 파생 좌표는 ODbL로 제공하며 출처·way ID/version을 함께 유지합니다.
+- 앱 코드의 라이선스와 데이터 라이선스는 별개입니다.
 
----
+## 재현 가능한 갱신
 
-## 3. 아일랜드뷰 (`islandview.json`, 12개 정류장)
+공식 카탈로그에서 ZIP을 받은 뒤 먼저 쓰기 없는 대조를 실행합니다.
 
-- **좌표 출처:** OpenStreetMap Nominatim/Overpass (`strEnd.php`가 이 노선을 제공하지 않음).
-  - 확정 7개: stops 1, 3, 4, 5, 6, 8, 11
-  - 근사치 5개: stops 2, 7, 9, 10, 12 — 각 정류장에 `coordinatesApproximate: true`,
-    노선 메타데이터에도 `coordinatesApproximate: true`. UI에 "좌표 근사치(미검증)" 배지 표시.
-- **시간표 출처:** 교통국 시각표 PDF (메타데이터의 `scheduleSource` 참조).
-- **검증 상태:** 현장 미검증.
-- **알려진 과제:** `iv_stop_07`/`iv_stop_09`가 동일 좌표(placeholder 수준), `iv_stop_12`의
-  정류장명이 언어별로 어긋남 — 다음 현장 확인 시 우선 검증 대상.
+```sh
+node scripts/import-transit-data.mjs /absolute/path/official.zip YYYY-MM-DD
+node scripts/import-transit-data.mjs /absolute/path/official.zip YYYY-MM-DD --write
+node scripts/import-route-geometry.mjs YYYY-MM-DD --write
+npm run check
+npm run test:e2e
+```
 
----
+`--write`는 관련 JSON과 테스트 원본을 갱신합니다. 변경된 ID·정류장 순서·날짜·라이선스를 검토한 뒤 사용하세요. 스냅샷을 다시 생성했다는 사실만으로 정답을 검증한 것은 아닙니다. 공식 시간표와 지도 시각 대조를 반복해야 합니다. 새로운 현장 실측 없이 `lastFieldVerifiedAt`을 바꾸지 않습니다.
 
-## 라이선스 및 출처 표기
+## 메타데이터
 
-### 가고시마시 데이터 — CC BY 4.0
-
-| 항목 | 내용 |
-|------|------|
-| 제공 기관 | 鹿児島市 (가고시마시) |
-| 라이선스 | CC BY 4.0 (Creative Commons Attribution 4.0 International) |
-
-준수 사항:
-
-1. **출처 표기** — `データ提供：鹿児島市（原データより加工）` 문구를 표시한다.
-   표기 위치: 전 페이지 푸터(`footer.source`), 지도 페이지 하단(`map.sourceNote`).
-2. **가공 사실 고지** — 위 문구의 `（原データより加工）` 부분이 해당한다.
-3. **라이선스 표기** — 푸터에 `CC BY 4.0` 명시.
-4. 동일 조건(ShareAlike) 조항은 없으므로 이 서비스에 동일 라이선스를 적용할 필요는 없다.
-
-### OpenStreetMap — ODbL
-
-- **적용 범위:** `islandview.json` 좌표에 한함.
-- **표기 의무:** `© OpenStreetMap contributors` 표기가 필요하다
-  (참고: https://www.openstreetmap.org/copyright).
-- **현재 상태:** 해결 (2026-07-18, ISS-002) — 아일랜드뷰 선택 시 지도 하단 출처 표기에
-  `© OpenStreetMap contributors`를 병기한다 (`map.sourceNoteOsm`).
-
----
-
-## 메타데이터 필드 정의
-
-각 노선 JSON 최상위 `metadata` 객체:
-
-| 필드 | 의미 |
-|------|------|
-| `sourceVersion` | 출처 데이터의 기준 시점 (예: `2026-06`) |
-| `lastUpdatedAt` | 이 JSON 파일을 마지막으로 갱신한 날짜 |
-| `lastFieldVerifiedAt` | 현장 GPS 실측일. 미실측 노선은 `null` |
-| `lastSourceCheckedAt` | 공식 출처와 마지막으로 대조한 날 |
-| `coordinateSource` | 좌표 출처 (URL 또는 추출 방법) |
-| `scheduleSource` | 시간표 출처 URL |
-| `coordinatesApproximate` | 노선에 근사치 좌표가 포함되면 `true` |
-
-> **검증일 필드 분리 (2026-07-18, ISS-003):** 과거 `lastValidatedAt` 하나로 관리하던 것을
-> "현장 실측일"(`lastFieldVerifiedAt`)과 "공식 데이터 대조일"(`lastSourceCheckedAt`)로 분리했다.
-> UI는 실측 노선에만 "검증" 문구를, 미실측 노선에는 "데이터 확인" 문구를 표시한다.
-
-정류장 단위 필드:
-
-| 필드 | 의미 |
-|------|------|
-| `googleMapsError` | 구글맵 표시 위치가 실제와 유의미하게 다륵면 `true` |
-| `googleMapsLat/Lng` | 구글맵이 가리키는 (틀린) 좌표 — 경고 핀 표시용 |
-| `googleMapsErrorNote` | 오류 내용과 확인일 메모 |
-| `coordinatesApproximate` | 좌표가 근사치(미실측)이면 `true` |
-
----
-
-## 데이터 업데이트 절차
-
-1. 노선별 출처(위 표)에서 최신 데이터 확인
-2. `src/data/routes/*.json` 갱신 — TypeScript 파일에 좌표를 하드코딩하지 않는다 (ISS-001)
-3. `metadata.lastUpdatedAt` 갱신, 실제 현장 검증을 한 경우에만 검증일 관련 필드 갱신
-4. `docs/data-update-guide.md`의 체크리스트 수행 (마커 위치, 폴리라인, stop_01==stop_20 등)
-5. Vercel 재배포 (git push → 자동 빌드)
-
-> 참고: GTFS 자동 파싱 스크립트(`scripts/parse-gtfs.ts`)는 계획만 있고 미구현 상태다.
-> 정류장과 GTFS `stop_id`의 매핑도 아직 데이터에 없어, GTFS 갱신 시 수동 대조가 필요하다.
-
----
-
-## 사용하지 않는 데이터
-
-| 항목 | 제외 이유 |
-|------|-----------|
-| TripAdvisor 리뷰 인용 | ToS 5항 — 상업적 재사용 금지. 익명 처리("어느 여행자")로 대체. |
-| Google Maps 정류장 데이터 | 부정확. Google Maps API ToS도 별도 검토 필요. |
-| 실시간 운행 정보 | 별도 실시간 API 필요. 이 서비스는 GPS 위치와 공식 시간표만 제공. |
+- `lastSourceCheckedAt`: 공식 출처 대조일.
+- `lastFieldVerifiedAt`: 기존 현장 실측 기록; 미실측은 null.
+- `gtfs`: 다운로드 URL, 해시, route ID, 유효기간.
+- `gtfsStopId`: 정류장별 방향을 포함하는 승강장 ID.
+- `geometry`: 코스, 좌표 배열, 생성 방법, 확인일, 원본 URL.
+- `coordinatesApproximate`: 개별 정류장 근사치. 노선 수준 값은 근사치 포함 여부이며 모든 정류장의 상태를 뜻하지 않습니다.

@@ -4,6 +4,7 @@ import I18nProvider from '@/components/I18nProvider'
 import ThemeProvider from '@/components/ThemeProvider'
 import { Analytics } from '@vercel/analytics/react'
 import OfflineBanner from '@/components/OfflineBanner'
+import { getServerLang } from '@/lib/serverLang'
 
 export const metadata: Metadata = {
   title: '鹿児島シティビューバスガイド',
@@ -20,21 +21,22 @@ export const viewport: Viewport = {
   themeColor: '#8B4513',
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  const language = await getServerLang()
   return (
-    <html lang="ja" suppressHydrationWarning>
+    <html lang={language} suppressHydrationWarning>
       <body>
-        <I18nProvider>
+        <I18nProvider initialLanguage={language}>
           <ThemeProvider>
             {children}
           </ThemeProvider>
+          <OfflineBanner />
         </I18nProvider>
         <Analytics />
-        <OfflineBanner />
       </body>
     </html>
   )

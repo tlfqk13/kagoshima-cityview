@@ -2,8 +2,10 @@
 import { useState, useSyncExternalStore } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { RouteStop, RouteId, Lang } from '@/lib/routes'
+import { getStopVerification, getDepartureInterval } from '@/lib/routes'
 import styles from './StopDetail.module.css'
 import QRModal from './QRModal'
+import Image from 'next/image'
 
 interface Props {
   stop: RouteStop
@@ -42,6 +44,7 @@ export default function StopDetail({ stop, routeId, userLocation, isFavorite, on
   )
 
   const stopName = stop.name[lang]
+  const verification = getStopVerification(routeId, stop)
 
   const altNames = (['ko', 'en', 'ja'] as Lang[])
     .filter(l => l !== lang)
@@ -122,12 +125,15 @@ export default function StopDetail({ stop, routeId, userLocation, isFavorite, on
         <div className={styles.name}>{stopName}</div>
         <div className={styles.nameAlt}>{altNames}</div>
         <div className={styles.badgeRow}>
-          {stop.googleMapsError ? (
+          {stop.googleMapsError && (
             <div className={styles.badgeWarn}>⚠ {t('map.stopDetail.googleMapsWrong')}</div>
-          ) : stop.coordinatesApproximate ? (
+          )}
+          {verification === 'approximate' ? (
             <div className={styles.badgeApprox}>~ {t('map.stopDetail.coordsApproximate')}</div>
-          ) : (
+          ) : verification === 'field' ? (
             <div className={styles.badgeOk}>✓ {t('map.stopDetail.gpsVerified')}</div>
+          ) : (
+            <div className={styles.badgeSource}>{t('map.stopDetail.sourceChecked')}</div>
           )}
           {stop.courses && !stop.courses.includes('A') && (
             <div className={styles.badgeCourse}>{t('map.stopDetail.bCourseOnly')}</div>
@@ -156,16 +162,22 @@ export default function StopDetail({ stop, routeId, userLocation, isFavorite, on
       {/* Photo section */}
       <div className={styles.photoSection}>
         {stop.photos && stop.photos.length > 0 ? (
-          <img
+          <Image
+            width={640}
+            height={360}
+            unoptimized
             src={stop.photos[0]}
             alt={t('map.stopDetail.photoAlt', { name: stopName })}
             className={styles.photo}
           />
         ) : (
           <div className={styles.photoPlaceholder}>
-            <img
+            <Image
+              width={320}
+              height={180}
+              unoptimized
               src="/images/stops/placeholder.svg"
-              alt="Photo coming soon"
+              alt=""
               className={styles.placeholderImg}
             />
           </div>
@@ -188,7 +200,7 @@ export default function StopDetail({ stop, routeId, userLocation, isFavorite, on
         const hasExactTimes = deps.length > 0
         return (
           <div className={styles.scheduleSection}>
-            <div className={styles.scheduleSectionLabel}>{t('map.schedule')}</div>
+            <div className={styles.scheduleSectionLabel}>{t(stop.schedule.arrivalOnly ? 'map.arrivals' : 'map.schedule')}</div>
             {hasExactTimes && (
               <>
                 <div className={styles.scheduleTimes}>
@@ -203,7 +215,9 @@ export default function StopDetail({ stop, routeId, userLocation, isFavorite, on
                   </div>
                 </div>
                 <div className={styles.scheduleFreq}>
-                  {t('map.frequency', { count: deps.length })}
+                  {getDepartureInterval(deps) !== null
+                    ? t('map.frequency', { count: deps.length, minutes: getDepartureInterval(deps) })
+                    : t('map.dailyRuns', { count: deps.length })}
                 </div>
               </>
             )}

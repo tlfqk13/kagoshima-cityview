@@ -1,6 +1,6 @@
 'use client'
-import { useEffect, useState, createContext, useContext } from 'react'
-import { getStoredTheme, setStoredTheme, applyTheme, type Theme } from '@/lib/theme'
+import { useEffect, useSyncExternalStore, createContext, useContext } from 'react'
+import { getStoredTheme, setStoredTheme, applyTheme, subscribeTheme, type Theme } from '@/lib/theme'
 
 interface ThemeContextValue {
   theme: Theme
@@ -17,12 +17,10 @@ export function useTheme() {
 }
 
 export default function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setThemeState] = useState<Theme>('system')
+  const theme = useSyncExternalStore(subscribeTheme, getStoredTheme, () => 'system' as Theme)
 
   useEffect(() => {
-    const stored = getStoredTheme()
-    setThemeState(stored)
-    applyTheme(stored)
+    applyTheme(theme)
 
     // Listen for system changes when theme is 'system'
     const mq = window.matchMedia('(prefers-color-scheme: dark)')
@@ -31,10 +29,9 @@ export default function ThemeProvider({ children }: { children: React.ReactNode 
     }
     mq.addEventListener('change', handleChange)
     return () => mq.removeEventListener('change', handleChange)
-  }, [])
+  }, [theme])
 
   function setTheme(t: Theme) {
-    setThemeState(t)
     setStoredTheme(t)
     applyTheme(t)
   }

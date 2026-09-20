@@ -1,0 +1,32 @@
+name: Verification
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      AUTH_SECRET: ci-only-regression-secret-not-for-production
+      NEXT_PUBLIC_MAPBOX_TOKEN: pk.ci-test-token
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm audit --omit=dev --audit-level=high
+      - run: npm run check
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:e2e
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: browser-regression-report
+          path: |
+            playwright-report/
+            test-results/
+          retention-days: 7

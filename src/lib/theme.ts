@@ -4,11 +4,24 @@ export type Theme = 'light' | 'dark' | 'system'
 
 export function getStoredTheme(): Theme {
   if (typeof window === 'undefined') return 'system'
-  return (localStorage.getItem(KEY) as Theme) ?? 'system'
+  try {
+    const value = localStorage.getItem(KEY)
+    return value === 'light' || value === 'dark' ? value : 'system'
+  } catch { return 'system' }
 }
 
 export function setStoredTheme(theme: Theme) {
   localStorage.setItem(KEY, theme)
+  window.dispatchEvent(new Event('theme-change'))
+}
+
+export function subscribeTheme(callback: () => void) {
+  window.addEventListener('storage', callback)
+  window.addEventListener('theme-change', callback)
+  return () => {
+    window.removeEventListener('storage', callback)
+    window.removeEventListener('theme-change', callback)
+  }
 }
 
 export function resolveTheme(theme: Theme): 'light' | 'dark' {

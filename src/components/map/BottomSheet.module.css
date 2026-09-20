@@ -14,12 +14,32 @@
 }
 
 .handle {
+  width: 100%;
+  height: 32px;
+  background: transparent;
+  border: 0;
+  flex-shrink: 0;
+  cursor: pointer;
+  touch-action: none;
+}
+
+.handle::after {
+  content: '';
+  display: block;
   width: 36px;
   height: 4px;
   background: var(--rule);
   border-radius: 2px;
-  margin: 10px auto 0;
-  flex-shrink: 0;
+  margin: auto;
+}
+
+.back {
+  min-height: 44px;
+  padding: 8px 20px;
+  color: var(--ink);
+  background: transparent;
+  border: 0;
+  font: inherit;
   cursor: pointer;
 }
 

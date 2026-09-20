@@ -3,7 +3,7 @@ import { useEffect, useRef, useCallback, useState } from 'react'
 import mapboxgl from 'mapbox-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import { useTranslation } from 'react-i18next'
-import i18n from '@/lib/i18n'
+import { normalizeLanguage } from '@/lib/locale'
 import {
   getStopsForRoute, getStopsGeoJSON, getRouteCoordinates, getRoute,
   getNearestStop, type RouteStop, type RouteId,
@@ -11,17 +11,6 @@ import {
 import styles from './MapCanvas.module.css'
 
 mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN!
-
-function getCurrentLang(): 'ko' | 'en' | 'ja' {
-  if (typeof window === 'undefined') return 'ja'
-  // react-i18next stores language in cookie 'i18next' or localStorage 'i18nextLng'
-  const cookie = document.cookie.split(';').find(c => c.trim().startsWith('i18next='))
-  const lang = cookie?.split('=')[1]?.trim() ?? localStorage.getItem('i18nextLng') ?? 'ja'
-  return (['ko', 'en', 'ja'].includes(lang) ? lang : 'ja') as 'ko' | 'en' | 'ja'
-}
-
-const KAGOSHIMA_CENTER: [number, number] = [130.5581, 31.5897]
-const INITIAL_ZOOM = 13
 
 type MapStyle = 'streets' | 'satellite' | 'dark'
 
@@ -72,10 +61,10 @@ function clearMapLayers(map: mapboxgl.Map) {
   if (map.getSource('route')) map.removeSource('route')
 }
 
-function addMapLayers(map: mapboxgl.Map, selectedId: string | null, routeId: RouteId) {
+function addMapLayers(map: mapboxgl.Map, selectedId: string | null, routeId: RouteId, course: 'A' | 'B') {
   const stops = getStopsForRoute(routeId)
   const geojson = getStopsGeoJSON(stops)
-  const routeCoords = getRouteCoordinates(routeId)
+  const routeCoords = getRouteCoordinates(routeId, course)
   const routeColor = getRoute(routeId).color
 
   // 노선 폴리라인
@@ -96,8 +85,7 @@ function addMapLayers(map: mapboxgl.Map, selectedId: string | null, routeId: Rou
       source: 'route',
       paint: {
         'line-color': routeColor,
-        'line-width': 2,
-        'line-dasharray': [2, 2],
+        'line-width': 3,
         'line-opacity': 0.7,
       },
     })
@@ -160,13 +148,16 @@ export interface MapCanvasProps {
 }
 
 export default function MapCanvas({ routeId, selectedStopId, onStopSelect, onUserLocation, userLocation }: MapCanvasProps) {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   const containerRef = useRef<HTMLDivElement>(null)
   const mapRef = useRef<mapboxgl.Map | null>(null)
   const wrongPinRef = useRef<mapboxgl.Marker | null>(null)
   const hoverPopupRef = useRef<mapboxgl.Popup | null>(null)
   const selectedStopIdRef = useRef<string | null>(selectedStopId)
   const routeIdRef = useRef<RouteId>(routeId)
+  const [styleRevision, setStyleRevision] = useState(0)
+  const [course, setCourse] = useState<'A' | 'B'>('B')
+  const courseRef = useRef<'A' | 'B'>('B')
 
   const [mapStyle, setMapStyle] = useState<MapStyle>('streets')
   const mapStyleRef = useRef<MapStyle>('streets')
@@ -185,9 +176,7 @@ export default function MapCanvas({ routeId, selectedStopId, onStopSelect, onUse
     routeIdRef.current = routeId
   }, [routeId])
 
-  useEffect(() => {
-    mapStyleRef.current = mapStyle
-  }, [mapStyle])
+  useEffect(() => { courseRef.current = course }, [course])
 
   const handleStopClick = useCallback((stopId: string) => {
     const stop = getStopsForRoute(routeIdRef.current).find(s => s.id === stopId)
@@ -197,11 +186,13 @@ export default function MapCanvas({ routeId, selectedStopId, onStopSelect, onUse
   useEffect(() => {
     if (!containerRef.current || mapRef.current) return
 
+    const initialRoute = getRoute(routeIdRef.current)
+    const initialStop = getStopsForRoute(routeIdRef.current).find(stop => stop.id === selectedStopIdRef.current)
     const map = new mapboxgl.Map({
       container: containerRef.current,
       style: MAP_STYLES['streets'],
-      center: KAGOSHIMA_CENTER,
-      zoom: INITIAL_ZOOM,
+      center: initialStop ? [initialStop.lng, initialStop.lat] : initialRoute.center,
+      zoom: initialStop ? 15 : initialRoute.zoom,
       language: 'ja',
     })
 
@@ -222,7 +213,7 @@ export default function MapCanvas({ routeId, selectedStopId, onStopSelect, onUse
     })
 
     map.on('load', () => {
-      addMapLayers(map, selectedStopIdRef.current, routeIdRef.current)
+      addMapLayers(map, selectedStopIdRef.current, routeIdRef.current, courseRef.current)
 
       // 클릭 이벤트
       map.on('click', 'stops-circle', e => {
@@ -234,7 +225,7 @@ export default function MapCanvas({ routeId, selectedStopId, onStopSelect, onUse
         const feature = e.features?.[0]
         if (!feature) return
         const props = feature.properties as { id: string; number: number; nameKo: string; nameEn: string; nameJa: string }
-        const lang = getCurrentLang()
+        const lang = normalizeLanguage(i18n.language) ?? 'ja'
         const name = lang === 'en' ? props.nameEn : lang === 'ja' ? props.nameJa : props.nameKo
         const coordinates = (feature.geometry as { type: string; coordinates: [number, number] }).coordinates as [number, number]
 
@@ -258,7 +249,8 @@ export default function MapCanvas({ routeId, selectedStopId, onStopSelect, onUse
 
     // Re-add layers after style change (setStyle removes all custom layers/sources)
     map.on('style.load', () => {
-      addMapLayers(map, selectedStopIdRef.current, routeIdRef.current)
+      addMapLayers(map, selectedStopIdRef.current, routeIdRef.current, courseRef.current)
+      setStyleRevision(value => value + 1)
     })
 
     mapRef.current = map
@@ -270,13 +262,14 @@ export default function MapCanvas({ routeId, selectedStopId, onStopSelect, onUse
       map.remove()
       mapRef.current = null
     }
-  }, [handleStopClick])
+  }, [handleStopClick, i18n, onStopSelect, onUserLocation])
 
   // Apply style change when mapStyle state changes
   useEffect(() => {
     const map = mapRef.current
-    if (!map) return
+    if (!map || mapStyleRef.current === mapStyle) return
     map.setStyle(MAP_STYLES[mapStyle])
+    mapStyleRef.current = mapStyle
   }, [mapStyle])
 
   // Re-render layers and fly to center when routeId changes
@@ -284,12 +277,12 @@ export default function MapCanvas({ routeId, selectedStopId, onStopSelect, onUse
     const map = mapRef.current
     if (!map || !map.isStyleLoaded()) return
     clearMapLayers(map)
-    addMapLayers(map, selectedStopIdRef.current, routeId)
+    addMapLayers(map, selectedStopIdRef.current, routeId, course)
     const meta = getRoute(routeId)
     map.flyTo({ center: meta.center, zoom: meta.zoom, duration: 800 })
     // Stop bus animation when switching routes
     setAnimating(false)
-  }, [routeId])
+  }, [routeId, course])
 
   // Bus animation along route
   const ANIMATION_DURATION = 60000 // 60 seconds for full route
@@ -318,7 +311,7 @@ export default function MapCanvas({ routeId, selectedStopId, onStopSelect, onUse
     el.textContent = '🚌'
     el.title = i18n.t('map.busMarker')
 
-    const routeCoords = getRouteCoordinates(routeIdRef.current)
+    const routeCoords = getRouteCoordinates(routeIdRef.current, course)
 
     busMarkerRef.current?.remove()
     busMarkerRef.current = new mapboxgl.Marker({ element: el, anchor: 'center' })
@@ -345,16 +338,20 @@ export default function MapCanvas({ routeId, selectedStopId, onStopSelect, onUse
       busMarkerRef.current?.remove()
       busMarkerRef.current = null
     }
-  }, [animating])
+  }, [animating, i18n, course])
 
   // 선택된 정류장 변경 시 지도 이동 + 핀 색상 업데이트 + 구글맵 오류 핀 표시
   useEffect(() => {
     const map = mapRef.current
-    if (!map || !map.isStyleLoaded()) return
+    // style.load 직후에는 새 GeoJSON 소스 로딩 때문에 isStyleLoaded()가 다시 false일 수 있다.
+    // 레이어 생성 여부로 판단해야 초기 선택·스타일 복원 처리를 빠뜨리지 않는다.
+    if (!map || !map.getLayer('stops-circle')) return
     if (selectedStopId) {
       const stop = getStopsForRoute(routeIdRef.current).find(s => s.id === selectedStopId)
       if (stop) {
-        map.flyTo({ center: [stop.lng, stop.lat], zoom: 15, duration: 600 })
+        // 모바일 상세가 화면 절반을 덮으므로 선택 마커를 보이는 지도 중앙으로 이동한다.
+        const offsetY = window.matchMedia('(max-width: 768px)').matches ? -window.innerHeight / 4 : 0
+        map.flyTo({ center: [stop.lng, stop.lat], zoom: 15, duration: 600, offset: [0, offsetY] })
       }
     }
     // 핀 색상 업데이트
@@ -395,13 +392,13 @@ export default function MapCanvas({ routeId, selectedStopId, onStopSelect, onUse
         wrongPinRef.current = marker
       }
     }
-  }, [selectedStopId])
+  }, [selectedStopId, i18n, styleRevision, routeId])
 
   // 도보 경로 표시 — 정류장 선택/위치 변경 시 하나의 이펙트에서만 fetch
   // cleanup에서 이전 요청을 abort해 중복 요청과 stale 응답 덮어쓰기를 방지
   useEffect(() => {
     const map = mapRef.current
-    if (!map || !map.isStyleLoaded()) return
+    if (!map || !map.getLayer('stops-circle')) return
 
     // 기존 도보 경로 제거
     if (map.getLayer('walking-route')) map.removeLayer('walking-route')
@@ -420,7 +417,7 @@ export default function MapCanvas({ routeId, selectedStopId, onStopSelect, onUse
       })
       .then(data => {
         const route = data.routes?.[0]?.geometry
-        if (!route || !map.isStyleLoaded()) return
+        if (controller.signal.aborted || !route || !map.getLayer('stops-circle')) return
         if (map.getSource('walking-route')) {
           (map.getSource('walking-route') as mapboxgl.GeoJSONSource).setData(route)
         } else {
@@ -440,15 +437,27 @@ export default function MapCanvas({ routeId, selectedStopId, onStopSelect, onUse
       })
       .catch((err: unknown) => {
         if (controller.signal.aborted) return // 정상적인 취소
-        console.warn('도보 경로 조회 실패:', err) // 오프라인 등 — 추적 가능하도록 로깅
+        console.warn('도보 경로 조회 실패:', err instanceof Error ? err.name : 'UnknownError') // 토큰/위치 포함 URL은 기록하지 않는다.
       })
 
     return () => controller.abort()
-  }, [userLocation, selectedStopId])
+  }, [userLocation, selectedStopId, styleRevision, routeId])
 
   return (
     <div className={styles.wrap}>
       <div ref={containerRef} className={styles.canvas} />
+      {routeId === 'islandview' && (
+        <div className={styles.courseToggle}>
+          <label>
+            {t('map.courseGeometry')}
+            <select value={course} onChange={event => setCourse(event.target.value as 'A' | 'B')}>
+              <option value="A">A</option>
+              <option value="B">B</option>
+            </select>
+          </label>
+          <span>{t('map.roadReference')}</span>
+        </div>
+      )}
       <div className={styles.animToggle}>
         <button
           className={`${styles.animBtn} ${animating ? styles.animBtnActive : ''}`}
