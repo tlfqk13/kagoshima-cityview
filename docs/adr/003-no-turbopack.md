@@ -5,8 +5,7 @@
 
 ## 컨텍스트
 
-Next.js 15는 기본적으로 Turbopack을 개발 서버에서 활성화한다.  
-Mapbox GL JS를 함께 쓸 때 빌드 오류가 발생했다.
+초기 개발 환경에서 Turbopack과 Mapbox GL JS를 함께 쓸 때 빌드 오류가 발생했다. 아래 오류는 당시 관찰 기록이며, 현재 프로젝트는 Next.js 16을 사용한다.
 
 ## 문제
 
@@ -25,14 +24,18 @@ Failed to create WebWorker: URL scheme must be "blob" or "https"
 
 ## 결정
 
-`next.config.js`에서 Turbopack 관련 옵션을 제거하고, `create-next-app` 시 `--no-turbopack` 플래그 사용.
+Mapbox Worker와 PWA 빌드 호환성을 위해 개발 서버와 프로덕션 빌드 모두 webpack을 유지한다.
 
-```js
-// next.config.js
-const nextConfig = {
-  // turbopack 관련 설정 없음 = webpack 사용
+현재 실행 기준은 `package.json`의 scripts다:
+
+```json
+{
+  "dev": "next dev --webpack",
+  "build": "next build --webpack"
 }
 ```
+
+`next.config.mjs`의 `turbopack: {}` 유무나 프로젝트 생성 당시의 `--no-turbopack` 선택만으로 현재 실행 번들러를 결정하지 않는다. Next.js 16에서는 실행 시 `--webpack`을 명시한다. 기본 명령과 직접 실행이 필요한 경우의 대체 명령은 [AGENTS.md의 빌드 및 실행 명령어](../../AGENTS.md#빌드-및-실행-명령어)를 따른다.
 
 ## 이유
 

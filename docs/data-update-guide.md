@@ -282,18 +282,18 @@ console.log(JSON.stringify(timetable, null, 2))
    - 변경된 정류장 lat/lng/name 수정
    - coordinatesApproximate 필드 업데이트
    - metadata.coordinateSource 갱신
-2. node node_modules/.bin/next build  ← npm run build 대신 직접 실행
-3. git commit -m "fix: update <routeId> data YYYY-MM"
-4. git push origin main
+2. npm run build 및 npm run lint
+3. 아래 확인 체크리스트에 따라 로컬 브라우저 검증
+4. 승인 범위에 포함된 경우에만 커밋·푸시·배포
 ```
 
-> **빌드 실행 방법:** `npm run build`가 환경에 따라 `sh` 바이너리를 못 찾는 경우 `node node_modules/.bin/next build` 직접 실행.
+> **명령과 승인 기준:** 기본 실행 명령 및 `sh` 오류 시 대체 명령은 [AGENTS.md의 빌드 및 실행 명령어](../AGENTS.md#빌드-및-실행-명령어)를 따릅니다. 커밋·푸시·배포는 [배포 프로세스](../AGENTS.md#배포-프로세스)의 승인 범위를 따릅니다. `main` 푸시는 운영 배포를 유발하며 이 체크리스트 자체가 실행 승인은 아닙니다.
 
 ---
 
 ## 7. 확인 체크리스트
 
-업데이트 후 로컬(`node node_modules/.bin/next dev`)에서 반드시 확인:
+업데이트 후 로컬(`npm run dev`)에서 반드시 확인:
 
 **시티뷰:**
 - [ ] 20개 마커가 실제 도로 위에 찍히는지

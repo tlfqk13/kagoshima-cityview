@@ -2,6 +2,12 @@
 
 > 이 파일은 AI 코딩 에이전트를 위해 작성된 프로젝트 가이드입니다. 이 프로젝트에 대해 아무것도 모르는 상태에서 읽기 시작한다고 가정하고 작성되었습니다.
 
+## 작업 범위와 완료 기준
+
+- 완료 기준은 현재 사용자 요청에서 정합니다. 기존 QA 문서의 제외 항목은 사용자가 명시한 요구사항을 면제하지 않습니다.
+- 외부 조건 때문에 수행하지 못한 항목은 미완료로 표시하고, 독립적으로 진행 가능한 승인 범위 내 작업은 계속합니다. 권한·승인이 필요한 단계는 우회하지 않습니다.
+- 체크리스트 작성이나 제한사항 보고를 실제 구현·검증 완료로 취급하지 않습니다. 완료 보고에는 수행한 검증과 미완료 항목을 구분합니다.
+
 ## 프로젝트 개요
 
 **가고시마 시티뷰 버스 가이드**는 일본 가고시마 시의 시티뷰(City View) 관광 버스 정류장 20곳의 정확한 GPS 위치를 지도로 제공하는 다국어 웹 서비스입니다.
@@ -149,8 +155,7 @@ npm run lint
 
 > **참고:** Mapbox GL JS와의 Web Worker 충돌로 인해 Turbopack을 사용하지 않습니다. `next.config.mjs`의 `turbopack: {}`는 webpack 설정과의 공존 오류를 막는 용도일 뿐 webpack을 선택해주지는 않습니다. Next.js 16부터 Turbopack이 기본이므로 `package.json`의 `dev`/`build` 스크립트에 `--webpack` 플래그를 명시해 webpack을 강제해야 하며, 이 플래그가 없으면 next-pwa service worker가 생성되지 않습니다.
 
-> 환경에 따라 `npm run build`가 `sh` 바이너리를 찾지 못하는 경우가 있습니다. 이때는 다음을 직접 실행합니다:  
-> `node node_modules/.bin/next build`
+> 실행 명령의 기준은 `package.json`의 scripts입니다. 환경에 따라 `npm run build`가 `sh` 바이너리를 찾지 못할 때만 `node node_modules/next/dist/bin/next build --webpack`을 직접 실행합니다. 개발 서버도 같은 문제라면 `node node_modules/next/dist/bin/next dev --webpack`을 사용합니다. 직접 실행할 때도 `--webpack`을 생략하지 않습니다.
 
 ## 환경 변수
 
@@ -202,6 +207,8 @@ ADMIN_EMAILS=your@email.com
 > **규칙 ISS-001:** 정류장 좌표는 `src/data/routes/*.json` 파일이 유일한 진실의 원천입니다.  
 > TypeScript 파일(컴포넌트, `lib/routes.ts`, 기타 유틸 등)에 좌표를 직접 하드코딩하지 마세요.  
 > 지도 렌더링에 필요한 좌표 배열은 반드시 `getRouteCoordinates(routeId)` 또는 `getStopsForRoute(routeId)`로 파생하세요.
+
+이 규칙은 좌표 원본의 관리 위치를 제한하며, JSON 이외의 파일 수정을 금지하는 규칙은 아닙니다. 요청된 데이터 구조 변경에 필요한 타입·조회 함수·화면·검증 코드는 함께 수정할 수 있습니다. 좌표 값을 TypeScript에 복제하지 마세요.
 
 ### 사진 에셋 경로 규칙
 
@@ -256,6 +263,8 @@ ADMIN_EMAILS=your@email.com
 - [ ] `coordinatesApproximate`와 `metadata.lastSourceCheckedAt`(실측 시 `lastFieldVerifiedAt`) 등 메타데이터가 갱신되었는지
 
 ## 배포 프로세스
+
+`main`에 대한 푸시는 운영 배포를 유발합니다. 아래 절차 설명 자체는 커밋·푸시·배포 권한을 부여하지 않습니다. 각 단계는 현재 사용자 요청이나 해당 대상·범위에 대한 유효한 기존 승인에 포함된 경우에만 수행합니다. 같은 대상·범위의 승인을 반복해서 묻지 않되, 별도의 건별 승인 요구와 도구의 권한 제한은 그대로 따릅니다. 승인이 필요한 배포 단계가 남아 있어도 독립적으로 가능한 구현·검증은 진행하고, 배포 여부를 완료 보고에서 구분합니다.
 
 1. Vercel에 연결된 Git 저장소의 `main` 브랜치에 푸시하면 자동 빌드/배포됩니다.
 2. `vercel.json` 설정:
@@ -316,7 +325,7 @@ ADMIN_EMAILS=your@email.com
 ## 개발 워크플로우 요약
 
 1. 새 기능 추가 전 `docs/ux-improvements.md`의 우선순위와 `docs/adr/`의 결정을 확인하세요.
-2. 데이터 변경이 필요하면 `src/data/routes/*.json`만 수정하고, TypeScript 파일에 좌표를 하드코딩하지 마세요.
+2. 노선 데이터를 변경할 때는 위 **데이터 관리 규칙(ISS-001)**을 따르세요. 좌표 원본은 JSON에서 관리하고, 요청에 필요한 관련 코드도 함께 수정할 수 있습니다.
 3. `npm run build`와 `npm run lint`를 실행해 타입 및 린트 오류를 확인하세요.
 4. 로컬에서 `npm run dev`로 브라우저 테스트를 수행하세요.
-5. 변경 사항을 커밋하고 `main` 브랜치에 푸시하면 Vercel로 자동 배포됩니다.
+5. 커밋·푸시·배포는 위 **배포 프로세스**의 승인 범위를 따르세요. 절차가 문서에 있다는 이유만으로 실행하지 않습니다.
