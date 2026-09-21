@@ -3,15 +3,10 @@ import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import QRCode from 'qrcode'
 import { getStopsForRoute, getRoute } from '@/lib/routes'
-import rawHotels from '@/data/hotels.json'
-import PrintButton from './PrintButton'
+import { findHotel } from '@/lib/hotels'
+import { SITE_URL } from '@/lib/site'
+import PrintButton from '../PrintButton'
 import styles from './card.module.css'
-
-// QRModal과 동일한 도메인/URL 규칙 사용
-const BASE_URL = 'https://www.kagoshima-cityview.com'
-
-interface Hotel { slug: string; nameJa: string; stopId: string; walkMeters: number }
-const hotels = (rawHotels as unknown as { hotels: Hotel[] }).hotels
 
 interface Props {
   params: Promise<{ stopId: string }>
@@ -44,10 +39,10 @@ export default async function StopCardPage({ params, searchParams }: Props) {
   const { hotel: hotelSlug } = await searchParams
   const stop = findStop(stopId)
   if (!stop) notFound()
-  const hotel = hotelSlug ? hotels.find(h => h.slug === hotelSlug) : undefined
+  const hotel = findHotel(hotelSlug)
 
   const route = getRoute('cityview')
-  const url = `${BASE_URL}/map?route=cityview&stop=${stop.id}`
+  const url = `${SITE_URL}/map?route=cityview&stop=${stop.id}`
   const qrDataUrl = await QRCode.toDataURL(url, {
     width: 480,
     margin: 1,

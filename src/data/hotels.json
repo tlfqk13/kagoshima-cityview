@@ -1,6 +1,6 @@
 {
   "updatedAt": "2026-07-20",
-  "note": "호텔 브랜드 카드(/card/[stopId]?hotel=slug)용 매핑. walkMeters는 직선거리(2026-07-20 Nominatim 측정)",
+  "note": "호텔 브랜드 인쇄물(/card/[stopId]·/card/site·/card/poster ?hotel=slug)용 매핑. walkMeters는 직선거리(2026-07-20 Nominatim 측정)",
   "hotels": [
     { "slug": "remm", "nameJa": "レム鹿児島", "stopId": "stop_03", "walkMeters": 98 },
     { "slug": "richmond-kinseicho", "nameJa": "リッチモンドホテル鹿児島金生町", "stopId": "stop_18", "walkMeters": 122 },

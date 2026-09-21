@@ -2,6 +2,7 @@
 import { useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { RouteStop, RouteId } from '@/lib/routes'
+import { SITE_URL } from '@/lib/site'
 import styles from './QRModal.module.css'
 
 interface Props {
@@ -10,14 +11,12 @@ interface Props {
   onClose: () => void
 }
 
-const BASE_URL = 'https://www.kagoshima-cityview.com'
-
 export default function QRModal({ stop, routeId, onClose }: Props) {
   const { t, i18n } = useTranslation()
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const lang = (['ko', 'en', 'ja'].includes(i18n.language) ? i18n.language : 'ja') as 'ko' | 'en' | 'ja'
   const stopName = stop.name[lang]
-  const url = `${BASE_URL}/map?route=${routeId}&stop=${stop.id}`
+  const url = `${SITE_URL}/map?route=${routeId}&stop=${stop.id}`
 
   useEffect(() => {
     async function drawQR() {

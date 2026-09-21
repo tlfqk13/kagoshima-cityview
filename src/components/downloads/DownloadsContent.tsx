@@ -11,6 +11,7 @@ interface Item {
 }
 
 const ITEMS: Item[] = [
+  { href: '/card#site-qr', titleKey: 'siteQrTitle', descKey: 'siteQrDesc' },
   { href: '/card', titleKey: 'cardTitle', descKey: 'cardDesc' },
   { href: '/downloads/tourism-office-ja.pdf', titleKey: 'tourismTitle', descKey: 'tourismDesc', external: true },
   { href: '/downloads/hotels-ja.pdf', titleKey: 'hotelTitle', descKey: 'hotelDesc', external: true },

@@ -128,6 +128,8 @@
     "intro": "Bus stop QR cards and proposal documents.",
     "cardTitle": "Stop QR Cards (A6 printable)",
     "cardDesc": "All 20 stops. For hotel front desks and tourist information centers. Hotel-branded cards supported.",
+    "siteQrTitle": "Site QR Card & Poster (A6 · A4 printable)",
+    "siteQrDesc": "A QR that opens the site’s front page. For pamphlets and lobby display. Hotel-branded versions supported.",
     "cardCta": "Choose a card",
     "tourismTitle": "Tourism Office Proposal (PDF)",
     "tourismDesc": "Official adoption proposal — problem background, service overview, maintenance & handover plan.",

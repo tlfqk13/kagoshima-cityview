@@ -28,8 +28,10 @@
 | `/story/[slug]` | 개별 에피소드 상세 (MDX) |
 | `/admin` | 관리자 페이지 (NextAuth 보호) |
 | `/admin/login` | 관리자 로그인 (Google OAuth) |
-| `/card` | 정류장 카드 인쇄 인덱스 (호텔·관광안내소 배포용, 색인 제외) |
-| `/card/[stopId]` | A6 프린트용 정류장 QR 카드. QR은 `QRModal`과 동일한 도메인/URL 규칙 사용 |
+| `/card` | 인쇄물 인덱스 — 사이트 QR·정류장 카드·호텔 이름 버전 (호텔·관광안내소 배포용, 색인 제외) |
+| `/card/site` | A6 사이트 QR 카드. QR은 첫 화면(`/`)으로 연결. `?hotel=slug`로 호텔 이름·최근접 정류장 표시 |
+| `/card/poster` | A4 사이트 QR 포스터. 운행 정보는 노선 JSON 메타데이터에서 읽음. `?hotel=slug` 지원 |
+| `/card/[stopId]` | A6 프린트용 정류장 QR 카드. 도메인은 `src/lib/site.ts`의 `SITE_URL` 하나로 관리 (`QRModal`과 공유) |
 | `/accuracy` | 구글맵 정확도 감사 공개 페이지. 데이터는 `src/data/accuracy-audit.json` (`scripts/google-maps-audit` 파이프라인 산출물) |
 
 ## 기술 스택

@@ -1,0 +1,8 @@
+.printBtn {
+  padding: 12px 28px;
+  background: var(--accent);
+  color: #FFFFFF;
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  border-radius: var(--radius);
+}

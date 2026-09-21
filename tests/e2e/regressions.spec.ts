@@ -97,3 +97,17 @@ test('랜딩은 언어별 제목과 정류장 링크를 보여준다', async ({ 
   await page.getByRole('link', { name: `${ja.home.spotsCta} →` }).first().click()
   await expect(page).toHaveURL(/\/map\/stop_\d{2}$/)
 })
+
+test('사이트 QR 인쇄물은 QR과 호텔 이름을 표시한다', async ({ page, request }) => {
+  for (const path of ['/card/site', '/card/poster']) {
+    await page.goto(`${path}?hotel=remm`)
+    const qr = page.getByRole('img', { name: /QR code/ })
+    await expect(qr).toBeVisible()
+    expect(await qr.getAttribute('src')).toMatch(/^data:image\/svg\+xml/)
+    await expect(page.getByText('レム鹿児島')).toBeVisible()
+  }
+  // 알 수 없는 호텔은 무시하고 기본 인쇄물을 보여준다
+  const response = await request.get('/card/site?hotel=unknown')
+  expect(response.status()).toBe(200)
+  expect(await response.text()).not.toContain('宿泊ゲスト様へ')
+})
