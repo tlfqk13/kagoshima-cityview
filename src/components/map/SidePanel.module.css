@@ -13,13 +13,13 @@
   padding: 32px 20px;
   text-align: center;
   font-size: 13px;
-  color: var(--muted);
+  color: var(--text-subtle);
 }
 
 .note {
   padding: 10px 20px;
   font-size: 10px;
-  color: var(--muted);
+  color: var(--text-subtle);
   letter-spacing: 0.05em;
   border-top: 1px solid var(--rule);
   background: var(--bg);

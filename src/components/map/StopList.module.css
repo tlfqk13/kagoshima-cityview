@@ -88,7 +88,7 @@
 .empty {
   padding: 24px 20px;
   font-size: 13px;
-  color: var(--muted);
+  color: var(--text-subtle);
   text-align: center;
 }
 

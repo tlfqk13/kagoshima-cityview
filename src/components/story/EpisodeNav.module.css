@@ -29,7 +29,7 @@
 .label {
   font-family: var(--font-mono);
   font-size: 10px;
-  color: var(--muted);
+  color: var(--text-subtle);
   letter-spacing: 0.1em;
 }
 

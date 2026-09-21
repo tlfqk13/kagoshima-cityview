@@ -111,7 +111,7 @@
 
 .destWalk {
   font-size: 11px;
-  color: var(--muted);
+  color: var(--text-subtle);
   font-family: var(--font-mono);
   white-space: nowrap;
 }
@@ -119,7 +119,7 @@
 .disclaimer {
   margin: 12px 20px;
   font-size: 10px;
-  color: var(--muted);
+  color: var(--text-subtle);
   letter-spacing: 0.05em;
   padding: 8px 12px;
   background: var(--bg);
@@ -151,7 +151,7 @@
 .scheduleSectionLabel {
   font-size: 10px;
   letter-spacing: 0.12em;
-  color: var(--muted);
+  color: var(--text-subtle);
   text-transform: uppercase;
   margin-bottom: 12px;
 }
@@ -171,7 +171,7 @@
 
 .scheduleLabel {
   font-size: 10px;
-  color: var(--muted);
+  color: var(--text-subtle);
   letter-spacing: 0.08em;
 }
 
@@ -197,7 +197,7 @@
 
 .scheduleNote {
   font-size: 11px;
-  color: var(--muted);
+  color: var(--text-subtle);
   line-height: 1.6;
 }
 
@@ -209,7 +209,7 @@
 .mapsSectionLabel {
   font-size: 10px;
   letter-spacing: 0.12em;
-  color: var(--muted);
+  color: var(--text-subtle);
   text-transform: uppercase;
   margin-bottom: 10px;
 }
@@ -365,11 +365,11 @@
 }
 
 .walkingSep {
-  color: var(--muted);
+  color: var(--text-subtle);
 }
 
 .walkingTime {
-  color: var(--muted);
+  color: var(--text-subtle);
 }
 
 @keyframes fadeInOut {

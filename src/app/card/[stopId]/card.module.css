@@ -18,7 +18,7 @@
 
 .backLink {
   font-size: 12px;
-  color: var(--muted);
+  color: var(--text-subtle);
   text-decoration: underline;
   text-underline-offset: 2px;
 }
