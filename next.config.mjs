@@ -6,6 +6,24 @@ const withPWA = withPWAInit({
   aggressiveFrontEndNavCaching: true,
   reloadOnOnline: true,
   disable: process.env.NODE_ENV === 'development',
+  // Zen Maru Gothic(next/font)은 일본어 unicode-range 조각이 수백 개(약 6.7MB)라 precache에서 뺀다.
+  // 기본 exclude 정규식은 에셋 이름(static/media/…)에 /_next/ 접두사가 없어 폰트를 거르지 못한다.
+  // 대신 실제로 화면에 쓰인 조각만 아래 런타임 캐시에 쌓아 오프라인에서도 같은 서체로 보이게 한다.
+  extendDefaultRuntimeCaching: true,
+  workboxOptions: {
+    exclude: [/\.woff2$/, /\.map$/, /^manifest.*\.js$/],
+    runtimeCaching: [
+      {
+        // 기본 static-font-assets(최대 4개)를 덮어쓴다 — 파일명에 해시가 있어 CacheFirst로 충분
+        urlPattern: /\.(?:eot|otf|ttc|ttf|woff|woff2|font.css)$/i,
+        handler: 'CacheFirst',
+        options: {
+          cacheName: 'static-font-assets',
+          expiration: { maxEntries: 400, maxAgeSeconds: 60 * 60 * 24 * 365 },
+        },
+      },
+    ],
+  },
 })
 
 const isDev = process.env.NODE_ENV === 'development'

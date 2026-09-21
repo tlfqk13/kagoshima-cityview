@@ -16,9 +16,9 @@
 }
 
 :root {
-  /* 폰트 — macOS 시스템 폰트 (CDN 불필요, 오프라인 동작) */
+  /* 폰트 — 기본은 Zen Maru Gothic(next/font 자체 호스팅, layout.tsx), 그 외는 시스템 폰트 */
   --font-serif: 'KCV Serif', 'Hiragino Mincho ProN', 'HiraMinProN-W3', 'Yu Mincho', 'YuMincho', Georgia, serif;
-  --font-sans: 'Hiragino Kaku Gothic ProN', 'HiraKakuProN-W3', 'Yu Gothic', 'YuGothic', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-sans: var(--font-zen-maru, 'Zen Maru Gothic'), 'Hiragino Maru Gothic ProN', 'Hiragino Kaku Gothic ProN', 'HiraKakuProN-W3', 'Yu Gothic', 'YuGothic', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-mono: 'SF Mono', 'Menlo', 'Monaco', monospace;
 
   /* 색상 팔레트 — 가고시마 브랜드 */
@@ -88,7 +88,7 @@
   --tilt-stamp: -9deg;
 
   /* 서체 */
-  --font-round: 'Hiragino Maru Gothic ProN', 'BIZ UDPGothic', var(--font-sans);  /* 둥근 고딕 — 라벨·버튼 */
+  --font-round: var(--font-sans);  /* 둥근 고딕 — 기본 서체와 같음(Zen Maru Gothic). 라벨·버튼 의도 표시용 */
   --font-hand:  'Bradley Hand', 'Noteworthy', 'Segoe Print', 'Klee', var(--font-serif);  /* 장식 전용 */
   --font-num:   'DIN Condensed', 'Bahnschrift Condensed', 'Arial Narrow', var(--font-sans);  /* 큰 숫자·영문 타이포 */
 

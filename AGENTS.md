@@ -49,6 +49,7 @@
 | PWA | @ducanh2912/next-pwa | `public` 경로에 service worker 생성 |
 | 분석 | @vercel/analytics | |
 | 스타일 | CSS Modules + `src/styles/tokens.css` | Tailwind 미사용 |
+| 폰트 | next/font/google (Zen Maru Gothic) | 빌드 시 자체 호스팅, 런타임 CDN 없음 (ADR 007) |
 | 배포 | Vercel | 도쿄 리전(`nrt1`) |
 
 ### 핵심 외부 의존성
@@ -304,6 +305,7 @@ ADMIN_EMAILS=your@email.com
 5. **법적/라이선스:**
    - 정류장 GPS 데이터는 가고시마시 공식 GTFS-JP 오픈데이터(CC BY 4.0)를 가공하여 사용합니다.
    - 푸터와 데이터 메타데이터에 반드시 출처를 표기해야 합니다: `データ提供：鹿児島市（原データより加工）`.
+- **ADR 007:** 기본 서체 Zen Maru Gothic을 next/font로 자체 호스팅합니다. 일본어 조각 파일은 precache에서 빼고 런타임 캐시에만 쌓습니다(빌드 시 Google Fonts 접근 필요).
    - TripAdvisor 리뷰 등 제3자 콘텐츠의 직접 인용은 ToS 위반 리스크로 금지되어 있습니다.
 
 ## 주요 설계 결정 (ADRs)
