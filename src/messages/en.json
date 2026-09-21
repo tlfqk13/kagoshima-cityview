@@ -100,6 +100,12 @@
     "animPause": "Pause animation",
     "animPlay": "Bus animation",
     "favorited": "Favorited",
+    "googleWrongShort": "Wrong on Google Maps",
+    "allStops": "All stops",
+    "mapStyle": "Map style",
+    "styleStreets": "Street map",
+    "styleSatellite": "Satellite",
+    "styleDark": "Dark map",
     "today": {
       "label": "Today",
       "next": "Next bus",

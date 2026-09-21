@@ -31,3 +31,21 @@
   border-color: var(--dark);
   color: #FFFFFF; /* 어두운 배경 고정 — 다크 테마에서 묻히지 않도록 */
 }
+
+/* 지도 위에 띄우는 칩 (데스크톱) — 지도를 가리지 않도록 행 자체는 클릭을 통과시킨다 */
+.floating {
+  padding: 0;
+  pointer-events: none;
+}
+
+.floating .chip {
+  pointer-events: auto;
+  background: var(--white);
+  border-color: transparent;
+  box-shadow: var(--shadow-soft), 0 0 0 1px var(--rule);
+}
+
+.floating .on {
+  background: var(--dark);
+  border-color: var(--dark);
+}

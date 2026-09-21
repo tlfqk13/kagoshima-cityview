@@ -87,8 +87,13 @@ export default function BottomSheet({
         aria-expanded={state !== 'peek'}
       />
       <div className={styles.content}>
-        <CategoryChips active={activeCategory} onChange={onCategoryChange} />
-        <StopSearch value={searchQuery} onChange={onSearchChange} />
+        {/* 상세를 볼 때는 필터·검색을 숨겨 시간표가 첫 화면에 들어오게 한다 */}
+        {!selectedStop && (
+          <>
+            <CategoryChips active={activeCategory} onChange={onCategoryChange} />
+            <StopSearch value={searchQuery} onChange={onSearchChange} />
+          </>
+        )}
         {selectedStop ? (
           <>
           <button type="button" className={styles.back} onClick={onClearSelection}>

@@ -8,6 +8,8 @@ import {
   getStopsForRoute, getStopsGeoJSON, getRouteCoordinates, getRoute,
   getNearestStop, type RouteStop, type RouteId,
 } from '@/lib/routes'
+import { useResolvedTheme } from '@/lib/useResolvedTheme'
+import { IconMap, IconMoon, IconPause, IconPlay, IconSatellite } from '@/components/icons'
 import styles from './MapCanvas.module.css'
 
 mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN!
@@ -20,11 +22,20 @@ const MAP_STYLES: Record<MapStyle, string> = {
   dark: 'mapbox://styles/mapbox/dark-v11',
 }
 
-const STYLE_ICONS: Record<MapStyle, string> = {
-  streets: '🗺',
-  satellite: '🛰',
-  dark: '🌙',
+const STYLE_ICONS: Record<MapStyle, typeof IconMap> = {
+  streets: IconMap,
+  satellite: IconSatellite,
+  dark: IconMoon,
 }
+
+const STYLE_LABEL_KEYS: Record<MapStyle, string> = {
+  streets: 'map.styleStreets',
+  satellite: 'map.styleSatellite',
+  dark: 'map.styleDark',
+}
+
+// 모바일(바텀시트) 전환점 — 디자인 시스템 공통 기준
+const MOBILE_QUERY = '(max-width: 1023px)'
 
 const STYLE_ORDER: MapStyle[] = ['streets', 'satellite', 'dark']
 
@@ -55,10 +66,16 @@ function interpolateRoute(coords: [number, number][], t: number): [number, numbe
 
 function clearMapLayers(map: mapboxgl.Map) {
   if (map.getLayer('stops-label')) map.removeLayer('stops-label')
+  if (map.getLayer('stops-selected-halo')) map.removeLayer('stops-selected-halo')
   if (map.getLayer('stops-circle')) map.removeLayer('stops-circle')
   if (map.getLayer('route-line')) map.removeLayer('route-line')
   if (map.getSource('stops')) map.removeSource('stops')
   if (map.getSource('route')) map.removeSource('route')
+}
+
+// 선택 정류장은 크게, 구글맵 오류 정류장은 약간 크게
+function selectedRadius(selectedId: string | null) {
+  return ['case', ['==', ['get', 'id'], selectedId ?? ''], 14, ['get', 'googleMapsError'], 10, 8] as unknown as number
 }
 
 function addMapLayers(map: mapboxgl.Map, selectedId: string | null, routeId: RouteId, course: 'A' | 'B') {
@@ -96,13 +113,31 @@ function addMapLayers(map: mapboxgl.Map, selectedId: string | null, routeId: Rou
     map.addSource('stops', { type: 'geojson', data: geojson })
   }
 
+  // 선택 정류장 강조 — 원 아래에 반투명 테를 깔아 현장에서 "여기"가 한눈에 보이게 한다
+  if (!map.getLayer('stops-selected-halo')) {
+    map.addLayer({
+      id: 'stops-selected-halo',
+      type: 'circle',
+      source: 'stops',
+      filter: ['==', ['get', 'id'], selectedId ?? ''],
+      paint: {
+        'circle-radius': 24,
+        'circle-color': routeColor,
+        'circle-opacity': 0.18,
+        'circle-stroke-width': 2,
+        'circle-stroke-color': routeColor,
+        'circle-stroke-opacity': 0.9,
+      },
+    })
+  }
+
   if (!map.getLayer('stops-circle')) {
     map.addLayer({
       id: 'stops-circle',
       type: 'circle',
       source: 'stops',
       paint: {
-        'circle-radius': ['case', ['get', 'googleMapsError'], 10, 8] as unknown as number,
+        'circle-radius': selectedRadius(selectedId),
         'circle-color': [
           'case',
           ['==', ['get', 'id'], selectedId ?? ''], routeColor,
@@ -131,7 +166,8 @@ function addMapLayers(map: mapboxgl.Map, selectedId: string | null, routeId: Rou
       source: 'stops',
       layout: {
         'text-field': ['to-string', ['get', 'number']] as unknown as string,
-        'text-size': 10,
+        'text-size': ['case', ['==', ['get', 'id'], selectedId ?? ''], 13, 10] as unknown as number,
+        'text-allow-overlap': true,
         'text-font': ['DIN Pro Bold', 'Arial Unicode MS Bold'],
       },
       paint: { 'text-color': '#ffffff' },
@@ -159,8 +195,11 @@ export default function MapCanvas({ routeId, selectedStopId, onStopSelect, onUse
   const [course, setCourse] = useState<'A' | 'B'>('B')
   const courseRef = useRef<'A' | 'B'>('B')
 
-  const [mapStyle, setMapStyle] = useState<MapStyle>('streets')
-  const mapStyleRef = useRef<MapStyle>('streets')
+  // 사용자가 스타일 버튼을 누르기 전에는 사이트 테마(라이트/다크)를 따른다
+  const resolvedTheme = useResolvedTheme()
+  const [userStyle, setUserStyle] = useState<MapStyle | null>(null)
+  const mapStyle: MapStyle = userStyle ?? (resolvedTheme === 'dark' ? 'dark' : 'streets')
+  const mapStyleRef = useRef<MapStyle>(mapStyle)
 
   const [animating, setAnimating] = useState(false)
   const busMarkerRef = useRef<mapboxgl.Marker | null>(null)
@@ -190,7 +229,7 @@ export default function MapCanvas({ routeId, selectedStopId, onStopSelect, onUse
     const initialStop = getStopsForRoute(routeIdRef.current).find(stop => stop.id === selectedStopIdRef.current)
     const map = new mapboxgl.Map({
       container: containerRef.current,
-      style: MAP_STYLES['streets'],
+      style: MAP_STYLES[mapStyleRef.current],
       center: initialStop ? [initialStop.lng, initialStop.lat] : initialRoute.center,
       zoom: initialStop ? 15 : initialRoute.zoom,
       language: 'ja',
@@ -308,7 +347,7 @@ export default function MapCanvas({ routeId, selectedStopId, onStopSelect, onUse
       filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4));
       transform-origin: center;
     `
-    el.textContent = '🚌'
+    el.innerHTML = '<svg width="26" height="26" viewBox="0 0 24 24" fill="#FFFDF8" stroke="#1C1A18" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="14" rx="3"/><path d="M4 11h16M8 21v-4M16 21v-4"/></svg>'
     el.title = i18n.t('map.busMarker')
 
     const routeCoords = getRouteCoordinates(routeIdRef.current, course)
@@ -350,18 +389,22 @@ export default function MapCanvas({ routeId, selectedStopId, onStopSelect, onUse
       const stop = getStopsForRoute(routeIdRef.current).find(s => s.id === selectedStopId)
       if (stop) {
         // 모바일 상세가 화면 절반을 덮으므로 선택 마커를 보이는 지도 중앙으로 이동한다.
-        const offsetY = window.matchMedia('(max-width: 768px)').matches ? -window.innerHeight / 4 : 0
+        const offsetY = window.matchMedia(MOBILE_QUERY).matches ? -window.innerHeight / 4 : 0
         map.flyTo({ center: [stop.lng, stop.lat], zoom: 15, duration: 600, offset: [0, offsetY] })
       }
     }
     // 핀 색상 업데이트
     if (map.getLayer('stops-circle')) {
+      const routeColor = getRoute(routeIdRef.current).color
       map.setPaintProperty('stops-circle', 'circle-color', [
         'case',
-        ['==', ['get', 'id'], selectedStopId ?? ''], '#8B4513',
+        ['==', ['get', 'id'], selectedStopId ?? ''], routeColor,
         ['get', 'googleMapsError'], '#C87A3A',
         '#1E3A4F',
       ])
+      map.setPaintProperty('stops-circle', 'circle-radius', selectedRadius(selectedStopId))
+      map.setLayoutProperty('stops-label', 'text-size', ['case', ['==', ['get', 'id'], selectedStopId ?? ''], 13, 10])
+      map.setFilter('stops-selected-halo', ['==', ['get', 'id'], selectedStopId ?? ''])
     }
 
     // Remove previous wrong pin
@@ -460,24 +503,33 @@ export default function MapCanvas({ routeId, selectedStopId, onStopSelect, onUse
       )}
       <div className={styles.animToggle}>
         <button
+          type="button"
           className={`${styles.animBtn} ${animating ? styles.animBtnActive : ''}`}
           onClick={() => setAnimating(a => !a)}
           title={animating ? t('map.animPause') : t('map.animPlay')}
+          aria-label={animating ? t('map.animPause') : t('map.animPlay')}
+          aria-pressed={animating}
         >
-          {animating ? '⏸' : '▶'}
+          {animating ? <IconPause size={14} /> : <IconPlay size={14} />}
         </button>
       </div>
-      <div className={styles.styleToggle}>
-        {STYLE_ORDER.map(s => (
-          <button
-            key={s}
-            className={`${styles.styleBtn} ${mapStyle === s ? styles.styleBtnActive : ''}`}
-            onClick={() => setMapStyle(s)}
-            title={s}
-          >
-            {STYLE_ICONS[s]}
-          </button>
-        ))}
+      <div className={styles.styleToggle} role="group" aria-label={t('map.mapStyle')}>
+        {STYLE_ORDER.map(s => {
+          const Icon = STYLE_ICONS[s]
+          return (
+            <button
+              key={s}
+              type="button"
+              className={`${styles.styleBtn} ${mapStyle === s ? styles.styleBtnActive : ''}`}
+              onClick={() => setUserStyle(s)}
+              title={t(STYLE_LABEL_KEYS[s])}
+              aria-label={t(STYLE_LABEL_KEYS[s])}
+              aria-pressed={mapStyle === s}
+            >
+              <Icon size={16} />
+            </button>
+          )
+        })}
       </div>
     </div>
   )

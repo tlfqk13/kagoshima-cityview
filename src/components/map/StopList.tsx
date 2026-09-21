@@ -1,6 +1,7 @@
 'use client'
 import { useTranslation } from 'react-i18next'
 import type { RouteStop as BusStop, Lang } from '@/lib/routes'
+import { IconWarn } from '@/components/icons'
 import styles from './StopList.module.css'
 
 interface Props {
@@ -35,7 +36,10 @@ export default function StopList({ stops, selectedId, onSelect, favorites }: Pro
             <div className={styles.info}>
               <div className={styles.name}>{stop.name[lang]}</div>
               {stop.googleMapsError && (
-                <div className={styles.warn}>⚠ {t('map.stopDetail.googleMapsWrong')}</div>
+                <span className={styles.warn}>
+                  <IconWarn size={11} />
+                  {t('map.googleWrongShort')}
+                </span>
               )}
             </div>
             {favorites?.includes(stop.id) && (

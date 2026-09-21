@@ -55,6 +55,9 @@ test('모바일 상세에서 목록 복귀·검색·재선택이 된다', async 
   await panel.getByRole('button', { name: en.map.backToList }).click()
   await expect(panel.getByRole('list')).toBeVisible()
   await panel.getByRole('list').getByRole('button').first().click()
+  // 상세에서는 필터·검색을 숨겨 시간표를 먼저 보여준다 — 검색은 목록으로 돌아가서
+  await expect(panel.getByPlaceholder(en.map.searchPlaceholder)).toHaveCount(0)
+  await panel.getByRole('button', { name: en.map.backToList }).click()
   await panel.getByPlaceholder(en.map.searchPlaceholder).fill('Tenmonkan')
   await expect(panel.getByRole('button', { name: en.map.backToList })).toHaveCount(0)
   await expect(panel.getByRole('list').getByRole('button')).toHaveCount(2)
@@ -110,4 +113,13 @@ test('사이트 QR 인쇄물은 QR과 호텔 이름을 표시한다', async ({ p
   const response = await request.get('/card/site?hotel=unknown')
   expect(response.status()).toBe(200)
   expect(await response.text()).not.toContain('宿泊ゲスト様へ')
+})
+
+test('정류장 상세는 오늘의 운행을 먼저 보여주고 메모 중복을 없앤다', async ({ page, isMobile }) => {
+  await page.goto('/map/stop_02?lang=ja')
+  const panel = isMobile ? page.getByRole('complementary', { name: ja.map.stopListAria }) : page.locator('aside')
+  await expect(panel.getByText(ja.map.today.label)).toBeVisible()
+  // "1日19便。30分間隔。" 메모는 위의 편수·간격 표시와 같으므로 숨긴다
+  await expect(panel.getByText('1日19便。30分間隔。')).toHaveCount(0)
+  if (isMobile) await expect(panel.getByRole('group', { name: ja.map.categoryFilter })).toHaveCount(0)
 })

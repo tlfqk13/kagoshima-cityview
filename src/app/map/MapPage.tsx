@@ -98,7 +98,7 @@ export default function MapPage({ initialStopId, initialRouteId = 'cityview' }: 
         <div className={styles.mapWrap}>
           {/* 카테고리 칩 (데스크톱) */}
           <div className={styles.chips}>
-            <CategoryChips active={activeCategory} onChange={handleCategoryChange} />
+            <CategoryChips active={activeCategory} onChange={handleCategoryChange} floating />
           </div>
           <MapCanvas
             routeId={activeRoute}

@@ -69,3 +69,16 @@ img {
 .stop-hover-popup .stop-name {
   font-weight: 500;
 }
+
+/* Mapbox 기본 컨트롤(줌·방위·현위치) — 다크 테마에서 흰 버튼이 튀지 않게 */
+[data-theme="dark"] .mapboxgl-ctrl-group {
+  background: var(--white);
+}
+
+[data-theme="dark"] .mapboxgl-ctrl-group button + button {
+  border-top-color: var(--rule);
+}
+
+[data-theme="dark"] .mapboxgl-ctrl-group button .mapboxgl-ctrl-icon {
+  filter: invert(1) brightness(0.9);
+}

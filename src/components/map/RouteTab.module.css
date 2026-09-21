@@ -30,12 +30,12 @@
 
 .active {
   color: var(--ink);
-  border-bottom-color: #8B4513;
+  border-bottom-color: var(--accent);
 }
 
 .dimmed { opacity: 0.5; }
 
-.icon { font-size: 14px; }
+.icon { flex-shrink: 0; }
 
 .label { font-size: 12px; font-weight: 600; }
 
@@ -43,8 +43,8 @@
   font-size: 9px;
   font-weight: 700;
   padding: 1px 5px;
-  background: #2C7A3A;
-  color: #fff;
+  background: var(--leaf);
+  color: var(--white); /* 라이트: 흰 글자 / 다크: 밝은 초록 위 짙은 글자 — 양쪽 AA */
   border-radius: 8px;
   line-height: 1.6;
 }

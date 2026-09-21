@@ -23,16 +23,21 @@ export default function SidePanel({ stops, selectedStop, routeId, onSelect, sour
   const { t } = useTranslation()
   return (
     <aside className={styles.panel}>
-      {selectedStop && (
-        <StopDetail
-          routeId={routeId}
-          stop={selectedStop}
-          userLocation={userLocation}
-          isFavorite={favorites?.includes(selectedStop.id)}
-          onToggleFavorite={onToggleFavorite}
-        />
-      )}
+      {/* 검색은 항상 맨 위 — 상세를 보는 중에도 다른 정류장을 바로 찾을 수 있게 */}
       <StopSearch value={searchQuery} onChange={onSearchChange} />
+      <div className={styles.scroll}>
+        {selectedStop && (
+          <>
+            <StopDetail
+              routeId={routeId}
+              stop={selectedStop}
+              userLocation={userLocation}
+              isFavorite={favorites?.includes(selectedStop.id)}
+              onToggleFavorite={onToggleFavorite}
+            />
+            <h2 className={styles.listHeading}>{t('map.allStops')}</h2>
+          </>
+        )}
       {stops.length === 0 ? (
         <div className={styles.empty}>{t('map.noResults')}</div>
       ) : (
@@ -43,6 +48,7 @@ export default function SidePanel({ stops, selectedStop, routeId, onSelect, sour
           favorites={favorites}
         />
       )}
+      </div>
       <div className={styles.note}>{sourceNote}</div>
     </aside>
   )

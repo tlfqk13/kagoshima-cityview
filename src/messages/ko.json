@@ -100,6 +100,12 @@
     "animPause": "애니메이션 정지",
     "animPlay": "버스 애니메이션",
     "favorited": "즐겨찾기됨",
+    "googleWrongShort": "구글맵 위치 오류",
+    "allStops": "전체 정류장",
+    "mapStyle": "지도 스타일",
+    "styleStreets": "일반 지도",
+    "styleSatellite": "위성 지도",
+    "styleDark": "어두운 지도",
     "today": {
       "label": "오늘의 운행",
       "next": "다음 버스",

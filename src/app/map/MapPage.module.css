@@ -20,9 +20,13 @@
 }
 
 .chips {
-  flex-shrink: 0;
-  background: var(--white);
-  border-bottom: 1px solid var(--rule);
+  /* 지도 위에 띄워 지도 면적을 넓힌다 — 오른쪽은 줌·위치 컨트롤 자리 */
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  right: 64px;
+  z-index: 5;
+  pointer-events: none;
 }
 
 .side {
@@ -33,7 +37,7 @@
   display: none;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1023px) {
   .side {
     display: none;
   }

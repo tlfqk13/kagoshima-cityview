@@ -1,6 +1,6 @@
 .courseToggle {
   position: absolute;
-  top: 12px;
+  top: 60px; /* 데스크톱은 지도 위 카테고리 칩 아래 */
   left: 12px;
   z-index: 2;
   padding: 8px 12px;
@@ -48,11 +48,11 @@
 .styleBtn {
   width: 32px;
   height: 32px;
-  background: white;
+  background: var(--white);
+  color: var(--ink);
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  font-size: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -68,7 +68,7 @@
 
 .styleBtnActive {
   opacity: 1;
-  box-shadow: 0 0 0 2px #8B4513, 0 1px 4px rgba(0,0,0,0.3);
+  box-shadow: 0 0 0 2px var(--accent-text), 0 1px 4px rgba(0,0,0,0.3);
 }
 
 .animToggle {
@@ -81,11 +81,11 @@
 .animBtn {
   width: 32px;
   height: 32px;
-  background: white;
+  background: var(--white);
+  color: var(--ink);
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  font-size: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -99,7 +99,13 @@
 }
 
 .animBtnActive {
-  background: #8B4513;
-  color: white;
+  background: var(--accent);
+  color: #FFFFFF;
   opacity: 1;
+}
+
+@media (max-width: 1023px) {
+  .courseToggle {
+    top: 12px;
+  }
 }

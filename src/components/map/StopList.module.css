@@ -33,7 +33,7 @@
 }
 
 .on {
-  background: #FDF6F4;
+  background: color-mix(in srgb, var(--accent) 7%, var(--white));
   border-left: 3px solid var(--accent);
   padding-left: 17px;
 }
@@ -42,8 +42,8 @@
   width: 28px;
   height: 28px;
   border-radius: 50%;
-  background: #F0EDE8;
-  color: var(--dark);
+  background: var(--bg);
+  color: var(--ink);
   font-size: 11px;
   font-family: var(--font-mono);
   font-weight: 600;
@@ -75,8 +75,15 @@
 }
 
 .warn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 3px;
+  padding: 1px 7px;
+  border-radius: var(--radius-pill);
   font-size: 11px;
-  color: #C87A3A;
+  color: var(--stamp);
+  background: color-mix(in srgb, var(--stamp) 9%, transparent);
 }
 
 .chevron {

@@ -100,6 +100,12 @@
     "animPause": "アニメーション停止",
     "animPlay": "バスアニメーション",
     "favorited": "お気に入り登録済み",
+    "googleWrongShort": "Googleマップ誤表示",
+    "allStops": "全停留所",
+    "mapStyle": "地図の表示",
+    "styleStreets": "標準",
+    "styleSatellite": "航空写真",
+    "styleDark": "ダーク",
     "today": {
       "label": "今日の運行",
       "next": "次のバス",

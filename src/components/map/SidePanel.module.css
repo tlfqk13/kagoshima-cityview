@@ -9,6 +9,23 @@
   height: 100%;
 }
 
+.scroll {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+/* 상세 아래 목록 머리 */
+.listHeading {
+  padding: 14px 20px 8px;
+  font-size: var(--fs-caption);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--text-subtle);
+  border-top: 1px solid var(--rule);
+  background: var(--bg);
+}
+
 .empty {
   padding: 32px 20px;
   text-align: center;
