@@ -234,6 +234,8 @@ ADMIN_EMAILS=your@email.com
 - **전환점:** `@media (max-width: 1023px)` 하나를 씁니다(레퍼런스 공통 기준).
 - **모션:** `ScrapbookReveal`(`[data-reveal]` → `data-in`) 방식으로 통일하고, `prefers-reduced-motion`을 반드시 존중합니다.
 - **폰트:** 기본은 Zen Maru Gothic입니다. `next/font/google`로 빌드할 때 받아 같은 도메인에서 제공합니다(런타임 CDN 없음, CSP `font-src 'self'`). 일본어 조각 파일은 PWA precache에서 제외하고 런타임 캐시로만 쌓습니다(`next.config.mjs`, ADR 007). 외부 폰트 `<link>`를 추가하지 마세요.
+- **아이콘·메뉴:** UI 아이콘은 이모지 대신 `src/components/icons.tsx`의 선 아이콘을 씁니다. 주요 페이지 링크는 `SITE_LINKS`(`Nav.tsx`)에 추가하면 상단 메뉴·모바일 메뉴·푸터에 함께 반영됩니다.
+- **운행 시각:** 다음 버스 등 시간 계산은 `getNextDeparture`/`getJapanMinutes`(일본 시간 기준)를 쓰고, 현재 시각은 `useNow`로 클라이언트에서만 읽습니다(hydration 불일치 방지).
 - **화면 레이어:** 지도·관리자·인쇄물은 기능 레이어입니다. 색·서체 토큰만 쓰고 종이 질감·기울기·손글씨·등장 연출은 쓰지 않습니다.
 - **다크 모드:** `data-theme="dark"` 속성으로 전환합니다(ThemeProvider가 `prefers-color-scheme`를 해석해 설정).
 
