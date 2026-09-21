@@ -225,29 +225,17 @@ ADMIN_EMAILS=your@email.com
 
 ### 디자인 시스템
 
-디자인 토큰은 `src/styles/tokens.css`에 정의되어 있습니다.
+**새 화면·컴포넌트를 만들기 전에 [`docs/design/design-system.md`](docs/design/design-system.md)를 먼저 읽으세요.** 레퍼런스 1번(ひらやすみ × 杉並区)을 기준으로 정한 여행 스크랩북(旅のしおり) 규칙입니다. 레퍼런스 분석은 [`docs/design/reference-analysis.md`](docs/design/reference-analysis.md)에 있습니다.
 
-```css
-:root {
-  --bg:     #F4EFE9;   /* 화산재 베이지 */
-  --white:  #FFFFFF;
-  --ink:    #1C1A18;   /* 먹색 */
-  --mid:    #555555;
-  --muted:  #8A8278;
-  --rule:   #DDD7D0;   /* 구분선 */
-  --accent: #8B4513;   /* 적갈색 */
-  --dark:   #1F1E1A;   /* 다크 배경 */
-  --pin-default: #1E3A4F;
-  --pin-active:  #8B4513;
-  --pin-warn:    #C87A3A;
-  --nav-h:  64px;
-  --side-w: 320px;
-  --radius: 4px;
-}
-```
-
-- 폰트는 Google Fonts CDN 없이 macOS/Windows 시스템 폰트(Hiragino, Yu Gothic, -apple-system)를 사용합니다. 오프라인 환경을 고려한 선택입니다.
-- 다크 모드는 `data-theme="dark"` 속성과 `prefers-color-scheme` 미디어쿼리를 조합해 작동합니다.
+- **토큰:** `src/styles/tokens.css`. 기본 토큰(`--bg`, `--ink`, `--accent` 등)과 스크랩북 토큰(`--paper`, `--card`, `--pencil`, `--text-subtle`, `--stamp`, `--sea`, `--leaf`, `--marker`, `--partner`, `--tape`, `--shadow*`, `--radius-*`, `--fs-*`, `--space-*`, `--ease-out`, `--dur-*`)이 있습니다. 라이트·다크 값을 함께 정의합니다.
+- **공통 요소:** `src/styles/scrapbook.module.css`(`texture`, `sheet`, `roughSheet`, `tape`, `marker`, `hand`, `dashedRule`, `stampIn`, `jitter`). 컴포넌트 CSS에서 `composes`로 씁니다. 테이프·종이 스타일을 새로 복사하지 마세요.
+- **색:** 컴포넌트에 헥스값을 직접 쓰지 않습니다(인쇄물 `/card/*` 제외). 텍스트 대비는 JIS X 8341-3 AA(4.5:1) 이상입니다. `--muted`(3.2:1)는 텍스트에 쓰지 않고 `--text-subtle`을 씁니다. `--partner`(지자체 색)는 큰 글씨·장식 전용입니다.
+- **정보는 똑바로:** 본문·시간표·요금·정류장 이름은 기울이지 않고 손글씨체로 쓰지 않습니다. 손글씨는 짧은 장식 문구에만 씁니다.
+- **전환점:** `@media (max-width: 1023px)` 하나를 씁니다(레퍼런스 공통 기준).
+- **모션:** `ScrapbookReveal`(`[data-reveal]` → `data-in`) 방식으로 통일하고, `prefers-reduced-motion`을 반드시 존중합니다.
+- **폰트:** 기본은 Zen Maru Gothic입니다. `next/font/google`로 빌드할 때 받아 같은 도메인에서 제공합니다(런타임 CDN 없음, CSP `font-src 'self'`). 일본어 조각 파일은 PWA precache에서 제외하고 런타임 캐시로만 쌓습니다(`next.config.mjs`, ADR 007). 외부 폰트 `<link>`를 추가하지 마세요.
+- **화면 레이어:** 지도·관리자·인쇄물은 기능 레이어입니다. 색·서체 토큰만 쓰고 종이 질감·기울기·손글씨·등장 연출은 쓰지 않습니다.
+- **다크 모드:** `data-theme="dark"` 속성으로 전환합니다(ThemeProvider가 `prefers-color-scheme`를 해석해 설정).
 
 ## 테스트
 
@@ -305,7 +293,6 @@ ADMIN_EMAILS=your@email.com
 5. **법적/라이선스:**
    - 정류장 GPS 데이터는 가고시마시 공식 GTFS-JP 오픈데이터(CC BY 4.0)를 가공하여 사용합니다.
    - 푸터와 데이터 메타데이터에 반드시 출처를 표기해야 합니다: `データ提供：鹿児島市（原データより加工）`.
-- **ADR 007:** 기본 서체 Zen Maru Gothic을 next/font로 자체 호스팅합니다. 일본어 조각 파일은 precache에서 빼고 런타임 캐시에만 쌓습니다(빌드 시 Google Fonts 접근 필요).
    - TripAdvisor 리뷰 등 제3자 콘텐츠의 직접 인용은 ToS 위반 리스크로 금지되어 있습니다.
 
 ## 주요 설계 결정 (ADRs)
@@ -318,6 +305,7 @@ ADMIN_EMAILS=your@email.com
 - **ADR 004:** `/map/[stopId]` 동적 라우트 사용. `useSearchParams()`는 Suspense boundary가 필요해 지도 컴포넌트에 부적합.
 - **ADR 005:** MDX 다국어를 `content/story/{ko,en,ja}/`로 분리. 번역 파일이 독립적이고, 번역이 없으면 `ko`로 fallback.
 - **ADR 006:** 쿼리·쿠키·요청 헤더 순으로 언어를 결정하고 요청별 i18n 인스턴스로 SSR/본문을 일치시킵니다. 노선 형상은 출처가 있는 JSON으로 관리합니다.
+- **ADR 007:** 기본 서체 Zen Maru Gothic을 next/font로 자체 호스팅합니다. 일본어 조각 파일은 precache에서 빼고 런타임 캐시에만 쌓습니다(빌드 시 Google Fonts 접근 필요).
 
 ## 개발 시 참고 문서
 
@@ -325,13 +313,15 @@ ADMIN_EMAILS=your@email.com
 - `docs/data-sources.md` — 노선별 데이터 출처, 라이선스(공식 정류장 CC BY 4.0 · OSM 도로 ODbL), 현장 검증 기록
 - `docs/data-update-guide.md` — 노선 데이터 정기 업데이트 절차
 - `docs/ux-improvements.md` — UX 기능 우선순위 및 기획
+- `docs/design/design-system.md` — 디자인 토큰·컴포넌트·지자체 사이트 요건 (UI 작업 전 필독)
+- `docs/design/reference-analysis.md` — 레퍼런스 사이트 분석 (히라야스미 × 스기나미구, 사가시)
 - `docs/issues.md` — 이슈 트래커 (ISS-001 등)
 - `docs/adr/` — 아키텍처 결정 기록
 - `global-log.md` — 개발 진행 로그 및 컨텍스트
 
 ## 개발 워크플로우 요약
 
-1. 새 기능 추가 전 `docs/ux-improvements.md`의 우선순위와 `docs/adr/`의 결정을 확인하세요.
+1. 새 기능 추가 전 `docs/ux-improvements.md`의 우선순위와 `docs/adr/`의 결정을 확인하세요. UI 작업이면 `docs/design/design-system.md`의 토큰과 규칙을 따르세요.
 2. 노선 데이터를 변경할 때는 위 **데이터 관리 규칙(ISS-001)**을 따르세요. 좌표 원본은 JSON에서 관리하고, 요청에 필요한 관련 코드도 함께 수정할 수 있습니다.
 3. `npm run check`로 린트·단위 테스트·타입·빌드를 확인하세요.
 4. 변경에 관련된 브라우저 회귀 및 실제 지도 검증을 위 **테스트** 절차에 따라 수행하세요.
