@@ -3,7 +3,15 @@
     "story": "Story",
     "map": "Map",
     "openMap": "Open Map",
-    "toggleTheme": "Toggle theme"
+    "toggleTheme": "Toggle theme",
+    "accuracy": "Accuracy",
+    "downloads": "Downloads",
+    "menu": "Open menu",
+    "closeMenu": "Close menu",
+    "logoPre": "Kagoshima",
+    "logoEm": "City View",
+    "logoPost": "Bus Guide",
+    "site": "Site menu"
   },
   "hero": {
     "eyebrow": "Kagoshima City View Bus Guide",

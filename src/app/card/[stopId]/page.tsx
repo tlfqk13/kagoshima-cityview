@@ -54,6 +54,7 @@ export default async function StopCardPage({ params, searchParams }: Props) {
       <div className={styles.toolbar}>
         <PrintButton />
         <Link href="/card" className={styles.backLink}>전체 카드 목록</Link>
+        <Link href="/downloads" className={styles.backLink}>← サイトへ戻る · Back to site · 사이트로</Link>
       </div>
       <div className={styles.card}>
         <div className={styles.cardHeader}>

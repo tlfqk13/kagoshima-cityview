@@ -3,7 +3,15 @@
     "story": "스토리",
     "map": "지도",
     "openMap": "지도 열기",
-    "toggleTheme": "테마 전환"
+    "toggleTheme": "테마 전환",
+    "accuracy": "정확도 감사",
+    "downloads": "자료",
+    "menu": "메뉴 열기",
+    "closeMenu": "메뉴 닫기",
+    "logoPre": "가고시마",
+    "logoEm": "시티뷰",
+    "logoPost": "버스 가이드",
+    "site": "사이트 메뉴"
   },
   "hero": {
     "eyebrow": "Kagoshima City View Bus Guide",

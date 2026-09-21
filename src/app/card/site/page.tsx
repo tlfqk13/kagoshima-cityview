@@ -34,6 +34,7 @@ export default async function SiteCardPage({ searchParams }: Props) {
         <PrintButton />
         <Link href="/card/poster" className={styles.toolLink}>A4 poster</Link>
         <Link href="/card" className={styles.toolLink}>전체 인쇄물 목록</Link>
+        <Link href="/downloads" className={styles.toolLink}>← サイトへ戻る · Back to site · 사이트로</Link>
       </div>
 
       <div className={styles.card}>

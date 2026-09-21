@@ -1,54 +1,76 @@
+/* 푸터 — 어두운 바탕(var(--dark)) 고정. 글자는 AA 대비(4.5:1 이상)를 유지한다 */
 .footer {
   background: var(--dark);
-  padding: 36px 52px;
+  padding: 40px 52px;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   gap: 40px;
   flex-wrap: wrap;
+}
+
+.left {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
 }
 
 .logo {
   font-family: var(--font-serif);
   font-size: 13px;
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(255, 255, 255, 0.85);
   letter-spacing: 0.1em;
 }
 
 .logo em {
-  color: var(--accent-text);
+  color: #E0A070; /* 어두운 바탕 위 accent — 대비 확보 */
   font-style: normal;
+}
+
+.links {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+}
+
+.links a {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.85);
+  text-decoration: none;
+}
+
+.links a:hover {
+  color: #FFFFFF;
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
 .right {
   text-align: right;
-  font-size: 11px;
-  color: rgba(255, 255, 255, 0.25);
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.72);
   line-height: 2;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.04em;
 }
 
 .right a {
-  color: rgba(255, 255, 255, 0.35);
+  color: rgba(255, 255, 255, 0.85);
   text-decoration: underline;
   text-underline-offset: 2px;
 }
 
-.downloadsLink {
-  color: rgba(255, 255, 255, 0.6) !important;
-}
-
 .disclaimer {
-  color: rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.62);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1023px) {
   .footer {
     padding: 36px 24px;
     flex-direction: column;
-    align-items: flex-start;
-    gap: 20px;
+    gap: 24px;
   }
+
   .right {
     text-align: left;
   }

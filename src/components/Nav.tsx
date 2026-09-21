@@ -1,14 +1,39 @@
 'use client'
+import { useState } from 'react'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { useTranslation } from 'react-i18next'
 import LanguageSwitcher from './LanguageSwitcher'
 import { useTheme } from './ThemeProvider'
+import { IconClose, IconMenu } from './icons'
 import type { Theme } from '@/lib/theme'
 import styles from './Nav.module.css'
+
+// 사이트 주요 페이지 — 푸터 사이트 링크와 같은 목록을 쓴다
+export const SITE_LINKS = [
+  { href: '/map', key: 'nav.map' },
+  { href: '/story', key: 'nav.story' },
+  { href: '/accuracy', key: 'nav.accuracy' },
+  { href: '/downloads', key: 'nav.downloads' },
+] as const
+
+function isActive(pathname: string, href: string) {
+  return pathname === href || pathname.startsWith(`${href}/`)
+}
 
 export default function Nav() {
   const { t } = useTranslation()
   const { theme, setTheme } = useTheme()
+  const pathname = usePathname() ?? '/'
+  const [menuOpen, setMenuOpen] = useState(false)
+  const [menuPath, setMenuPath] = useState(pathname)
+  const onMap = isActive(pathname, '/map')
+
+  // 페이지가 바뀌면 모바일 메뉴를 닫는다 (렌더 중 상태 조정 — effect 불필요)
+  if (menuPath !== pathname) {
+    setMenuPath(pathname)
+    setMenuOpen(false)
+  }
 
   function cycleTheme() {
     const next: Record<string, Theme> = { system: 'light', light: 'dark', dark: 'system' }
@@ -17,17 +42,26 @@ export default function Nav() {
 
   const themeIcon = theme === 'dark' ? '☾' : theme === 'light' ? '☀' : '⊙'
 
+  const links = SITE_LINKS.map(link => {
+    const active = isActive(pathname, link.href)
+    return (
+      <li key={link.href}>
+        <Link href={link.href} aria-current={active ? 'page' : undefined} className={active ? styles.active : undefined}>
+          {t(link.key)}
+        </Link>
+      </li>
+    )
+  })
+
   return (
-    <nav className={styles.nav}>
+    <nav className={styles.nav} aria-label={t('nav.site')}>
       <Link href="/" className={styles.logo}>
-        가고시마 <em>시티뷰</em> 버스 가이드
+        {t('nav.logoPre')} <em>{t('nav.logoEm')}</em> {t('nav.logoPost')}
       </Link>
-      <ul className={styles.links}>
-        <li><Link href="/">{t('nav.story')}</Link></li>
-        <li><Link href="/map">{t('nav.map')}</Link></li>
-      </ul>
+      <ul className={styles.links}>{links}</ul>
       <div className={styles.right}>
         <button
+          type="button"
           className={styles.themeBtn}
           onClick={cycleTheme}
           aria-label={t('nav.toggleTheme')}
@@ -36,10 +70,33 @@ export default function Nav() {
           {themeIcon}
         </button>
         <LanguageSwitcher />
-        <Link href="/map" className={styles.ctaBtn}>
-          {t('nav.openMap')} →
-        </Link>
+        {/* 지도 화면에서는 같은 곳으로 가는 버튼이므로 숨긴다 */}
+        {!onMap && (
+          <Link href="/map" className={styles.ctaBtn}>
+            {t('nav.openMap')} →
+          </Link>
+        )}
+        <button
+          type="button"
+          className={styles.menuBtn}
+          onClick={() => setMenuOpen(open => !open)}
+          aria-expanded={menuOpen}
+          aria-controls="site-menu"
+          aria-label={menuOpen ? t('nav.closeMenu') : t('nav.menu')}
+        >
+          {menuOpen ? <IconClose size={20} /> : <IconMenu size={20} />}
+        </button>
       </div>
+      {menuOpen && (
+        <ul id="site-menu" className={styles.mobileMenu}>
+          <li>
+            <Link href="/" aria-current={pathname === '/' ? 'page' : undefined} className={pathname === '/' ? styles.active : undefined}>
+              {t('nav.logoPre')} {t('nav.logoEm')} {t('nav.logoPost')}
+            </Link>
+          </li>
+          {links}
+        </ul>
+      )}
     </nav>
   )
 }

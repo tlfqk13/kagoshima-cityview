@@ -67,11 +67,15 @@ test('모바일 상세에서 목록 복귀·검색·재선택이 된다', async 
 
 test('작은 화면에서도 상단 조작 요소가 내비게이션을 벗어나지 않는다', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 })
-  await page.goto('/map?lang=en')
-  const nav = page.getByRole('navigation')
+  await page.goto('/?lang=en')
+  const nav = page.getByRole('navigation', { name: en.nav.site }).first()
   const frame = await nav.boundingBox()
   expect(frame).not.toBeNull()
-  for (const button of [nav.getByRole('link', { name: `${en.nav.openMap} →` }), nav.getByRole('button', { name: 'Switch to EN' })]) {
+  for (const button of [
+    nav.getByRole('link', { name: `${en.nav.openMap} →` }),
+    nav.getByRole('button', { name: 'Switch to EN' }),
+    nav.getByRole('button', { name: en.nav.menu }),
+  ]) {
     await expect(button).toBeVisible()
     const box = await button.boundingBox()
     expect(box).not.toBeNull()
@@ -113,6 +117,21 @@ test('사이트 QR 인쇄물은 QR과 호텔 이름을 표시한다', async ({ p
   const response = await request.get('/card/site?hotel=unknown')
   expect(response.status()).toBe(200)
   expect(await response.text()).not.toContain('宿泊ゲスト様へ')
+})
+
+test('메뉴로 주요 페이지를 오가고 현재 위치를 표시한다', async ({ page, isMobile }) => {
+  await page.goto('/?lang=en')
+  const nav = page.getByRole('navigation', { name: en.nav.site }).first()
+  for (const [label, path] of [[en.nav.story, '/story'], [en.nav.accuracy, '/accuracy'], [en.nav.downloads, '/downloads'], [en.nav.map, '/map']] as const) {
+    if (isMobile) await nav.getByRole('button', { name: en.nav.menu }).click()
+    await nav.getByRole('link', { name: label, exact: true }).click()
+    await expect(page).toHaveURL(new RegExp(`${path}$`))
+    if (isMobile) await nav.getByRole('button', { name: en.nav.menu }).click()
+    await expect(nav.getByRole('link', { name: label, exact: true })).toHaveAttribute('aria-current', 'page')
+    if (isMobile) await nav.getByRole('button', { name: en.nav.closeMenu }).click()
+  }
+  // 지도 화면에서는 같은 곳으로 가는 "지도 열기" 버튼을 숨긴다
+  await expect(nav.getByRole('link', { name: `${en.nav.openMap} →` })).toHaveCount(0)
 })
 
 test('정류장 상세는 오늘의 운행을 먼저 보여주고 메모 중복을 없앤다', async ({ page, isMobile }) => {

@@ -18,6 +18,10 @@ export default function CardIndexPage() {
   return (
     <div className={styles.page}>
       <header className={styles.header}>
+        <nav className={styles.backNav} aria-label="Site">
+          <Link href="/downloads">← 資料 · Downloads · 자료</Link>
+          <Link href="/">サイトトップ · Home · 홈</Link>
+        </nav>
         <h1 className={styles.h1}>인쇄물</h1>
         <p className={styles.sub}>
           印刷物 — Print materials / 팜플렛·프런트 비치용

@@ -3,7 +3,15 @@
     "story": "ストーリー",
     "map": "地図",
     "openMap": "地図を開く",
-    "toggleTheme": "テーマ切替"
+    "toggleTheme": "テーマ切替",
+    "accuracy": "精度検証",
+    "downloads": "資料",
+    "menu": "メニューを開く",
+    "closeMenu": "メニューを閉じる",
+    "logoPre": "鹿児島",
+    "logoEm": "シティビュー",
+    "logoPost": "バスガイド",
+    "site": "サイトメニュー"
   },
   "hero": {
     "eyebrow": "鹿児島シティビューバスガイド",

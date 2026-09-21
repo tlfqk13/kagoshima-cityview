@@ -10,6 +10,20 @@
   margin-bottom: 32px;
 }
 
+.backNav {
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+  font-size: 12px;
+}
+
+.backNav a {
+  color: var(--accent-text);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
 .h1 {
   font-family: var(--font-serif);
   font-size: 24px;

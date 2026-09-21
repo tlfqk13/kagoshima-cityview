@@ -26,7 +26,7 @@
 
 .links {
   display: flex;
-  gap: 36px;
+  gap: 28px;
   list-style: none;
   padding: 0;
   margin: 0;
@@ -42,6 +42,57 @@
 
 .links a:hover {
   color: var(--ink);
+}
+
+/* 현재 페이지 */
+.links a.active,
+.mobileMenu a.active {
+  color: var(--ink);
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-color: var(--accent);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 6px;
+}
+
+/* 모바일 메뉴 버튼 — 1023px 이하에서만 보인다 */
+.menuBtn {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius);
+  color: var(--ink);
+  background: transparent;
+}
+
+.menuBtn:hover {
+  background: var(--rule);
+}
+
+.mobileMenu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  list-style: none;
+  margin: 0;
+  padding: 8px 0;
+  background: var(--bg);
+  border-bottom: 1px solid var(--rule);
+  box-shadow: var(--shadow-soft);
+}
+
+.mobileMenu a {
+  display: block;
+  padding: 14px 20px;
+  font-size: 15px;
+  color: var(--ink);
+}
+
+.mobileMenu li + li a {
+  border-top: 1px solid var(--rule);
 }
 
 .right {
@@ -83,13 +134,17 @@
   color: var(--ink);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1023px) {
   .nav {
     padding: 0 20px;
   }
 
   .links {
     display: none;
+  }
+
+  .menuBtn {
+    display: inline-flex;
   }
 }
 
