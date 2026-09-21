@@ -1,0 +1,124 @@
+/* 스크랩북 기본 요소 (旅のしおり) — docs/design/design-system.md
+   컴포넌트 CSS에서 composes로 가져다 쓴다:
+     .note { composes: sheet from '../../styles/scrapbook.module.css'; }
+   값은 모두 tokens.css의 토큰을 쓴다. */
+
+/* ---------- 종이 결 — 섹션/페이지 바탕에 노이즈를 얹는다 (자식은 z-index 1 이상) ---------- */
+.texture {
+  position: relative;
+  background-color: var(--paper);
+}
+
+.texture::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.55;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.45 0 0 0 0 0.36 0 0 0 0 0.25 0 0 0 0.16 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+:global([data-theme='dark']) .texture::before {
+  mix-blend-mode: screen;
+  opacity: 0.28;
+}
+
+/* ---------- 종이 한 장 — 메모·편지·카드의 공통 바탕 ---------- */
+.sheet {
+  position: relative;
+  background: var(--card);
+  border-radius: var(--radius-paper);
+  box-shadow: var(--shadow);
+  transform: rotate(var(--tilt, 0deg));
+}
+
+/* 손으로 자른 가장자리 — 배경층에만 필터를 걸어 글자는 번지지 않는다.
+   페이지에 <RoughEdgeDefs />가 있어야 한다. */
+.roughSheet {
+  composes: sheet;
+  background: none;
+  box-shadow: none;
+  isolation: isolate;
+}
+
+.roughSheet::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--sheet-bg, var(--card));
+  box-shadow: var(--shadow);
+  filter: url(#kcv-rough-edge);
+}
+
+/* ---------- 마스킹 테이프 ---------- */
+.tape {
+  position: absolute;
+  z-index: 2;
+  height: 26px;
+  background: var(--tape);
+  clip-path: polygon(0 8%, 4% 0, 8% 10%, 13% 0, 88% 0, 93% 12%, 97% 0, 100% 10%, 100% 90%, 96% 100%, 92% 88%, 87% 100%, 12% 100%, 7% 90%, 3% 100%, 0 92%);
+  pointer-events: none;
+}
+
+.tapeAlt {
+  composes: tape;
+  background: var(--tape-alt);
+}
+
+/* ---------- 텍스트 장식 ---------- */
+
+/* 형광펜 — 문장 속 핵심 구절 1곳에만 */
+.marker {
+  background: linear-gradient(transparent 55%, var(--marker) 55%);
+  padding: 0 0.1em;
+}
+
+/* 손글씨 라벨 — 섹션 머리·사진 메모 등 짧은 장식 문구 전용 (본문 금지) */
+.hand {
+  font-family: var(--font-hand);
+  color: var(--stamp);
+  display: inline-block;
+  transform: rotate(-3deg);
+}
+
+/* 점선 구분 — 정보 줄 사이 */
+.dashedRule {
+  border: 0;
+  border-top: 1.5px dashed color-mix(in srgb, var(--pencil) 45%, transparent);
+}
+
+/* ---------- 모션 (ScrapbookReveal의 [data-in]과 함께) ---------- */
+
+/* 도장 찍기 — 크게 떠 있다가 눌러 찍히고 살짝 튄다 */
+@keyframes stamp-in {
+  0% { transform: rotate(calc(var(--tilt, -9deg) - 7deg)) scale(2.1); opacity: 0; }
+  60% { transform: rotate(calc(var(--tilt, -9deg) + 1deg)) scale(0.94); opacity: 1; }
+  100% { transform: rotate(var(--tilt, -9deg)) scale(1); opacity: 1; }
+}
+
+.stampIn[data-in] {
+  animation: stamp-in 0.55s var(--ease-out) var(--reveal-delay, 0s) both;
+}
+
+/* 손그림 떨림 — 동그라미·화살표에 계속 */
+@keyframes jitter {
+  0% { transform: translate(0.02em, -0.012em) rotate(0.25deg); }
+  25% { transform: translate(-0.016em, 0.016em) rotate(-0.3deg); }
+  50% { transform: translate(0.012em, 0.02em) rotate(0.2deg); }
+  75% { transform: translate(-0.02em, -0.016em) rotate(-0.2deg); }
+  100% { transform: translate(0.02em, -0.012em) rotate(0.25deg); }
+}
+
+.jitter {
+  animation: jitter 0.5s steps(2, end) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stampIn[data-in],
+  .jitter {
+    animation: none;
+  }
+}
