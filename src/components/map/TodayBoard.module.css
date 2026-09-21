@@ -1,0 +1,78 @@
+/* 오늘의 운행 — 기능 레이어: 종이 질감·기울기 없이 토큰 색과 서체만 사용 */
+
+.board {
+  margin: 16px 20px 4px;
+  padding: 14px 16px 12px;
+  border-radius: var(--radius-card);
+  background: color-mix(in srgb, var(--sea) 7%, var(--white));
+  border-left: 4px solid var(--sea);
+}
+
+.quiet {
+  background: color-mix(in srgb, var(--rule) 45%, var(--white));
+  border-left-color: var(--text-subtle);
+}
+
+.label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--fs-caption);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--sea);
+  margin-bottom: 8px;
+}
+
+.quiet .label {
+  color: var(--text-subtle);
+}
+
+.row {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.caption {
+  font-size: var(--fs-small);
+  color: var(--ink);
+}
+
+.time {
+  font-family: var(--font-mono);
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: 0.02em;
+  line-height: 1;
+}
+
+.until {
+  font-size: var(--fs-small);
+  font-weight: 700;
+  color: var(--sea);
+}
+
+.message {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.sub {
+  font-size: var(--fs-small);
+  font-weight: 400;
+  color: var(--text-subtle);
+}
+
+.basis {
+  margin-top: 8px;
+  font-size: var(--fs-caption);
+  line-height: 1.5;
+  color: var(--text-subtle);
+}

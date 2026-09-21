@@ -99,7 +99,19 @@
     "wrongPin": "Googleマップの誤った位置情報",
     "animPause": "アニメーション停止",
     "animPlay": "バスアニメーション",
-    "favorited": "お気に入り登録済み"
+    "favorited": "お気に入り登録済み",
+    "today": {
+      "label": "今日の運行",
+      "next": "次のバス",
+      "nextArrival": "次の到着",
+      "inMin": "あと{{min}}分",
+      "now": "まもなく",
+      "ended": "本日の運行は終了しました",
+      "firstTomorrow": "明日の始発 {{time}}",
+      "noService": "本日は運行日ではありません",
+      "unknown": "本日運行・時刻は公式サイトでご確認ください",
+      "basis": "日本時間・時刻表に基づく目安です。交通状況により前後します"
+    }
   },
   "common": {
     "close": "閉じる"

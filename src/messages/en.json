@@ -99,7 +99,19 @@
     "wrongPin": "Incorrect location on Google Maps",
     "animPause": "Pause animation",
     "animPlay": "Bus animation",
-    "favorited": "Favorited"
+    "favorited": "Favorited",
+    "today": {
+      "label": "Today",
+      "next": "Next bus",
+      "nextArrival": "Next arrival",
+      "inMin": "in {{min}} min",
+      "now": "Due now",
+      "ended": "Service has ended for today",
+      "firstTomorrow": "First bus tomorrow {{time}}",
+      "noService": "No service today",
+      "unknown": "Running today · check the official site for times",
+      "basis": "Japan time · timetable estimate; actual times vary with traffic"
+    }
   },
   "common": {
     "close": "Close"

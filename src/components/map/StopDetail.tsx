@@ -2,9 +2,11 @@
 import { useState, useSyncExternalStore } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { RouteStop, RouteId, Lang } from '@/lib/routes'
-import { getStopVerification, getDepartureInterval } from '@/lib/routes'
+import { getStopVerification, getDepartureInterval, getScheduleExtraNote } from '@/lib/routes'
 import styles from './StopDetail.module.css'
 import QRModal from './QRModal'
+import TodayBoard from './TodayBoard'
+import { IconCopy, IconWalk, IconWarn } from '@/components/icons'
 import { copyText } from '@/lib/clipboard'
 import Image from 'next/image'
 
@@ -139,7 +141,7 @@ export default function StopDetail({ stop, routeId, userLocation, isFavorite, on
         <div className={styles.nameAlt}>{altNames}</div>
         <div className={styles.badgeRow}>
           {stop.googleMapsError && (
-            <div className={styles.badgeWarn}>⚠ {t('map.stopDetail.googleMapsWrong')}</div>
+            <div className={styles.badgeWarn}><IconWarn size={12} /> {t('map.stopDetail.googleMapsWrong')}</div>
           )}
           {verification === 'approximate' ? (
             <div className={styles.badgeApprox}>~ {t('map.stopDetail.coordsApproximate')}</div>
@@ -157,7 +159,7 @@ export default function StopDetail({ stop, routeId, userLocation, isFavorite, on
             aria-label={t('map.stopDetail.copyCoords')}
             title={t('map.stopDetail.copyCoords')}
           >
-            ⎘ {stop.lat.toFixed(5)}, {stop.lng.toFixed(5)}
+            <IconCopy size={11} /> {stop.lat.toFixed(5)}, {stop.lng.toFixed(5)}
           </button>
         </div>
       </div>
@@ -165,13 +167,68 @@ export default function StopDetail({ stop, routeId, userLocation, isFavorite, on
         const { meters, minutes } = getWalkingEstimate(userLocation[1], userLocation[0], stop.lat, stop.lng)
         return (
           <div className={styles.walkingInfo}>
-            <span className={styles.walkingIcon}>🚶</span>
+            <IconWalk size={16} className={styles.walkingIcon} />
             <span className={styles.walkingDist}>{meters < 1000 ? `${meters}m` : `${(meters / 1000).toFixed(1)}km`}</span>
             <span className={styles.walkingSep}>·</span>
             <span className={styles.walkingTime}>{t('map.walkMin', { min: minutes })}</span>
           </div>
         )
       })()}
+      <TodayBoard routeId={routeId} stop={stop} />
+      {stop.schedule && (() => {
+        const deps = stop.schedule.departures
+        const extraNote = getScheduleExtraNote(stop.schedule.operatingNote[lang])
+        const hasExactTimes = deps.length > 0
+        return (
+          <div className={styles.scheduleSection}>
+            <div className={styles.scheduleSectionLabel}>{t(stop.schedule.arrivalOnly ? 'map.arrivals' : 'map.schedule')}</div>
+            {hasExactTimes && (
+              <>
+                <div className={styles.scheduleTimes}>
+                  <div className={styles.scheduleItem}>
+                    <span className={styles.scheduleLabel}>{t('map.firstBus')}</span>
+                    <span className={styles.scheduleTime}>{deps[0]}</span>
+                  </div>
+                  <div className={styles.scheduleDivider} />
+                  <div className={styles.scheduleItem}>
+                    <span className={styles.scheduleLabel}>{t('map.lastBus')}</span>
+                    <span className={styles.scheduleTime}>{deps[deps.length - 1]}</span>
+                  </div>
+                </div>
+                <div className={styles.scheduleFreq}>
+                  {getDepartureInterval(deps) !== null
+                    ? t('map.frequency', { count: deps.length, minutes: getDepartureInterval(deps) })
+                    : t('map.dailyRuns', { count: deps.length })}
+                </div>
+              </>
+            )}
+            {extraNote && <div className={styles.scheduleNote}>{extraNote}</div>}
+          </div>
+        )
+      })()}
+      <div className={styles.mapsSection}>
+        <div className={styles.mapsSectionLabel}>{t('map.stopDetail.openInMaps')}</div>
+        <div className={styles.mapsButtons}>
+          <a
+            href={googleMapsUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={styles.mapBtn}
+          >
+            {t('map.stopDetail.googleMaps')} ↗
+          </a>
+          {isIOS && (
+            <a
+              href={appleMapsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={styles.mapBtn}
+            >
+              {t('map.stopDetail.appleMaps')} ↗
+            </a>
+          )}
+        </div>
+      </div>
       {/* Photo section */}
       <div className={styles.photoSection}>
         {stop.photos && stop.photos.length > 0 ? (
@@ -208,61 +265,6 @@ export default function StopDetail({ stop, routeId, userLocation, isFavorite, on
           ))}
         </div>
       )}
-      {stop.schedule && (() => {
-        const deps = stop.schedule.departures
-        const hasExactTimes = deps.length > 0
-        return (
-          <div className={styles.scheduleSection}>
-            <div className={styles.scheduleSectionLabel}>{t(stop.schedule.arrivalOnly ? 'map.arrivals' : 'map.schedule')}</div>
-            {hasExactTimes && (
-              <>
-                <div className={styles.scheduleTimes}>
-                  <div className={styles.scheduleItem}>
-                    <span className={styles.scheduleLabel}>{t('map.firstBus')}</span>
-                    <span className={styles.scheduleTime}>{deps[0]}</span>
-                  </div>
-                  <div className={styles.scheduleDivider} />
-                  <div className={styles.scheduleItem}>
-                    <span className={styles.scheduleLabel}>{t('map.lastBus')}</span>
-                    <span className={styles.scheduleTime}>{deps[deps.length - 1]}</span>
-                  </div>
-                </div>
-                <div className={styles.scheduleFreq}>
-                  {getDepartureInterval(deps) !== null
-                    ? t('map.frequency', { count: deps.length, minutes: getDepartureInterval(deps) })
-                    : t('map.dailyRuns', { count: deps.length })}
-                </div>
-              </>
-            )}
-            <div className={styles.scheduleNote}>
-              {stop.schedule.operatingNote[lang]}
-            </div>
-          </div>
-        )
-      })()}
-      <div className={styles.mapsSection}>
-        <div className={styles.mapsSectionLabel}>{t('map.stopDetail.openInMaps')}</div>
-        <div className={styles.mapsButtons}>
-          <a
-            href={googleMapsUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.mapBtn}
-          >
-            {t('map.stopDetail.googleMaps')} ↗
-          </a>
-          {isIOS && (
-            <a
-              href={appleMapsUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={styles.mapBtn}
-            >
-              {t('map.stopDetail.appleMaps')} ↗
-            </a>
-          )}
-        </div>
-      </div>
       <div className={styles.disclaimer}>{t('map.stopDetail.disclaimer')}</div>
       {toast && (
         <div className={styles.toast} key={toastKey}>

@@ -99,7 +99,19 @@
     "wrongPin": "구글맵 오류 위치",
     "animPause": "애니메이션 정지",
     "animPlay": "버스 애니메이션",
-    "favorited": "즐겨찾기됨"
+    "favorited": "즐겨찾기됨",
+    "today": {
+      "label": "오늘의 운행",
+      "next": "다음 버스",
+      "nextArrival": "다음 도착",
+      "inMin": "{{min}}분 후",
+      "now": "곧 도착",
+      "ended": "오늘 운행은 끝났습니다",
+      "firstTomorrow": "내일 첫차 {{time}}",
+      "noService": "오늘은 운행하지 않습니다",
+      "unknown": "오늘 운행 · 시각은 공식 사이트에서 확인",
+      "basis": "일본 시간 · 시간표 기준 예상이며 교통 상황에 따라 달라질 수 있습니다"
+    }
   },
   "common": {
     "close": "닫기"

@@ -216,3 +216,51 @@ export function isRouteAvailableToday(routeId: RouteId, now = new Date()): boole
   const month = parts.find(part => part.type === 'month')?.value.toLowerCase() ?? ''
   return day === 'Sat' || (day === 'Fri' && (route.seasonalExtra ?? []).includes(month))
 }
+
+// 운행 메모에서 화면에 이미 표시되는 편수·간격·시간대 문장을 걷어내고 남는 안내만 돌려준다.
+// 예: "1日19便。循環終点（1番と同一地点）。" → "循環終点（1番と同一地点）。"
+const REDUNDANT_NOTE_PATTERNS = [
+  /^1日\d+便(（[^）]*）)?$/,
+  /^約?\d+分間隔$/,
+  /^\d+ daily runs( \([^)]*\))?$/i,
+  /^every \d+ min$/i,
+  /^하루 \d+편( 운행)?( \([^)]*\))?$/,
+  /^\d+분 간격$/,
+]
+
+export function getScheduleExtraNote(note: string): string {
+  return note
+    .split(/(?<=[。.])\s*/)
+    .map(sentence => sentence.trim())
+    .filter(sentence => sentence && !REDUNDANT_NOTE_PATTERNS.some(pattern => pattern.test(sentence.replace(/[。.]$/, ''))))
+    .join(' ')
+}
+
+export type NextDeparture =
+  | { status: 'upcoming'; time: string; minutesUntil: number }
+  | { status: 'ended'; firstTomorrow: string }
+  | { status: 'noService' }
+  | { status: 'unknown' }
+
+// 일본 시간(Asia/Tokyo) 기준 현재 시각(분). 기기 시간대와 무관하게 현지 운행표와 맞춘다.
+export function getJapanMinutes(now: Date): number {
+  const parts = new Intl.DateTimeFormat('en-US', {
+    timeZone: 'Asia/Tokyo', hour: '2-digit', minute: '2-digit', hourCycle: 'h23',
+  }).formatToParts(now)
+  const hour = Number(parts.find(part => part.type === 'hour')?.value ?? 0)
+  const minute = Number(parts.find(part => part.type === 'minute')?.value ?? 0)
+  return hour * 60 + minute
+}
+
+// 정류장의 오늘 다음 출발(또는 도착) — 시간표 기준 목안이며 실시간 위치가 아니다.
+export function getNextDeparture(routeId: RouteId, departures: string[], now = new Date()): NextDeparture {
+  if (!isRouteAvailableToday(routeId, now)) return { status: 'noService' }
+  if (departures.length === 0) return { status: 'unknown' }
+  const current = getJapanMinutes(now)
+  for (const time of departures) {
+    const [hours, mins] = time.split(':').map(Number)
+    const minutesUntil = hours * 60 + mins - current
+    if (minutesUntil >= 0) return { status: 'upcoming', time, minutesUntil }
+  }
+  return { status: 'ended', firstTomorrow: departures[0] }
+}
