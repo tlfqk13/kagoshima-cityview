@@ -5,6 +5,7 @@ import type { RouteStop, RouteId, Lang } from '@/lib/routes'
 import { getStopVerification, getDepartureInterval } from '@/lib/routes'
 import styles from './StopDetail.module.css'
 import QRModal from './QRModal'
+import { copyText } from '@/lib/clipboard'
 import Image from 'next/image'
 
 interface Props {
@@ -57,18 +58,30 @@ export default function StopDetail({ stop, routeId, userLocation, isFavorite, on
     setTimeout(() => setToast(null), 2000)
   }
 
-  function handleCopyCoords() {
-    navigator.clipboard.writeText(`${stop.lat}, ${stop.lng}`)
-    showToast(t('map.stopDetail.coordsCopied'))
+  async function handleCopyCoords() {
+    const ok = await copyText(`${stop.lat}, ${stop.lng}`)
+    showToast(t(ok ? 'map.stopDetail.coordsCopied' : 'map.stopDetail.copyFailed'))
   }
 
-  function handleShare() {
+  async function copyLink(url: string) {
+    const ok = await copyText(url)
+    showToast(t(ok ? 'map.stopDetail.linkCopied' : 'map.stopDetail.copyFailed'))
+  }
+
+  async function handleShare() {
     const url = `${window.location.origin}/map?route=${routeId}&stop=${stop.id}`
-    if (navigator.share) {
-      navigator.share({ title: stopName, url })
-    } else {
-      navigator.clipboard.writeText(url)
-      showToast(t('map.stopDetail.linkCopied'))
+    // 비보안(HTTP) 컨텍스트에서는 navigator.share 자체가 없으므로 복사로 대체
+    if (typeof navigator.share !== 'function') {
+      await copyLink(url)
+      return
+    }
+    try {
+      await navigator.share({ title: stopName, url })
+    } catch (error) {
+      // 사용자가 공유 시트를 닫은 경우(AbortError)는 정상 흐름이므로 무시
+      if (error instanceof DOMException && error.name === 'AbortError') return
+      // 그 외 공유 실패(권한·미지원 데이터 등)는 링크 복사로 대체
+      await copyLink(url)
     }
   }
 

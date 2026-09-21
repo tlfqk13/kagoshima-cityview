@@ -65,6 +65,7 @@
       "coordsCopied": "복사됨!",
       "shareStop": "공유",
       "linkCopied": "링크 복사됨!",
+      "copyFailed": "복사하지 못했습니다",
       "coordsApproximate": "좌표 근사치 (미검증)",
       "bCourseOnly": "B코스 전용",
       "photoAlt": "{{name}} 정류장 사진"

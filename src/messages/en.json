@@ -65,6 +65,7 @@
       "coordsCopied": "Copied!",
       "shareStop": "Share this stop",
       "linkCopied": "Link copied!",
+      "copyFailed": "Couldn’t copy",
       "coordsApproximate": "Approx. location (unverified)",
       "bCourseOnly": "Course B only",
       "photoAlt": "Photo of {{name}} bus stop"
