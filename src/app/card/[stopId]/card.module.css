@@ -167,7 +167,8 @@
 /* ---------- 프린트 ---------- */
 
 @page {
-  size: A6 portrait;
+  /* Chromium은 A6 키워드를 지원하지 않아 치수로 지정 */
+  size: 105mm 148mm;
   margin: 0;
 }
 
