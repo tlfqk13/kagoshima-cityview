@@ -1,0 +1,192 @@
+.hero {
+  min-height: calc(100svh - var(--nav-h));
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 56px 40px 72px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: center;
+  gap: 56px;
+}
+
+.eyebrow {
+  display: inline-block;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--accent-text);
+  border: 1px solid currentColor;
+  padding: 5px 10px;
+  margin-bottom: 26px;
+  transform: rotate(-1.5deg);
+}
+
+.h1 {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: var(--fs-h1);
+  line-height: 1.42;
+  letter-spacing: 0.01em;
+  color: var(--ink);
+  word-break: keep-all;
+  text-wrap: balance;
+}
+
+/* 영어 제목은 글자 수가 많아 한 단계 작게 */
+:global(html[lang='en']) .h1 {
+  font-size: clamp(26px, 2.9vw, 40px);
+}
+
+.mark {
+  position: relative;
+  display: inline-block;
+  color: var(--accent-text);
+}
+
+.underline {
+  position: absolute;
+  left: -2%;
+  bottom: -0.28em;
+  width: 104%;
+  height: 0.42em;
+  color: var(--stamp);
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 36px;
+}
+
+.btnPrimary,
+.btnGhost {
+  font-size: 14px;
+  letter-spacing: 0.04em;
+  padding: 14px 26px;
+  border-radius: var(--radius-pill);
+  transition: transform var(--dur-fast) ease, box-shadow var(--dur-fast) ease;
+}
+
+.btnPrimary {
+  background: var(--ink);
+  color: var(--paper);
+  box-shadow: var(--shadow-offset);
+}
+
+.btnPrimary:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 5px 5px 0 var(--stamp);
+}
+
+.btnGhost {
+  border: 1.5px solid var(--ink);
+  color: var(--ink);
+}
+
+.btnGhost:hover {
+  transform: translate(-1px, -1px);
+}
+
+/* ---------- 비주얼 ---------- */
+
+.visual {
+  position: relative;
+  padding-bottom: 80px;
+}
+
+.photo {
+  width: 100%;
+}
+
+/* 왼쪽 아래는 표지판이 가리므로 사진 설명은 오른쪽 정렬 */
+.photo figcaption {
+  text-align: right;
+  padding-right: 12px;
+}
+
+.signWrap {
+  position: absolute;
+  left: -46px;
+  bottom: -12px;
+  width: 150px;
+}
+
+.sign {
+  --sign-scale: 0.95;
+}
+
+.signCircle {
+  composes: jitter from '../../styles/scrapbook.module.css';
+  position: absolute;
+  left: -34px;
+  top: -30px;
+  width: 210px;
+  height: 170px;
+  color: var(--stamp);
+  pointer-events: none;
+}
+
+/* 손글씨 메모 — 사진 아래 여백에 두고 화살표로 표지판을 가리킨다 */
+.note {
+  composes: hand from '../../styles/scrapbook.module.css';
+  position: absolute;
+  left: 150px;
+  bottom: 10px;
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  width: max-content;
+  font-size: 22px;
+  line-height: 1.2;
+}
+
+.noteArrow {
+  order: -1;
+  width: 54px;
+  height: 38px;
+  margin-bottom: 8px;
+}
+
+/* ---------- 모바일 ---------- */
+
+@media (max-width: 1023px) {
+  .hero {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    padding: 36px 20px 56px;
+    min-height: 0;
+  }
+
+  .visual {
+    padding-bottom: 76px;
+    margin: 0 6px;
+  }
+
+  .signWrap {
+    left: 4px;
+    bottom: -8px;
+  }
+
+  .sign {
+    --sign-scale: 0.72;
+  }
+
+  .signCircle {
+    left: -22px;
+    top: -20px;
+    width: 150px;
+    height: 124px;
+  }
+
+  .note {
+    left: 112px;
+    bottom: 8px;
+    font-size: 17px;
+  }
+
+  .noteArrow {
+    width: 40px;
+    height: 30px;
+  }
+}

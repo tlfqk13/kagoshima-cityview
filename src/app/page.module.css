@@ -1,142 +1,54 @@
-.page {
-  --background: #fafafa;
-  --foreground: #fff;
+/* 랜딩 — 여행 스크랩북(旅のしおり). 토큰은 tokens.css, 공통 요소는 styles/scrapbook.module.css */
 
-  --text-primary: #000;
-  --text-secondary: #666;
-
-  --button-primary-hover: #383838;
-  --button-secondary-hover: #f2f2f2;
-  --button-secondary-border: #ebebeb;
-
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--font-geist-sans);
-  background-color: var(--background);
+.paper {
+  composes: texture from '../styles/scrapbook.module.css';
+  color: var(--ink);
+  overflow-x: clip;
 }
 
-.main {
-  display: flex;
-  flex: 1;
-  width: 100%;
-  max-width: 800px;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: space-between;
-  background-color: var(--foreground);
-  padding: 120px 60px;
+/* 한국어는 어절 단위로 줄바꿈 (일본어는 띄어쓰기가 없어 기본 규칙 유지) */
+:global(html[lang='ko']) .paper {
+  word-break: keep-all;
+  overflow-wrap: break-word;
 }
 
-.intro {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  text-align: left;
-  gap: 24px;
+.paper > * {
+  position: relative;
+  z-index: 1;
 }
 
-.intro h1 {
-  max-width: 320px;
-  font-size: 40px;
-  font-weight: 600;
-  line-height: 48px;
-  letter-spacing: -2.4px;
-  text-wrap: balance;
-  color: var(--text-primary);
+/* 푸터 위 찢어진 종이 가장자리 */
+.torn {
+  height: 28px;
+  margin-top: 40px;
+  background: var(--dark);
+  clip-path: polygon(0 55%, 3% 30%, 6% 60%, 9% 25%, 13% 50%, 16% 20%, 20% 55%, 24% 35%, 27% 62%, 31% 28%, 35% 52%, 38% 18%, 42% 48%, 46% 30%, 49% 60%, 53% 24%, 57% 50%, 60% 32%, 64% 58%, 68% 22%, 71% 46%, 75% 28%, 79% 56%, 82% 20%, 86% 48%, 90% 30%, 93% 58%, 97% 26%, 100% 45%, 100% 100%, 0 100%);
+  margin-bottom: -1px;
 }
 
-.intro p {
-  max-width: 440px;
-  font-size: 18px;
-  line-height: 32px;
-  text-wrap: balance;
-  color: var(--text-secondary);
+/* ---------- 스크롤 등장 (ScrapbookReveal이 .ready를 붙인 뒤에만 숨김 — JS 실패 시 전부 표시) ---------- */
+
+.ready [data-reveal] {
+  transition:
+    opacity var(--dur-base) ease,
+    transform var(--dur-slow) var(--ease-out);
+  transition-delay: var(--reveal-delay, 0s);
 }
 
-.intro a {
-  font-weight: 500;
-  color: var(--text-primary);
+.ready [data-reveal]:not([data-in]) {
+  opacity: 0;
+  transform: translateY(28px) rotate(calc(var(--tilt, 0deg) * 2.5));
 }
 
-.ctas {
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-  max-width: 440px;
-  gap: 16px;
-  font-size: 14px;
+/* 손글씨 선 — pathLength=1 기준으로 그려지는 연출 */
+.ready [data-draw] path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset var(--dur-slow) ease;
+  transition-delay: var(--draw-delay, 0.35s);
 }
 
-.ctas a {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 40px;
-  padding: 0 16px;
-  border-radius: 128px;
-  border: 1px solid transparent;
-  transition: 0.2s;
-  cursor: pointer;
-  width: fit-content;
-  font-weight: 500;
-}
-
-a.primary {
-  background: var(--text-primary);
-  color: var(--background);
-  gap: 8px;
-}
-
-a.secondary {
-  border-color: var(--button-secondary-border);
-}
-
-/* Enable hover only on non-touch devices */
-@media (hover: hover) and (pointer: fine) {
-  a.primary:hover {
-    background: var(--button-primary-hover);
-    border-color: transparent;
-  }
-
-  a.secondary:hover {
-    background: var(--button-secondary-hover);
-    border-color: transparent;
-  }
-}
-
-@media (max-width: 600px) {
-  .main {
-    padding: 48px 24px;
-  }
-
-  .intro {
-    gap: 16px;
-  }
-
-  .intro h1 {
-    font-size: 32px;
-    line-height: 40px;
-    letter-spacing: -1.92px;
-  }
-}
-
-@media (prefers-color-scheme: dark) {
-  .logo {
-    filter: invert();
-  }
-
-  .page {
-    --background: #000;
-    --foreground: #000;
-
-    --text-primary: #ededed;
-    --text-secondary: #999;
-
-    --button-primary-hover: #ccc;
-    --button-secondary-hover: #1a1a1a;
-    --button-secondary-border: #1a1a1a;
-  }
+.ready [data-in] [data-draw] path,
+.ready [data-in][data-draw] path {
+  stroke-dashoffset: 0;
 }

@@ -1,0 +1,237 @@
+.section {
+  padding: var(--section-y) var(--gutter);
+  background:
+    linear-gradient(180deg, transparent, color-mix(in srgb, var(--paper-deep) 70%, transparent) 18%, color-mix(in srgb, var(--paper-deep) 70%, transparent) 82%, transparent);
+}
+
+.inner {
+  max-width: var(--content-w);
+  margin: 0 auto;
+}
+
+.head {
+  max-width: 640px;
+  margin-bottom: 48px;
+}
+
+.eyebrow {
+  composes: hand from '../../styles/scrapbook.module.css';
+  font-size: 20px;
+  color: var(--sea);
+  margin-bottom: 10px;
+}
+
+.h2 {
+  font-family: var(--font-serif);
+  font-size: var(--fs-h2);
+  font-weight: 700;
+  line-height: var(--lh-heading);
+  color: var(--ink);
+  word-break: keep-all;
+  margin-bottom: 18px;
+}
+
+.lead {
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  color: var(--pencil);
+}
+
+/* ---------- 노선 띠 ---------- */
+
+.rail {
+  --p: 0;
+  position: relative;
+  height: 64px;
+  margin: 0 0 72px;
+}
+
+.road {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 40px;
+  height: 4px;
+  background: repeating-linear-gradient(90deg, var(--accent) 0 14px, transparent 14px 22px);
+  opacity: 0.7;
+}
+
+.dots {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 34px;
+  display: flex;
+  justify-content: space-between;
+  list-style: none;
+}
+
+.dot,
+.dotFeatured {
+  position: relative;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--card);
+  border: 3px solid var(--accent);
+}
+
+.dotFeatured {
+  background: var(--stamp);
+  border-color: var(--card);
+  box-shadow: 0 0 0 2px var(--stamp);
+}
+
+.dotNum {
+  position: absolute;
+  top: 22px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--stamp);
+}
+
+.bus {
+  position: absolute;
+  top: 2px;
+  left: calc((100% - 48px) * var(--p));
+  width: 48px;
+  height: auto;
+  fill: var(--ink);
+  transition: left 0.15s linear;
+}
+
+.busWin {
+  fill: var(--paper);
+}
+
+.busWheel {
+  fill: var(--ink);
+  stroke: var(--paper);
+  stroke-width: 1.6;
+}
+
+/* ---------- 카드 ---------- */
+
+.cards {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 72px 64px;
+}
+
+.card {
+  position: relative;
+  transform: rotate(var(--tilt, 0deg));
+}
+
+.card:nth-child(even) {
+  margin-top: 64px;
+}
+
+.ribbon {
+  position: absolute;
+  z-index: 3;
+  top: 18px;
+  left: -12px;
+  background: var(--stamp);
+  color: #FFFDF8;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 5px 12px 5px 14px;
+  clip-path: polygon(0 0, 100% 0, 92% 50%, 100% 100%, 0 100%);
+}
+
+.cardPhoto {
+  margin-bottom: 26px;
+}
+
+.cardBody {
+  padding: 0 6px;
+}
+
+.cardTitle {
+  font-family: var(--font-serif);
+  font-size: var(--fs-h3);
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 10px;
+}
+
+.cardText {
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  color: var(--pencil);
+  margin-bottom: 16px;
+}
+
+.cardBar {
+  composes: dashedRule from '../../styles/scrapbook.module.css';
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding-top: 12px;
+}
+
+.cardStop {
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-serif);
+  font-size: 14px;
+  color: var(--ink);
+}
+
+.cardStopNo {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--accent-text);
+  letter-spacing: 0.04em;
+}
+
+.cardLink {
+  font-size: 13px;
+  color: var(--ink);
+  border: 1.5px solid var(--ink);
+  border-radius: var(--radius-pill);
+  padding: 8px 16px;
+  white-space: nowrap;
+  transition: background var(--dur-fast), color var(--dur-fast);
+}
+
+.cardLink:hover {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+@media (max-width: 1023px) {
+  .cards {
+    grid-template-columns: 1fr;
+    gap: 64px;
+  }
+
+  .card:nth-child(even) {
+    margin-top: 0;
+  }
+
+  .dot,
+  .dotFeatured {
+    width: 10px;
+    height: 10px;
+    border-width: 2px;
+  }
+
+  .dots {
+    top: 37px;
+  }
+
+  .dotNum {
+    font-size: 10px;
+    top: 14px;
+  }
+}

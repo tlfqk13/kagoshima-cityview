@@ -111,7 +111,7 @@
     "cta": "협력 문의하기",
     "ctaMap": "지도 바로 보기",
     "aboutTitle": "운영에 대하여",
-    "aboutBody": "가고시마를 여행하다 버스를 놓친 여행자가 직접 만들었습니다. 같은 경험을 하는 여행자가 없도록, 묣료·무광고·비영리로 운영합니다.",
+    "aboutBody": "가고시마를 여행하다 버스를 놓친 여행자가 직접 만들었습니다. 같은 경험을 하는 여행자가 없도록, 무료·무광고·비영리로 운영합니다.",
     "aboutMaintenance": "분기마다 전 정류장 위치 검증을 재실시하고 결과를 공개합니다",
     "emailLabel": "연락처",
     "copied": "이메일 주소가 복사되었습니다"
@@ -163,5 +163,43 @@
     "islandview": { "name": "아일랜드뷰" },
     "saturdayOnly": "토요일",
     "coordsApproximate": "좌표 근사치"
+  },
+  "home": {
+    "heroCaption": "긴코만 너머의 사쿠라지마",
+    "heroNote": "진짜 정류장은 여기!",
+    "signBoard": "정류장",
+    "signStops": "{{count}}개 정류장",
+    "signEvery": "{{min}}분 간격",
+    "problemEyebrow": "만들게 된 이유",
+    "sketchWrong": "지도 앱의 핀",
+    "sketchReal": "실제 정류장",
+    "sketchGap": "{{m}}m 차이",
+    "sketchCaption": "{{name}} · 구글맵 대조 ({{date}})",
+    "spotsEyebrow": "버스 창밖 여행",
+    "spotsTitle": "한 바퀴 {{min}}분,\n버스로 도는 가고시마",
+    "spotsLead": "시티뷰 버스는 가고시마 중앙역을 출발해 {{count}}개 정류장을 돌고 다시 중앙역으로 돌아옵니다. 가는 길에 들르기 좋은 곳을 모았습니다.",
+    "spotsStop": "정류장 No.{{num}}",
+    "spotsCta": "정류장 위치 보기",
+    "routeRailLabel": "시티뷰 노선 {{count}}개 정류장",
+    "spots": {
+      "saigo": {
+        "title": "사이고 다카모리 동상",
+        "body": "메이지 유신의 주역 사이고 다카모리를 기리는 동상. 시로야마 기슭, 중앙공원 옆에 서 있습니다."
+      },
+      "shiroyama": {
+        "title": "시로야마 전망대",
+        "body": "해발 약 107m 언덕 위 전망대. 시가지와 긴코만, 사쿠라지마가 한눈에 들어옵니다."
+      },
+      "senganen": {
+        "title": "센간엔",
+        "body": "시마즈 가문의 별저 정원. 사쿠라지마를 산으로, 긴코만을 연못으로 빌려 온 차경 정원입니다."
+      },
+      "ferry": {
+        "title": "사쿠라지마 페리",
+        "body": "수족관 앞 정류장 바로 옆이 페리 터미널입니다. 약 15분이면 사쿠라지마에 닿습니다."
+      }
+    },
+    "trustEyebrow": "믿을 수 있는 이유",
+    "letterTo": "가고시마시 관광과 앞"
   }
 }

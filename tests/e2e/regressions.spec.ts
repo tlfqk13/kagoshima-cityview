@@ -86,3 +86,14 @@ test('관리자 인증과 잘못된 정류장 보호가 유지된다', async ({ 
   expect((await request.get('/map/not-a-stop')).status()).toBe(404)
   expect((await request.get('/card/not-a-stop')).status()).toBe(404)
 })
+
+test('랜딩은 언어별 제목과 정류장 링크를 보여준다', async ({ page }) => {
+  for (const [language, messages] of [['ko', ko], ['en', en], ['ja', ja]] as const) {
+    await page.goto(`/?lang=${language}`)
+    await expect(page.getByRole('heading', { level: 1 })).toContainText(messages.hero.h1line3)
+    await expect(page.getByRole('heading', { level: 3, name: messages.home.spots.senganen.title })).toBeVisible()
+  }
+  // 스팟 카드는 해당 정류장 지도로 연결된다
+  await page.getByRole('link', { name: `${ja.home.spotsCta} →` }).first().click()
+  await expect(page).toHaveURL(/\/map\/stop_\d{2}$/)
+})

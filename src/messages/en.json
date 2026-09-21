@@ -163,5 +163,43 @@
     "islandview": { "name": "Island View" },
     "saturdayOnly": "Sat only",
     "coordsApproximate": "Approx. coords"
+  },
+  "home": {
+    "heroCaption": "Sakurajima, across Kinko Bay",
+    "heroNote": "The real stop is here!",
+    "signBoard": "Bus stop",
+    "signStops": "{{count}} stops",
+    "signEvery": "every {{min}} min",
+    "problemEyebrow": "Why we made this",
+    "sketchWrong": "Map app pin",
+    "sketchReal": "Actual stop",
+    "sketchGap": "{{m}} m off",
+    "sketchCaption": "{{name}} · Google Maps check ({{date}})",
+    "spotsEyebrow": "Out the bus window",
+    "spotsTitle": "One {{min}}-minute loop\naround Kagoshima",
+    "spotsLead": "The City View bus leaves Kagoshima-Chuo Station, circles {{count}} stops and comes back to the station. Here are a few places worth hopping off for.",
+    "spotsStop": "Stop No.{{num}}",
+    "spotsCta": "See the stop",
+    "routeRailLabel": "{{count}} stops on the City View route",
+    "spots": {
+      "saigo": {
+        "title": "Saigō Takamori Statue",
+        "body": "A statue honoring Saigō Takamori, a leading figure of the Meiji Restoration, at the foot of Shiroyama beside Central Park."
+      },
+      "shiroyama": {
+        "title": "Shiroyama Observatory",
+        "body": "A lookout on a hill about 107 m high, with the city, Kinko Bay and Sakurajima all in one view."
+      },
+      "senganen": {
+        "title": "Sengan-en",
+        "body": "The Shimazu family garden villa, which borrows Sakurajima as its mountain and Kinko Bay as its pond."
+      },
+      "ferry": {
+        "title": "Sakurajima Ferry",
+        "body": "The ferry terminal is right by the Aquarium stop. Sakurajima is about 15 minutes away by ferry."
+      }
+    },
+    "trustEyebrow": "Why you can trust it",
+    "letterTo": "To the Kagoshima City Tourism Division"
   }
 }

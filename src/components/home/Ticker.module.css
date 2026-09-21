@@ -1,0 +1,49 @@
+.ticker {
+  background: var(--ink);
+  color: var(--paper);
+  overflow: hidden;
+  transform: rotate(-1.2deg);
+  margin: 0 -20px;
+  padding: 12px 0;
+  box-shadow: var(--shadow);
+}
+
+.track {
+  display: flex;
+  width: max-content;
+  animation: slide 38s linear infinite;
+}
+
+.row {
+  display: flex;
+  list-style: none;
+  flex-shrink: 0;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding-right: 42px;
+  font-family: var(--font-serif);
+  font-size: 15px;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+}
+
+.dot {
+  color: var(--tape);
+  font-size: 13px;
+}
+
+@keyframes slide {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .track {
+    animation: none;
+  }
+}

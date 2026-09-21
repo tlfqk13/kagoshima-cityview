@@ -1,55 +1,217 @@
 .section {
-  background: var(--dark);
-  padding: 80px 52px;
+  padding: var(--section-y) var(--gutter);
 }
 
 .inner {
-  max-width: 1080px;
+  max-width: var(--content-w);
   margin: 0 auto;
+}
+
+.head {
+  margin-bottom: 56px;
+}
+
+.eyebrow {
+  composes: hand from '../../styles/scrapbook.module.css';
+  font-size: 20px;
+  margin-bottom: 10px;
 }
 
 .h2 {
   font-family: var(--font-serif);
-  font-size: clamp(22px, 2.5vw, 32px);
-  font-weight: 400;
-  /* 항상 어두운(var(--dark)) 배경 위이므로 고정 화이트 — 다크 테마에서 묻히지 않도록 */
-  color: #FFFFFF;
-  line-height: 1.7;
-  margin-bottom: 48px;
-  letter-spacing: 0.03em;
+  font-size: var(--fs-h2);
+  font-weight: 700;
+  line-height: var(--lh-heading);
+  color: var(--ink);
+  word-break: keep-all;
 }
 
-.grid {
+.layout {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1px;
-  background: rgba(255, 255, 255, 0.06);
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  gap: 64px;
+  align-items: start;
 }
 
-.cell {
-  background: var(--dark);
-  padding: 36px 28px;
+/* ---------- 손그림 지도 ---------- */
+
+.sketch {
+  composes: sheet from '../../styles/scrapbook.module.css';
+  padding: 22px 22px 18px;
+}
+
+.tape {
+  composes: tape from '../../styles/scrapbook.module.css';
+  top: -14px;
+  left: 50%;
+  width: 110px;
+  height: 28px;
+  margin-left: -55px;
+  transform: rotate(2deg);
+}
+
+.map {
+  width: 100%;
+  height: auto;
+  display: block;
+  background:
+    repeating-linear-gradient(0deg, transparent 0 23px, color-mix(in srgb, var(--pencil) 10%, transparent) 23px 24px),
+    repeating-linear-gradient(90deg, transparent 0 23px, color-mix(in srgb, var(--pencil) 10%, transparent) 23px 24px);
+}
+
+.blocks rect {
+  fill: var(--paper-deep);
+  stroke: color-mix(in srgb, var(--pencil) 35%, transparent);
+  stroke-width: 1;
+}
+
+.routeLine {
+  stroke: var(--accent);
+  stroke-width: 5;
+  stroke-dasharray: 10 7;
+  stroke-linecap: round;
+  fill: none;
+  opacity: 0.75;
+}
+
+.wrongPin path {
+  fill: #9A9590;
+}
+
+.wrongPin text {
+  fill: #FFFFFF;
+  font: 700 14px var(--font-sans);
+}
+
+.realStop circle {
+  fill: var(--accent);
+  stroke: #FFFDF8;
+  stroke-width: 3;
+}
+
+.realStop .realDot {
+  fill: #FFFFFF;
+  stroke: none;
+}
+
+.gap {
+  fill: none;
+  stroke: var(--stamp);
+  stroke-width: 2;
+  stroke-dasharray: 4 5;
+}
+
+.realCircle {
+  composes: jitter from '../../styles/scrapbook.module.css';
+  position: absolute;
+  left: 7%;
+  top: 22%;
+  width: 22%;
+  height: 26%;
+  color: var(--stamp);
+}
+
+.label {
+  position: absolute;
+  font-family: var(--font-hand);
+  font-size: 16px;
+  line-height: 1.1;
+  white-space: nowrap;
+}
+
+.labelReal {
+  left: 6%;
+  top: 9%;
+  color: var(--stamp);
+  transform: rotate(-4deg);
+}
+
+.labelWrong {
+  left: 49%;
+  top: 60%;
+  color: var(--pencil);
+  transform: rotate(3deg);
+}
+
+.gapLabel {
+  position: absolute;
+  left: 30%;
+  top: 60%;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--card);
+  background: var(--stamp);
+  padding: 2px 8px;
+  transform: rotate(-3deg);
+}
+
+.caption {
+  margin-top: 14px;
+  font-size: var(--fs-caption);
+  color: var(--text-subtle);
+}
+
+/* ---------- 메모지 ---------- */
+
+.notes {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+  padding-top: 12px;
+}
+
+/* 메모지 — 손으로 자른 가장자리 */
+.note {
+  composes: roughSheet from '../../styles/scrapbook.module.css';
+  padding: 26px 26px 24px 70px;
+}
+
+.note:nth-child(2) {
+  margin-left: 28px;
+  --sheet-bg: color-mix(in srgb, var(--tape) 45%, var(--card));
+}
+
+.pin {
+  position: absolute;
+  top: -7px;
+  left: 50%;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #F08B6E, var(--stamp) 60%);
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.3);
 }
 
 .num {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  color: var(--accent-text);
-  letter-spacing: 0.12em;
-  margin-bottom: 16px;
+  position: absolute;
+  left: 22px;
+  top: 22px;
+  font-family: var(--font-hand);
+  font-size: 26px;
+  color: var(--stamp);
+  line-height: 1;
 }
 
 .body {
-  font-size: 13px;
-  color: rgba(255, 255, 255, 0.45);
-  line-height: 1.9;
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  color: var(--ink);
 }
 
-@media (max-width: 768px) {
-  .section {
-    padding: 60px 24px;
-  }
-  .grid {
+@media (max-width: 1023px) {
+
+  .layout {
     grid-template-columns: 1fr;
+    gap: 48px;
+  }
+
+  .note:nth-child(2) {
+    margin-left: 12px;
+  }
+
+  .label {
+    font-size: 13px;
   }
 }

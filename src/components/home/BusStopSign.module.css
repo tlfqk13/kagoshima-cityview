@@ -1,0 +1,121 @@
+/* 정류장 표지판 — 원형 표지 + 기둥 + 시간표 보드. 크기는 --sign-scale로 조절 */
+
+.sign {
+  --sign-scale: 1;
+  --sign-color: #8B4513;
+  position: relative;
+  width: calc(150px * var(--sign-scale));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  filter: drop-shadow(0 8px 14px rgba(40, 25, 10, 0.2));
+}
+
+.disc {
+  width: calc(104px * var(--sign-scale));
+  height: calc(104px * var(--sign-scale));
+  border-radius: 50%;
+  background: #FFFDF8;
+  border: calc(7px * var(--sign-scale)) solid var(--sign-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: calc(2px * var(--sign-scale));
+  color: var(--sign-color);
+  position: relative;
+  z-index: 2;
+}
+
+.bus {
+  width: calc(38px * var(--sign-scale));
+  height: auto;
+}
+
+.discTitle {
+  font-family: var(--font-sans);
+  font-weight: 800;
+  font-size: calc(10.5px * var(--sign-scale));
+  letter-spacing: 0.12em;
+  color: #1C1A18;
+}
+
+.discSub {
+  font-family: var(--font-sans);
+  font-size: calc(8px * var(--sign-scale));
+  color: #5A534B;
+}
+
+.pole {
+  width: calc(9px * var(--sign-scale));
+  height: calc(26px * var(--sign-scale));
+  background: linear-gradient(90deg, #8D8F92, #D6D8DA 45%, #8D8F92);
+  margin-top: -2px;
+}
+
+.board {
+  width: 100%;
+  background: #FFFDF8;
+  border: 2px solid #3A3632;
+  border-radius: 3px;
+  overflow: hidden;
+  font-family: var(--font-sans);
+  color: #1C1A18;
+}
+
+.boardHead {
+  background: var(--sign-color);
+  color: #FFFDF8;
+  font-size: calc(11px * var(--sign-scale));
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-align: center;
+  padding: calc(4px * var(--sign-scale)) 0;
+}
+
+.rows {
+  padding: calc(6px * var(--sign-scale)) calc(10px * var(--sign-scale)) 0;
+}
+
+.rows div {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: calc(10px * var(--sign-scale));
+  padding: calc(2px * var(--sign-scale)) 0;
+  border-bottom: 1px dashed #CFC6B8;
+}
+
+.rows dd {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: calc(12px * var(--sign-scale));
+}
+
+.boardFoot {
+  display: flex;
+  justify-content: space-between;
+  gap: 6px;
+  font-size: calc(9px * var(--sign-scale));
+  color: #5A534B;
+  padding: calc(5px * var(--sign-scale)) calc(10px * var(--sign-scale)) calc(7px * var(--sign-scale));
+}
+
+.base {
+  width: calc(9px * var(--sign-scale));
+  height: calc(70px * var(--sign-scale));
+  background: linear-gradient(90deg, #8D8F92, #D6D8DA 45%, #8D8F92);
+  position: relative;
+}
+
+.base::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(46px * var(--sign-scale));
+  height: calc(8px * var(--sign-scale));
+  border-radius: 50%;
+  background: #7A7C7F;
+}

@@ -215,8 +215,9 @@ ADMIN_EMAILS=your@email.com
 ### 사진 에셋 경로 규칙
 
 - 사진 파일은 `public/images/` 아래 용도별 디렉터리에 둡니다.
-- **홈 히어로:** `public/images/hero/sakurajima.jpg` — `HeroScroll.tsx`의 `HERO_PHOTO` 상수가 참조합니다. 파일이 없으면 기존 그라디언트+실루엣 fallback이 자동 표시되므로, 파일을 추가하기만 하면 됩니다.
-- 히어로는 스크롤 스크럽 컴포넌트(`src/components/home/HeroScroll.tsx`)입니다. JS는 진행률 CSS 변수 `--p`만 갱신하고 연출은 CSS(`HeroScroll.module.css`의 `--p1`~`--p5` 단계 변수)가 담당합니다. `/?p=0.6` 같은 쿼리 파라미터로 진행률을 고정해 구간별 확인이 가능합니다. `prefers-reduced-motion`이면 정적 히어로로 fallback합니다.
+- **랜딩·포스터 사진:** `public/images/home/*.jpg` — 슬롯은 `src/components/home/photos.ts`의 `HOME_PHOTOS`가 관리합니다. 현재는 루트 `image/` 일러스트의 글자 부분을 잘라낸 임시 이미지이며, 실사 사진은 같은 파일명으로 덮어쓰거나 `photos.ts`의 경로만 바꾸면 됩니다(가로 1200px 전후, JPG q70~80). 스팟 카드의 정류장 연결(`SPOTS`)도 같은 파일에 있습니다.
+- 랜딩은 여행 스크랩북 톤입니다. 토큰(`--paper`, `--tape`, `--stamp`, `--font-hand` 등)은 `src/styles/tokens.css`, 공통 요소는 `src/styles/scrapbook.module.css`에 있습니다. 스크롤 등장 연출은 `ScrapbookReveal`이 `[data-reveal]` 요소에 `data-in`을 붙이는 방식이며, 준비 클래스가 붙기 전(JS 실패 포함)에는 모든 내용이 그대로 보입니다. `prefers-reduced-motion`이면 연출하지 않습니다.
+- 손글씨 폰트는 CDN 없이 시스템 폰트(Bradley Hand·Noteworthy·Segoe Print)를 쓰며 한글·가나는 세리프로 대체됩니다.
 - **정류장 사진:** `public/images/stops/`에 내용 기반 이름(예: `senganen.jpg`, `shiroyama.jpg`, `kagoshima-bay.jpg`)으로 추가한 뒤, 해당 노선 JSON(`src/data/routes/*.json`)의 정류장 객체에 `"photos": ["/images/stops/senganen.jpg"]`를 추가해야 `StopDetail`에 표시됩니다. `photos`가 없으면 `placeholder.svg`가 표시됩니다. 무거운 PNG 원본은 `public/`이 아닌 루트 `image/`에 보관하고, 웹용은 JPG(q75~85)로 변환해 넣습니다(PWA precache 부피 절약).
 
 ### 디자인 시스템
