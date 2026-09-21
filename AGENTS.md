@@ -326,3 +326,13 @@ ADMIN_EMAILS=your@email.com
 3. `npm run check`로 린트·단위 테스트·타입·빌드를 확인하세요.
 4. 변경에 관련된 브라우저 회귀 및 실제 지도 검증을 위 **테스트** 절차에 따라 수행하세요.
 5. 커밋·푸시·배포는 위 **배포 프로세스**의 승인 범위를 따르세요. 절차가 문서에 있다는 이유만으로 실행하지 않습니다.
+
+<!-- BEGIN:nextjs-agent-rules -->
+
+# This is NOT the Next.js you know
+
+This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
+
+This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
+
+<!-- END:nextjs-agent-rules -->
