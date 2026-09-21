@@ -969,9 +969,9 @@
           "18:50"
         ],
         "operatingNote": {
-          "ko": "하루 19편 운행. 순환 종점 (stop_01과 동일 위치).",
-          "en": "19 daily runs. Loop terminus (same location as stop_01).",
-          "ja": "1日19便。循環終点（stop_01と同一地点）。"
+          "ko": "하루 19편 운행. 순환 종점 (1번 정류장과 같은 위치).",
+          "en": "19 daily runs. Loop terminus (same location as stop No.1).",
+          "ja": "1日19便。循環終点（1番停留所と同一地点）。"
         },
         "arrivalOnly": true
       },
