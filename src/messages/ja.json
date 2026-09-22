@@ -5,7 +5,7 @@
     "openMap": "地図を開く",
     "toggleTheme": "テーマ切り替え",
     "accuracy": "Googleマップ比較",
-    "downloads": "資料",
+    "downloads": "QRカード",
     "menu": "メニューを開く",
     "closeMenu": "メニューを閉じる",
     "logoPre": "鹿児島",
@@ -146,12 +146,12 @@
     "source": "データ提供：鹿児島市（原データより加工）",
     "license": "CC BY 4.0",
     "disclaimer": "本サイトは停留所の位置をご案内するものです。運行時刻は必ず公式アプリでご確認ください。",
-    "downloads": "ダウンロード"
+    "downloads": "QRカード・ご案内資料"
   },
   "downloads": {
-    "eyebrow": "Downloads",
-    "title": "ダウンロード",
-    "intro": "停留所案内QRカードと提案文書のダウンロードページです。",
+    "eyebrow": "宿泊施設・観光案内所の方へ",
+    "title": "QRカード・ご案内資料",
+    "intro": "ホテルのフロントや観光案内所に置ける停留所QRカード・ポスターと、導入のご提案資料です。",
     "cardTitle": "停留所QRカード (A6印刷用)",
     "cardDesc": "全20停留所。ホテルフロント・観光案内所の掲示用。ホテル名入りカードにも対応。",
     "siteQrTitle": "サイトQRカード・ポスター (A6・A4印刷用)",

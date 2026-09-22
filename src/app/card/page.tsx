@@ -19,7 +19,7 @@ export default function CardIndexPage() {
     <div className={styles.page}>
       <header className={styles.header}>
         <nav className={styles.backNav} aria-label="Site">
-          <Link href="/downloads">← 資料 · Downloads · 자료</Link>
+          <Link href="/downloads">← QRカード・ご案内資料 · QR cards &amp; documents · QR 카드·안내 자료</Link>
           <Link href="/">サイトトップ · Home · 홈</Link>
         </nav>
         <h1 className={styles.h1}>인쇄물</h1>

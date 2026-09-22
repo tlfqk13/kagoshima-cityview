@@ -5,7 +5,7 @@
     "openMap": "Open Map",
     "toggleTheme": "Toggle theme",
     "accuracy": "vs Google Maps",
-    "downloads": "Downloads",
+    "downloads": "QR Cards",
     "menu": "Open menu",
     "closeMenu": "Close menu",
     "logoPre": "Kagoshima",
@@ -146,12 +146,12 @@
     "source": "Data: 鹿児島市 (processed from original)",
     "license": "CC BY 4.0",
     "disclaimer": "GPS location only. Always verify schedules via official app.",
-    "downloads": "Downloads"
+    "downloads": "QR cards & documents"
   },
   "downloads": {
-    "eyebrow": "Downloads",
-    "title": "Downloads",
-    "intro": "Bus stop QR cards and proposal documents.",
+    "eyebrow": "For hotels & visitor centers",
+    "title": "QR Cards & Documents",
+    "intro": "Stop QR cards and posters for hotel front desks and visitor centers, plus proposal documents.",
     "cardTitle": "Stop QR Cards (A6 printable)",
     "cardDesc": "All 20 stops. For hotel front desks and tourist information centers. Hotel-branded cards supported.",
     "siteQrTitle": "Site QR Card & Poster (A6 · A4 printable)",

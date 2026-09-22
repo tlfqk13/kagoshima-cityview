@@ -5,7 +5,7 @@
     "openMap": "지도 열기",
     "toggleTheme": "테마 전환",
     "accuracy": "구글맵 비교",
-    "downloads": "자료",
+    "downloads": "QR 카드",
     "menu": "메뉴 열기",
     "closeMenu": "메뉴 닫기",
     "logoPre": "가고시마",
@@ -146,12 +146,12 @@
     "source": "データ提供：鹿児島市（原データより加工）",
     "license": "CC BY 4.0",
     "disclaimer": "GPS 위치 기준. 운행 시간은 공식 앱 확인 필수.",
-    "downloads": "자료 다운로드"
+    "downloads": "QR 카드·안내 자료"
   },
   "downloads": {
-    "eyebrow": "Downloads",
-    "title": "자료 다운로드",
-    "intro": "정류장 안내 QR 카드와 제안 문서 모음입니다.",
+    "eyebrow": "호텔·관광안내소용",
+    "title": "QR 카드·안내 자료",
+    "intro": "호텔 프런트와 관광안내소에 두는 정류장 QR 카드·포스터, 도입 제안서를 받을 수 있습니다.",
     "cardTitle": "정류장 QR 카드 (A6 인쇄용)",
     "cardDesc": "전 20개 정류장. 호텔 프런트·관광안내소 비치용. 호텔 브랜드 카드 지원.",
     "siteQrTitle": "사이트 QR 카드·포스터 (A6·A4 인쇄용)",
