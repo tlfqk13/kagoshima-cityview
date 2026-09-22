@@ -4,7 +4,7 @@
     "map": "지도",
     "openMap": "지도 열기",
     "toggleTheme": "테마 전환",
-    "accuracy": "정확도 감사",
+    "accuracy": "구글맵 비교",
     "downloads": "자료",
     "menu": "메뉴 열기",
     "closeMenu": "메뉴 닫기",
@@ -32,12 +32,12 @@
     "costLabel": "무료 · 광고 없음",
     "source": "가고시마시 공식 GTFS 오픈데이터 기반",
     "validated": "현장 검증일",
-    "accuracyLink": "구글맵과의 정확도 비교 감사 →"
+    "accuracyLink": "구글맵 위치와 비교한 결과 보기 →"
   },
   "accuracy": {
-    "eyebrow": "Accuracy Audit — 2026.07",
+    "eyebrow": "구글맵 비교 · 2026.07",
     "title": "구글맵은 정류장을 얼마나 정확히 안내할까",
-    "intro": "시티뷰 전 20개 정류장에 대해, 구글맵이 안내하는 위치와 공식 좌표(가고시마시 교통국 공표)를 전수 비교한 감사 결과입니다.",
+    "intro": "시티뷰 전 20개 정류장에 대해, 구글맵이 안내하는 위치와 공식 좌표(가고시마시 교통국 공표)를 전수 비교한 결과입니다.",
     "statOk": "정상",
     "statWarn": "주의",
     "statError": "오류",

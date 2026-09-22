@@ -4,7 +4,7 @@
     "map": "Map",
     "openMap": "Open Map",
     "toggleTheme": "Toggle theme",
-    "accuracy": "Accuracy",
+    "accuracy": "vs Google Maps",
     "downloads": "Downloads",
     "menu": "Open menu",
     "closeMenu": "Close menu",
@@ -32,12 +32,12 @@
     "costLabel": "No Ads",
     "source": "Based on official Kagoshima City GTFS open data",
     "validated": "Last field-verified",
-    "accuracyLink": "Accuracy audit vs Google Maps →"
+    "accuracyLink": "See how Google Maps compares →"
   },
   "accuracy": {
-    "eyebrow": "Accuracy Audit — July 2026",
+    "eyebrow": "Google Maps check · July 2026",
     "title": "How accurate is Google Maps for these bus stops?",
-    "intro": "A full audit comparing the locations Google Maps shows against the official coordinates published by the Kagoshima City Transportation Bureau, for all 20 City View bus stops.",
+    "intro": "A full check comparing the locations Google Maps shows against the official coordinates published by the Kagoshima City Transportation Bureau, for all 20 City View bus stops.",
     "statOk": "Accurate",
     "statWarn": "Caution",
     "statError": "Wrong",

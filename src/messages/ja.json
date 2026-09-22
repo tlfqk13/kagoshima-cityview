@@ -4,7 +4,7 @@
     "map": "地図",
     "openMap": "地図を開く",
     "toggleTheme": "テーマ切替",
-    "accuracy": "精度検証",
+    "accuracy": "Googleマップ比較",
     "downloads": "資料",
     "menu": "メニューを開く",
     "closeMenu": "メニューを閉じる",
@@ -32,10 +32,10 @@
     "costLabel": "広告なし",
     "source": "鹿児島市公式GTFSオープンデータ基準",
     "validated": "現地確認日",
-    "accuracyLink": "Googleマップとの正確性比較調査 →"
+    "accuracyLink": "Googleマップとの比較結果を見る →"
   },
   "accuracy": {
-    "eyebrow": "Accuracy Audit — 2026年7月",
+    "eyebrow": "Googleマップ比較・2026年7月",
     "title": "Googleマップの停留所表示はどれくらい正確か",
     "intro": "鹿児島シティビュー全20停留所について、Googleマップの表示位置と公式座標(鹿児島市交通局の公表値)を照合した全数調査の結果です。",
     "statOk": "正常",

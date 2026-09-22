@@ -56,7 +56,7 @@ export default function PartnershipSection() {
           <h3 className={styles.aboutTitle}>{t('partnership.aboutTitle')}</h3>
           <p className={styles.aboutBody}>{t('partnership.aboutBody')}</p>
           <p className={styles.aboutMaintenance}>
-            {t('partnership.aboutMaintenance')} — <Link href="/accuracy" className={styles.aboutLink}>Accuracy Audit →</Link>
+            {t('partnership.aboutMaintenance')} — <Link href="/accuracy" className={styles.aboutLink}>{t('nav.accuracy')} →</Link>
           </p>
           <p className={styles.aboutEmail}>
             <span className={styles.emailLabel}>{t('partnership.emailLabel')}</span>
