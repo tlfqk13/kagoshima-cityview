@@ -61,7 +61,7 @@ export default async function PosterPage({ searchParams }: Props) {
             <div className={styles.hotelBand}>
               <span className={styles.hotelName}>{hotel.nameJa}</span>
               <span className={styles.hotelNote}>
-                宿泊ゲスト様へ · For our guests · 투숙객 안내
+                ご宿泊のお客様へ · For our guests · 투숙객 안내
                 {nearestStop && (
                   <> — 最寄り停留所 · Nearest stop · 가까운 정류장: No.{nearestStop.number} {nearestStop.name.ja}</>
                 )}
@@ -115,7 +115,7 @@ export default async function PosterPage({ searchParams }: Props) {
           </div>
 
           <p className={styles.disclaimer}>
-            運行時間・運賃は変更される場合があります（{route.sourceVersion}時点）。最新情報は公式情報をご確認ください。
+            運行時間・運賃は変更される場合があります（{route.sourceVersion}時点）。最新の情報は鹿児島市交通局の公式サイトでご確認ください。
             Schedules and fares may change — please check official information.
           </p>
         </div>

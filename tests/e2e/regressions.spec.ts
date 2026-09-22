@@ -116,7 +116,7 @@ test('사이트 QR 인쇄물은 QR과 호텔 이름을 표시한다', async ({ p
   // 알 수 없는 호텔은 무시하고 기본 인쇄물을 보여준다
   const response = await request.get('/card/site?hotel=unknown')
   expect(response.status()).toBe(200)
-  expect(await response.text()).not.toContain('宿泊ゲスト様へ')
+  expect(await response.text()).not.toContain('ご宿泊のお客様へ')
 })
 
 test('메뉴로 주요 페이지를 오가고 현재 위치를 표시한다', async ({ page, isMobile }) => {

@@ -47,7 +47,7 @@ export default async function SiteCardPage({ searchParams }: Props) {
           {hotel && (
             <div className={styles.hotelBand}>
               <span className={styles.hotelName}>{hotel.nameJa}</span>
-              <span className={styles.hotelNote}>宿泊ゲスト様へ · For our guests · 투숙객 안내</span>
+              <span className={styles.hotelNote}>ご宿泊のお客様へ · For our guests · 투숙객 안내</span>
               {nearestStop && (
                 <span className={styles.hotelStop}>
                   最寄り停留所 · Nearest stop · 가까운 정류장: No.{nearestStop.number} {nearestStop.name.ja}

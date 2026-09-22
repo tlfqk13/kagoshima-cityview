@@ -132,7 +132,7 @@
   "partnership": {
     "h2line1": "A bus-stop card",
     "h2line2": "for your front desk",
-    "body": "Guests scan the QR and the exact location of the nearest stop opens on a map. Print files are free, and we can add your property’s name. Available in Japanese, English and Korean.",
+    "body": "Guests scan the QR code to see the exact location of every stop on their phone. Print files are free, and we can add your property’s name. Available in Japanese, English and Korean.",
     "cta": "Request cards / contact",
     "aboutTitle": "Who made this",
     "aboutBody": "Built by a traveler who missed the bus in Kagoshima.",
@@ -171,14 +171,14 @@
     "episode": "Episode",
     "prev": "Prev",
     "next": "Next",
-    "pageEyebrow": "Dev Log",
+    "pageEyebrow": "Story",
     "pageHeading": "The story behind this service",
-    "metaDescription": "The making of the Kagoshima City View bus guide"
+    "metaDescription": "How the Kagoshima City View bus guide came to be"
   },
   "problem": {
     "title": "Google Maps is wrong,\nand there are no signs",
     "item1": "Google Maps points to the wrong location. One traveler waited 10 minutes and missed the bus.",
-    "item2": "There are no English or Korean signs at stops. Some foreign travelers didn't know to board when the bus arrived.",
+    "item2": "Multilingual guidance at stops is limited. Some foreign travelers didn't know whether to board when the bus arrived.",
     "item3": "Accurate multilingual info in one place is hard to find. This app fills that gap."
   },
   "offline": {

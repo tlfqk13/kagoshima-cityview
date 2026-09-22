@@ -65,7 +65,7 @@ export default async function StopCardPage({ params, searchParams }: Props) {
           {hotel && (
             <div className={styles.hotelBand}>
               <span className={styles.hotelName}>{hotel.nameJa}</span>
-              <span className={styles.hotelNote}>宿泊ゲスト様へ · For our guests · 투숙객 안내</span>
+              <span className={styles.hotelNote}>ご宿泊のお客様へ · For our guests · 투숙객 안내</span>
             </div>
           )}
           <div className={styles.stopNum}>No. {stop.number}</div>
@@ -79,7 +79,7 @@ export default async function StopCardPage({ params, searchParams }: Props) {
           <p className={styles.guide}>
             Scan for the exact bus stop location.<br />
             정확한 버스 정류장 위치를 QR로 확인하세요.<br />
-            正確なバス停の位置はQRコードから。
+            バス停の正確な位置は、QRコードからご確認ください。
           </p>
         </div>
         <div className={styles.cardFooter}>
