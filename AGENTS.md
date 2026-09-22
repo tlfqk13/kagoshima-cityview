@@ -50,7 +50,7 @@
 | 분석 | @vercel/analytics | |
 | 스타일 | CSS Modules + `src/styles/tokens.css` | Tailwind 미사용 |
 | 폰트 | next/font/google (Zen Maru Gothic) | 빌드 시 자체 호스팅, 런타임 CDN 없음 (ADR 007) |
-| 배포 | Vercel | 도쿄 리전(`nrt1`) |
+| 배포 | Vercel | 도쿄 리전(`hnd1`) |
 
 ### 핵심 외부 의존성
 
@@ -266,7 +266,7 @@ ADMIN_EMAILS=your@email.com
    - `buildCommand`: `npm run build`
    - `devCommand`: `npm run dev`
    - `framework`: `nextjs`
-   - `regions`: `["nrt1"]` (도쿄 리전)
+   - `regions`: `["hnd1"]` (도쿄 리전. 예전 ID `nrt1`은 현재 Vercel에서 "Invalid region selector"로 배포가 실패함)
    - `manifest.json`과 아이콘에 대한 캐시 헤더 설정 포함
 3. PWA service worker는 `@ducanh2912/next-pwa`가 빌드 시 `public/`에 생성합니다. `public/sw.js`, `public/workbox-*.js`는 `.gitignore`에 포함되어 Git에서 제외됩니다.
 4. 관광과 공식 채택 이전에는 Vercel Hobby → Pro 전환이 필요합니다. Hobby ToS의 상업적 이용 제한에 해당할 수 있습니다.
