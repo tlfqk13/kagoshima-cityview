@@ -1,23 +1,23 @@
 ---
-title: "Design: Inspired by Paper Maps"
+title: "Design: Like a Traveler's Scrapbook"
 date: "2026-05-25"
-summary: "I designed a design system that captures the atmosphere of Kagoshima. Serif fonts, warm browns, a paper texture."
+summary: "Not stiff like a government site, not loud like an ad. I based the design on a travel scrapbook: photos, notes and stamps on cream-colored paper."
 published: true
 ---
 
-Once the features were decided, it was time to decide how it should look.
+Once the features were settled, it was time to decide how the site should look.
 
-For the service to be adopted by Kagoshima City Hall's tourism division, it had to feel trustworthy. It couldn't look cheap. But it also couldn't be overly flashy.
+My first version used a serif typeface and brown tones. It looked trustworthy, but cold — more like an official notice than a travel guide.
 
-I gathered references: paper maps from tourist information centers in Japan, traditional travel guidebooks from Kyoto, and the official Kagoshima tourism website.
+So I thought about what had piled up in my bag during the Kagoshima trip: bus tickets, a paper map from the tourist information center, stamps collected at every stop. The information travelers know best lives on paper like that. So I decided to make the site feel like a **tabi no shiori**, a handmade travel booklet: photos pasted onto cream paper, notes held down with tape, stamps pressed here and there.
 
-I found a common language. **Serif fonts, cream backgrounds, restrained layouts.**
+But however much it looks like a booklet, it is still a tool for finding your bus. So I set a few rules.
 
-I defined the design tokens:
-- Background: `#F4EFE9` — the color of aged paper
-- Accent: `#8B4513` — the color of Sakurajima's volcanic soil
-- Dark: `#1F1E1A` — the darkness of a night scene
+- **Information stays straight.** Tilts, handwriting and tape are for decoration only. Anything you need to read — stop names, timetables, fares — stays level and in a plain, readable typeface.
+- **Real data becomes the props.** The timetable on the bus stop sign on the home page and the distances on the hand-drawn map all come from the actual route data and survey results. No made-up numbers for decoration.
+- **Travel objects instead of characters.** This service has no mascot. Instead, travel objects — a bus stop sign, a ticket, a stamp — take center stage.
+- **The map is a tool.** The screen where you look for your bus has no paper texture and no tilt. When you're in a hurry, finding things quickly comes first.
 
-The map pins speak the same language too: navy by default, brown for the selected bus stop, and warning orange for bus stops with incorrect Google Maps coordinates.
+For the typeface I chose **Zen Maru Gothic**, which is rounded and soft. It stays natural even with Japanese, Korean and English on the same screen.
 
-I made the design explain the features.
+Some rules matter as much as looks. Every text color meets the contrast required by Japan's web accessibility standard (JIS X 8341-3), so the site stays readable for people with low vision and for travelers squinting at their phones in bright sun.
