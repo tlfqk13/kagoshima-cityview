@@ -166,13 +166,13 @@
     "open": "開く →"
   },
   "devlog": {
-    "sectionTitle": "制作の記録",
+    "sectionTitle": "制作ストーリー",
     "viewAll": "すべて見る",
     "episode": "エピソード",
     "prev": "前へ",
     "next": "次へ",
     "pageEyebrow": "ストーリー",
-    "pageHeading": "このサービスができた経緯",
+    "pageHeading": "このサービスが生まれるまで",
     "metaDescription": "鹿児島シティビューバスガイドができるまでの物語"
   },
   "problem": {
