@@ -25,14 +25,13 @@
   },
   "trust": {
     "stopsNum": "20",
-    "stopsLabel": "GPS確認済み停留所",
+    "stopsLabel": "GPS確認済み\n停留所",
     "langsNum": "3",
     "langsLabel": "KO · EN · JP",
-    "costNum": "無料",
-    "costLabel": "広告なし",
     "source": "鹿児島市公式GTFSオープンデータ基準",
     "validated": "現地確認日",
-    "accuracyLink": "Googleマップとの比較結果を見る →"
+    "accuracyLink": "Googleマップとの比較結果を見る →",
+    "googleWrongLabel": "Googleマップ誤表示\n最大{{m}}m"
   },
   "accuracy": {
     "eyebrow": "Googleマップ比較・2026年7月",
@@ -131,16 +130,17 @@
     "close": "閉じる"
   },
   "partnership": {
-    "h2line1": "鹿児島市観光課と",
-    "h2line2": "連携したいと思っています",
-    "body": "このサービスは鹿児島市公式GTFSオープンデータに基づいています。無料・広告なし。より多くの旅行者が鹿児島を楽しめるように。",
-    "cta": "連携のお問い合わせ",
-    "ctaMap": "地図を開く",
-    "aboutTitle": "運営について",
-    "aboutBody": "鹿児島を旅行してバスに乗り遅れた旅行者が個人で開発しました。同じ経験をする旅行者がいなくなるよう、無料・広告なし・非営利で運営しています。",
+    "h2line1": "フロントに置ける、",
+    "h2line2": "停留所案内カード",
+    "body": "お客様がQRを読み取ると、最寄り停留所の正確な位置が地図で開きます。印刷データは無料でお渡しし、施設名入りのカードもご用意できます。日本語・英語・韓国語に対応しています。",
+    "cta": "カードのお申し込み・お問い合わせ",
+    "aboutTitle": "作った人",
+    "aboutBody": "鹿児島を旅行してバスに乗り遅れた旅行者が、自ら開発しました。",
     "aboutMaintenance": "四半期ごとに全停留所の位置検証を再実施し、結果を公開しています",
     "emailLabel": "連絡先",
-    "copied": "メールアドレスをコピーしました"
+    "copied": "メールアドレスをコピーしました",
+    "ctaPrint": "印刷物を見る",
+    "aboutStory": "開発ストーリーを読む"
   },
   "footer": {
     "source": "データ提供：鹿児島市（原データより加工）",
@@ -228,6 +228,7 @@
       }
     },
     "trustEyebrow": "信頼できる理由",
-    "letterTo": "鹿児島市観光課 御中"
+    "letterTo": "宿泊施設・観光案内所の方へ",
+    "tickerNextBus": "次のバスまであと何分かすぐわかる"
   }
 }

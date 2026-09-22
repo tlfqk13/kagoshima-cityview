@@ -2,18 +2,15 @@
 import type { CSSProperties } from 'react'
 import { useTranslation } from 'react-i18next'
 import { getStopById, type Lang } from '@/lib/routes'
-import rawAudit from '@/data/accuracy-audit.json'
+import { accuracySummary } from '@/lib/accuracy'
 import Scribble from './Scribble'
 import styles from './ProblemGrid.module.css'
 
 const PROBLEM_KEYS = ['item1', 'item2', 'item3'] as const
 const NOTE_TILTS = [-2.2, 1.6, -1]
 
-interface AuditStop { id: string; errorMeters: number; grade: string }
-const audit = rawAudit as unknown as { auditedAt: string; stops: AuditStop[] }
-
-// 감사 결과 중 가장 크게 어긋난 정류장 — 손그림 지도의 예시로 쓴다
-const worst = audit.stops.reduce((a, b) => (b.errorMeters > a.errorMeters ? b : a))
+// 비교 결과 중 가장 크게 어긋난 정류장 — 손그림 지도의 예시로 쓴다
+const { worst, auditedAt } = accuracySummary
 
 export default function ProblemGrid() {
   const { t, i18n } = useTranslation()
@@ -68,7 +65,7 @@ export default function ProblemGrid() {
             <span className={styles.gapLabel}>{t('home.sketchGap', { m: worst.errorMeters })}</span>
             {worstStop && (
               <figcaption className={styles.caption}>
-                {t('home.sketchCaption', { name: worstStop.name[lang], date: audit.auditedAt })}
+                {t('home.sketchCaption', { name: worstStop.name[lang], date: auditedAt })}
               </figcaption>
             )}
           </figure>

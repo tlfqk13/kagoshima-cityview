@@ -9,7 +9,9 @@ import styles from './PartnershipSection.module.css'
 
 const CONTACT_EMAIL = 'fkffksk20@gmail.com'
 
-// 관광과에 보내는 편지 — 왼쪽은 편지지, 오른쪽은 우표·소인이 찍힌 엽서 뒷면
+// 호텔·관광안내소 담당자에게 보내는 편지 — 서비스를 실제로 퍼뜨려 주는 배포 파트너용 안내.
+// 랜딩 방문자는 대부분 관광객이므로 지자체(관광과) 대상 제안은 여기서 하지 않고
+// 제안서 PDF(/downloads)와 직접 전달로 한다. 오른쪽 엽서는 만든 사람과 운영 원칙.
 export default function PartnershipSection() {
   const { t } = useTranslation()
   const [copied, setCopied] = useState(false)
@@ -35,7 +37,7 @@ export default function PartnershipSection() {
           </h2>
           <p className={styles.body}>{t('partnership.body')}</p>
           <div className={styles.actions}>
-            <Link href="/map" className={styles.btnMap}>{t('partnership.ctaMap')} →</Link>
+            <Link href="/card#site-qr" className={styles.btnMap}>{t('partnership.ctaPrint')} →</Link>
             <button type="button" className={styles.btnContact} onClick={handleCopyEmail} aria-live="polite">
               {copied ? t('partnership.copied') : t('partnership.cta')}
             </button>
@@ -54,7 +56,9 @@ export default function PartnershipSection() {
             </div>
           </div>
           <h3 className={styles.aboutTitle}>{t('partnership.aboutTitle')}</h3>
-          <p className={styles.aboutBody}>{t('partnership.aboutBody')}</p>
+          <p className={styles.aboutBody}>
+            {t('partnership.aboutBody')} <Link href="/story" className={styles.aboutLink}>{t('partnership.aboutStory')} →</Link>
+          </p>
           <p className={styles.aboutMaintenance}>
             {t('partnership.aboutMaintenance')} — <Link href="/accuracy" className={styles.aboutLink}>{t('nav.accuracy')} →</Link>
           </p>

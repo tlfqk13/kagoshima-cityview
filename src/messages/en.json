@@ -25,14 +25,13 @@
   },
   "trust": {
     "stopsNum": "20",
-    "stopsLabel": "GPS Verified Stops",
+    "stopsLabel": "GPS Verified\nStops",
     "langsNum": "3",
     "langsLabel": "KO · EN · JP",
-    "costNum": "Free",
-    "costLabel": "No Ads",
     "source": "Based on official Kagoshima City GTFS open data",
     "validated": "Last field-verified",
-    "accuracyLink": "See how Google Maps compares →"
+    "accuracyLink": "See how Google Maps compares →",
+    "googleWrongLabel": "Google Maps errors\nup to {{m}} m"
   },
   "accuracy": {
     "eyebrow": "Google Maps check · July 2026",
@@ -131,16 +130,17 @@
     "close": "Close"
   },
   "partnership": {
-    "h2line1": "We'd love to work with",
-    "h2line2": "Kagoshima City Tourism",
-    "body": "This service is based on official Kagoshima City GTFS open data. Free, no ads. So more travelers can enjoy Kagoshima without confusion.",
-    "cta": "Contact Us",
-    "ctaMap": "Open Map",
-    "aboutTitle": "About this project",
-    "aboutBody": "Built by a traveler who missed the bus in Kagoshima. Run free, ad-free, and non-commercial so no one else has the same experience.",
+    "h2line1": "A bus-stop card",
+    "h2line2": "for your front desk",
+    "body": "Guests scan the QR and the exact location of the nearest stop opens on a map. Print files are free, and we can add your property’s name. Available in Japanese, English and Korean.",
+    "cta": "Request cards / contact",
+    "aboutTitle": "Who made this",
+    "aboutBody": "Built by a traveler who missed the bus in Kagoshima.",
     "aboutMaintenance": "We re-verify all stop locations quarterly and publish the results",
     "emailLabel": "Contact",
-    "copied": "Email address copied"
+    "copied": "Email address copied",
+    "ctaPrint": "See print materials",
+    "aboutStory": "Read the story"
   },
   "footer": {
     "source": "Data: 鹿児島市 (processed from original)",
@@ -228,6 +228,7 @@
       }
     },
     "trustEyebrow": "Why you can trust it",
-    "letterTo": "To the Kagoshima City Tourism Division"
+    "letterTo": "For hotels & tourist information centers",
+    "tickerNextBus": "See how many minutes until the next bus"
   }
 }
