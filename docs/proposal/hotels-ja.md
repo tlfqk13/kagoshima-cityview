@@ -51,7 +51,7 @@
 
 - 氏名: [　　]
 - メールアドレス: fkffksk20@gmail.com
-- サービスURL: https://www.kagoshima-cityview.com
+- サービスURL: https://kagoshima.makoro.dev
 
 ご多忙のところ恐縮ですが、ご検討賜りますよう何卒よろしくお願い申し上げます。
 
@@ -78,7 +78,7 @@
 
 [氏名]
 fkffksk20@gmail.com
-https://www.kagoshima-cityview.com
+https://kagoshima.makoro.dev
 ```
 
 ---

@@ -4,7 +4,7 @@ import Link from 'next/link'
 import QRCode from 'qrcode'
 import { getStopsForRoute, getRoute } from '@/lib/routes'
 import { findHotel } from '@/lib/hotels'
-import { SITE_URL } from '@/lib/site'
+import { SITE_URL, SITE_DOMAIN } from '@/lib/site'
 import PrintButton from '../PrintButton'
 import styles from './card.module.css'
 
@@ -84,7 +84,7 @@ export default async function StopCardPage({ params, searchParams }: Props) {
         </div>
         <div className={styles.cardFooter}>
           <span className={styles.attribution}>データ提供：鹿児島市（原データより加工）</span>
-          <span className={styles.domain}>kagoshima-cityview.com</span>
+          <span className={styles.domain}>{SITE_DOMAIN}</span>
         </div>
       </div>
     </div>

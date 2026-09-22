@@ -28,7 +28,7 @@
 - **정류장 QR코드** — 정류장별 QR로 정확한 위치를 즉시 공유 가능
 - **대응 코스** — 시티뷰(20곳), 야경 코스(7곳), 사쿠라지마 아일랜드뷰(12곳)
 
-URL: https://www.kagoshima-cityview.com
+URL: https://kagoshima.makoro.dev
 
 ## 3. 제안 내용
 
@@ -54,7 +54,7 @@ URL: https://www.kagoshima-cityview.com
 
 - 이름: [　　]
 - 이메일: fkffksk20@gmail.com
-- 서비스 URL: https://www.kagoshima-cityview.com
+- 서비스 URL: https://kagoshima.makoro.dev
 
 ---
 
@@ -63,4 +63,4 @@ URL: https://www.kagoshima-cityview.com
 - 200m 오차: 데브로그 1화의 실제 경험
 - 정류장 수: cityview 20 / cityview-night 7 / islandview 12 (src/data/routes 기준)
 - QR 카드: `/card/[stopId]` 페이지로 구현됨 (A6 인쇄용)
-- 도메인: QRModal과 동일한 www.kagoshima-cityview.com 사용
+- 도메인: 운영사 MAKORO의 서브도메인 kagoshima.makoro.dev 사용 (코드는 src/lib/site.ts의 SITE_URL). 채택 시 별도 도메인으로 이전하고 기존 주소는 301 리다이렉트

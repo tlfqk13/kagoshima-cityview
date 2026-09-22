@@ -105,7 +105,7 @@ export default async function PosterPage({ searchParams }: Props) {
 
             <div className={styles.qrBox}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={qr} alt="QR code — kagoshima-cityview.com" className={styles.qr} />
+              <img src={qr} alt={`QR code — ${SITE_DOMAIN}`} className={styles.qr} />
               <div className={styles.scan}>
                 読み取ってください<br />Scan me · 스캔하세요
               </div>

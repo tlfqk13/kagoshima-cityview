@@ -25,7 +25,7 @@
 ### 3. QRが読み取れない (カードの汚損・退色)
 
 - カード下部のURLを直接入力しても同じページが開きます
-- 交換用カードは https://www.kagoshima-cityview.com/card からいつでも再印刷できます(無料)
+- 交換用カードは https://kagoshima.makoro.dev/card からいつでも再印刷できます(無料)
 
 ### 4. カードの設置をやめたい
 
@@ -35,13 +35,13 @@
 
 - 運営者: [氏名]
 - メール: fkffksk20@gmail.com (24時間以内に回答)
-- サービス: https://www.kagoshima-cityview.com
+- サービス: https://kagoshima.makoro.dev
 - 本サービスは停留所案内の**補助的な案内**です。公式の時刻表・案内は鹿児島市交通局の案内をご確認ください
 
 ---
 
 ## (内部メモ — 발송 전 사용자가 설정) 24시간監視の構成
 
-- UptimeRobot 묵료 플랜으로 `https://www.kagoshima-cityview.com` 5분 간격 모니터 + fkffksk20@gmail.com 알림 등록 (계정 생성은 사용자 작업)
+- UptimeRobot 무료 플랜으로 `https://kagoshima.makoro.dev` 5분 간격 모니터 + fkffksk20@gmail.com 알림 등록 (계정 생성은 사용자 작업)
 - 또는 Vercel Pro의 모니터링 기능 활용
 - 런칭 전까지 이 매뉴얼의 "24時間監視" 문구는 설정 완료 후 사용할 것 (미설정 상태로 배포하면 거짓 약속이 됨)

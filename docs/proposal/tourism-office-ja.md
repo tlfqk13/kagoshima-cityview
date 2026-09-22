@@ -25,7 +25,7 @@
 - **停留所QRコード** — 停留所ごとのQRコードで、正確な位置をすぐに共有可能
 - **対応コース** — シティビュー(20停留所)、夜景コース(7停留所)、桜島アイランドビュー(12停留所)
 
-URL: https://www.kagoshima-cityview.com
+URL: https://kagoshima.makoro.dev
 
 ## 3. ご提案内容
 
@@ -51,6 +51,6 @@ URL: https://www.kagoshima-cityview.com
 
 - 氏名: [　　]
 - メールアドレス: fkffksk20@gmail.com
-- サービスURL: https://www.kagoshima-cityview.com
+- サービスURL: https://kagoshima.makoro.dev
 
 何卒ご検討のほど、よろしくお願い申し上げます。

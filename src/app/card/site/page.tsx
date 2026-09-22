@@ -63,7 +63,7 @@ export default async function SiteCardPage({ searchParams }: Props) {
           </p>
 
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={qr} alt="QR code — kagoshima-cityview.com" className={styles.qr} />
+          <img src={qr} alt={`QR code — ${SITE_DOMAIN}`} className={styles.qr} />
           <div className={styles.url}>{SITE_DOMAIN}</div>
 
           <ul className={styles.points}>
