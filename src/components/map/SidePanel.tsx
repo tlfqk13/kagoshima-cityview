@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import type { RouteStop, RouteId } from '@/lib/routes'
 import StopList from './StopList'
 import StopDetail from './StopDetail'
+import type { HotelStops } from '@/lib/hotels'
 import StopSearch from './StopSearch'
 import styles from './SidePanel.module.css'
 
@@ -20,9 +21,10 @@ interface Props {
   onToggleFavorite?: (stopId: string) => void
   /** 목록 위에 고정으로 보여줄 내용 (호텔 모드 배너 등) */
   header?: ReactNode
+  hotelStops?: HotelStops | null
 }
 
-export default function SidePanel({ stops, selectedStop, routeId, onSelect, sourceNote, searchQuery, onSearchChange, userLocation, favorites, onToggleFavorite, header }: Props) {
+export default function SidePanel({ stops, selectedStop, routeId, onSelect, sourceNote, searchQuery, onSearchChange, userLocation, favorites, onToggleFavorite, header, hotelStops }: Props) {
   const { t } = useTranslation()
   return (
     <aside className={styles.panel}>
@@ -38,6 +40,7 @@ export default function SidePanel({ stops, selectedStop, routeId, onSelect, sour
               userLocation={userLocation}
               isFavorite={favorites?.includes(selectedStop.id)}
               onToggleFavorite={onToggleFavorite}
+              hotelStops={hotelStops}
             />
             <h2 className={styles.listHeading}>{t('map.allStops')}</h2>
           </>

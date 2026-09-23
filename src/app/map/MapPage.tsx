@@ -136,6 +136,7 @@ export default function MapPage({ initialStopId, initialRouteId = 'cityview', in
             favorites={favorites}
             onToggleFavorite={handleToggleFavorite}
             header={hotelHeader}
+            hotelStops={hotelActive ? hotelStops : null}
           />
         </div>
 
@@ -156,6 +157,7 @@ export default function MapPage({ initialStopId, initialRouteId = 'cityview', in
             onToggleFavorite={handleToggleFavorite}
             sourceNote={sourceNote}
             header={hotelHeader}
+            hotelStops={hotelActive ? hotelStops : null}
           />
         </div>
       </main>

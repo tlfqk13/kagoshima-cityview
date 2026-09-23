@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 import type { RouteStop, RouteId, Category } from '@/lib/routes'
 import StopList from './StopList'
 import StopDetail from './StopDetail'
+import type { HotelStops } from '@/lib/hotels'
 import CategoryChips from './CategoryChips'
 import StopSearch from './StopSearch'
 import styles from './BottomSheet.module.css'
@@ -26,6 +27,7 @@ interface Props {
   sourceNote: string
   /** 목록 위에 고정으로 보여줄 내용 (호텔 모드 배너 등) */
   header?: ReactNode
+  hotelStops?: HotelStops | null
 }
 
 const HEIGHTS: Record<SheetState, string> = {
@@ -49,6 +51,7 @@ export default function BottomSheet({
   onToggleFavorite,
   sourceNote,
   header,
+  hotelStops,
 }: Props) {
   const [state, setState] = useState<SheetState>(selectedStop ? 'half' : 'peek')
   const [previousStopId, setPreviousStopId] = useState(selectedStop?.id)
@@ -109,6 +112,7 @@ export default function BottomSheet({
             userLocation={userLocation}
             isFavorite={favorites?.includes(selectedStop.id)}
             onToggleFavorite={onToggleFavorite}
+            hotelStops={hotelStops}
           />
           </>
         ) : (

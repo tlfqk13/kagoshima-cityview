@@ -120,6 +120,20 @@ test('사이트 QR 인쇄물은 QR과 호텔 이름을 표시한다', async ({ p
   expect(await response.text()).not.toContain('ご宿泊のお客様へ')
 })
 
+test('정류장 상세의 FAQ 버튼은 요금·돌아가는 법으로 이동한다', async ({ page, isMobile }) => {
+  await page.goto('/map/stop_03?lang=ja')
+  const panel = isMobile ? page.getByRole('complementary', { name: ja.map.stopListAria }) : page.locator('aside')
+  const faq = panel.getByRole('group', { name: ja.map.faq.title })
+  await expect(faq).toBeVisible()
+  await faq.getByRole('button', { name: ja.map.faq.fare }).click()
+  await expect(panel.getByText('¥230')).toBeVisible()
+  await expect(panel.getByText(ja.map.back.title)).toBeVisible()
+  // 호텔 모드에서는 그 호텔의 내리는 정류장
+  await page.goto('/map?hotel=remm&lang=ja')
+  await panel.getByRole('group', { name: ja.map.faq.title }).getByRole('button', { name: ja.map.faq.back }).click()
+  await expect(panel.getByText(/帰りは No\.19 /)).toBeVisible()
+})
+
 test('프런트 도우미는 키가 없으면 준비 중 안내와 기본 정보만 보여준다', async ({ page, request }) => {
   await page.goto('/desk?hotel=remm&lang=ja')
   await expect(page.getByRole('heading', { level: 1 })).toContainText('レム鹿児島')

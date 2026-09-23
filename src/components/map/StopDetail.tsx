@@ -1,8 +1,9 @@
 'use client'
-import { useState, useSyncExternalStore } from 'react'
+import { useRef, useState, useSyncExternalStore } from 'react'
 import { useTranslation } from 'react-i18next'
 import { type RouteStop, type RouteId, DATA_LANGS, nameKey } from '@/lib/routes'
-import { getStopVerification, getDepartureInterval, getScheduleExtraNote } from '@/lib/routes'
+import { getStopVerification, getDepartureInterval, getScheduleExtraNote, getRoute } from '@/lib/routes'
+import type { HotelStops } from '@/lib/hotels'
 import styles from './StopDetail.module.css'
 import QRModal from './QRModal'
 import TodayBoard from './TodayBoard'
@@ -19,6 +20,8 @@ interface Props {
   userLocation?: [number, number] | null
   isFavorite?: boolean
   onToggleFavorite?: (stopId: string) => void
+  /** 호텔 모드일 때 — '돌아가는 법'에 그 호텔의 내리는 정류장을 보여준다 */
+  hotelStops?: HotelStops | null
 }
 
 function getWalkingEstimate(userLat: number, userLng: number, stopLat: number, stopLng: number) {
@@ -36,8 +39,26 @@ function getWalkingEstimate(userLat: number, userLng: number, stopLat: number, s
   return { meters, minutes }
 }
 
-export default function StopDetail({ stop, routeId, userLocation, isFavorite, onToggleFavorite }: Props) {
+export default function StopDetail({ stop, routeId, userLocation, isFavorite, onToggleFavorite, hotelStops }: Props) {
   const { t, i18n } = useTranslation()
+  const route = getRoute(routeId)
+  // FAQ 버튼 → 해당 정보로 스크롤하고 잠깐 강조. AI 없이 화면 안의 정보로 답한다.
+  const nextRef = useRef<HTMLDivElement>(null)
+  const destRef = useRef<HTMLDivElement>(null)
+  const backRef = useRef<HTMLDivElement>(null)
+  const lastRef = useRef<HTMLDivElement>(null)
+  const fareRef = useRef<HTMLDivElement>(null)
+  type FaqKey = 'next' | 'dest' | 'back' | 'last' | 'fare'
+  const FAQ: FaqKey[] = ['next', 'dest', 'back', 'last', 'fare']
+  function jumpTo(key: FaqKey) {
+    const el = { next: nextRef, dest: destRef, back: backRef, last: lastRef, fare: fareRef }[key].current
+    if (!el) return
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    el.scrollIntoView({ block: 'start', behavior: reduce ? 'auto' : 'smooth' })
+    el.classList.remove(styles.flash)
+    void el.offsetWidth // 애니메이션 재시작
+    el.classList.add(styles.flash)
+  }
   const lang = nameKey(i18n.language)
   const [toast, setToast] = useState<string | null>(null)
   const [toastKey, setToastKey] = useState(0)
@@ -155,6 +176,13 @@ export default function StopDetail({ stop, routeId, userLocation, isFavorite, on
           )}
         </div>
       </div>
+      <div className={styles.faq} role="group" aria-label={t('map.faq.title')}>
+        {FAQ.filter(key => key !== 'dest' || stop.destinations.length > 0).map(key => (
+          <button key={key} type="button" className={styles.faqChip} onClick={() => jumpTo(key)}>
+            {t(`map.faq.${key}`)}
+          </button>
+        ))}
+      </div>
       {userLocation && (() => {
         const { meters, minutes } = getWalkingEstimate(userLocation[1], userLocation[0], stop.lat, stop.lng)
         return (
@@ -166,13 +194,13 @@ export default function StopDetail({ stop, routeId, userLocation, isFavorite, on
           </div>
         )
       })()}
-      <TodayBoard routeId={routeId} stop={stop} />
+      <div ref={nextRef}><TodayBoard routeId={routeId} stop={stop} /></div>
       {stop.schedule && (() => {
         const deps = stop.schedule.departures
         const extraNote = getScheduleExtraNote(stop.schedule.operatingNote[lang])
         const hasExactTimes = deps.length > 0
         return (
-          <div className={styles.scheduleSection}>
+          <div className={styles.scheduleSection} ref={lastRef}>
             <div className={styles.scheduleSectionLabel}>{t(stop.schedule.arrivalOnly ? 'map.arrivals' : 'map.schedule')}</div>
             {hasExactTimes && (
               <>
@@ -198,6 +226,28 @@ export default function StopDetail({ stop, routeId, userLocation, isFavorite, on
           </div>
         )
       })()}
+      {/* 돌아가는 법 — 한 방향 순환. 호텔 모드면 그 호텔의 내리는 정류장 */}
+      <div className={styles.infoSection} ref={backRef}>
+        <div className={styles.scheduleSectionLabel}>{t('map.back.title')}</div>
+        {hotelStops ? (
+          <p className={styles.infoText}>
+            {t('map.back.hotel', { num: hotelStops.alight.number, name: hotelStops.alight.name[lang], min: hotelStops.alightMinutes })}
+          </p>
+        ) : (
+          <p className={styles.infoText}>{t('map.back.generic', { min: route.loopDurationMin })}</p>
+        )}
+      </div>
+      {/* 요금 — 포스터에만 있던 정보를 지도에도 */}
+      <div className={styles.infoSection} ref={fareRef}>
+        <div className={styles.scheduleSectionLabel}>{t('map.fare.title')}</div>
+        <dl className={styles.fareList}>
+          <div><dt>{t('map.fare.adult')}</dt><dd>¥{route.fare.adult}</dd></div>
+          <div><dt>{t('map.fare.child')}</dt><dd>¥{route.fare.child}</dd></div>
+          {route.dayPass && <div><dt>{t('map.fare.dayPass')}</dt><dd>¥{route.dayPass.adult} / ¥{route.dayPass.child}</dd></div>}
+          <div><dt>{t('map.fare.loop')}</dt><dd>{t('map.fare.loopValue', { min: route.loopDurationMin })}</dd></div>
+        </dl>
+        <p className={styles.infoNote}>{t('map.fare.note')}</p>
+      </div>
       <div className={styles.mapsSection}>
         <div className={styles.mapsSectionLabel}>{t('map.stopDetail.openInMaps')}</div>
         <div className={styles.mapsButtons}>
@@ -235,7 +285,7 @@ export default function StopDetail({ stop, routeId, userLocation, isFavorite, on
         </div>
       )}
       {stop.destinations.length > 0 && (
-        <div className={styles.destinations}>
+        <div className={styles.destinations} ref={destRef}>
           {stop.destinations.map(dest => (
             <div key={dest.id} className={styles.dest}>
               <span className={styles.destName}>{dest.name[lang]}</span>

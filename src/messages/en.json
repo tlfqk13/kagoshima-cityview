@@ -133,7 +133,29 @@
     },
     "pageTitle": "Bus stop map",
     "routeSelector": "Choose a route",
-    "loading": "Loading the map…"
+    "loading": "Loading the map…",
+    "faq": {
+      "title": "Common questions",
+      "next": "Next bus?",
+      "dest": "Places from here",
+      "back": "Getting back?",
+      "last": "Last bus?",
+      "fare": "Fare?"
+    },
+    "back": {
+      "title": "Getting back",
+      "generic": "The bus loops in one direction. Board at any stop and it returns to Kagoshima-Chuo Station (No.20), about {{min}} min per loop. To get off near your hotel, the return stop may differ from the one you boarded at (e.g. Tenmonkan: No.3 out, No.19 back).",
+      "hotel": "On the way back, get off at No.{{num}} {{name}} (about {{min}} min walk to the hotel)."
+    },
+    "fare": {
+      "title": "Fare",
+      "adult": "Adult",
+      "child": "Child",
+      "dayPass": "Day pass (adult / child)",
+      "loop": "One loop",
+      "loopValue": "about {{min}} min",
+      "note": "Cash and transit IC cards accepted; day passes are sold on board. Check the official site for the latest fares."
+    }
   },
   "common": {
     "close": "Close"

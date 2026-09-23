@@ -394,3 +394,92 @@
   font-size: 11px;
   color: var(--text-subtle);
 }
+
+/* FAQ 버튼 — 정류장 앞에서 급한 사람이 한 번에 찾게. AI 없이 화면 안 정보로 답한다 */
+.faq {
+  display: flex;
+  gap: 6px;
+  padding: 12px 20px 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.faq::-webkit-scrollbar { display: none; }
+
+.faqChip {
+  flex-shrink: 0;
+  min-height: 32px;
+  padding: 0 12px;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-pill);
+  background: var(--white);
+  color: var(--ink);
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.faqChip:hover {
+  border-color: var(--sea);
+  color: var(--sea);
+}
+
+.infoSection {
+  padding: 16px 20px;
+  border-top: 1px solid var(--rule);
+  background: var(--white);
+}
+
+.infoText {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--ink);
+}
+
+.fareList {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 16px;
+  margin: 0;
+}
+
+.fareList div {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  border-bottom: 1px dashed var(--rule);
+  padding-bottom: 4px;
+}
+
+.fareList dt {
+  font-size: 12px;
+  color: var(--text-subtle);
+}
+
+.fareList dd {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  color: var(--ink);
+}
+
+.infoNote {
+  margin: 10px 0 0;
+  font-size: 11px;
+  color: var(--text-subtle);
+}
+
+/* FAQ로 이동했을 때 잠깐 강조 */
+.flash {
+  animation: flash 1.6s ease-out;
+}
+
+@keyframes flash {
+  0% { box-shadow: inset 0 0 0 2px var(--sea); }
+  100% { box-shadow: inset 0 0 0 2px transparent; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flash { animation: none; box-shadow: inset 0 0 0 2px var(--sea); }
+}
