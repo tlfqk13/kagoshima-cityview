@@ -162,5 +162,8 @@ test('정류장 상세는 오늘의 운행을 먼저 보여주고 메모 중복�
   await expect(panel.getByText(ja.map.today.label)).toBeVisible()
   // "1日19便。30分間隔。" 메모는 위의 편수·간격 표시와 같으므로 숨긴다
   await expect(panel.getByText('1日19便。30分間隔。')).toHaveCount(0)
+  // 운행 시각 안내는 '오늘의 운행' 아래 한 번만 (맨 아래 중복 문구 제거)
+  await expect(panel.getByText(ja.map.today.basis)).toHaveCount(1)
+  await expect(panel.getByText('運行時刻は公式アプリでご確認ください')).toHaveCount(0)
   if (isMobile) await expect(panel.getByRole('group', { name: ja.map.categoryFilter })).toHaveCount(0)
 })

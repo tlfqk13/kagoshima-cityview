@@ -122,18 +122,6 @@
   white-space: nowrap;
 }
 
-.disclaimer {
-  margin: 12px 20px;
-  font-size: 10px;
-  color: var(--text-subtle);
-  letter-spacing: 0.05em;
-  padding: 8px 12px;
-  background: var(--bg);
-  border-radius: 2px;
-  border: 1px solid var(--rule);
-  line-height: 1.6;
-}
-
 .headerTop {
   display: flex;
   justify-content: space-between;

@@ -274,7 +274,6 @@ export default function StopDetail({ stop, routeId, userLocation, isFavorite, on
           <div className={styles.hotelNote}>{t('map.hotel.nearbyNote')}</div>
         </div>
       )}
-      <div className={styles.disclaimer}>{t('map.stopDetail.disclaimer')}</div>
       {toast && (
         <div className={styles.toast} key={toastKey}>
           {toast}
