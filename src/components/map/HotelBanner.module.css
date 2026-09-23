@@ -1,0 +1,95 @@
+/* 호텔 모드 배너 — 지도는 기능 레이어라 종이 질감·기울기 없이 색·서체 토큰만 쓴다 */
+.banner {
+  margin: 0 0 12px;
+  padding: 12px 14px;
+  border: 1.5px solid var(--sea);
+  border-radius: var(--radius);
+  background: var(--card);
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  color: var(--sea);
+}
+
+.icon {
+  flex-shrink: 0;
+}
+
+.name {
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--ink);
+}
+
+.rows {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.row {
+  width: 100%;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.row:hover {
+  border-color: var(--sea);
+}
+
+.rowActive {
+  border-color: var(--sea);
+  background: color-mix(in srgb, var(--sea) 10%, transparent);
+}
+
+.label {
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: var(--text-subtle);
+  white-space: nowrap;
+}
+
+.stop {
+  font-size: 14px;
+  min-width: 0;
+}
+
+.num {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--sea);
+  margin-right: 2px;
+}
+
+.walk {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 12px;
+  color: var(--text-subtle);
+  white-space: nowrap;
+}
+
+.note {
+  margin: 8px 0 0;
+  font-size: 11px;
+  line-height: 1.5;
+  color: var(--text-subtle);
+}

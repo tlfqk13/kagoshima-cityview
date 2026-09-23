@@ -1,5 +1,5 @@
 'use client'
-import { useRef, useState } from 'react'
+import { useRef, useState, type ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { RouteStop, RouteId, Category } from '@/lib/routes'
 import StopList from './StopList'
@@ -24,6 +24,8 @@ interface Props {
   favorites?: string[]
   onToggleFavorite?: (stopId: string) => void
   sourceNote: string
+  /** 목록 위에 고정으로 보여줄 내용 (호텔 모드 배너 등) */
+  header?: ReactNode
 }
 
 const HEIGHTS: Record<SheetState, string> = {
@@ -46,6 +48,7 @@ export default function BottomSheet({
   favorites,
   onToggleFavorite,
   sourceNote,
+  header,
 }: Props) {
   const [state, setState] = useState<SheetState>(selectedStop ? 'half' : 'peek')
   const [previousStopId, setPreviousStopId] = useState(selectedStop?.id)
@@ -99,6 +102,7 @@ export default function BottomSheet({
           <button type="button" className={styles.back} onClick={onClearSelection}>
             ← {t('map.backToList')}
           </button>
+          {header}
           <StopDetail
             routeId={routeId}
             stop={selectedStop}
@@ -107,10 +111,15 @@ export default function BottomSheet({
             onToggleFavorite={onToggleFavorite}
           />
           </>
-        ) : stops.length === 0 ? (
-          <div className={styles.empty}>{t('map.noResults')}</div>
         ) : (
-          <StopList stops={stops} selectedId={null} onSelect={onStopSelect} favorites={favorites} />
+          <>
+          {header}
+          {stops.length === 0 ? (
+            <div className={styles.empty}>{t('map.noResults')}</div>
+          ) : (
+            <StopList stops={stops} selectedId={null} onSelect={onStopSelect} favorites={favorites} />
+          )}
+          </>
         )}
         <div className={styles.attribution}>{sourceNote}</div>
       </div>

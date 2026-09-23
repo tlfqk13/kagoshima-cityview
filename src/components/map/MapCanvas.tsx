@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useRef, useCallback, useState } from 'react'
+import { useEffect, useRef, useCallback, useState, useMemo } from 'react'
 import mapboxgl from 'mapbox-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import { useTranslation } from 'react-i18next'
@@ -181,13 +181,16 @@ export interface MapCanvasProps {
   onStopSelect: (stop: RouteStop) => void
   onUserLocation?: (coords: [number, number]) => void
   userLocation?: [number, number] | null
+  /** 호텔 모드 — 호텔 핀을 찍고, 현재 위치가 없을 때 도보 경로의 출발점으로 쓴다 */
+  hotel?: { lng: number; lat: number; label: string } | null
 }
 
-export default function MapCanvas({ routeId, selectedStopId, onStopSelect, onUserLocation, userLocation }: MapCanvasProps) {
+export default function MapCanvas({ routeId, selectedStopId, onStopSelect, onUserLocation, userLocation, hotel }: MapCanvasProps) {
   const { t, i18n } = useTranslation()
   const containerRef = useRef<HTMLDivElement>(null)
   const mapRef = useRef<mapboxgl.Map | null>(null)
   const wrongPinRef = useRef<mapboxgl.Marker | null>(null)
+  const hotelMarkerRef = useRef<mapboxgl.Marker | null>(null)
   const hoverPopupRef = useRef<mapboxgl.Popup | null>(null)
   const selectedStopIdRef = useRef<string | null>(selectedStopId)
   const routeIdRef = useRef<RouteId>(routeId)
@@ -437,6 +440,35 @@ export default function MapCanvas({ routeId, selectedStopId, onStopSelect, onUse
     }
   }, [selectedStopId, i18n, styleRevision, routeId])
 
+  // 호텔 핀 — 호텔 모드에서만. 정류장 원과 구분되도록 침대 아이콘의 사각 핀을 쓴다
+  useEffect(() => {
+    const map = mapRef.current
+    if (!map) return
+    hotelMarkerRef.current?.remove()
+    hotelMarkerRef.current = null
+    if (!hotel) return
+    const el = document.createElement('div')
+    el.className = styles.hotelPin
+    el.setAttribute('role', 'img')
+    el.setAttribute('aria-label', `${t('map.hotel.marker')}: ${hotel.label}`)
+    el.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18V8M3 12h18v6M3 15h18M21 18v-6a2 2 0 0 0-2-2h-8v4"/><circle cx="7" cy="10" r="1.6"/></svg>'
+    hotelMarkerRef.current = new mapboxgl.Marker({ element: el, anchor: 'bottom' }).setLngLat([hotel.lng, hotel.lat]).addTo(map)
+    // 호텔과 선택 정류장이 한 화면에 들어오게
+    const stop = getStopsForRoute(routeIdRef.current).find(s => s.id === selectedStopIdRef.current)
+    if (stop) {
+      // 모바일은 바텀시트가 아래 절반을 가리므로 그만큼 아래 여백을 준다 (BottomSheet 'half' = 50dvh)
+      const mobile = window.matchMedia('(max-width: 1023px)').matches
+      const padding = mobile
+        ? { top: 70, bottom: Math.round(map.getContainer().clientHeight * 0.55), left: 40, right: 40 }
+        : 90
+      map.fitBounds([[Math.min(hotel.lng, stop.lng), Math.min(hotel.lat, stop.lat)], [Math.max(hotel.lng, stop.lng), Math.max(hotel.lat, stop.lat)]], { padding, maxZoom: 17, duration: 0 })
+    }
+    return () => { hotelMarkerRef.current?.remove(); hotelMarkerRef.current = null }
+  }, [hotel, styleRevision, t])
+
+  // 도보 경로의 출발점 — 현재 위치가 있으면 현재 위치, 없으면 호텔
+  const walkOrigin = useMemo<[number, number] | null>(() => userLocation ?? (hotel ? [hotel.lng, hotel.lat] : null), [userLocation, hotel])
+
   // 도보 경로 표시 — 정류장 선택/위치 변경 시 하나의 이펙트에서만 fetch
   // cleanup에서 이전 요청을 abort해 중복 요청과 stale 응답 덮어쓰기를 방지
   useEffect(() => {
@@ -447,12 +479,12 @@ export default function MapCanvas({ routeId, selectedStopId, onStopSelect, onUse
     if (map.getLayer('walking-route')) map.removeLayer('walking-route')
     if (map.getSource('walking-route')) map.removeSource('walking-route')
 
-    if (!userLocation || !selectedStopId) return
+    if (!walkOrigin || !selectedStopId) return
     const stop = getStopsForRoute(routeIdRef.current).find(s => s.id === selectedStopId)
     if (!stop) return
 
     const controller = new AbortController()
-    const url = `https://api.mapbox.com/directions/v5/mapbox/walking/${userLocation[0]},${userLocation[1]};${stop.lng},${stop.lat}?geometries=geojson&access_token=${mapboxgl.accessToken}`
+    const url = `https://api.mapbox.com/directions/v5/mapbox/walking/${walkOrigin[0]},${walkOrigin[1]};${stop.lng},${stop.lat}?geometries=geojson&access_token=${mapboxgl.accessToken}`
     fetch(url, { signal: controller.signal })
       .then(r => {
         if (!r.ok) throw new Error(`Directions API 응답 오류: ${r.status}`)
@@ -484,7 +516,7 @@ export default function MapCanvas({ routeId, selectedStopId, onStopSelect, onUse
       })
 
     return () => controller.abort()
-  }, [userLocation, selectedStopId, styleRevision, routeId])
+  }, [walkOrigin, selectedStopId, styleRevision, routeId])
 
   return (
     <div className={styles.wrap}>

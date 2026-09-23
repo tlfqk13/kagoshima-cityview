@@ -4,6 +4,8 @@ import dynamic from 'next/dynamic'
 import { useTranslation } from 'react-i18next'
 import { getStopsForRoute, getStopsByCategory, getRoute, type RouteStop, type RouteId, type Category } from '@/lib/routes'
 import { getFavorites, toggleFavorite, subscribeFavorites, getServerFavorites } from '@/lib/favorites'
+import { findHotel, getHotelStops } from '@/lib/hotels'
+import HotelBanner from '@/components/map/HotelBanner'
 import type { MapCanvasProps } from '@/components/map/MapCanvas'
 import Nav from '@/components/Nav'
 import RouteTab from '@/components/map/RouteTab'
@@ -17,14 +19,20 @@ const MapCanvas = dynamic<MapCanvasProps>(() => import('@/components/map/MapCanv
 interface Props {
   initialStopId?: string
   initialRouteId?: RouteId
+  /** 호텔 POP의 QR로 들어온 경우(/map?hotel=slug). 호텔 핀·도보 경로·타는/내리는 정류장을 보여준다 */
+  initialHotelSlug?: string
 }
 
-export default function MapPage({ initialStopId, initialRouteId = 'cityview' }: Props) {
+export default function MapPage({ initialStopId, initialRouteId = 'cityview', initialHotelSlug }: Props) {
   const { t } = useTranslation()
+  // 호텔 모드는 시티뷰 노선에서만 유효하다 (호텔 데이터가 시티뷰 정류장 기준)
+  const hotel = initialRouteId === 'cityview' ? findHotel(initialHotelSlug) : undefined
+  const hotelStops = useMemo(() => (hotel ? getHotelStops(hotel) : null), [hotel])
   const [activeRoute, setActiveRoute] = useState<RouteId>(initialRouteId)
   const [selectedStop, setSelectedStop] = useState<RouteStop | null>(() => {
-    if (!initialStopId) return null
-    return getStopsForRoute(initialRouteId).find(s => s.id === initialStopId) ?? null
+    const stopId = initialStopId ?? hotelStops?.board.id
+    if (!stopId) return null
+    return getStopsForRoute(initialRouteId).find(s => s.id === stopId) ?? null
   })
   const [activeCategory, setActiveCategory] = useState<Category | 'all'>('all')
   const [searchQuery, setSearchQuery] = useState('')
@@ -79,6 +87,12 @@ export default function MapPage({ initialStopId, initialRouteId = 'cityview' }: 
       ? t('map.sourceNote', { date: routeMeta.lastFieldVerifiedAt })
       : t('map.sourceNoteChecked', { date: routeMeta.lastSourceCheckedAt })
 
+  // 호텔 모드는 시티뷰 탭에서만 보인다
+  const hotelActive = hotel && hotelStops && activeRoute === 'cityview'
+  const hotelHeader = hotelActive ? (
+    <HotelBanner hotel={hotel} hotelStops={hotelStops} selectedStopId={selectedStop?.id ?? null} onSelect={setSelectedStop} />
+  ) : null
+
   function handleCategoryChange(cat: Category | null) {
     setActiveCategory(cat ?? 'all')
     setSelectedStop(null)
@@ -106,6 +120,7 @@ export default function MapPage({ initialStopId, initialRouteId = 'cityview' }: 
             onStopSelect={setSelectedStop}
             onUserLocation={setUserLocation}
             userLocation={userLocation}
+            hotel={hotelActive ? { lng: hotel.lng, lat: hotel.lat, label: hotel.nameJa } : null}
           />
         </div>
 
@@ -122,6 +137,7 @@ export default function MapPage({ initialStopId, initialRouteId = 'cityview' }: 
             userLocation={userLocation}
             favorites={favorites}
             onToggleFavorite={handleToggleFavorite}
+            header={hotelHeader}
           />
         </div>
 
@@ -141,6 +157,7 @@ export default function MapPage({ initialStopId, initialRouteId = 'cityview' }: 
             favorites={favorites}
             onToggleFavorite={handleToggleFavorite}
             sourceNote={sourceNote}
+            header={hotelHeader}
           />
         </div>
       </div>

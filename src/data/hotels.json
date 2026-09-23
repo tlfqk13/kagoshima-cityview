@@ -1,14 +1,15 @@
 {
   "updatedAt": "2026-07-20",
-  "note": "호텔 브랜드 인쇄물(/card/[stopId]·/card/site·/card/poster ?hotel=slug)용 매핑. walkMeters는 직선거리(2026-07-20 Nominatim 측정)",
+  "note": "호텔 브랜드 인쇄물(?hotel=slug)과 지도 호텔 모드(/map?hotel=slug)용. stopId는 타는 정류장, walkMeters는 직선거리(2026-07-20 Nominatim). lat/lng는 OpenStreetMap Nominatim 2026-09-23 지오코딩(호텔 건물 좌표, 정류장 좌표 아님)",
   "hotels": [
-    { "slug": "remm", "nameJa": "レム鹿児島", "stopId": "stop_03", "walkMeters": 98 },
-    { "slug": "richmond-kinseicho", "nameJa": "リッチモンドホテル鹿児島金生町", "stopId": "stop_18", "walkMeters": 122 },
-    { "slug": "solaria", "nameJa": "ソラリア西鉄ホテル鹿児島", "stopId": "stop_01", "walkMeters": 186 },
-    { "slug": "jr-kyushu", "nameJa": "JR九州ホテル鹿児島", "stopId": "stop_01", "walkMeters": 228 },
-    { "slug": "shiroyama", "nameJa": "城山ホテル鹿児島", "stopId": "stop_07", "walkMeters": 233 },
-    { "slug": "fav-lux", "nameJa": "FAV LUX KAGOSHIMA", "stopId": "stop_19", "walkMeters": 258 },
-    { "slug": "dormy-inn", "nameJa": "ドーミーイン鹿児島", "stopId": "stop_03", "walkMeters": 276 },
-    { "slug": "sheraton", "nameJa": "シェラトン鹿児島", "stopId": "stop_02", "walkMeters": 780 }
-  ]
+    { "slug": "remm", "nameJa": "レム鹿児島", "stopId": "stop_03", "walkMeters": 98, "lat": 31.5900612, "lng": 130.553178 },
+    { "slug": "richmond-kinseicho", "nameJa": "リッチモンドホテル鹿児島金生町", "stopId": "stop_18", "walkMeters": 122, "lat": 31.5941968, "lng": 130.5577574 },
+    { "slug": "solaria", "nameJa": "ソラリア西鉄ホテル鹿児島", "stopId": "stop_01", "walkMeters": 186, "lat": 31.5834906, "lng": 130.5441907 },
+    { "slug": "jr-kyushu", "nameJa": "JR九州ホテル鹿児島", "stopId": "stop_01", "walkMeters": 228, "lat": 31.58423, "lng": 130.5414128 },
+    { "slug": "shiroyama", "nameJa": "城山ホテル鹿児島", "stopId": "stop_07", "walkMeters": 233, "lat": 31.5950279, "lng": 130.5475265 },
+    { "slug": "fav-lux", "nameJa": "FAV LUX KAGOSHIMA", "stopId": "stop_19", "walkMeters": 258, "lat": 31.5879894, "lng": 130.5551638 },
+    { "slug": "dormy-inn", "nameJa": "ドーミーイン鹿児島", "stopId": "stop_03", "walkMeters": 276, "lat": 31.5892196, "lng": 130.551555 },
+    { "slug": "sheraton", "nameJa": "シェラトン鹿児島", "stopId": "stop_02", "walkMeters": 780, "lat": 31.5792975, "lng": 130.5535822 }
+  ],
+  "coordSource": "OpenStreetMap Nominatim, 2026-09-23"
 }

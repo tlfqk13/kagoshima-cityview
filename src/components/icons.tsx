@@ -61,6 +61,9 @@ export const IconSatellite = (p: IconProps) => (
 export const IconWalk = (p: IconProps) => (
   <Svg {...p}><circle cx="13" cy="4" r="1.6" /><path d="m9 21 2.5-6.5L14 17v4M8 11l3-4 3 1.5 2.5 3M11 7l-.5 4.5 3.5 2.5" /></Svg>
 )
+export const IconBed = (p: IconProps) => (
+  <Svg {...p}><path d="M3 18V8M3 12h18v6M3 15h18M21 18v-6a2 2 0 0 0-2-2h-8v4" /><circle cx="7" cy="10" r="1.6" /></Svg>
+)
 export const IconPlay = (p: IconProps) => (
   <Svg {...p}><path d="M8 5v14l11-7L8 5Z" fill="currentColor" /></Svg>
 )

@@ -26,7 +26,8 @@ export default async function SiteCardPage({ searchParams }: Props) {
   const nearestStop = hotel ? getStopById('cityview', hotel.stopId) : undefined
   const route = getRoute('cityview')
   const stopCount = getStopsForRoute('cityview').length
-  const url = `${SITE_URL}/`
+  // 호텔 이름 버전은 호텔 모드 지도(호텔 핀·타는/내리는 정류장)로 바로 연결한다
+  const url = hotel ? `${SITE_URL}/map?hotel=${hotel.slug}` : `${SITE_URL}/`
   const qr = await createQrSvgDataUrl(url)
 
   return (

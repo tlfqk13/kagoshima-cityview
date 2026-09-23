@@ -1,4 +1,5 @@
 'use client'
+import type { ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { RouteStop, RouteId } from '@/lib/routes'
 import StopList from './StopList'
@@ -17,15 +18,18 @@ interface Props {
   userLocation?: [number, number] | null
   favorites?: string[]
   onToggleFavorite?: (stopId: string) => void
+  /** 목록 위에 고정으로 보여줄 내용 (호텔 모드 배너 등) */
+  header?: ReactNode
 }
 
-export default function SidePanel({ stops, selectedStop, routeId, onSelect, sourceNote, searchQuery, onSearchChange, userLocation, favorites, onToggleFavorite }: Props) {
+export default function SidePanel({ stops, selectedStop, routeId, onSelect, sourceNote, searchQuery, onSearchChange, userLocation, favorites, onToggleFavorite, header }: Props) {
   const { t } = useTranslation()
   return (
     <aside className={styles.panel}>
       {/* 검색은 항상 맨 위 — 상세를 보는 중에도 다른 정류장을 바로 찾을 수 있게 */}
       <StopSearch value={searchQuery} onChange={onSearchChange} />
       <div className={styles.scroll}>
+        {header}
         {selectedStop && (
           <>
             <StopDetail

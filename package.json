@@ -9,7 +9,8 @@
     "lint": "eslint .",
     "test": "vitest run",
     "test:e2e": "playwright test",
-    "check": "npm run lint && npm test && npm run build"
+    "check": "npm run lint && npm test && npm run build",
+    "proposal:pdf": "python3 scripts/build-hotel-proposal.py && node scripts/proposal-pdf.mjs"
   },
   "dependencies": {
     "@ducanh2912/next-pwa": "^10.2.9",

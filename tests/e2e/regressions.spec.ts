@@ -119,6 +119,23 @@ test('사이트 QR 인쇄물은 QR과 호텔 이름을 표시한다', async ({ p
   expect(await response.text()).not.toContain('ご宿泊のお客様へ')
 })
 
+test('호텔 QR로 들어오면 호텔 핀과 타는·내리는 정류장을 보여준다', async ({ page, isMobile }) => {
+  await page.goto('/map?hotel=remm&lang=ja')
+  const panel = isMobile ? page.getByRole('complementary', { name: ja.map.stopListAria }) : page.locator('aside')
+  const banner = panel.getByRole('region', { name: 'レム鹿児島から' })
+  await expect(banner).toBeVisible()
+  // 天文館 호텔: 갈 때 No.3, 돌아올 때 No.19
+  await expect(banner.getByRole('button', { name: /No\.3 / })).toHaveAttribute('aria-pressed', 'true')
+  await expect(banner.getByRole('button', { name: /No\.19 / })).toBeVisible()
+  await expect(page.getByRole('img', { name: `${ja.map.hotel.marker}: レム鹿児島` })).toBeVisible()
+  // 내리는 정류장을 누르면 그 정류장이 선택된다
+  await banner.getByRole('button', { name: /No\.19 / }).click()
+  await expect(panel.getByText('No. 19', { exact: true })).toBeVisible()
+  // 호텔 이름 카드의 QR은 호텔 모드 지도로 연결된다
+  await page.goto('/card/site?hotel=remm')
+  await expect(page.getByRole('img', { name: /QR code/ })).toBeVisible()
+})
+
 test('메뉴로 주요 페이지를 오가고 현재 위치를 표시한다', async ({ page, isMobile }) => {
   await page.goto('/?lang=en')
   const nav = page.getByRole('navigation', { name: en.nav.site }).first()

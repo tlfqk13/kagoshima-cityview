@@ -124,6 +124,14 @@
       "noService": "No service today",
       "unknown": "Running today · check the official site for times",
       "basis": "Japan time · timetable estimate; actual times vary with traffic"
+    },
+    "hotel": {
+      "from": "From {{name}}",
+      "board": "Board at",
+      "alight": "Get off on the way back",
+      "sameStop": "You get off at the same stop on the way back (the bus loops around)",
+      "estimate": "Walking times are estimates from straight-line distance",
+      "marker": "Hotel"
     }
   },
   "common": {

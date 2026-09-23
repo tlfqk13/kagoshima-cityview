@@ -24,6 +24,7 @@
 | `/` | 스토리 페이지 — 서비스 소개, 제작 경위, 관광과 협력 제안 |
 | `/map` | 지도 페이지 — 핵심 기능. 노선별 정류장 지도 |
 | `/map/[stopId]` | 특정 정류장 선택 상태. URL 공유 가능 |
+| `/map?hotel=[slug]` | 호텔 모드 — 호텔 POP QR의 목적지. 호텔 핀·도보 경로·타는/내리는 정류장(`getHotelStops`). 호텔 좌표는 `src/data/hotels.json` |
 | `/story` | 데브로그 에피소드 목록 |
 | `/story/[slug]` | 개별 에피소드 상세 (MDX) |
 | `/admin` | 관리자 페이지 (NextAuth 보호) |

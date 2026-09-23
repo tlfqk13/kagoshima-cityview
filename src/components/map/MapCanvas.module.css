@@ -109,3 +109,22 @@
     top: 12px;
   }
 }
+
+/* 호텔 모드 핀 — 정류장 원과 구분되는 사각 핀 + 꼬리. 지도 위라 토큰 대신 고정색을 쓴다(정류장 원과 동일 방식) */
+.hotelPin {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px 8px 8px 0;
+  background: #2F6A8F;
+  color: #fff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  border: 2px solid #fff;
+  transform: rotate(-45deg);
+}
+
+.hotelPin svg {
+  transform: rotate(45deg);
+}
