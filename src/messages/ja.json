@@ -241,10 +241,6 @@
     "signStops": "{{count}}停留所",
     "signEvery": "約{{min}}分間隔",
     "problemEyebrow": "つくった理由",
-    "sketchWrong": "地図アプリのピン",
-    "sketchReal": "実際のバス停",
-    "sketchGap": "{{m}}mのずれ",
-    "sketchCaption": "{{name}}・Googleマップとの比較（{{date}}）",
     "spotsEyebrow": "バスの窓から",
     "spotsTitle": "ひと回り{{min}}分、\nバスでめぐる鹿児島",
     "spotsLead": "シティビューバスは鹿児島中央駅を出発し、{{count}}か所の停留所をめぐって中央駅に戻ります。途中で立ち寄りたい場所を集めました。",
@@ -271,7 +267,13 @@
     },
     "trustEyebrow": "信頼できる理由",
     "letterTo": "宿泊施設・観光案内所の方へ",
-    "tickerNextBus": "次のバスまであと何分かすぐわかる"
+    "tickerNextBus": "次のバスまであと何分かすぐわかる",
+    "figWrong": "地図アプリの「天文館 バス停」ピン（1つ）",
+    "figReal": "実際の停留所（方向別に2つ）",
+    "figCaption": "天文館：地図アプリはピン1つ。実際は仙巌園方面のNo.3と中央駅方面のNo.19に分かれ、ピンからそれぞれ{{a}}m・{{b}}m離れています（{{date}}調べ）。",
+    "figAlt": "天文館付近の地図。地図アプリのピン1つと、実際の停留所No.3・No.19の位置",
+    "figLink": "この停留所を地図で見る",
+    "figCredit": "© Mapbox © OpenStreetMap"
   },
   "seo": {
     "description": "鹿児島シティビューバス全20停留所の正確な位置を地図で案内。ホテルからの徒歩ルート、次のバスまでの時間、日本語・英語・韓国語・繁体字中国語対応。無料・アプリ不要。",

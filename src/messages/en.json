@@ -241,10 +241,6 @@
     "signStops": "{{count}} stops",
     "signEvery": "every {{min}} min",
     "problemEyebrow": "Why we made this",
-    "sketchWrong": "Map app pin",
-    "sketchReal": "Actual stop",
-    "sketchGap": "{{m}} m off",
-    "sketchCaption": "{{name}} · Google Maps check ({{date}})",
     "spotsEyebrow": "Out the bus window",
     "spotsTitle": "One {{min}}-minute loop\naround Kagoshima",
     "spotsLead": "The City View bus leaves Kagoshima-Chuo Station, circles {{count}} stops and comes back to the station. Here are a few places worth hopping off for.",
@@ -271,7 +267,13 @@
     },
     "trustEyebrow": "Why you can trust it",
     "letterTo": "For hotels & tourist information centers",
-    "tickerNextBus": "See how many minutes until the next bus"
+    "tickerNextBus": "See how many minutes until the next bus",
+    "figWrong": "Map app’s single “Tenmonkan bus stop” pin",
+    "figReal": "Actual stops (two, one per direction)",
+    "figCaption": "Tenmonkan: the map app shows one pin. In reality there are two stops — No.3 toward Sengan-en and No.19 toward Chuo Station — {{a}} m and {{b}} m from the pin (checked {{date}}).",
+    "figAlt": "Map around Tenmonkan showing the map app’s single pin and the actual stops No.3 and No.19",
+    "figLink": "See this stop on the map",
+    "figCredit": "© Mapbox © OpenStreetMap"
   },
   "seo": {
     "description": "Exact locations of all 20 Kagoshima City View bus stops on a map, with walking directions from your hotel and minutes to the next bus. Japanese, English, Korean and Traditional Chinese. Free, no app needed.",

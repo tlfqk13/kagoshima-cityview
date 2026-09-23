@@ -241,10 +241,6 @@
     "signStops": "{{count}}個站牌",
     "signEvery": "約{{min}}分鐘一班",
     "problemEyebrow": "製作的原因",
-    "sketchWrong": "地圖App的圖釘",
-    "sketchReal": "實際的巴士站",
-    "sketchGap": "偏差{{m}}m",
-    "sketchCaption": "{{name}}・與Google地圖的比較（{{date}}）",
     "spotsEyebrow": "從巴士的車窗",
     "spotsTitle": "繞一圈{{min}}分鐘，\n搭巴士遊鹿兒島",
     "spotsLead": "城市觀光巴士從鹿兒島中央站出發，行經{{count}}個站牌後回到中央站。這裡整理了途中值得下車一遊的地方。",
@@ -271,7 +267,13 @@
     },
     "trustEyebrow": "值得信賴的理由",
     "letterTo": "致住宿設施・觀光服務處",
-    "tickerNextBus": "馬上知道距離下一班車還有幾分鐘"
+    "tickerNextBus": "馬上知道距離下一班車還有幾分鐘",
+    "figWrong": "地圖App的「天文館 巴士站」圖釘（只有1個）",
+    "figReal": "實際站牌（依方向分成2個）",
+    "figCaption": "天文館：地圖App只有1個圖釘。實際上分成往仙巖園的No.3與往中央站的No.19，距離圖釘分別為{{a}}m與{{b}}m（{{date}}調查）。",
+    "figAlt": "天文館附近地圖，顯示地圖App的1個圖釘與實際站牌No.3、No.19的位置",
+    "figLink": "在地圖上查看此站牌",
+    "figCredit": "© Mapbox © OpenStreetMap"
   },
   "seo": {
     "description": "以地圖指引鹿兒島城市觀光巴士全部20個站牌的正確位置。提供從飯店出發的步行路線、距離下一班車的時間，支援日文、英文、韓文與繁體中文。免費・不需安裝App。",

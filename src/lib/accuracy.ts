@@ -19,3 +19,12 @@ export const accuracySummary = {
   /** 가장 크게 어긋난 정류장 */
   worst,
 }
+
+// 랜딩 사례: 天文館 — 지도 앱의 핀은 1개, 실제 정류장은 방향별 2곳(No.3·No.19). 감사 결과에서 매번 읽는다
+const t3 = audit.stops.find(s => s.id === 'stop_03')
+const t19 = audit.stops.find(s => s.id === 'stop_19')
+export const tenmonkanCase = {
+  auditedAt: audit.auditedAt,
+  toNo3: t3?.errorMeters ?? 0,
+  toNo19: t19?.errorMeters ?? 0,
+}
