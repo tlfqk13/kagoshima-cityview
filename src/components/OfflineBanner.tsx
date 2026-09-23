@@ -2,6 +2,7 @@
 import { useState, useEffect, useSyncExternalStore } from 'react'
 import { useTranslation } from 'react-i18next'
 import { usePathname } from 'next/navigation'
+import { track } from '@/lib/analytics/track'
 import styles from './OfflineBanner.module.css'
 
 const DISMISSED_KEY = 'pwa-install-dismissed'
@@ -22,6 +23,12 @@ export default function OfflineBanner() {
   const pathname = usePathname()
   // 지도(바텀시트를 가림)·인쇄물·관리자에서는 설치 안내를 띄우지 않는다
   const installAllowed = !/^\/(map|card|admin)(\/|$)/.test(pathname ?? '')
+
+  useEffect(() => {
+    const onInstalled = () => track('pwa_install', { lang: document.documentElement.lang })
+    window.addEventListener('appinstalled', onInstalled)
+    return () => window.removeEventListener('appinstalled', onInstalled)
+  }, [])
 
   useEffect(() => {
     // 설치 안내: 닫은 적 없고, 설치(standalone) 상태가 아닐 때만. 3초 뒤 표시, 15초 뒤 자동으로 접는다(닫기 기록은 X를 눌렀을 때만)

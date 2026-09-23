@@ -36,6 +36,7 @@ export default function Footer() {
           </a>
         </div>
         <div className={styles.disclaimer}>{t('footer.disclaimer')}</div>
+        <div className={styles.disclaimer}>{t('footer.stats')}</div>
         <div className={styles.credits}>
           {t('footer.photos')}{' '}
           {PHOTO_CREDITS.map((c, i) => (

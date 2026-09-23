@@ -179,7 +179,8 @@
     "disclaimer": "GPS location only. Always verify schedules via official app.",
     "downloads": "QR cards & documents",
     "photos": "Photos:",
-    "nav": "Footer menu"
+    "nav": "Footer menu",
+    "stats": "We collect anonymous usage statistics only (no location or IP addresses are stored)."
   },
   "downloads": {
     "eyebrow": "For hotels & visitor centers",

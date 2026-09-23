@@ -42,7 +42,7 @@ export default async function StopCardPage({ params, searchParams }: Props) {
   const hotel = findHotel(hotelSlug)
 
   const route = getRoute('cityview')
-  const url = `${SITE_URL}/map?route=cityview&stop=${stop.id}`
+  const url = `${SITE_URL}/map?route=cityview&stop=${stop.id}&src=stop` // src=: 이용 통계의 진입 경로
   const qrDataUrl = await QRCode.toDataURL(url, {
     width: 480,
     margin: 1,

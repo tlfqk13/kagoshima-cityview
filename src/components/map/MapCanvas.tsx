@@ -4,6 +4,9 @@ import mapboxgl from 'mapbox-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import { useTranslation } from 'react-i18next'
 import MapLoading from './MapLoading'
+import { track } from '@/lib/analytics/track'
+import { distanceBand } from '@/lib/analytics/events'
+import { distanceMeters } from '@/lib/hotels'
 import {
   getStopsForRoute, getStopsGeoJSON, getRouteCoordinates, getRoute,
   getNearestStop, nameKey, type RouteStop, type RouteId,
@@ -251,7 +254,11 @@ export default function MapCanvas({ routeId, selectedStopId, onStopSelect, onUse
       const pos = e as GeolocationPosition
       const { latitude, longitude } = pos.coords
       const nearest = getNearestStop(routeIdRef.current, latitude, longitude)
-      if (nearest) onStopSelect(nearest)
+      if (nearest) {
+        onStopSelect(nearest)
+        // 좌표는 보내지 않고 거리 구간만 — "정류장에서 얼마나 떨어진 곳에서 찾나"
+        track('locate', { k: nearest.id, v: distanceBand(distanceMeters(latitude, longitude, nearest.lat, nearest.lng)), lang: i18n.language })
+      }
       onUserLocation?.([longitude, latitude])
     })
 

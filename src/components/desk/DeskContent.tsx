@@ -6,6 +6,7 @@ import { type Lang, nameKey } from '@/lib/routes'
 import { SITE_URL } from '@/lib/site'
 import type { DeskResult, GuestLang } from '@/lib/desk'
 import { IconBed, IconWalk } from '@/components/icons'
+import { track } from '@/lib/analytics/track'
 import styles from './DeskContent.module.css'
 
 interface StopInfo {
@@ -76,6 +77,7 @@ export default function DeskContent({ hotel, board, alight, configured }: Props)
         return
       }
       setState({ kind: 'done', result: (await res.json()) as DeskResult, question: q })
+      track('desk_ask', { k: hotel.slug, v: guestLang, lang: i18n.language })
     } catch {
       setState({ kind: 'error', code: 'network' })
     }

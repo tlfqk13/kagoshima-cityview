@@ -13,6 +13,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { getHotelsNearStop } from '@/lib/hotels'
 import { IconBed } from '@/components/icons'
+import { track } from '@/lib/analytics/track'
 
 interface Props {
   stop: RouteStop
@@ -51,6 +52,7 @@ export default function StopDetail({ stop, routeId, userLocation, isFavorite, on
   type FaqKey = 'next' | 'dest' | 'back' | 'last' | 'fare'
   const FAQ: FaqKey[] = ['next', 'dest', 'back', 'last', 'fare']
   function jumpTo(key: FaqKey) {
+    track('faq_click', { k: stop.id, v: key, lang: i18n.language })
     const el = { next: nextRef, dest: destRef, back: backRef, last: lastRef, fare: fareRef }[key].current
     if (!el) return
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -253,6 +255,7 @@ export default function StopDetail({ stop, routeId, userLocation, isFavorite, on
         <div className={styles.mapsButtons}>
           <a
             href={googleMapsUrl}
+            onClick={() => track('open_maps', { k: stop.id, v: 'google', lang: i18n.language })}
             target="_blank"
             rel="noopener noreferrer"
             className={styles.mapBtn}
@@ -262,6 +265,7 @@ export default function StopDetail({ stop, routeId, userLocation, isFavorite, on
           {isIOS && (
             <a
               href={appleMapsUrl}
+              onClick={() => track('open_maps', { k: stop.id, v: 'apple', lang: i18n.language })}
               target="_blank"
               rel="noopener noreferrer"
               className={styles.mapBtn}

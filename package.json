@@ -15,6 +15,7 @@
   "dependencies": {
     "@anthropic-ai/sdk": "^0.128.0",
     "@ducanh2912/next-pwa": "^10.2.9",
+    "@neondatabase/serverless": "^1.1.0",
     "@vercel/analytics": "^2.0.1",
     "gray-matter": "^4.0.3",
     "i18next": "^26.3.6",

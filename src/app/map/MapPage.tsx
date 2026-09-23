@@ -1,5 +1,6 @@
 'use client'
-import { useState, useMemo, useSyncExternalStore } from 'react'
+import { useState, useMemo, useEffect, useSyncExternalStore } from 'react'
+import { track } from '@/lib/analytics/track'
 import dynamic from 'next/dynamic'
 import { useTranslation } from 'react-i18next'
 import { getStopsForRoute, getStopsByCategory, getRoute, DATA_LANGS, type Lang, type RouteStop, type RouteId, type Category } from '@/lib/routes'
@@ -27,7 +28,7 @@ interface Props {
 }
 
 export default function MapPage({ initialStopId, initialRouteId = 'cityview', initialHotelSlug }: Props) {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
   // 호텔 모드는 시티뷰 노선에서만 유효하다 (호텔 데이터가 시티뷰 정류장 기준)
   const hotel = initialRouteId === 'cityview' ? findHotel(initialHotelSlug) : undefined
   const hotelStops = useMemo(() => (hotel ? getHotelStops(hotel) : null), [hotel])
@@ -86,6 +87,14 @@ export default function MapPage({ initialStopId, initialRouteId = 'cityview', in
 
   // 호텔 모드는 시티뷰 탭에서만 보인다
   const hotelActive = hotel && hotelStops && activeRoute === 'cityview'
+
+  // 이용 통계 — 정류장 열람, 호텔 POP 진입 (개인 식별 없음, src/lib/analytics)
+  useEffect(() => {
+    if (selectedStop) track('stop_view', { k: selectedStop.id, lang: i18n.language })
+  }, [selectedStop, i18n.language])
+  useEffect(() => {
+    if (hotel) track('hotel_mode', { k: hotel.slug, lang: i18n.language })
+  }, [hotel, i18n.language])
   const hotelHeader = hotelActive ? (
     <HotelBanner hotel={hotel} hotelStops={hotelStops} selectedStopId={selectedStop?.id ?? null} onSelect={setSelectedStop} />
   ) : null

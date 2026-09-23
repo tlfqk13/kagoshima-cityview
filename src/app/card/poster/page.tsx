@@ -25,7 +25,7 @@ export default async function PosterPage({ searchParams }: Props) {
   const nearestStop = hotel ? getStopById('cityview', hotel.stopId) : undefined
   const route = getRoute('cityview')
   const stopCount = getStopsForRoute('cityview').length
-  const qr = await createQrSvgDataUrl(hotel ? `${SITE_URL}/map?hotel=${hotel.slug}` : `${SITE_URL}/`)
+  const qr = await createQrSvgDataUrl(hotel ? `${SITE_URL}/map?hotel=${hotel.slug}` : `${SITE_URL}/?src=poster`) // src=: 이용 통계의 진입 경로
 
   const facts: { ja: string; sub: string; value: string }[] = []
   if (route.firstDeparture && route.lastDeparture) {
