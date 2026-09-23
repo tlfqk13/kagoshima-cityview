@@ -42,6 +42,6 @@
 .date {
   font-family: var(--font-mono);
   font-size: 10px;
-  color: var(--rule);
+  color: var(--text-subtle);
   letter-spacing: 0.1em;
 }

@@ -23,7 +23,7 @@
 }
 
 .logo em {
-  color: #E0A070; /* 어두운 바탕 위 accent — 대비 확보 */
+  color: var(--accent-on-dark);
   font-style: normal;
 }
 

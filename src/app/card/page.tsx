@@ -5,7 +5,7 @@ import { getAllHotels } from '@/lib/hotels'
 import styles from './index.module.css'
 
 export const metadata: Metadata = {
-  title: '인쇄물 | 가고시마 시티뷰 버스 가이드',
+  title: '인쇄물',
   robots: { index: false }, // 프린트용 유틸 페이지 — 검색 색인 제외
 }
 
@@ -16,7 +16,7 @@ export default function CardIndexPage() {
   const hotels = getAllHotels()
 
   return (
-    <div className={styles.page}>
+    <main className={styles.page}>
       <header className={styles.header}>
         <nav className={styles.backNav} aria-label="Site">
           <Link href="/downloads">← QRカード・ご案内資料 · QR cards &amp; documents · QR 카드·안내 자료</Link>
@@ -76,6 +76,6 @@ export default function CardIndexPage() {
           ))}
         </ul>
       </section>
-    </div>
+    </main>
   )
 }

@@ -14,7 +14,7 @@ export default function Footer() {
         <Link href="/" className={styles.logo}>
           {t('nav.logoPre')} <em>{t('nav.logoEm')}</em> {t('nav.logoPost')}
         </Link>
-        <nav aria-label={t('nav.site')}>
+        <nav aria-label={t('footer.nav')}>
           <ul className={styles.links}>
             {SITE_LINKS.map(link => (
               <li key={link.href}>

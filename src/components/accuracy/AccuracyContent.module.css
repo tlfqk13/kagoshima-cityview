@@ -57,7 +57,7 @@
 }
 
 .numWarn {
-  color: var(--pin-warn);
+  color: var(--warn-text);
 }
 
 .numError {
@@ -149,8 +149,8 @@
 }
 
 .badge.warn {
-  color: var(--pin-warn);
-  border-color: var(--pin-warn);
+  color: var(--warn-text);
+  border-color: var(--warn-text);
 }
 
 .badge.error {

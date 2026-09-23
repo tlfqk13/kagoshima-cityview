@@ -5,6 +5,7 @@ import Footer from '@/components/home/Footer'
 import EpisodeNav from '@/components/story/EpisodeNav'
 import { getEpisode, getAllEpisodes } from '@/lib/devlog'
 import { getServerLang } from '@/lib/serverLang'
+import { pageMetadata } from '@/lib/seo'
 import styles from './episode.module.css'
 
 interface Props {
@@ -21,10 +22,7 @@ export async function generateMetadata({ params }: Props) {
   const lang = await getServerLang()
   const episode = getEpisode(slug, lang)
   if (!episode) return {}
-  return {
-    title: `${episode.title} | 鹿児島シティビューバスガイド`,
-    description: episode.summary,
-  }
+  return pageMetadata(lang, { title: episode.title, description: episode.summary, path: `/story/${slug}` })
 }
 
 export default async function EpisodePage({ params }: Props) {

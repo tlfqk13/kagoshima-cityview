@@ -9,7 +9,7 @@ import PrintButton from '../PrintButton'
 import styles from './poster.module.css'
 
 export const metadata: Metadata = {
-  title: 'サイトQRポスター（A4） | 鹿児島シティビューバスガイド',
+  title: 'サイトQRポスター（A4）',
   robots: { index: false }, // 프린트용 유틸 페이지 — 검색 색인 제외
 }
 
@@ -41,7 +41,7 @@ export default async function PosterPage({ searchParams }: Props) {
   facts.push({ ja: '1周', sub: 'Loop · 한 바퀴', value: `約${route.loopDurationMin}分 / ${route.loopDurationMin} min` })
 
   return (
-    <div className={styles.screen}>
+    <main className={styles.screen}>
       <div className={styles.toolbar}>
         <PrintButton />
         <Link href="/card/site" className={styles.toolLink}>A6 card</Link>
@@ -125,6 +125,6 @@ export default async function PosterPage({ searchParams }: Props) {
           <span className={styles.domain}>{SITE_DOMAIN}</span>
         </div>
       </div>
-    </div>
+    </main>
   )
 }

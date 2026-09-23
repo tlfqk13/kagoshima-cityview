@@ -44,7 +44,7 @@ export default function PartnershipSection() {
           </div>
         </article>
 
-        <aside className={styles.postcard} data-reveal="" style={{ '--tilt': '1.6deg', '--reveal-delay': '0.15s' } as CSSProperties}>
+        <section className={styles.postcard} data-reveal="" style={{ '--tilt': '1.6deg', '--reveal-delay': '0.15s' } as CSSProperties}>
           <div className={styles.postTop}>
             <div className={styles.stampFrame}>
               <Image src={HOME_PHOTOS.bay} alt="" fill sizes="96px" className={styles.stampImg} />
@@ -66,7 +66,7 @@ export default function PartnershipSection() {
             <span className={styles.emailLabel}>{t('partnership.emailLabel')}</span>
             {CONTACT_EMAIL}
           </p>
-        </aside>
+        </section>
       </div>
     </section>
   )

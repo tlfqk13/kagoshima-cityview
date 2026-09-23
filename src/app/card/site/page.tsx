@@ -9,7 +9,7 @@ import PrintButton from '../PrintButton'
 import styles from './site.module.css'
 
 export const metadata: Metadata = {
-  title: 'サイトQRカード（A6） | 鹿児島シティビューバスガイド',
+  title: 'サイトQRカード（A6）',
   robots: { index: false }, // 프린트용 유틸 페이지 — 검색 색인 제외
 }
 
@@ -31,7 +31,7 @@ export default async function SiteCardPage({ searchParams }: Props) {
   const qr = await createQrSvgDataUrl(url)
 
   return (
-    <div className={styles.screen}>
+    <main className={styles.screen}>
       <div className={styles.toolbar}>
         <PrintButton />
         <Link href="/card/poster" className={styles.toolLink}>A4 poster</Link>
@@ -84,6 +84,6 @@ export default async function SiteCardPage({ searchParams }: Props) {
           <span className={styles.domain}>{SITE_DOMAIN}</span>
         </div>
       </div>
-    </div>
+    </main>
   )
 }

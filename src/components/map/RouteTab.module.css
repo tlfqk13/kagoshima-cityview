@@ -33,7 +33,7 @@
   border-bottom-color: var(--accent);
 }
 
-.dimmed { opacity: 0.5; }
+.dimmed { color: var(--text-subtle); } /* opacity 대신 색으로 — 대비 AA 유지 */
 
 .icon { flex-shrink: 0; }
 
@@ -53,7 +53,7 @@
   font-size: 9px;
   padding: 1px 5px;
   background: var(--rule);
-  color: var(--text-subtle);
+  color: var(--pencil); /* rule 위 5.3:1 */
   border-radius: 8px;
   line-height: 1.6;
 }

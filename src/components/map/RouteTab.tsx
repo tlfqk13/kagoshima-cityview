@@ -18,7 +18,8 @@ interface Props {
 export default function RouteTab({ activeRoute, onChange }: Props) {
   const { t } = useTranslation()
   return (
-    <div className={styles.tabBar} role="tablist" aria-label="Route selector">
+    <nav aria-label={t('map.routeSelector')}>
+    <div className={styles.tabBar} role="tablist" aria-label={t('map.routeSelector')}>
       {ROUTE_ORDER.map(routeId => {
         const isNight = routeId === 'cityview-night'
         const availableToday = isNight ? isRouteAvailableToday(routeId) : true
@@ -44,5 +45,6 @@ export default function RouteTab({ activeRoute, onChange }: Props) {
         )
       })}
     </div>
+    </nav>
   )
 }

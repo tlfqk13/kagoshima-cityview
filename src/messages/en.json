@@ -131,7 +131,9 @@
       "marker": "Hotel",
       "nearby": "Hotels nearby",
       "nearbyNote": "Pick a hotel to see the walk from it and where to get off on the way back"
-    }
+    },
+    "pageTitle": "Bus stop map",
+    "routeSelector": "Choose a route"
   },
   "common": {
     "close": "Close"
@@ -154,7 +156,8 @@
     "license": "CC BY 4.0",
     "disclaimer": "GPS location only. Always verify schedules via official app.",
     "downloads": "QR cards & documents",
-    "photos": "Photos:"
+    "photos": "Photos:",
+    "nav": "Footer menu"
   },
   "downloads": {
     "eyebrow": "For hotels & visitor centers",
@@ -238,5 +241,17 @@
     "trustEyebrow": "Why you can trust it",
     "letterTo": "For hotels & tourist information centers",
     "tickerNextBus": "See how many minutes until the next bus"
+  },
+  "seo": {
+    "description": "Exact locations of all 20 Kagoshima City View bus stops on a map, with walking directions from your hotel and minutes to the next bus. Japanese, English and Korean. Free, no app needed.",
+    "appTitle": "City View Bus",
+    "mapTitle": "Bus Stop Map",
+    "mapDescription": "Exact GPS locations of all 20 Kagoshima City View stops. Tap a stop for its timetable and minutes to the next bus."
+  },
+  "notFound": {
+    "title": "Page not found",
+    "body": "The address may have changed or been mistyped. Try the bus stop map.",
+    "map": "Open the stop map",
+    "home": "Go to the front page"
   }
 }

@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation'
 import MapPage from '../MapPage'
 import { getStopsForRoute } from '@/lib/routes'
 import { getServerLang } from '@/lib/serverLang'
+import { pageMetadata } from '@/lib/seo'
 
 interface Props {
   params: Promise<{ stopId: string }>
@@ -24,10 +25,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     en: `Accurate GPS location of bus stop No. ${stop.number}.`,
     ja: `停留所 No. ${stop.number}の正確なGPS位置。`,
   } as const
-  return {
-    title: `${stop.name[lang]} (No. ${stop.number}) | 鹿児島シティビューバスガイド`,
+  return pageMetadata(lang, {
+    title: `${stop.name[lang]} (No. ${stop.number})`,
     description: `${stop.name.ko} · ${stop.name.en} · ${stop.name.ja} — ${descSuffix[lang]}`,
-  }
+    path: `/map/${stop.id}`,
+  })
 }
 
 export default async function StopRoute({ params }: Props) {

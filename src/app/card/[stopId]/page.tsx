@@ -26,7 +26,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const stop = findStop(stopId)
   if (!stop) return {}
   return {
-    title: `정류장 카드 No. ${stop.number} ${stop.name.ko} | 가고시마 시티뷰 버스 가이드`,
+    title: `정류장 카드 No. ${stop.number} ${stop.name.ko}`,
     robots: { index: false }, // 프린트용 유틸 페이지 — 검색 색인 제외
   }
 }
@@ -50,13 +50,14 @@ export default async function StopCardPage({ params, searchParams }: Props) {
   })
 
   return (
-    <div className={styles.screen}>
+    <main className={styles.screen}>
       <div className={styles.toolbar}>
         <PrintButton />
         <Link href="/card" className={styles.backLink}>전체 카드 목록</Link>
         <Link href="/downloads" className={styles.backLink}>← サイトへ戻る · Back to site · 사이트로</Link>
       </div>
       <div className={styles.card}>
+        <h1 className="sr-only">No. {stop.number} {stop.name.ja}</h1>
         <div className={styles.cardHeader}>
           <span className={styles.cardService}>Kagoshima City View Bus Guide</span>
           <span className={styles.cardRoute}>{route.name.ja}</span>
@@ -87,6 +88,6 @@ export default async function StopCardPage({ params, searchParams }: Props) {
           <span className={styles.domain}>{SITE_DOMAIN}</span>
         </div>
       </div>
-    </div>
+    </main>
   )
 }

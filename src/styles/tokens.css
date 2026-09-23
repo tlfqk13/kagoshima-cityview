@@ -37,6 +37,8 @@
   --pin-default: #1E3A4F;
   --pin-active:  #8B4513;
   --pin-warn:    #C87A3A;
+  --warn-text:   #96551E;  /* 경고를 글자로 쓸 때 (paper 5.1:1). --pin-warn(2.9:1)은 핀·테두리 전용 */
+  --accent-on-dark: #E0A070;  /* 어두운 면(--dark) 위의 accent 글자 (7.5:1) */
 
   /* 레이아웃 */
   --nav-h:  64px;
@@ -140,6 +142,8 @@
   --card:       #2A2723;
   --pencil:      #B5ACA0;
   --text-subtle: #A6A094;
+  --warn-text: #E39A5C;
+  --accent-on-dark: #E0A070;
   --stamp:  #E0806A;
   --sea:    #8DB6D3;
   --leaf:   #9BB582;

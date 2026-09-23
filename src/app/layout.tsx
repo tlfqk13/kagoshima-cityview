@@ -6,6 +6,8 @@ import ThemeProvider from '@/components/ThemeProvider'
 import { Analytics } from '@vercel/analytics/react'
 import OfflineBanner from '@/components/OfflineBanner'
 import { getServerLang } from '@/lib/serverLang'
+import { SITE_URL } from '@/lib/site'
+import { SITE_NAME, OG_LOCALE, OG_IMAGE, seoText } from '@/lib/seo'
 
 // 기본 서체 — 레퍼런스(히라야스미·사가시)와 같은 둥근 고딕.
 // next/font가 빌드 시 파일을 받아 같은 도메인에서 제공하므로 런타임 CDN 요청이 없다(CSP font-src 'self').
@@ -18,15 +20,20 @@ const zenMaru = Zen_Maru_Gothic({
   variable: '--font-zen-maru',
 })
 
-export const metadata: Metadata = {
-  title: '鹿児島シティビューバスガイド',
-  description: '鹿児島シティビューバス全20停留所の正確なGPS位置ガイド。日本語·English·한국어.',
-  manifest: '/manifest.json',
-  appleWebApp: {
-    capable: true,
-    statusBarStyle: 'default',
-    title: 'シティビューバス',
-  },
+// 언어별 기본 메타데이터. 페이지 제목은 template로 브랜드 접미사가 붙고, OG·canonical은 각 페이지가 pageMetadata()로 채운다.
+export async function generateMetadata(): Promise<Metadata> {
+  const lang = await getServerLang()
+  const seo = seoText(lang)
+  return {
+    metadataBase: new URL(SITE_URL),
+    title: { default: SITE_NAME[lang], template: `%s | ${SITE_NAME[lang]}` },
+    description: seo.description,
+    manifest: '/manifest.json',
+    icons: { apple: '/apple-touch-icon.png' },
+    appleWebApp: { capable: true, statusBarStyle: 'default', title: seo.appTitle },
+    openGraph: { siteName: SITE_NAME[lang], locale: OG_LOCALE[lang], type: 'website', images: [OG_IMAGE] },
+    twitter: { card: 'summary_large_image' },
+  }
 }
 
 export const viewport: Viewport = {

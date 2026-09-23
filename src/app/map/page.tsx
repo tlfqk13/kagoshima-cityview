@@ -1,11 +1,13 @@
 import type { Metadata } from 'next'
 import MapPage from './MapPage'
 import type { RouteId } from '@/lib/routes'
+import { getServerLang } from '@/lib/serverLang'
+import { pageMetadata, seoText } from '@/lib/seo'
 
-export const metadata: Metadata = {
-  title: '停留所マップ | 鹿児島シティビューバスガイド',
-  description:
-    '鹿児島シティビューバス20停留所の正確なGPS位置マップ。Kagoshima City View bus stop map. 가고시마 시티뷰 버스 정류장 지도.',
+export async function generateMetadata(): Promise<Metadata> {
+  const lang = await getServerLang()
+  const seo = seoText(lang)
+  return pageMetadata(lang, { title: seo.mapTitle, description: seo.mapDescription, path: '/map' })
 }
 
 const VALID_ROUTES: RouteId[] = ['cityview', 'cityview-night', 'islandview']

@@ -107,7 +107,8 @@ export default function MapPage({ initialStopId, initialRouteId = 'cityview', in
     <div className={styles.wrap}>
       <Nav />
       <RouteTab activeRoute={activeRoute} onChange={handleRouteChange} />
-      <div className={styles.body}>
+      <main className={styles.body}>
+        <h1 className="sr-only">{t(`routes.${activeRoute}.name`)} — {t('map.pageTitle')}</h1>
         {/* 지도 영역 */}
         <div className={styles.mapWrap}>
           {/* 카테고리 칩 (데스크톱) */}
@@ -160,7 +161,7 @@ export default function MapPage({ initialStopId, initialRouteId = 'cityview', in
             header={hotelHeader}
           />
         </div>
-      </div>
+      </main>
     </div>
   )
 }
