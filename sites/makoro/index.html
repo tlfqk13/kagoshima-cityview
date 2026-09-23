@@ -38,7 +38,7 @@
   section { padding: 28px 0; border-top: 1px solid var(--rule); }
   h2 { font-size: 13px; letter-spacing: 0.16em; color: var(--subtle); text-transform: uppercase; margin: 0 0 16px; }
   .service { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; background: var(--card); border: 1px solid var(--rule); border-radius: 12px; overflow: hidden; }
-  .service img { width: 100%; height: 100%; object-fit: cover; display: block; min-height: 180px; }
+  .service img { width: 100%; height: 100%; object-fit: cover; object-position: 100% 50%; display: block; min-height: 180px; } /* 오른쪽(화산·페리)만 보이게, 왼쪽 위 글자는 잘라냄 */
   .service .body { padding: 22px; }
   .service h3 { margin: 0 0 8px; font-size: 18px; }
   .service p { margin: 0 0 14px; font-size: 14px; color: var(--pencil); }
@@ -56,6 +56,8 @@
   /* 언어 전환: 컴포넌트 규칙(.item b 등)보다 우선하도록 !important */
   [data-lang] { display: none !important; }
   html[data-ui="ja"] [data-lang="ja"], html[data-ui="en"] [data-lang="en"] { display: revert !important; }
+  html[data-ui="ja"] .item b[data-lang="ja"], html[data-ui="en"] .item b[data-lang="en"], html[data-ui="ja"] .btn[data-lang="ja"], html[data-ui="en"] .btn[data-lang="en"] { display: block !important; }
+  .btn { width: max-content; }
   @media (max-width: 1023px) {
     .service, .grid { grid-template-columns: 1fr; }
     .service img { min-height: 160px; max-height: 220px; }
