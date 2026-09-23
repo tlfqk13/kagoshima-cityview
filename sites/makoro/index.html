@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MAKORO</title>
+<meta name="description" content="MAKOROは、旅行者が見知らぬ街で公共交通に迷わないための案内サービスを開発・運営しています。第一弾は鹿児島シティビューバスガイド。">
+<link rel="canonical" href="https://makoro.dev/">
+<meta property="og:title" content="MAKORO">
+<meta property="og:description" content="見知らぬ街で公共交通に乗る瞬間、旅行者が迷わないように。">
+<meta property="og:image" content="https://makoro.dev/og.jpg">
+<meta property="og:url" content="https://makoro.dev/">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%238B4513'/%3E%3Ctext x='32' y='42' text-anchor='middle' font-family='serif' font-size='30' fill='%23fff'%3EM%3C/text%3E%3C/svg%3E">
+<style>
+  :root {
+    --paper: #F3EBDD; --card: #FFFDF8; --ink: #1C1A18; --pencil: #5A534B; --subtle: #6E675E;
+    --accent: #8B4513; --sea: #2F6A8F; --rule: #DDD7D0; --dark: #1F1E1A;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) { --paper: #1D1B18; --card: #2A2723; --ink: #E8E4DE; --pencil: #B5ACA0; --subtle: #A6A094; --accent: #C87A3A; --sea: #8DB6D3; --rule: #2E2C29; --dark: #0F0E0C; }
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font-family: "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic", "Noto Sans JP", -apple-system, "Segoe UI", sans-serif; line-height: 1.8; -webkit-font-smoothing: antialiased; }
+  a { color: var(--sea); }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 0 20px; }
+  header { display: flex; align-items: center; justify-content: space-between; padding: 22px 0; }
+  .logo { font-weight: 700; letter-spacing: 0.22em; font-size: 15px; color: var(--ink); text-decoration: none; }
+  .lang { display: flex; gap: 4px; }
+  .lang button { min-height: 32px; padding: 0 12px; border: 1px solid var(--rule); background: transparent; color: var(--subtle); border-radius: 999px; font: inherit; font-size: 12px; cursor: pointer; }
+  .lang button[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .hero { padding: 56px 0 40px; }
+  .eyebrow { font-size: 11px; letter-spacing: 0.2em; color: var(--accent); text-transform: uppercase; margin: 0 0 14px; }
+  h1 { font-size: clamp(26px, 5vw, 40px); line-height: 1.4; margin: 0 0 18px; letter-spacing: 0.01em; }
+  .lead { font-size: 16px; color: var(--pencil); margin: 0; max-width: 560px; }
+  section { padding: 28px 0; border-top: 1px solid var(--rule); }
+  h2 { font-size: 13px; letter-spacing: 0.16em; color: var(--subtle); text-transform: uppercase; margin: 0 0 16px; }
+  .service { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; background: var(--card); border: 1px solid var(--rule); border-radius: 12px; overflow: hidden; }
+  .service img { width: 100%; height: 100%; object-fit: cover; display: block; min-height: 180px; }
+  .service .body { padding: 22px; }
+  .service h3 { margin: 0 0 8px; font-size: 18px; }
+  .service p { margin: 0 0 14px; font-size: 14px; color: var(--pencil); }
+  .btn { display: inline-block; padding: 10px 18px; border-radius: 999px; background: var(--ink); color: var(--paper); text-decoration: none; font-size: 14px; }
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 14px; padding: 0; list-style: none; }
+  .tags li { font-size: 12px; padding: 4px 10px; border: 1px solid var(--rule); border-radius: 999px; color: var(--subtle); }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .item { background: var(--card); border: 1px solid var(--rule); border-radius: 12px; padding: 18px; }
+  .item b { display: block; margin-bottom: 6px; font-size: 15px; }
+  .item span { font-size: 14px; color: var(--pencil); }
+  dl { display: grid; grid-template-columns: 120px 1fr; gap: 10px 16px; margin: 0; font-size: 14px; }
+  dt { color: var(--subtle); }
+  dd { margin: 0; }
+  footer { padding: 32px 0 48px; font-size: 12px; color: var(--subtle); border-top: 1px solid var(--rule); }
+  /* 언어 전환: 컴포넌트 규칙(.item b 등)보다 우선하도록 !important */
+  [data-lang] { display: none !important; }
+  html[data-ui="ja"] [data-lang="ja"], html[data-ui="en"] [data-lang="en"] { display: revert !important; }
+  @media (max-width: 1023px) {
+    .service, .grid { grid-template-columns: 1fr; }
+    .service img { min-height: 160px; max-height: 220px; }
+    dl { grid-template-columns: 1fr; gap: 2px 0; }
+    dt { margin-top: 10px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <a class="logo" href="/">MAKORO</a>
+    <div class="lang" role="group" aria-label="Language">
+      <button type="button" data-set="ja" aria-pressed="true">日本語</button>
+      <button type="button" data-set="en" aria-pressed="false">English</button>
+    </div>
+  </header>
+
+  <main>
+    <div class="hero">
+      <p class="eyebrow">Travel · Transit · Data</p>
+      <h1 data-lang="ja">見知らぬ街で公共交通に乗る瞬間、<br>旅行者が迷わないように。</h1>
+      <h1 data-lang="en">So that travelers never get lost<br>the moment they take local transit in an unfamiliar city.</h1>
+      <p class="lead" data-lang="ja">MAKOROは、旅行者向けの公共交通案内サービスを開発・運営する小さな会社です。地図アプリが正しく示せない「停留所の本当の場所」から始めました。</p>
+      <p class="lead" data-lang="en">MAKORO is a small company that builds and runs transit guides for travelers. We started with the one thing map apps get wrong: where the bus stop actually is.</p>
+    </div>
+
+    <section id="service">
+      <h2 data-lang="ja">サービス</h2><h2 data-lang="en">Service</h2>
+      <div class="service">
+        <img src="/og.jpg" alt="" width="1200" height="630">
+        <div class="body">
+          <h3 data-lang="ja">鹿児島シティビューバスガイド</h3>
+          <h3 data-lang="en">Kagoshima City View Bus Guide</h3>
+          <ul class="tags">
+            <li>日本語</li><li>English</li><li>한국어</li><li>繁體中文</li>
+          </ul>
+          <p data-lang="ja">鹿児島市の観光周遊バス全20停留所の正確な位置、次のバスまでの時間、ホテルからの道順を案内。無料・広告なし・アプリ不要。</p>
+          <p data-lang="en">Exact locations of all 20 stops on Kagoshima's sightseeing loop bus, minutes to the next bus, and the walk from your hotel. Free, no ads, no app.</p>
+          <a class="btn" href="https://kagoshima.makoro.dev/" data-lang="ja">サイトを開く →</a>
+          <a class="btn" href="https://kagoshima.makoro.dev/?lang=en" data-lang="en">Open the guide →</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="approach">
+      <h2 data-lang="ja">私たちのやり方</h2><h2 data-lang="en">How we work</h2>
+      <div class="grid">
+        <div class="item"><b data-lang="ja">現地で確かめる</b><b data-lang="en">Verified on site</b><span data-lang="ja">停留所の位置は公式オープンデータをもとに現地でGPS確認。地図アプリとのずれは四半期ごとに調べて公開します。</span><span data-lang="en">Stop locations come from official open data and are GPS-checked on site. We audit map-app errors every quarter and publish the results.</span></div>
+        <div class="item"><b data-lang="ja">旅行者の言葉で</b><b data-lang="en">In the traveler's language</b><span data-lang="ja">日本語・英語・韓国語・繁体字中国語。文章は機械翻訳のままにしません。</span><span data-lang="en">Japanese, English, Korean and Traditional Chinese — written, not left as raw machine translation.</span></div>
+        <div class="item"><b data-lang="ja">紙まで届ける</b><b data-lang="en">All the way to paper</b><span data-lang="ja">ホテルのフロントに置く卓上POP、ロビーのポスター。旅行者は人に尋ねる、という前提で作っています。</span><span data-lang="en">Counter cards for hotel front desks, posters for lobbies. Built on the premise that travelers ask people.</span></div>
+        <div class="item"><b data-lang="ja">データを地域に返す</b><b data-lang="en">Data back to the city</b><span data-lang="ja">個人を特定しない利用統計を、自治体・宿泊施設向けの月次レポートとして提供します。</span><span data-lang="en">Anonymous usage statistics, shared as monthly reports with the city and partner hotels.</span></div>
+      </div>
+    </section>
+
+    <section id="company">
+      <h2 data-lang="ja">会社概要</h2><h2 data-lang="en">Company</h2>
+      <dl>
+        <dt data-lang="ja">名称</dt><dt data-lang="en">Name</dt><dd>MAKORO</dd>
+        <dt data-lang="ja">事業内容</dt><dt data-lang="en">Business</dt><dd data-lang="ja">旅行者向け公共交通案内サービスの開発・運営</dd><dd data-lang="en">Development and operation of transit guides for travelers</dd>
+        <dt data-lang="ja">運営サービス</dt><dt data-lang="en">Services</dt><dd><a href="https://kagoshima.makoro.dev/">鹿児島シティビューバスガイド</a></dd>
+        <dt data-lang="ja">お問い合わせ</dt><dt data-lang="en">Contact</dt><dd><a href="mailto:hello@makoro.dev">hello@makoro.dev</a></dd>
+      </dl>
+    </section>
+  </main>
+
+  <footer>
+    <span data-lang="ja">© MAKORO · 停留所データ提供：鹿児島市（原データより加工）</span>
+    <span data-lang="en">© MAKORO · Stop data: Kagoshima City (processed from original data)</span>
+  </footer>
+</div>
+<script>
+  (function () {
+    var html = document.documentElement;
+    function set(lang) {
+      html.setAttribute('data-ui', lang); html.setAttribute('lang', lang);
+      document.querySelectorAll('.lang button').forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-set') === lang)); });
+      try { localStorage.setItem('makoro-lang', lang); } catch (e) {}
+    }
+    var saved = null; try { saved = localStorage.getItem('makoro-lang'); } catch (e) {}
+    var pref = (navigator.language || 'ja').toLowerCase().indexOf('ja') === 0 ? 'ja' : 'en';
+    set(saved || pref);
+    document.querySelectorAll('.lang button').forEach(function (b) { b.addEventListener('click', function () { set(b.getAttribute('data-set')); }); });
+  })();
+</script>
+</body>
+</html>
