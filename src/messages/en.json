@@ -130,7 +130,7 @@
     "close": "Close"
   },
   "partnership": {
-    "h2line1": "A bus-stop card",
+    "h2line1": "A counter card",
     "h2line2": "for your front desk",
     "body": "Guests scan the QR code to see the exact location of every stop on their phone. Print files are free, and we can add your property’s name. Available in Japanese, English and Korean.",
     "cta": "Request cards / contact",
@@ -139,7 +139,7 @@
     "aboutMaintenance": "We re-verify all stop locations quarterly and publish the results",
     "emailLabel": "Contact",
     "copied": "Email address copied",
-    "ctaPrint": "See print materials",
+    "ctaPrint": "See counter cards & posters",
     "aboutStory": "Read the story"
   },
   "footer": {
@@ -152,15 +152,15 @@
     "eyebrow": "For hotels & visitor centers",
     "title": "QR Cards & Documents",
     "intro": "Stop QR cards and posters for hotel front desks and visitor centers, plus proposal documents.",
-    "cardTitle": "Stop QR Cards (A6 printable)",
-    "cardDesc": "All 20 stops. For hotel front desks and tourist information centers. Hotel-branded cards supported.",
-    "siteQrTitle": "Site QR Card & Poster (A6 · A4 printable)",
-    "siteQrDesc": "A QR that opens the site’s front page. For pamphlets and lobby display. Hotel-branded versions supported.",
+    "cardTitle": "Stop Counter Cards (A6, with QR)",
+    "cardDesc": "All 20 stops. For hotel front desks and visitor-center counters — display in a card stand. Hotel-branded versions available.",
+    "siteQrTitle": "Site Counter Card & Poster (A6 · A4)",
+    "siteQrDesc": "A QR that opens the site’s front page. A6 card for the counter, A4 poster for the lobby. Hotel-branded versions available.",
     "cardCta": "Choose a card",
     "tourismTitle": "Tourism Office Proposal (PDF)",
     "tourismDesc": "Official adoption proposal — problem background, service overview, maintenance & handover plan.",
     "hotelTitle": "Hotel Proposal (PDF)",
-    "hotelDesc": "QR card placement proposal as a guest service — includes nearest-stop mapping for major hotels.",
+    "hotelDesc": "Proposal for placing counter cards for guests — includes nearest-stop table for major hotels.",
     "incidentTitle": "Incident Guide (PDF)",
     "incidentDesc": "For staff displaying the card — what to do if the site is down or the QR fails.",
     "open": "Open →"

@@ -24,19 +24,19 @@ export default function CardIndexPage() {
         </nav>
         <h1 className={styles.h1}>인쇄물</h1>
         <p className={styles.sub}>
-          印刷物 — Print materials / 팜플렛·프런트 비치용
+          印刷物 — 卓上POP・ポスター / Counter cards & posters / 탁상 POP·포스터
         </p>
       </header>
 
       <section id="site-qr" className={styles.section}>
-        <h2 className={styles.h2}>사이트 QR · サイトQR</h2>
-        <p className={styles.note}>QR을 찍으면 사이트 첫 화면이 열립니다. 팜플렛·로비 게시용.</p>
+        <h2 className={styles.h2}>사이트 안내 · サイト案内</h2>
+        <p className={styles.note}>QR을 찍으면 사이트 첫 화면이 열립니다. A6는 카운터용 탁상 POP, A4는 로비 게시용 포스터.</p>
         <ul className={styles.grid}>
           <li>
             <Link href="/card/site" className={styles.item}>
               <span className={styles.num}>A6</span>
-              <span className={styles.name}>サイトQRカード</span>
-              <span className={styles.nameSub}>Site QR card · 사이트 QR 카드</span>
+              <span className={styles.name}>サイト案内 卓上POP</span>
+              <span className={styles.nameSub}>Site counter card · 사이트 안내 탁상 POP</span>
             </Link>
           </li>
           <li>
@@ -62,8 +62,8 @@ export default function CardIndexPage() {
       </section>
 
       <section className={styles.section}>
-        <h2 className={styles.h2}>정류장 카드 · 停留所カード</h2>
-        <p className={styles.note}>QR을 찍으면 해당 정류장의 위치가 지도로 열립니다.</p>
+        <h2 className={styles.h2}>정류장 안내 탁상 POP · 停留所案内 卓上POP</h2>
+        <p className={styles.note}>QR을 찍으면 해당 정류장의 위치가 지도로 열립니다. 카드 스탠드에 세워 두는 A6.</p>
         <ul className={styles.grid}>
           {stops.map(stop => (
             <li key={stop.id}>
