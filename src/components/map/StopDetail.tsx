@@ -243,7 +243,7 @@ export default function StopDetail({ stop, routeId, userLocation, isFavorite, on
         <dl className={styles.fareList}>
           <div><dt>{t('map.fare.adult')}</dt><dd>¥{route.fare.adult}</dd></div>
           <div><dt>{t('map.fare.child')}</dt><dd>¥{route.fare.child}</dd></div>
-          {route.dayPass && <div><dt>{t('map.fare.dayPass')}</dt><dd>¥{route.dayPass.adult} / ¥{route.dayPass.child}</dd></div>}
+          {route.dayPass && <div className={styles.fareWide}><dt>{t('map.fare.dayPass')}</dt><dd>¥{route.dayPass.adult} / ¥{route.dayPass.child}</dd></div>}
           <div><dt>{t('map.fare.loop')}</dt><dd>{t('map.fare.loopValue', { min: route.loopDurationMin })}</dd></div>
         </dl>
         <p className={styles.infoNote}>{t('map.fare.note')}</p>
