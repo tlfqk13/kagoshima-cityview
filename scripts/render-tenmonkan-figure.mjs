@@ -21,14 +21,14 @@ const html = `<!DOCTYPE html><html><head><meta charset="utf-8">
 <link href="https://api.mapbox.com/mapbox-gl-js/v3.26.0/mapbox-gl.css" rel="stylesheet">
 <script src="https://api.mapbox.com/mapbox-gl-js/v3.26.0/mapbox-gl.js"></script>
 <style>
-  body{margin:0} #m{width:1200px;height:760px}
-  .pin{width:44px;height:44px;border-radius:50%;background:#8B4513;border:3px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,.35);color:#fff;font:700 18px/38px 'Hiragino Kaku Gothic ProN',sans-serif;text-align:center}
-  .g{width:40px;height:40px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);background:#C0392B;border:3px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,.35);display:flex;align-items:center;justify-content:center}
-  .g span{transform:rotate(45deg);color:#fff;font:700 22px/1 sans-serif}
-  .tag{background:#fff;border:2px solid #2F6A8F;color:#2F6A8F;border-radius:999px;padding:3px 10px;font:700 15px/1.3 sans-serif;white-space:nowrap;box-shadow:0 1px 4px rgba(0,0,0,.25)}
+  body{margin:0} #m{width:960px;height:620px}
+  .pin{width:58px;height:58px;border-radius:50%;background:#8B4513;border:3px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,.35);color:#fff;font:700 24px/52px 'Hiragino Kaku Gothic ProN',sans-serif;text-align:center}
+  .g{width:52px;height:52px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);background:#C0392B;border:3px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,.35);display:flex;align-items:center;justify-content:center}
+  .g span{transform:rotate(45deg);color:#fff;font:700 28px/1 sans-serif}
+  .tag{background:#fff;border:2px solid #2F6A8F;color:#2F6A8F;border-radius:999px;padding:4px 12px;font:700 20px/1.3 sans-serif;white-space:nowrap;box-shadow:0 1px 4px rgba(0,0,0,.25)}
 </style></head><body><div id="m"></div><script>
 mapboxgl.accessToken=${JSON.stringify(token)};
-const map=new mapboxgl.Map({container:'m',style:'mapbox://styles/mapbox/streets-v12',center:${JSON.stringify(center)},zoom:17.6,language:'ja',attributionControl:false,interactive:false});
+const map=new mapboxgl.Map({container:'m',style:'mapbox://styles/mapbox/streets-v12',center:${JSON.stringify(center)},zoom:17.75,language:'ja',attributionControl:false,interactive:false});
 map.on('load',()=>{
   const line=(a,b,id)=>{map.addSource(id,{type:'geojson',data:{type:'Feature',geometry:{type:'LineString',coordinates:[a,b]}}});map.addLayer({id:id+'c',type:'line',source:id,layout:{'line-cap':'round'},paint:{'line-color':'#fff','line-width':8}});map.addLayer({id,type:'line',source:id,layout:{'line-cap':'round'},paint:{'line-color':'#2F6A8F','line-width':4,'line-dasharray':[0.2,1.6]}})};
   line(${JSON.stringify(google)},[${s3.lng},${s3.lat}],'l3'); line(${JSON.stringify(google)},[${s19.lng},${s19.lat}],'l19');
@@ -37,15 +37,15 @@ map.on('load',()=>{
   new mapboxgl.Marker({element:el('pin','19'),anchor:'center'}).setLngLat([${s19.lng},${s19.lat}]).addTo(map);
   new mapboxgl.Marker({element:el('g','<span>?</span>'),anchor:'bottom'}).setLngLat(${JSON.stringify(google)}).addTo(map);
   const mid=(a,b)=>[(a[0]+b[0])/2,(a[1]+b[1])/2];
-  new mapboxgl.Marker({element:el('tag','${a3.errorMeters} m'),anchor:'center',offset:[0,-16]}).setLngLat(mid(${JSON.stringify(google)},[${s3.lng},${s3.lat}])).addTo(map);
-  new mapboxgl.Marker({element:el('tag','${a19.errorMeters} m'),anchor:'center',offset:[0,16]}).setLngLat(mid(${JSON.stringify(google)},[${s19.lng},${s19.lat}])).addTo(map);
+  new mapboxgl.Marker({element:el('tag','${a3.errorMeters} m'),anchor:'center',offset:[0,-22]}).setLngLat(mid(${JSON.stringify(google)},[${s3.lng},${s3.lat}])).addTo(map);
+  new mapboxgl.Marker({element:el('tag','${a19.errorMeters} m'),anchor:'center',offset:[0,22]}).setLngLat(mid(${JSON.stringify(google)},[${s19.lng},${s19.lat}])).addTo(map);
   map.once('idle',()=>{document.title='ready'});
 });
 </script></body></html>`
 const tmp = path.join(process.env.TMPDIR || '/tmp', 'tenmonkan-figure.html')
 fs.writeFileSync(tmp, html)
 const browser = await chromium.launch()
-const page = await browser.newPage({ viewport: { width: 1200, height: 760 }, deviceScaleFactor: 1 })
+const page = await browser.newPage({ viewport: { width: 960, height: 620 }, deviceScaleFactor: 1 })
 await page.goto('file://' + tmp)
 await page.waitForFunction(() => document.title === 'ready', null, { timeout: 60000 })
 await page.waitForTimeout(1500)

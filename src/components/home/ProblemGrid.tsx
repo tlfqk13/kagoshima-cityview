@@ -31,8 +31,8 @@ export default function ProblemGrid() {
             <Image
               src="/images/home/tenmonkan-map.jpg"
               alt={t('home.figAlt')}
-              width={1200}
-              height={760}
+              width={960}
+              height={620}
               sizes="(max-width: 1023px) 92vw, 560px"
               className={styles.figImg}
             />
