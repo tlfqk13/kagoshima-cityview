@@ -7,7 +7,7 @@ import { copyText } from '@/lib/clipboard'
 import { HOME_PHOTOS } from './photos'
 import styles from './PartnershipSection.module.css'
 
-const CONTACT_EMAIL = 'fkffksk20@gmail.com'
+const CONTACT_EMAIL = 'hello@makoro.dev'
 
 // 호텔·관광안내소 담당자에게 보내는 편지 — 서비스를 실제로 퍼뜨려 주는 배포 파트너용 안내.
 // 랜딩 방문자는 대부분 관광객이므로 지자체(관광과) 대상 제안은 여기서 하지 않고
