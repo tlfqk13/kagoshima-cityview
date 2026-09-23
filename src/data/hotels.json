@@ -1,6 +1,6 @@
 {
   "updatedAt": "2026-07-20",
-  "note": "호텔 브랜드 인쇄물(?hotel=slug)과 지도 호텔 모드(/map?hotel=slug)용. stopId는 타는 정류장, walkMeters는 직선거리(2026-07-20 Nominatim). lat/lng는 OpenStreetMap Nominatim 2026-09-23 지오코딩(호텔 건물 좌표, 정류장 좌표 아님)",
+  "note": "호텔 브랜드 인쇄물(?hotel=slug)과 지도 호텔 모드(/map?hotel=slug)용. stopId는 타는 정류장(걸어갈 수 있는 450m 안 정류장 중 번호가 가장 작은 것), walkMeters는 직선거리. 처음 8곳은 Nominatim 2026-07-20/09-23, 이후 추가분은 OpenStreetMap(Overpass) 2026-09-23 지오코딩. 지점이 여러 개라 이름을 확정할 수 없는 체인(東横イン·マイステイズ 등)은 넣지 않았다",
   "hotels": [
     { "slug": "remm", "nameJa": "レム鹿児島", "stopId": "stop_03", "walkMeters": 98, "lat": 31.5900612, "lng": 130.553178 },
     { "slug": "richmond-kinseicho", "nameJa": "リッチモンドホテル鹿児島金生町", "stopId": "stop_18", "walkMeters": 122, "lat": 31.5941968, "lng": 130.5577574 },
@@ -9,7 +9,30 @@
     { "slug": "shiroyama", "nameJa": "城山ホテル鹿児島", "stopId": "stop_07", "walkMeters": 233, "lat": 31.5950279, "lng": 130.5475265 },
     { "slug": "fav-lux", "nameJa": "FAV LUX KAGOSHIMA", "stopId": "stop_19", "walkMeters": 258, "lat": 31.5879894, "lng": 130.5551638 },
     { "slug": "dormy-inn", "nameJa": "ドーミーイン鹿児島", "stopId": "stop_03", "walkMeters": 276, "lat": 31.5892196, "lng": 130.551555 },
-    { "slug": "sheraton", "nameJa": "シェラトン鹿児島", "stopId": "stop_02", "walkMeters": 780, "lat": 31.5792975, "lng": 130.5535822 }
+    { "slug": "sheraton", "nameJa": "シェラトン鹿児島", "stopId": "stop_02", "walkMeters": 780, "lat": 31.5792975, "lng": 130.5535822 },
+    { "slug": "taisei-annex", "nameJa": "ホテルタイセイアネックス", "stopId": "stop_01", "walkMeters": 155, "lat": 31.5860071, "lng": 130.5448294 },
+    { "slug": "taisei", "nameJa": "ホテルタイセイ", "stopId": "stop_01", "walkMeters": 206, "lat": 31.5867383, "lng": 130.54458 },
+    { "slug": "bb-park", "nameJa": "B&Bパークホテル鹿児島", "stopId": "stop_01", "walkMeters": 281, "lat": 31.5827476, "lng": 130.5447271 },
+    { "slug": "urbic", "nameJa": "ホテルアービック鹿児島", "stopId": "stop_01", "walkMeters": 321, "lat": 31.5843517, "lng": 130.5403256 },
+    { "slug": "silk-inn", "nameJa": "シルクイン鹿児島", "stopId": "stop_01", "walkMeters": 424, "lat": 31.5816858, "lng": 130.5456385 },
+    { "slug": "green-rich-tenmonkan", "nameJa": "グリーンリッチホテル鹿児島天文館", "stopId": "stop_03", "walkMeters": 61, "lat": 31.5898261, "lng": 130.5539518 },
+    { "slug": "henn-na-tenmonkan", "nameJa": "変なホテル鹿児島天文館", "stopId": "stop_03", "walkMeters": 74, "lat": 31.590177, "lng": 130.5534058 },
+    { "slug": "richmond-tenmonkan", "nameJa": "リッチモンドホテル鹿児島天文館", "stopId": "stop_03", "walkMeters": 168, "lat": 31.589925, "lng": 130.5558663 },
+    { "slug": "sundays-kagoshima", "nameJa": "ホテルサンデイズ鹿児島", "stopId": "stop_03", "walkMeters": 194, "lat": 31.5886223, "lng": 130.5538294 },
+    { "slug": "washington-plaza", "nameJa": "鹿児島ワシントンホテルプラザ", "stopId": "stop_03", "walkMeters": 195, "lat": 31.5891524, "lng": 130.552648 },
+    { "slug": "koko-tenmonkan", "nameJa": "KOKO HOTEL 鹿児島天文館", "stopId": "stop_03", "walkMeters": 227, "lat": 31.591783, "lng": 130.552467 },
+    { "slug": "plaza-tenmonkan", "nameJa": "プラザホテル天文館", "stopId": "stop_03", "walkMeters": 283, "lat": 31.5878164, "lng": 130.5545504 },
+    { "slug": "apa-tenmonkan", "nameJa": "アパホテル〈鹿児島天文館〉", "stopId": "stop_03", "walkMeters": 289, "lat": 31.5888835, "lng": 130.556679 },
+    { "slug": "nakahara-bessou", "nameJa": "温泉ホテル中原別荘", "stopId": "stop_03", "walkMeters": 294, "lat": 31.5928756, "lng": 130.5532549 },
+    { "slug": "ace-inn", "nameJa": "エースイン鹿児島", "stopId": "stop_03", "walkMeters": 304, "lat": 31.5879932, "lng": 130.5525202 },
+    { "slug": "lexton", "nameJa": "ホテル・レクストン鹿児島", "stopId": "stop_03", "walkMeters": 331, "lat": 31.5875424, "lng": 130.5529676 },
+    { "slug": "gran-cerezo-tenmonkan", "nameJa": "ホテルグランセレッソ鹿児島天文館", "stopId": "stop_03", "walkMeters": 356, "lat": 31.5893299, "lng": 130.5577282 },
+    { "slug": "hokke-club", "nameJa": "ホテル法華クラブ鹿児島", "stopId": "stop_03", "walkMeters": 408, "lat": 31.5882288, "lng": 130.5506347 },
+    { "slug": "ilca-guesthouse", "nameJa": "鹿児島イルカゲストハウス", "stopId": "stop_09", "walkMeters": 446, "lat": 31.5977672, "lng": 130.5595653 },
+    { "slug": "aqua-garden-fukumaru", "nameJa": "アクアガーデンホテル福丸", "stopId": "stop_16", "walkMeters": 287, "lat": 31.5953212, "lng": 130.5599221 },
+    { "slug": "sunflex", "nameJa": "ホテルサンフレックス鹿児島", "stopId": "stop_17", "walkMeters": 421, "lat": 31.592079, "lng": 130.559696 },
+    { "slug": "hostel-tomal", "nameJa": "ホステルトマル", "stopId": "stop_18", "walkMeters": 119, "lat": 31.5924549, "lng": 130.558547 },
+    { "slug": "grand-base-tenmonkan", "nameJa": "HOTEL GRAND BASE 鹿児島天文館", "stopId": "stop_18", "walkMeters": 319, "lat": 31.5905262, "lng": 130.5590009 }
   ],
-  "coordSource": "OpenStreetMap Nominatim, 2026-09-23"
+  "coordSource": "OpenStreetMap (Nominatim/Overpass), 2026-09-23"
 }

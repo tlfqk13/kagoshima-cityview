@@ -34,7 +34,8 @@ def build():
     close()
     rows = [l for l in appB.split('\n') if l.startswith('| ') and not l.startswith('| ホテル') and not l.startswith('|---')]
     note = [l for l in appB.split('\n') if l.startswith('> ')][0][2:]
-    table = ('  <h2>附録: 主要ホテル最寄り停留所（2026年7月調べ）</h2>\n  <table>\n    <tr><th>ホテル</th><th>最寄り停留所</th><th>直線距離</th></tr>\n'
+    app_title = '附録' + appB.split('\n', 1)[0].strip().lstrip(':').lstrip('：')
+    table = (f'  <h2>{app_title}</h2>\n  <table>\n    <tr><th>ホテル</th><th>最寄り停留所</th><th>直線距離</th></tr>\n'
              + ''.join('    <tr>' + ''.join(f'<td>{c.strip()}</td>' for c in r.strip().strip('|').split('|')) + '</tr>\n' for r in rows)
              + f'  </table>\n  <p style="font-size:9pt; color:#555;">※ {note}</p>')
     head = HTML.read_text().split('<body>')[0]
