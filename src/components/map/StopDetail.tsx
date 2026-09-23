@@ -6,7 +6,7 @@ import { getStopVerification, getDepartureInterval, getScheduleExtraNote } from 
 import styles from './StopDetail.module.css'
 import QRModal from './QRModal'
 import TodayBoard from './TodayBoard'
-import { IconCopy, IconWalk, IconWarn } from '@/components/icons'
+import { IconWalk, IconWarn } from '@/components/icons'
 import { copyText } from '@/lib/clipboard'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -63,11 +63,6 @@ export default function StopDetail({ stop, routeId, userLocation, isFavorite, on
     setToast(message)
     setToastKey(k => k + 1)  // 같은 토스트 반복 시 애니메이션 재시작용
     setTimeout(() => setToast(null), 2000)
-  }
-
-  async function handleCopyCoords() {
-    const ok = await copyText(`${stop.lat}, ${stop.lng}`)
-    showToast(t(ok ? 'map.stopDetail.coordsCopied' : 'map.stopDetail.copyFailed'))
   }
 
   async function copyLink(url: string) {
@@ -158,14 +153,6 @@ export default function StopDetail({ stop, routeId, userLocation, isFavorite, on
           {stop.courses && !stop.courses.includes('A') && (
             <div className={styles.badgeCourse}>{t('map.stopDetail.bCourseOnly')}</div>
           )}
-          <button
-            className={styles.copyBtn}
-            onClick={handleCopyCoords}
-            aria-label={t('map.stopDetail.copyCoords')}
-            title={t('map.stopDetail.copyCoords')}
-          >
-            <IconCopy size={11} /> {stop.lat.toFixed(5)}, {stop.lng.toFixed(5)}
-          </button>
         </div>
       </div>
       {userLocation && (() => {
