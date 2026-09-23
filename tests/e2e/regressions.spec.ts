@@ -172,7 +172,7 @@ test('호텔 QR로 들어오면 호텔 핀과 타는·내리는 정류장을 보
 test('메뉴로 주요 페이지를 오가고 현재 위치를 표시한다', async ({ page, isMobile }) => {
   await page.goto('/?lang=en')
   const nav = page.getByRole('navigation', { name: en.nav.site }).first()
-  for (const [label, path] of [[en.nav.story, '/story'], [en.nav.accuracy, '/accuracy'], [en.nav.downloads, '/downloads'], [en.nav.map, '/map']] as const) {
+  for (const [label, path] of [[en.nav.story, '/story'], [en.nav.accuracy, '/accuracy'], [en.nav.downloads, '/downloads']] as const) {
     if (isMobile) await nav.getByRole('button', { name: en.nav.menu }).click()
     await nav.getByRole('link', { name: label, exact: true }).click()
     await expect(page).toHaveURL(new RegExp(`${path}$`))
@@ -180,6 +180,16 @@ test('메뉴로 주요 페이지를 오가고 현재 위치를 표시한다', as
     await expect(nav.getByRole('link', { name: label, exact: true })).toHaveAttribute('aria-current', 'page')
     if (isMobile) await nav.getByRole('button', { name: en.nav.closeMenu }).click()
   }
+  // 지도는 데스크톱 메뉴에 텍스트 링크를 두지 않고 '지도 열기' 버튼 하나로 간다(중복 제거). 모바일 메뉴에는 남는다
+  if (isMobile) {
+    await nav.getByRole('button', { name: en.nav.menu }).click()
+    await expect(nav.getByRole('link', { name: en.nav.map, exact: true })).toBeVisible()
+    await nav.getByRole('button', { name: en.nav.closeMenu }).click()
+  } else {
+    await expect(nav.getByRole('link', { name: en.nav.map, exact: true })).toHaveCount(0)
+  }
+  await nav.getByRole('link', { name: `${en.nav.openMap} →` }).click()
+  await expect(page).toHaveURL(/\/map$/)
   // 지도 화면에서는 같은 곳으로 가는 "지도 열기" 버튼을 숨긴다
   await expect(nav.getByRole('link', { name: `${en.nav.openMap} →` })).toHaveCount(0)
 })

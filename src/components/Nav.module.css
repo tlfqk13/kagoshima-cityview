@@ -118,6 +118,7 @@
   text-decoration: none;
   transition: opacity 0.15s;
   font-family: var(--font-sans);
+  margin-left: 8px; /* 언어 스위처 묶음과 떨어뜨려 버튼이 설정처럼 읽히지 않게 */
 }
 
 .ctaBtn:hover {
@@ -173,6 +174,7 @@
   }
 
   .ctaBtn {
+    margin-left: 0;
     padding: 8px 6px;
     font-size: 11px;
     letter-spacing: 0;

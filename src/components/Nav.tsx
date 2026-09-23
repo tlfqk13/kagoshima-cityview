@@ -42,7 +42,9 @@ export default function Nav() {
 
   const themeIcon = theme === 'dark' ? '☾' : theme === 'light' ? '☀' : '⊙'
 
-  const links = SITE_LINKS.map(link => {
+  // 상단 메뉴에는 '지도' 링크를 두지 않는다 — 오른쪽 '지도 열기' 버튼과 목적지가 같아 중복이기 때문.
+  // 모바일 메뉴·푸터(사이트맵 역할)에는 그대로 남긴다.
+  const renderLinks = (items: readonly (typeof SITE_LINKS)[number][]) => items.map(link => {
     const active = isActive(pathname, link.href)
     return (
       <li key={link.href}>
@@ -52,13 +54,15 @@ export default function Nav() {
       </li>
     )
   })
+  const desktopLinks = renderLinks(SITE_LINKS.filter(link => link.href !== '/map'))
+  const menuLinks = renderLinks(SITE_LINKS)
 
   return (
     <nav className={styles.nav} aria-label={t('nav.site')}>
       <Link href="/" className={styles.logo}>
         {t('nav.logoPre')} <em>{t('nav.logoEm')}</em> {t('nav.logoPost')}
       </Link>
-      <ul className={styles.links}>{links}</ul>
+      <ul className={styles.links}>{desktopLinks}</ul>
       <div className={styles.right}>
         <button
           type="button"
@@ -94,7 +98,7 @@ export default function Nav() {
               {t('nav.logoPre')} {t('nav.logoEm')} {t('nav.logoPost')}
             </Link>
           </li>
-          {links}
+          {menuLinks}
         </ul>
       )}
     </nav>
