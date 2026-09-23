@@ -49,3 +49,8 @@ next-env.d.ts
 /public/worker-*.js
 /public/swe-worker-*.js
 scripts/google-maps-audit/out/
+
+# Vercel 마켓플레이스(Neon)가 넣는 에이전트 스킬 파일 — 저장소에 두지 않음
+.agents/
+skills-lock.json
+.claude/worktrees/
