@@ -3,12 +3,15 @@ import withPWAInit from '@ducanh2912/next-pwa'
 const withPWA = withPWAInit({
   dest: 'public',
   cacheOnFrontEndNav: true,
-  aggressiveFrontEndNavCaching: true,
+  // 모든 링크의 문서를 미리 받는 공격적 프리페치는 끈다 — 여행자의 모바일 데이터를 아끼고, 404 등 불필요한 백그라운드 요청을 막는다
+  aggressiveFrontEndNavCaching: false,
   reloadOnOnline: true,
   disable: process.env.NODE_ENV === 'development',
   // Zen Maru Gothic(next/font)은 일본어 unicode-range 조각이 수백 개(약 6.7MB)라 precache에서 뺀다.
   // 기본 exclude 정규식은 에셋 이름(static/media/…)에 /_next/ 접두사가 없어 폰트를 거르지 못한다.
   // 대신 실제로 화면에 쓰인 조각만 아래 런타임 캐시에 쌓아 오프라인에서도 같은 서체로 보이게 한다.
+  // public/ 중 PDF(1.3MB)·랜딩 사진(2.8MB)·OG 이미지는 첫 방문에 미리 받지 않는다 — 열어 본 것만 런타임 캐시에 남는다
+  publicExcludes: ['!noprecache/**/*', '!downloads/**/*', '!images/home/**/*', '!images/og.jpg'],
   extendDefaultRuntimeCaching: true,
   workboxOptions: {
     exclude: [/\.woff2$/, /\.map$/, /^manifest.*\.js$/],

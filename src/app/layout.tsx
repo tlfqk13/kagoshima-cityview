@@ -13,8 +13,9 @@ import { SITE_NAME, OG_LOCALE, OG_IMAGE, seoText } from '@/lib/seo'
 // next/font가 빌드 시 파일을 받아 같은 도메인에서 제공하므로 런타임 CDN 요청이 없다(CSP font-src 'self').
 // 일본어는 unicode-range 조각으로 나뉘어 화면에 쓰인 글자 조각만 내려받는다(preload 끔).
 // 한글 글리프는 없어 --font-sans의 다음 폰트로 글자 단위 대체된다.
+// 굵기는 400·700만 받는다 — 500/600은 브라우저가 가까운 700으로 대체하며, 일본어 조각 파일 1/3(약 180KB)을 아낀다.
 const zenMaru = Zen_Maru_Gothic({
-  weight: ['400', '500', '700'],
+  weight: ['400', '700'],
   display: 'swap',
   preload: false,
   variable: '--font-zen-maru',
