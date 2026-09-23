@@ -1,8 +1,9 @@
 import { describe, expect, it } from 'vitest'
-import { ROUTE_ORDER, getStopsForRoute, getStopVerification, isRouteAvailableToday, searchStops } from '@/lib/routes'
+import { DATA_LANGS, ROUTE_ORDER, getStopsForRoute, getStopVerification, isRouteAvailableToday, nameKey, searchStops } from '@/lib/routes'
 import ko from '@/messages/ko.json'
 import en from '@/messages/en.json'
 import ja from '@/messages/ja.json'
+import zhHant from '@/messages/zh-Hant.json'
 
 describe('검증 표시', () => {
   it('현장 실측 노선에만 GPS 검증 표시를 허용한다', () => {
@@ -52,8 +53,24 @@ describe('데이터 기본 무결성', () => {
       for (const time of stop.schedule?.departures ?? []) expect(time).toMatch(/^\d{2}:\d{2}$/)
     }
   })
-  it('3개 언어로 정류장을 검색할 수 있다', () => {
-    for (const query of ['텐몬칸', 'Tenmonkan', '天文館']) expect(searchStops('cityview', query).length).toBeGreaterThan(0)
+  it('4개 언어로 정류장을 검색할 수 있다', () => {
+    for (const query of ['텐몬칸', 'Tenmonkan', '天文館', '鹿兒島中央站']) expect(searchStops('cityview', query).length).toBeGreaterThan(0)
+  })
+  it('모든 정류장·목적지·운행 메모에 4개 언어 이름이 있다', () => {
+    for (const route of ROUTE_ORDER) for (const stop of getStopsForRoute(route)) {
+      for (const key of DATA_LANGS) {
+        expect(stop.name[key], `${stop.id}.name.${key}`).toBeTruthy()
+        if (stop.schedule) expect(stop.schedule.operatingNote[key], `${stop.id}.operatingNote.${key}`).toBeTruthy()
+        for (const dest of stop.destinations) expect(dest.name[key], `${dest.id}.name.${key}`).toBeTruthy()
+        for (const conn of stop.connections) expect(conn.note[key], `${stop.id}.connection.${key}`).toBeTruthy()
+      }
+    }
+  })
+  it('UI 언어를 데이터 키로 바꾼다', () => {
+    expect(nameKey('zh-Hant')).toBe('zh')
+    expect(nameKey('en-US')).toBe('en')
+    expect(nameKey('fr')).toBe('ja')
+    expect(nameKey(undefined, 'ko')).toBe('ko')
   })
   it('번역 키가 모두 일치한다', () => {
     const keys = (value: object, prefix = ''): string[] => Object.entries(value).flatMap(([key, child]) => (
@@ -61,5 +78,6 @@ describe('데이터 기본 무결성', () => {
     )).sort()
     expect(keys(en)).toEqual(keys(ko))
     expect(keys(ja)).toEqual(keys(ko))
+    expect(keys(zhHant)).toEqual(keys(ko))
   })
 })

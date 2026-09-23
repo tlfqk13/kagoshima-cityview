@@ -1,23 +1,22 @@
 'use client'
 import { useTranslation } from 'react-i18next'
 import { useRouter } from 'next/navigation'
+import { LANGUAGES, normalizeLanguage, type Language } from '@/lib/locale'
 import styles from './LanguageSwitcher.module.css'
 
-const LANGS = ['ko', 'en', 'ja'] as const
-type LangCode = typeof LANGS[number]
+// 버튼에 보이는 짧은 표기. aria-label은 언어 코드 대문자(`Switch to ZH-HANT`)로 통일한다.
+const LABELS: Record<Language, string> = { ko: 'KO', en: 'EN', ja: 'JA', 'zh-Hant': '繁中' }
 
-function persistLanguage(language: LangCode) {
+function persistLanguage(language: Language) {
   document.cookie = `i18next=${language}; Path=/; Max-Age=31536000; SameSite=Lax${location.protocol === 'https:' ? '; Secure' : ''}`
 }
 
 export default function LanguageSwitcher() {
   const { i18n } = useTranslation()
   const router = useRouter()
-  const currentLang = LANGS.includes(i18n.language as LangCode)
-    ? i18n.language
-    : 'ja'
+  const currentLang = normalizeLanguage(i18n.language) ?? 'ja'
 
-  function changeLanguage(language: LangCode) {
+  function changeLanguage(language: Language) {
     persistLanguage(language)
     void i18n.changeLanguage(language)
     const url = new URL(window.location.href)
@@ -28,15 +27,16 @@ export default function LanguageSwitcher() {
 
   return (
     <div className={styles.wrap}>
-      {LANGS.map(lang => (
+      {LANGUAGES.map(lang => (
         <button
           key={lang}
           className={currentLang === lang ? styles.on : styles.btn}
           onClick={() => changeLanguage(lang)}
           aria-label={`Switch to ${lang.toUpperCase()}`}
           aria-pressed={currentLang === lang}
+          lang={lang}
         >
-          {lang.toUpperCase()}
+          {LABELS[lang]}
         </button>
       ))}
     </div>

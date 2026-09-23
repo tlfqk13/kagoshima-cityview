@@ -4,7 +4,8 @@
     "name": {
       "ko": "야경 코스",
       "en": "Night View Course",
-      "ja": "夜景コース"
+      "ja": "夜景コース",
+      "zh": "夜景路線"
     },
     "color": "#2C3E7A",
     "fare": {
@@ -40,12 +41,14 @@
     "scheduleNote": {
       "ko": "매주 토요일 운행 (8·12·1월은 금·토 양일). 정확한 출발 시각은 공식 사이트 확인.",
       "en": "Runs every Saturday (also Friday in Aug/Dec/Jan). Check official site for exact times.",
-      "ja": "毎週土曜日運行（8・12・1月は金土両日）。正確な時刻は公式サイトをご確認ください。"
+      "ja": "毎週土曜日運行（8・12・1月は金土両日）。正確な時刻は公式サイトをご確認ください。",
+      "zh": "每週六運行（8、12、1月為週五、週六）。正確時刻請至官方網站確認。"
     },
     "disclaimer": {
       "ko": "야경 코스는 토요일만 운행합니다 (8·12·1월 금요일 추가).",
       "en": "Night View Course runs Saturdays only (also Fridays in Aug/Dec/Jan).",
-      "ja": "夜景コースは毎週土曜日のみ運行（8・12・1月は金曜日も運行）。"
+      "ja": "夜景コースは毎週土曜日のみ運行（8・12・1月は金曜日も運行）。",
+      "zh": "夜景路線僅於每週六運行（8、12、1月週五亦運行）。"
     },
     "gtfs": {
       "url": "https://data.bodik.jp/dataset/a8d9d4cd-ee6d-4d79-98fe-6d37f046c537/resource/7e52d8fb-9a25-44ca-ad88-1f32bfb3d8b6/download/bus-kagoshimacity-kagoshima-jp.zip",
@@ -66,7 +69,8 @@
       "name": {
         "ko": "가고시마 중앙역",
         "en": "Kagoshima-Chuo Station",
-        "ja": "鹿児島中央駅"
+        "ja": "鹿児島中央駅",
+        "zh": "鹿兒島中央站"
       },
       "connections": [],
       "destinations": [],
@@ -75,7 +79,8 @@
         "operatingNote": {
           "ko": "출발지 — 공식 사이트에서 시각 확인",
           "en": "Departure — check official site for times",
-          "ja": "出発地 — 公式サイトで時刻確認"
+          "ja": "出発地 — 公式サイトで時刻確認",
+          "zh": "出發地 — 時刻請至官方網站確認"
         }
       },
       "gtfsStopId": "156-4",
@@ -89,7 +94,8 @@
       "name": {
         "ko": "텐몬칸 (성산 방면)",
         "en": "Tenmonkan (toward Shiroyama)",
-        "ja": "天文館（城山方面向け）"
+        "ja": "天文館（城山方面向け）",
+        "zh": "天文館（往城山方向）"
       },
       "connections": [],
       "destinations": [],
@@ -98,7 +104,8 @@
         "operatingNote": {
           "ko": "공식 사이트에서 시각 확인",
           "en": "Check official site for times",
-          "ja": "公式サイトで時刻確認"
+          "ja": "公式サイトで時刻確認",
+          "zh": "時刻請至官方網站確認"
         }
       },
       "gtfsStopId": "343-2",
@@ -112,7 +119,8 @@
       "name": {
         "ko": "워터프론트파크",
         "en": "Waterfront Park",
-        "ja": "ウォーターフロントパーク"
+        "ja": "ウォーターフロントパーク",
+        "zh": "濱水公園"
       },
       "connections": [],
       "destinations": [],
@@ -121,7 +129,8 @@
         "operatingNote": {
           "ko": "공식 사이트에서 시각 확인",
           "en": "Check official site for times",
-          "ja": "公式サイトで時刻確認"
+          "ja": "公式サイトで時刻確認",
+          "zh": "時刻請至官方網站確認"
         }
       },
       "gtfsStopId": "368-1",
@@ -135,7 +144,8 @@
       "name": {
         "ko": "시청 앞",
         "en": "City Hall Mae",
-        "ja": "市役所前"
+        "ja": "市役所前",
+        "zh": "市役所前"
       },
       "connections": [],
       "destinations": [],
@@ -144,7 +154,8 @@
         "operatingNote": {
           "ko": "공식 사이트에서 시각 확인",
           "en": "Check official site for times",
-          "ja": "公式サイトで時刻確認"
+          "ja": "公式サイトで時刻確認",
+          "zh": "時刻請至官方網站確認"
         }
       },
       "gtfsStopId": "230-7",
@@ -158,7 +169,8 @@
       "name": {
         "ko": "시로야마 (15분 정차)",
         "en": "Shiroyama (15 min stop)",
-        "ja": "城山（15分停車）"
+        "ja": "城山（15分停車）",
+        "zh": "城山（停車15分鐘）"
       },
       "connections": [],
       "destinations": [],
@@ -167,7 +179,8 @@
         "operatingNote": {
           "ko": "야경 감상 15분 정차 후 출발",
           "en": "15 min night view stop then departs",
-          "ja": "15分停車後出発"
+          "ja": "15分停車後出発",
+          "zh": "停車15分鐘後發車"
         }
       },
       "gtfsStopId": "287-1",
@@ -181,7 +194,8 @@
       "name": {
         "ko": "사이고 동상 앞 (호잔홀 측)",
         "en": "Saigo Statue Mae (Hozan Hall side)",
-        "ja": "西郷銅像前（宝山ホール側）"
+        "ja": "西郷銅像前（宝山ホール側）",
+        "zh": "西鄉銅像前（寶山會館側）"
       },
       "connections": [],
       "destinations": [],
@@ -190,7 +204,8 @@
         "operatingNote": {
           "ko": "공식 사이트에서 시각 확인",
           "en": "Check official site for times",
-          "ja": "公式サイトで時刻確認"
+          "ja": "公式サイトで時刻確認",
+          "zh": "時刻請至官方網站確認"
         }
       },
       "gtfsStopId": "285-2",
@@ -204,7 +219,8 @@
       "name": {
         "ko": "텐몬칸 (중앙역 방면)",
         "en": "Tenmonkan (toward Kagoshima-Chuo)",
-        "ja": "天文館（鹿児島中央駅向け）"
+        "ja": "天文館（鹿児島中央駅向け）",
+        "zh": "天文館（往鹿兒島中央站）"
       },
       "connections": [],
       "destinations": [],
@@ -213,7 +229,8 @@
         "operatingNote": {
           "ko": "공식 사이트에서 시각 확인",
           "en": "Check official site for times",
-          "ja": "公式サイトで時刻確認"
+          "ja": "公式サイトで時刻確認",
+          "zh": "時刻請至官方網站確認"
         }
       },
       "gtfsStopId": "343-5",

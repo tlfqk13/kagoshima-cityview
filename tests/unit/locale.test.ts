@@ -13,4 +13,10 @@ describe('언어 결정', () => {
     expect(resolveLanguage(null, undefined, 'en;q=invalid,ko;q=2')).toBe('ja')
     expect(normalizeLanguage('EN-us')).toBe('en')
   })
+  it('중국어는 지역·문자 태그와 관계없이 繁體中文으로 모은다', () => {
+    for (const tag of ['zh', 'zh-TW', 'zh-HK', 'zh-Hant', 'zh-Hant-TW', 'zh_hant', 'zh-CN', 'zh-Hans']) expect(normalizeLanguage(tag)).toBe('zh-Hant')
+    expect(resolveLanguage('zh-Hant', 'ja')).toBe('zh-Hant')
+    expect(resolveLanguage(null, undefined, 'zh-TW,zh;q=0.9,en;q=0.8')).toBe('zh-Hant')
+    expect(resolveLanguage(null, undefined, 'en;q=0.9,zh-HK;q=0.8')).toBe('en')
+  })
 })

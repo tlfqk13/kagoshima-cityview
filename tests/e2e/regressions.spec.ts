@@ -2,6 +2,7 @@ import { test, expect } from '@playwright/test'
 import en from '../../src/messages/en.json'
 import ko from '../../src/messages/ko.json'
 import ja from '../../src/messages/ja.json'
+import zhHant from '../../src/messages/zh-Hant.json'
 
 test.beforeEach(async ({ page }) => {
   // 자동 회귀는 외부 서비스에 의존하지 않는다. 실지도는 별도로 검증한다.
@@ -11,7 +12,7 @@ test.beforeEach(async ({ page }) => {
 
 test('언어 전환은 본문·메뉴·HTML·새로고침에 일치한다', async ({ page }) => {
   await page.goto('/story?lang=ja')
-  for (const [language, messages] of Object.entries({ en, ko, ja })) {
+  for (const [language, messages] of Object.entries({ en, ko, ja, 'zh-Hant': zhHant })) {
     await page.getByRole('button', { name: `Switch to ${language.toUpperCase()}` }).click()
     await expect(page.getByRole('heading', { level: 1 })).toHaveText(messages.devlog.pageHeading)
     await expect(page.locator('html')).toHaveAttribute('lang', language)
@@ -29,13 +30,13 @@ test('언어 전환은 본문·메뉴·HTML·새로고침에 일치한다', asyn
 })
 
 test('동시 요청의 언어가 섞이지 않는다', async ({ request }) => {
-  const responses = await Promise.all(['ko', 'en', 'ja'].map(async language => {
+  const responses = await Promise.all(['ko', 'en', 'ja', 'zh-Hant'].map(async language => {
     const response = await request.get(`/story?lang=${language}`)
     return { language, html: await response.text() }
   }))
   for (const { language, html } of responses) {
     expect(html).toContain(`<html lang="${language}"`)
-    expect(html).toContain(({ ko, en, ja })[language as 'ko' | 'en' | 'ja'].devlog.pageHeading)
+    expect(html).toContain(({ ko, en, ja, 'zh-Hant': zhHant })[language as 'ko' | 'en' | 'ja' | 'zh-Hant'].devlog.pageHeading)
   }
 })
 
@@ -95,13 +96,13 @@ test('관리자 인증과 잘못된 정류장 보호가 유지된다', async ({ 
 })
 
 test('랜딩은 언어별 제목과 정류장 링크를 보여준다', async ({ page }) => {
-  for (const [language, messages] of [['ko', ko], ['en', en], ['ja', ja]] as const) {
+  for (const [language, messages] of [['ko', ko], ['en', en], ['ja', ja], ['zh-Hant', zhHant]] as const) {
     await page.goto(`/?lang=${language}`)
     await expect(page.getByRole('heading', { level: 1 })).toContainText(messages.hero.h1line3)
     await expect(page.getByRole('heading', { level: 3, name: messages.home.spots.senganen.title })).toBeVisible()
   }
-  // 스팟 카드는 해당 정류장 지도로 연결된다
-  await page.getByRole('link', { name: `${ja.home.spotsCta} →` }).first().click()
+  // 스팟 카드는 해당 정류장 지도로 연결된다 (마지막으로 연 언어는 繁體中文)
+  await page.getByRole('link', { name: `${zhHant.home.spotsCta} →` }).first().click()
   await expect(page).toHaveURL(/\/map\/stop_\d{2}$/)
 })
 

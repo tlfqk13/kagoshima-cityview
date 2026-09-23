@@ -1,6 +1,6 @@
 'use client'
 import { useTranslation } from 'react-i18next'
-import type { RouteStop as BusStop, Lang, Category } from '@/lib/routes'
+import { type RouteStop as BusStop, type Category, nameKey } from '@/lib/routes'
 import styles from './DestinationCards.module.css'
 
 interface Props {
@@ -11,7 +11,7 @@ interface Props {
 
 export default function DestinationCards({ stops, category, onStopSelect }: Props) {
   const { t, i18n } = useTranslation()
-  const lang = (['ko', 'en', 'ja'].includes(i18n.language) ? i18n.language : 'ja') as Lang
+  const lang = nameKey(i18n.language)
 
   const items = stops.flatMap(stop =>
     stop.destinations

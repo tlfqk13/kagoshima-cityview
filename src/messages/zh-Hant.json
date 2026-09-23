@@ -1,0 +1,263 @@
+{
+  "nav": {
+    "story": "故事",
+    "map": "地圖",
+    "openMap": "開啟地圖",
+    "toggleTheme": "切換主題",
+    "accuracy": "Google地圖比較",
+    "downloads": "QR卡片",
+    "menu": "開啟選單",
+    "closeMenu": "關閉選單",
+    "logoPre": "鹿兒島",
+    "logoEm": "城市觀光巴士",
+    "logoPost": "指南",
+    "site": "網站選單"
+  },
+  "hero": {
+    "eyebrow": "鹿兒島城市觀光巴士指南",
+    "photoAlt": "櫻島",
+    "h1line1": "找不到巴士站",
+    "h1line2": "而迷路的旅人",
+    "h1line3": "做出的指南",
+    "ctaMap": "查看地圖",
+    "ctaStory": "閱讀故事",
+    "scrollHint": "往下捲動"
+  },
+  "trust": {
+    "stopsNum": "20",
+    "stopsLabel": "GPS實地確認\n站牌",
+    "langsNum": "4",
+    "langsLabel": "日英韓中\n4種語言",
+    "source": "依據鹿兒島市官方GTFS開放資料",
+    "validated": "實地確認日",
+    "accuracyLink": "查看與Google地圖的比較結果 →",
+    "googleWrongLabel": "Google地圖\n最大偏差{{m}}m"
+  },
+  "accuracy": {
+    "eyebrow": "Google地圖比較・2026年7月",
+    "title": "Google地圖上的站牌位置有多準確？",
+    "intro": "針對鹿兒島城市觀光巴士全部20個站牌，將Google地圖顯示的位置與官方座標（鹿兒島市交通局公布值）逐一比對的全數調查結果。",
+    "statOk": "大致相符",
+    "statWarn": "略有偏差",
+    "statError": "偏差很大",
+    "colStop": "站牌",
+    "colGoogle": "Google地圖的顯示位置（以日文站名搜尋）",
+    "colError": "偏差",
+    "gradeOk": "大致相符",
+    "gradeWarn": "略有偏差",
+    "gradeError": "偏差很大",
+    "sameSpot": "No.1與No.20為同一地點（鹿兒島中央站）。",
+    "baseline": "作為比較基準的站牌座標，已確認全部20個站牌均與鹿兒島市交通局公布值一致（2026年7月20日確認）。",
+    "method": "方法：以各站牌的日文名稱在Google地圖搜尋，量測第一個顯示結果與官方座標之間的直線距離。未滿50m屬於智慧型手機GPS誤差範圍，列為「大致相符」；50m以上未滿100m為「略有偏差」；100m以上為「偏差很大」。",
+    "ctaMap": "開啟正確的站牌地圖"
+  },
+  "map": {
+    "categories": {
+      "all": "全部",
+      "sightseeing": "觀光",
+      "nature": "自然",
+      "food": "美食",
+      "shopping": "購物"
+    },
+    "stopDetail": {
+      "gpsVerified": "GPS實地確認",
+      "sourceChecked": "已對照官方資料・未經現場確認",
+      "googleMapsWrong": "Google地圖顯示的位置與實際站牌有偏差",
+      "walkTime": "步行{{min}}分鐘",
+      "openInMaps": "以地圖App開啟",
+      "googleMaps": "Google 地圖",
+      "appleMaps": "Apple 地圖",
+      "shareStop": "分享",
+      "linkCopied": "已複製連結",
+      "copyFailed": "無法複製",
+      "coordsApproximate": "大約位置（未經現場確認）",
+      "bCourseOnly": "僅B路線",
+      "photoAlt": "{{name}} 站牌的照片"
+    },
+    "schedule": "時刻表",
+    "firstBus": "首班車",
+    "lastBus": "末班車",
+    "frequency": "每{{minutes}}分鐘一班・每日{{count}}班",
+    "dailyRuns": "每日{{count}}班・班距不固定",
+    "arrivals": "到達時刻（終點・僅供下車）",
+    "noStops": "此類別沒有站牌",
+    "searchPlaceholder": "搜尋站牌・目的地",
+    "noResults": "沒有搜尋結果",
+    "walkMin": "步行約{{min}}分鐘",
+    "addFavorite": "加入收藏",
+    "removeFavorite": "取消收藏",
+    "showQR": "QR Code",
+    "downloadQR": "儲存PNG",
+    "sourceNote": "資料提供：鹿兒島市（依原始資料加工）・{{date}} 實地確認",
+    "sourceNoteChecked": "資料提供：鹿兒島市（依原始資料加工）・{{date}} 資料確認",
+    "sourceNoteOsm": "站牌・時刻表：鹿兒島市（依原始資料加工）・道路形狀：© OpenStreetMap contributors・{{date}} 對照",
+    "stopListAria": "站牌列表",
+    "sheetExpand": "展開列表",
+    "sheetCollapse": "收合列表",
+    "backToList": "返回站牌列表",
+    "courseGeometry": "顯示的運行路線",
+    "roadReference": "依官方路線繪製的參考路線（未經現場確認）",
+    "categoryFilter": "類別篩選",
+    "busMarker": "城市觀光巴士",
+    "wrongPin": "Google地圖的顯示位置",
+    "animPause": "停止動畫",
+    "animPlay": "播放動畫",
+    "favorited": "已收藏",
+    "googleWrongShort": "與Google地圖位置有偏差",
+    "allStops": "全部站牌",
+    "mapStyle": "地圖顯示",
+    "styleStreets": "標準",
+    "styleSatellite": "衛星影像",
+    "styleDark": "深色",
+    "today": {
+      "label": "今日運行",
+      "next": "下一班車",
+      "nextArrival": "下一班到達",
+      "inMin": "還有{{min}}分鐘",
+      "now": "即將到站",
+      "ended": "今日運行已結束",
+      "firstTomorrow": "明日首班車 {{time}}",
+      "noService": "今日無運行",
+      "unknown": "今日有運行・時刻請至官方網站確認",
+      "basis": "依日本時間與時刻表推算的參考值，可能因路況而提前或延後"
+    },
+    "hotel": {
+      "from": "從{{name}}出發",
+      "board": "上車",
+      "alight": "回程下車",
+      "sameStop": "回程也在同一站牌下車（繞行一圈後返回）",
+      "estimate": "步行時間為依直線距離推算的參考值",
+      "marker": "飯店",
+      "nearby": "附近的住宿設施",
+      "nearbyNote": "選擇飯店名稱後，會顯示從飯店出發的路線與回程下車的站牌"
+    },
+    "pageTitle": "站牌地圖",
+    "routeSelector": "選擇路線",
+    "loading": "地圖載入中…"
+  },
+  "common": {
+    "close": "關閉"
+  },
+  "partnership": {
+    "h2line1": "可放在櫃台的",
+    "h2line2": "站牌指南桌上立牌",
+    "body": "掃描QR Code，旅客即可在自己的手機上確認所有站牌的正確位置。列印檔案免費提供，也可製作印有設施名稱的桌上立牌。支援日文、英文、韓文與繁體中文。",
+    "cta": "申請桌上立牌・聯絡我們",
+    "aboutTitle": "製作者",
+    "aboutBody": "源自在鹿兒島錯過巴士的旅人的經驗，由MAKORO開發並營運。",
+    "aboutMaintenance": "每季重新調查所有站牌的位置，並公開結果。",
+    "emailLabel": "聯絡方式",
+    "copied": "已複製電子郵件地址",
+    "ctaPrint": "查看桌上立牌・海報",
+    "aboutStory": "閱讀製作故事"
+  },
+  "footer": {
+    "source": "資料提供：鹿兒島市（依原始資料加工）",
+    "license": "CC BY 4.0",
+    "disclaimer": "本網站僅提供站牌位置的指引。運行時刻請務必以官方App為準。",
+    "downloads": "QR卡片・說明資料",
+    "photos": "照片：",
+    "nav": "頁尾選單"
+  },
+  "downloads": {
+    "eyebrow": "致住宿設施・觀光服務處",
+    "title": "QR卡片・說明資料",
+    "intro": "可放在飯店櫃台或觀光服務處的站牌QR卡片與海報，以及導入提案資料。",
+    "cardTitle": "站牌指南桌上立牌（A6・附QR）",
+    "cardDesc": "全部20個站牌。QR會開啟該站牌的地圖。可放在卡片架上的A6尺寸",
+    "siteQrTitle": "網站指南桌上立牌・海報（A6・A4）",
+    "siteQrDesc": "附掃描後開啟網站首頁的QR。櫃台用桌上立牌與大廳張貼用A4海報。亦可製作印有飯店名稱的版本。",
+    "tourismTitle": "致觀光課的提案書（PDF）",
+    "tourismDesc": "官方採用提案 — 問題背景・服務概要・維護與移交體制。",
+    "hotelTitle": "致住宿設施的提案書（PDF）",
+    "hotelDesc": "為住宿旅客設置桌上立牌的提案 — 附主要飯店與最近站牌對照表。",
+    "incidentTitle": "異常狀況處理說明（PDF）",
+    "incidentDesc": "供張貼負責人參考 — 網站或QR Code發生問題時的處理手冊。",
+    "open": "開啟 →",
+    "sitePop": "網站指南 桌上立牌",
+    "sitePopDesc": "可立在櫃台的A6。QR連結至首頁",
+    "sitePoster": "網站指南海報",
+    "sitePosterDesc": "大廳張貼用A4。含運行時間・車資",
+    "hotelVersions": "印有飯店名稱的版本（{{count}}間設施）",
+    "hotelVersionsDesc": "印有設施名稱與最近站牌。QR會開啟從該飯店出發的地圖（步行路線・上車/下車站牌）。希望刊登的設施請與我們聯絡",
+    "docsTitle": "提案資料"
+  },
+  "devlog": {
+    "sectionTitle": "製作故事",
+    "viewAll": "查看全部",
+    "episode": "篇",
+    "prev": "上一篇",
+    "next": "下一篇",
+    "pageEyebrow": "故事",
+    "pageHeading": "這項服務誕生的過程",
+    "metaDescription": "鹿兒島城市觀光巴士指南誕生的故事"
+  },
+  "problem": {
+    "title": "Google地圖的位置有偏差，\n多語言指引也不足",
+    "item1": "Google地圖標示的位置與實際不同。曾有旅客等了10分鐘卻錯過巴士。",
+    "item2": "站牌的多語言指引並不充分。也有外國旅客表示，巴士來了卻不知道能不能上車。",
+    "item3": "沒有一個地方能以多種語言集中查看正確資訊。本網站將這些整合在一起。"
+  },
+  "offline": {
+    "message": "目前離線中。仍可查看站牌資訊。",
+    "installHint": "加入主畫面後，離線時也能使用。"
+  },
+  "routes": {
+    "cityview": { "name": "城市觀光巴士" },
+    "cityview-night": { "name": "夜景路線" },
+    "islandview": { "name": "櫻島環島巴士" },
+    "saturdayOnly": "僅週六",
+    "coordsApproximate": "座標為概略值"
+  },
+  "home": {
+    "heroCaption": "錦江灣對岸的櫻島",
+    "heroNote": "真正的巴士站在這裡！",
+    "signBoard": "乘車處",
+    "signStops": "{{count}}個站牌",
+    "signEvery": "約{{min}}分鐘一班",
+    "problemEyebrow": "製作的原因",
+    "sketchWrong": "地圖App的圖釘",
+    "sketchReal": "實際的巴士站",
+    "sketchGap": "偏差{{m}}m",
+    "sketchCaption": "{{name}}・與Google地圖的比較（{{date}}）",
+    "spotsEyebrow": "從巴士的車窗",
+    "spotsTitle": "繞一圈{{min}}分鐘，\n搭巴士遊鹿兒島",
+    "spotsLead": "城市觀光巴士從鹿兒島中央站出發，行經{{count}}個站牌後回到中央站。這裡整理了途中值得下車一遊的地方。",
+    "spotsStop": "站牌 No.{{num}}",
+    "spotsCta": "查看站牌位置",
+    "routeRailLabel": "城市觀光巴士路線 {{count}}個站牌",
+    "spots": {
+      "saigo": {
+        "title": "西鄉隆盛銅像",
+        "body": "明治維新的主要推手・西鄉隆盛的銅像，矗立於城山山麓、中央公園旁。"
+      },
+      "shiroyama": {
+        "title": "城山展望台",
+        "body": "位於海拔約107m的山丘上，可一覽市區、錦江灣與櫻島。"
+      },
+      "senganen": {
+        "title": "仙巖園",
+        "body": "島津家的別邸庭園。以櫻島為假山、錦江灣為池水的借景庭園。"
+      },
+      "ferry": {
+        "title": "櫻島渡輪",
+        "body": "渡輪碼頭就在水族館前站牌旁，約15分鐘即可抵達櫻島。"
+      }
+    },
+    "trustEyebrow": "值得信賴的理由",
+    "letterTo": "致住宿設施・觀光服務處",
+    "tickerNextBus": "馬上知道距離下一班車還有幾分鐘"
+  },
+  "seo": {
+    "description": "以地圖指引鹿兒島城市觀光巴士全部20個站牌的正確位置。提供從飯店出發的步行路線、距離下一班車的時間，支援日文、英文、韓文與繁體中文。免費・不需安裝App。",
+    "appTitle": "城市觀光巴士",
+    "mapTitle": "站牌地圖",
+    "mapDescription": "鹿兒島城市觀光巴士全部20個站牌的正確GPS位置。選擇站牌即可顯示時刻表與距離下一班車的時間。"
+  },
+  "notFound": {
+    "title": "找不到此頁面",
+    "body": "網址可能已變更或輸入有誤。請從站牌地圖尋找。",
+    "map": "開啟站牌地圖",
+    "home": "回到首頁"
+  }
+}

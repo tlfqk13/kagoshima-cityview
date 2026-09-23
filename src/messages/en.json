@@ -26,8 +26,8 @@
   "trust": {
     "stopsNum": "20",
     "stopsLabel": "GPS Verified\nStops",
-    "langsNum": "3",
-    "langsLabel": "KO · EN · JP",
+    "langsNum": "4",
+    "langsLabel": "KO · EN · JP · 繁中",
     "source": "Based on official Kagoshima City GTFS open data",
     "validated": "Last field-verified",
     "accuracyLink": "See how Google Maps compares →",
@@ -141,7 +141,7 @@
   "partnership": {
     "h2line1": "A counter card",
     "h2line2": "for your front desk",
-    "body": "Guests scan the QR code to see the exact location of every stop on their phone. Print files are free, and we can add your property’s name. Available in Japanese, English and Korean.",
+    "body": "Guests scan the QR code to see the exact location of every stop on their phone. Print files are free, and we can add your property’s name. Available in Japanese, English, Korean and Traditional Chinese.",
     "cta": "Request counter cards / contact",
     "aboutTitle": "Who made this",
     "aboutBody": "Born from a traveler who missed the bus in Kagoshima. Built and run by MAKORO.",
@@ -249,7 +249,7 @@
     "tickerNextBus": "See how many minutes until the next bus"
   },
   "seo": {
-    "description": "Exact locations of all 20 Kagoshima City View bus stops on a map, with walking directions from your hotel and minutes to the next bus. Japanese, English and Korean. Free, no app needed.",
+    "description": "Exact locations of all 20 Kagoshima City View bus stops on a map, with walking directions from your hotel and minutes to the next bus. Japanese, English, Korean and Traditional Chinese. Free, no app needed.",
     "appTitle": "City View Bus",
     "mapTitle": "Bus Stop Map",
     "mapDescription": "Exact GPS locations of all 20 Kagoshima City View stops. Tap a stop for its timetable and minutes to the next bus."

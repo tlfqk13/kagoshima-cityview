@@ -3,11 +3,10 @@ import { useEffect, useRef, useCallback, useState, useMemo } from 'react'
 import mapboxgl from 'mapbox-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import { useTranslation } from 'react-i18next'
-import { normalizeLanguage } from '@/lib/locale'
 import MapLoading from './MapLoading'
 import {
   getStopsForRoute, getStopsGeoJSON, getRouteCoordinates, getRoute,
-  getNearestStop, type RouteStop, type RouteId,
+  getNearestStop, nameKey, type RouteStop, type RouteId,
 } from '@/lib/routes'
 import { useResolvedTheme } from '@/lib/useResolvedTheme'
 import { IconMap, IconMoon, IconPause, IconPlay, IconSatellite } from '@/components/icons'
@@ -269,9 +268,9 @@ export default function MapCanvas({ routeId, selectedStopId, onStopSelect, onUse
         map.getCanvas().style.cursor = 'pointer'
         const feature = e.features?.[0]
         if (!feature) return
-        const props = feature.properties as { id: string; number: number; nameKo: string; nameEn: string; nameJa: string }
-        const lang = normalizeLanguage(i18n.language) ?? 'ja'
-        const name = lang === 'en' ? props.nameEn : lang === 'ja' ? props.nameJa : props.nameKo
+        const props = feature.properties as { id: string; number: number; nameKo: string; nameEn: string; nameJa: string; nameZh: string }
+        const lang = nameKey(i18n.language)
+        const name = lang === 'en' ? props.nameEn : lang === 'ja' ? props.nameJa : lang === 'zh' ? props.nameZh : props.nameKo
         const coordinates = (feature.geometry as { type: string; coordinates: [number, number] }).coordinates as [number, number]
 
         hoverPopupRef.current?.remove()

@@ -2,7 +2,7 @@
 import { useState, useMemo, useSyncExternalStore } from 'react'
 import dynamic from 'next/dynamic'
 import { useTranslation } from 'react-i18next'
-import { getStopsForRoute, getStopsByCategory, getRoute, type RouteStop, type RouteId, type Category } from '@/lib/routes'
+import { getStopsForRoute, getStopsByCategory, getRoute, DATA_LANGS, type Lang, type RouteStop, type RouteId, type Category } from '@/lib/routes'
 import { getFavorites, toggleFavorite, subscribeFavorites, getServerFavorites } from '@/lib/favorites'
 import { findHotel, getHotelStops } from '@/lib/hotels'
 import HotelBanner from '@/components/map/HotelBanner'
@@ -61,15 +61,9 @@ export default function MapPage({ initialStopId, initialRouteId = 'cityview', in
     if (searchQuery.trim()) {
       const q = searchQuery.toLowerCase().trim()
       stops = stops.filter(stop => {
-        const nameMatch =
-          stop.name.ko.toLowerCase().includes(q) ||
-          stop.name.en.toLowerCase().includes(q) ||
-          stop.name.ja.toLowerCase().includes(q)
-        const destMatch = stop.destinations.some(d =>
-          d.name.ko.toLowerCase().includes(q) ||
-          d.name.en.toLowerCase().includes(q) ||
-          d.name.ja.toLowerCase().includes(q)
-        )
+        const matches = (name: Record<Lang, string>) => DATA_LANGS.some(key => name[key].toLowerCase().includes(q))
+        const nameMatch = matches(stop.name)
+        const destMatch = stop.destinations.some(d => matches(d.name))
         return nameMatch || destMatch
       })
     }

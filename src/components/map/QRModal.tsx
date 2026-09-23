@@ -1,7 +1,7 @@
 'use client'
 import { useEffect, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
-import type { RouteStop, RouteId } from '@/lib/routes'
+import { type RouteStop, type RouteId, nameKey } from '@/lib/routes'
 import { SITE_URL } from '@/lib/site'
 import styles from './QRModal.module.css'
 
@@ -14,7 +14,7 @@ interface Props {
 export default function QRModal({ stop, routeId, onClose }: Props) {
   const { t, i18n } = useTranslation()
   const canvasRef = useRef<HTMLCanvasElement>(null)
-  const lang = (['ko', 'en', 'ja'].includes(i18n.language) ? i18n.language : 'ja') as 'ko' | 'en' | 'ja'
+  const lang = nameKey(i18n.language)
   const stopName = stop.name[lang]
   const url = `${SITE_URL}/map?route=${routeId}&stop=${stop.id}`
 

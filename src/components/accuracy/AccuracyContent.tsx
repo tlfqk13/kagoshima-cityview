@@ -1,7 +1,7 @@
 'use client'
 import Link from 'next/link'
 import { useTranslation } from 'react-i18next'
-import { getStopsForRoute, type Lang } from '@/lib/routes'
+import { getStopsForRoute, nameKey } from '@/lib/routes'
 import rawAudit from '@/data/accuracy-audit.json'
 import styles from './AccuracyContent.module.css'
 
@@ -26,7 +26,7 @@ const GRADE_KEY = { ok: 'gradeOk', warn: 'gradeWarn', error: 'gradeError' } as c
 // 데이터: src/data/accuracy-audit.json (scripts/google-maps-audit 파이프라인 산출물)
 export default function AccuracyContent() {
   const { t, i18n } = useTranslation()
-  const lang = (['ko', 'en', 'ja'].includes(i18n.language) ? i18n.language : 'ko') as Lang
+  const lang = nameKey(i18n.language, 'ko')
 
   const counts = { ok: 0, warn: 0, error: 0 }
   audit.stops.forEach(s => { counts[s.grade] += 1 })

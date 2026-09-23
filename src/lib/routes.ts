@@ -2,8 +2,18 @@ import cityviewRaw from '@/data/routes/cityview.json'
 import cityviewNightRaw from '@/data/routes/cityview-night.json'
 import islandviewRaw from '@/data/routes/islandview.json'
 import destinationsRaw from '@/data/destinations.json'
+import { normalizeLanguage } from './locale'
 
-export type Lang = 'ko' | 'en' | 'ja'
+/** 노선 JSON의 현지어 필드 키. UI 언어 'zh-Hant'는 데이터에서 'zh'로 저장한다. */
+export type Lang = 'ko' | 'en' | 'ja' | 'zh'
+export const DATA_LANGS: Lang[] = ['ko', 'en', 'ja', 'zh']
+
+/** UI 언어(i18n 코드·서버 언어)를 노선 JSON의 현지어 키로 바꾼다. 모르는 값은 fallback. */
+export function nameKey(language: string | null | undefined, fallback: Lang = 'ja'): Lang {
+  const normalized = normalizeLanguage(language)
+  if (!normalized) return fallback
+  return normalized === 'zh-Hant' ? 'zh' : normalized
+}
 export type Category = 'sightseeing' | 'food' | 'nature' | 'shopping'
 export type RouteId = 'cityview' | 'cityview-night' | 'islandview'
 
@@ -153,6 +163,7 @@ export function getStopsGeoJSON(stops: RouteStop[]) {
         nameKo: stop.name.ko,
         nameEn: stop.name.en,
         nameJa: stop.name.ja,
+        nameZh: stop.name.zh,
         googleMapsError: stop.googleMapsError ?? false,
         coordinatesApproximate: stop.coordinatesApproximate ?? false,
         hasConnection: (stop.connections ?? []).length > 0,
@@ -194,16 +205,8 @@ export function getStopsByCategory(routeId: RouteId, category: Category): RouteS
 export function searchStops(routeId: RouteId, query: string): RouteStop[] {
   if (!query.trim()) return getStopsForRoute(routeId)
   const q = query.toLowerCase().trim()
-  return getStopsForRoute(routeId).filter(stop =>
-    stop.name.ko.toLowerCase().includes(q) ||
-    stop.name.en.toLowerCase().includes(q) ||
-    stop.name.ja.toLowerCase().includes(q) ||
-    stop.destinations.some(d =>
-      d.name.ko.toLowerCase().includes(q) ||
-      d.name.en.toLowerCase().includes(q) ||
-      d.name.ja.toLowerCase().includes(q)
-    )
-  )
+  const matches = (name: Record<Lang, string>) => DATA_LANGS.some(key => name[key].toLowerCase().includes(q))
+  return getStopsForRoute(routeId).filter(stop => matches(stop.name) || stop.destinations.some(d => matches(d.name)))
 }
 
 export function isRouteAvailableToday(routeId: RouteId, now = new Date()): boolean {

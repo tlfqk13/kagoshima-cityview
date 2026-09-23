@@ -1,6 +1,6 @@
 'use client'
 import { useTranslation } from 'react-i18next'
-import type { RouteStop as BusStop, Lang } from '@/lib/routes'
+import { type RouteStop as BusStop, nameKey } from '@/lib/routes'
 import { IconWarn } from '@/components/icons'
 import styles from './StopList.module.css'
 
@@ -13,7 +13,7 @@ interface Props {
 
 export default function StopList({ stops, selectedId, onSelect, favorites }: Props) {
   const { t, i18n } = useTranslation()
-  const lang = (['ko', 'en', 'ja'].includes(i18n.language) ? i18n.language : 'ja') as Lang
+  const lang = nameKey(i18n.language)
 
   if (stops.length === 0) {
     return <p className={styles.empty}>{t('map.noStops')}</p>

@@ -2,7 +2,7 @@
 import { useEffect, useRef, type CSSProperties } from 'react'
 import Link from 'next/link'
 import { useTranslation } from 'react-i18next'
-import { getRoute, getStopsForRoute, type Lang } from '@/lib/routes'
+import { getRoute, getStopsForRoute, nameKey } from '@/lib/routes'
 import Polaroid from './Polaroid'
 import { HOME_PHOTOS, SPOTS } from './photos'
 import styles from './SpotCards.module.css'
@@ -12,7 +12,7 @@ const CARD_TILTS = [-1.8, 1.4, -1, 2]
 // 노선 한 바퀴 — 스크롤에 따라 버스가 달리는 노선 띠 + 들르기 좋은 정류장 카드
 export default function SpotCards() {
   const { t, i18n } = useTranslation()
-  const lang = (['ko', 'en', 'ja'].includes(i18n.language) ? i18n.language : 'ja') as Lang
+  const lang = nameKey(i18n.language)
   const route = getRoute('cityview')
   const stops = getStopsForRoute('cityview')
   const featured = new Set(SPOTS.map(s => s.stopId))

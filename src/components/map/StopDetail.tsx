@@ -1,7 +1,7 @@
 'use client'
 import { useState, useSyncExternalStore } from 'react'
 import { useTranslation } from 'react-i18next'
-import type { RouteStop, RouteId, Lang } from '@/lib/routes'
+import { type RouteStop, type RouteId, DATA_LANGS, nameKey } from '@/lib/routes'
 import { getStopVerification, getDepartureInterval, getScheduleExtraNote } from '@/lib/routes'
 import styles from './StopDetail.module.css'
 import QRModal from './QRModal'
@@ -38,7 +38,7 @@ function getWalkingEstimate(userLat: number, userLng: number, stopLat: number, s
 
 export default function StopDetail({ stop, routeId, userLocation, isFavorite, onToggleFavorite }: Props) {
   const { t, i18n } = useTranslation()
-  const lang = (['ko', 'en', 'ja'].includes(i18n.language) ? i18n.language : 'ja') as Lang
+  const lang = nameKey(i18n.language)
   const [toast, setToast] = useState<string | null>(null)
   const [toastKey, setToastKey] = useState(0)
   const [showQR, setShowQR] = useState(false)
@@ -54,7 +54,7 @@ export default function StopDetail({ stop, routeId, userLocation, isFavorite, on
   const nearbyHotels = routeId === 'cityview' ? getHotelsNearStop(stop) : []
   const verification = getStopVerification(routeId, stop)
 
-  const altNames = (['ko', 'en', 'ja'] as Lang[])
+  const altNames = DATA_LANGS
     .filter(l => l !== lang)
     .map(l => stop.name[l])
     .join('  /  ')

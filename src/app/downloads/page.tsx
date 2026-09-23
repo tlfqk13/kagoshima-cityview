@@ -6,15 +6,12 @@ import { getServerLang } from '@/lib/serverLang'
 import { pageMetadata } from '@/lib/seo'
 import { getStopsForRoute } from '@/lib/routes'
 import { getAllHotels } from '@/lib/hotels'
-import ko from '@/messages/ko.json'
-import en from '@/messages/en.json'
-import ja from '@/messages/ja.json'
+import { MESSAGES } from '@/lib/messages'
 
-const messages = { ko, en, ja }
 
 export async function generateMetadata(): Promise<Metadata> {
   const lang = await getServerLang()
-  const t = messages[lang].downloads
+  const t = MESSAGES[lang].downloads
   return pageMetadata(lang, { title: t.title, description: t.intro, path: '/downloads' })
 }
 

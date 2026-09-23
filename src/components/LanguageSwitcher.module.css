@@ -26,3 +26,16 @@
   border-color: var(--dark);
   color: #FFFFFF; /* 어두운 배경 고정 — 다크 테마에서 묻히지 않도록 */
 }
+
+/* 좁은 화면 — 버튼이 4개(KO·EN·JA·繁中)라 Nav의 로고가 밀리지 않도록 여백을 줄인다 (Nav.module.css의 480px 규칙과 짝) */
+@media (max-width: 480px) {
+  .wrap {
+    gap: 2px;
+  }
+
+  .btn,
+  .on {
+    padding: 5px 6px;
+    font-size: 10px;
+  }
+}

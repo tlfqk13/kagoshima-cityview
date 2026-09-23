@@ -1,7 +1,7 @@
 'use client'
 import Link from 'next/link'
 import { useTranslation } from 'react-i18next'
-import type { Lang } from '@/lib/routes'
+import { type Lang, nameKey } from '@/lib/routes'
 import type { Hotel } from '@/lib/hotels'
 import styles from './DownloadsContent.module.css'
 
@@ -26,7 +26,7 @@ const DOCS = [
 // 인쇄 페이지(/card/*)는 여기서만 연결되며 검색 색인에서는 제외한다.
 export default function DownloadsContent({ stops, hotels }: Props) {
   const { t, i18n } = useTranslation()
-  const lang = (['ko', 'en', 'ja'].includes(i18n.language) ? i18n.language : 'ja') as Lang
+  const lang = nameKey(i18n.language)
 
   return (
     <div className={styles.page}>

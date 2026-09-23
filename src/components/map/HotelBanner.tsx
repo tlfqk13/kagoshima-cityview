@@ -1,6 +1,6 @@
 'use client'
 import { useTranslation } from 'react-i18next'
-import type { RouteStop, Lang } from '@/lib/routes'
+import { type RouteStop, nameKey } from '@/lib/routes'
 import type { Hotel, HotelStops } from '@/lib/hotels'
 import { IconBed, IconWalk } from '@/components/icons'
 import styles from './HotelBanner.module.css'
@@ -16,7 +16,7 @@ interface Props {
 // 시티뷰는 한 방향 순환이라 둘이 다를 수 있다(天文館: 갈 때 No.3, 올 때 No.19).
 export default function HotelBanner({ hotel, hotelStops, selectedStopId, onSelect }: Props) {
   const { t, i18n } = useTranslation()
-  const lang = (['ko', 'en', 'ja'].includes(i18n.language) ? i18n.language : 'ja') as Lang
+  const lang = nameKey(i18n.language)
   const { board, alight, boardMinutes, alightMinutes } = hotelStops
   const sameStop = board.id === alight.id
 

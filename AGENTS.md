@@ -15,7 +15,7 @@
 - **서비스 목적:** 구글맵 등 기존 지도 서비스가 정류장 위치를 잘못 표시해 여행자가 버스를 놓치는 문제를 해결합니다.
 - **최종 목표:** 가고시마시 관광과(観光課)의 공식 채택.
 - **핵심 가치:** 무료 · 광고 없음 · 공식 GTFS 오픈데이터 기반 · 현장 GPS 검증.
-- **지원 언어:** 日本語(ja) · English(en) · 한국어(ko). 기본 언어는 일본어입니다.
+- **지원 언어:** 日本語(ja) · English(en) · 한국어(ko) · 繁體中文(zh-Hant). 기본 언어는 일본어입니다. 중국어 요청(`zh`, `zh-TW`, `zh-HK`, `zh-CN` 등)은 모두 `zh-Hant`로 정규화합니다(ADR 008).
 
 ### 주요 페이지
 
@@ -119,7 +119,8 @@
 │   ├── messages/               # i18n 번역 JSON
 │   │   ├── ko.json
 │   │   ├── en.json
-│   │   └── ja.json
+│   │   ├── ja.json
+│   │   └── zh-Hant.json      # 繁體中文 (ja.json 기준 빌드 타임 번역)
 │   └── styles/
 │       └── tokens.css          # 디자인 토큰 (색상, 폰트, 레이아웃)
 ├── content/
@@ -191,7 +192,7 @@ ADMIN_EMAILS=your@email.com
 - **소스코드 주석:** 한국어로 작성합니다.
 - **컴포넌트/변수명:** TypeScript 식별자는 영문 camelCase/PascalCase를 사용합니다.
 - **CSS 클래스명:** kebab-case를 사용합니다.
-- **JSON 데이터의 현지어 필드:** `name: { ko, en, ja }` 구조를 유지합니다.
+- **JSON 데이터의 현지어 필드:** `name: { ko, en, ja, zh }` 구조를 유지합니다. UI 언어 `zh-Hant`는 데이터 키 `zh`로 저장하며 `nameKey(lang)`(`src/lib/routes.ts`)로 변환합니다. 서버 컴포넌트의 번역 묶음은 `src/lib/messages.ts`의 `MESSAGES`를 씁니다.
 
 ### TypeScript
 
@@ -309,6 +310,7 @@ ADMIN_EMAILS=your@email.com
 - **ADR 005:** MDX 다국어를 `content/story/{ko,en,ja}/`로 분리. 번역 파일이 독립적이고, 번역이 없으면 `ko`로 fallback.
 - **ADR 006:** 쿼리·쿠키·요청 헤더 순으로 언어를 결정하고 요청별 i18n 인스턴스로 SSR/본문을 일치시킵니다. 노선 형상은 출처가 있는 JSON으로 관리합니다.
 - **ADR 007:** 기본 서체 Zen Maru Gothic을 next/font로 자체 호스팅합니다. 일본어 조각 파일은 precache에서 빼고 런타임 캐시에만 쌓습니다(빌드 시 Google Fonts 접근 필요).
+- **ADR 008:** 繁體中文(zh-Hant)을 빌드 타임 번역 파일로 추가합니다. 간체 요청도 당분간 繁體로 안내하고, 데브로그 MDX는 영어로 대체합니다.
 
 ## 개발 시 참고 문서
 

@@ -1,8 +1,9 @@
 import fs from 'fs'
 import path from 'path'
 import matter from 'gray-matter'
+import type { Language } from './locale'
 
-export type Lang = 'ko' | 'en' | 'ja'
+export type Lang = Language
 
 export interface EpisodeMeta {
   slug: string
@@ -24,6 +25,16 @@ function getEpisodePath(slug: string, lang: Lang): string | null {
   return fs.existsSync(p) ? p : null
 }
 
+// 번역 MDX가 없을 때의 대체 순서. 繁體中文 원고는 없으므로 영어 → 한국어 순으로 찾는다(ADR 008).
+function resolveEpisodePath(slug: string, lang: Lang): string | null {
+  const fallbacks: Lang[] = lang === 'zh-Hant' ? ['en', 'ko'] : ['ko']
+  for (const candidate of [lang, ...fallbacks]) {
+    const found = getEpisodePath(slug, candidate)
+    if (found) return found
+  }
+  return null
+}
+
 export function getAllEpisodes(lang: Lang = 'ko'): EpisodeMeta[] {
   const koDir = path.join(CONTENT_DIR, 'ko')
   if (!fs.existsSync(koDir)) return []
@@ -34,7 +45,7 @@ export function getAllEpisodes(lang: Lang = 'ko'): EpisodeMeta[] {
 
   return slugs
     .map(slug => {
-      const filePath = getEpisodePath(slug, lang) ?? getEpisodePath(slug, 'ko')!
+      const filePath = resolveEpisodePath(slug, lang)!
       const { data } = matter(fs.readFileSync(filePath, 'utf-8'))
       return {
         slug,
@@ -50,7 +61,7 @@ export function getAllEpisodes(lang: Lang = 'ko'): EpisodeMeta[] {
 }
 
 export function getEpisode(slug: string, lang: Lang = 'ko'): Episode | null {
-  const filePath = getEpisodePath(slug, lang) ?? getEpisodePath(slug, 'ko')
+  const filePath = resolveEpisodePath(slug, lang)
   if (!filePath) return null
 
   const raw = fs.readFileSync(filePath, 'utf-8')

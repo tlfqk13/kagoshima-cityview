@@ -1,7 +1,7 @@
 'use client'
 import type { CSSProperties } from 'react'
 import { useTranslation } from 'react-i18next'
-import { getStopById, type Lang } from '@/lib/routes'
+import { getStopById, nameKey } from '@/lib/routes'
 import { accuracySummary } from '@/lib/accuracy'
 import Scribble from './Scribble'
 import styles from './ProblemGrid.module.css'
@@ -14,7 +14,7 @@ const { worst, auditedAt } = accuracySummary
 
 export default function ProblemGrid() {
   const { t, i18n } = useTranslation()
-  const lang = (['ko', 'en', 'ja'].includes(i18n.language) ? i18n.language : 'ja') as Lang
+  const lang = nameKey(i18n.language)
   const worstStop = getStopById('cityview', worst.id)
 
   return (
