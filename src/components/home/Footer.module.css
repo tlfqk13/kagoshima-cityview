@@ -64,6 +64,21 @@
   color: rgba(255, 255, 255, 0.62);
 }
 
+/* 사진 출처 — 라이선스 조건이라 숨기지 않되 가장 작은 글씨로 */
+.credits {
+  margin-top: 10px;
+  font-size: 11px;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.62);
+}
+
+.credits a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+
 @media (max-width: 1023px) {
   .footer {
     padding: 36px 24px;

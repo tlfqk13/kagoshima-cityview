@@ -146,7 +146,8 @@
     "source": "Data: 鹿児島市 (processed from original)",
     "license": "CC BY 4.0",
     "disclaimer": "GPS location only. Always verify schedules via official app.",
-    "downloads": "QR cards & documents"
+    "downloads": "QR cards & documents",
+    "photos": "Photos:"
   },
   "downloads": {
     "eyebrow": "For hotels & visitor centers",

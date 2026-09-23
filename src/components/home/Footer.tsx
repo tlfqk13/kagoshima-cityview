@@ -2,6 +2,7 @@
 import Link from 'next/link'
 import { useTranslation } from 'react-i18next'
 import { SITE_LINKS } from '@/components/Nav'
+import { PHOTO_CREDITS } from './photos'
 import styles from './Footer.module.css'
 
 export default function Footer() {
@@ -35,6 +36,15 @@ export default function Footer() {
           </a>
         </div>
         <div className={styles.disclaimer}>{t('footer.disclaimer')}</div>
+        <div className={styles.credits}>
+          {t('footer.photos')}{' '}
+          {PHOTO_CREDITS.map((c, i) => (
+            <span key={c.key}>
+              {i > 0 && ' · '}
+              <a href={c.url} target="_blank" rel="noopener noreferrer">{c.author}</a> ({c.license})
+            </span>
+          ))}
+        </div>
       </div>
     </footer>
   )
