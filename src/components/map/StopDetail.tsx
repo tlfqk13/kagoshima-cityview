@@ -9,6 +9,9 @@ import TodayBoard from './TodayBoard'
 import { IconCopy, IconWalk, IconWarn } from '@/components/icons'
 import { copyText } from '@/lib/clipboard'
 import Image from 'next/image'
+import Link from 'next/link'
+import { getHotelsNearStop } from '@/lib/hotels'
+import { IconBed } from '@/components/icons'
 
 interface Props {
   stop: RouteStop
@@ -47,6 +50,8 @@ export default function StopDetail({ stop, routeId, userLocation, isFavorite, on
   )
 
   const stopName = stop.name[lang]
+  // 호텔 데이터는 시티뷰 정류장 기준이라 다른 노선에서는 보여주지 않는다
+  const nearbyHotels = routeId === 'cityview' ? getHotelsNearStop(stop) : []
   const verification = getStopVerification(routeId, stop)
 
   const altNames = (['ko', 'en', 'ja'] as Lang[])
@@ -263,6 +268,23 @@ export default function StopDetail({ stop, routeId, userLocation, isFavorite, on
               </span>
             </div>
           ))}
+        </div>
+      )}
+      {nearbyHotels.length > 0 && (
+        <div className={styles.hotelsSection}>
+          <div className={styles.mapsSectionLabel}><IconBed size={13} /> {t('map.hotel.nearby')}</div>
+          <ul className={styles.hotelList}>
+            {nearbyHotels.map(({ hotel, minutes }) => (
+              <li key={hotel.slug}>
+                {/* 호텔 모드로 진입 — 호텔 핀·도보 경로·타는/내리는 정류장 */}
+                <Link href={`/map?hotel=${hotel.slug}`} className={styles.hotelLink}>
+                  <span className={styles.hotelName}>{hotel.nameJa}</span>
+                  <span className={styles.hotelWalk}><IconWalk size={12} /> {t('map.walkMin', { min: minutes })}</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+          <div className={styles.hotelNote}>{t('map.hotel.nearbyNote')}</div>
         </div>
       )}
       <div className={styles.disclaimer}>{t('map.stopDetail.disclaimer')}</div>

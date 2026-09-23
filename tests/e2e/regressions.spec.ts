@@ -131,6 +131,11 @@ test('호텔 QR로 들어오면 호텔 핀과 타는·내리는 정류장을 보
   // 내리는 정류장을 누르면 그 정류장이 선택된다
   await banner.getByRole('button', { name: /No\.19 / }).click()
   await expect(panel.getByText('No. 19', { exact: true })).toBeVisible()
+  // 정류장 상세의 근처 숙박시설 → 호텔 모드
+  await page.goto('/map/stop_03?lang=ja')
+  await panel.getByRole('link', { name: /レム鹿児島/ }).click()
+  await expect(page).toHaveURL(/\/map\?hotel=remm/)
+  await expect(panel.getByRole('region', { name: 'レム鹿児島から' })).toBeVisible()
   // 호텔 이름 카드의 QR은 호텔 모드 지도로 연결된다
   await page.goto('/card/site?hotel=remm')
   await expect(page.getByRole('img', { name: /QR code/ })).toBeVisible()

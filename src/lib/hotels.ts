@@ -49,6 +49,17 @@ function walkMinutes(meters: number): number {
   return Math.max(1, Math.round(meters / WALK_METERS_PER_MIN))
 }
 
+// 정류장에서 걸어갈 수 있는 호텔 — 정류장 상세의 "근처 숙박시설". 가까운 순.
+export function getHotelsNearStop(stop: RouteStop): { hotel: Hotel; meters: number; minutes: number }[] {
+  return hotels
+    .map(hotel => {
+      const meters = distanceMeters(hotel.lat, hotel.lng, stop.lat, stop.lng)
+      return { hotel, meters: Math.round(meters), minutes: walkMinutes(meters) }
+    })
+    .filter(({ meters }) => meters <= WALKABLE_METERS)
+    .sort((a, b) => a.meters - b.meters)
+}
+
 export function getHotelStops(hotel: Hotel): HotelStops {
   const board = getStopById('cityview', hotel.stopId)
   if (!board) throw new Error(`호텔 ${hotel.slug}의 정류장 ${hotel.stopId}이 시티뷰 노선에 없습니다`)

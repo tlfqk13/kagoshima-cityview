@@ -385,3 +385,55 @@
   75% { opacity: 1; }
   100% { opacity: 0; }
 }
+
+/* 근처 숙박시설 — 정류장에서 걸어갈 수 있는 호텔. 누르면 호텔 모드로 */
+.hotelsSection {
+  padding: 14px 20px;
+  border-top: 1px solid var(--rule);
+}
+
+.hotelList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.hotelLink {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  color: var(--ink);
+  text-decoration: none;
+  font-size: 13px;
+}
+
+.hotelLink:hover {
+  border-color: var(--sea);
+  color: var(--sea);
+}
+
+.hotelName {
+  min-width: 0;
+}
+
+.hotelWalk {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 12px;
+  color: var(--text-subtle);
+  white-space: nowrap;
+}
+
+.hotelNote {
+  margin-top: 6px;
+  font-size: 11px;
+  color: var(--text-subtle);
+}

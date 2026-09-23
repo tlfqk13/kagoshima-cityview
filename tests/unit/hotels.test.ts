@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import { findHotel, getAllHotels, getHotelStops } from '@/lib/hotels'
+import { findHotel, getAllHotels, getHotelStops, getHotelsNearStop } from '@/lib/hotels'
+import { getStopById } from '@/lib/routes'
 
 describe('hotels', () => {
   it('모든 호텔에 좌표와 출처가 있다', () => {
@@ -29,5 +30,17 @@ describe('hotels', () => {
   it('걸어갈 수 있는 정류장이 하나뿐이면 같은 정류장을 돌려준다', () => {
     const stops = getHotelStops(findHotel('shiroyama')!)
     expect(stops.board.id).toBe(stops.alight.id)
+  })
+
+  it('天文館 정류장(No.3) 근처 숙박시설에 レム·ドーミーイン이 가까운 순으로 나온다', () => {
+    const near = getHotelsNearStop(getStopById('cityview', 'stop_03')!)
+    const slugs = near.map(n => n.hotel.slug)
+    expect(slugs.indexOf('remm')).toBeGreaterThanOrEqual(0)
+    expect(slugs.indexOf('remm')).toBeLessThan(slugs.indexOf('dormy-inn'))
+    expect(slugs).not.toContain('sheraton')
+  })
+
+  it('걸어갈 호텔이 없는 정류장은 빈 배열이다', () => {
+    expect(getHotelsNearStop(getStopById('cityview', 'stop_12')!)).toEqual([])
   })
 })

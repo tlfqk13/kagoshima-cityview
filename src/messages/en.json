@@ -131,7 +131,9 @@
       "alight": "Get off on the way back",
       "sameStop": "You get off at the same stop on the way back (the bus loops around)",
       "estimate": "Walking times are estimates from straight-line distance",
-      "marker": "Hotel"
+      "marker": "Hotel",
+      "nearby": "Hotels nearby",
+      "nearbyNote": "Pick a hotel to see the walk from it and where to get off on the way back"
     }
   },
   "common": {
