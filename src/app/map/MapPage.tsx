@@ -14,7 +14,10 @@ import BottomSheet from '@/components/map/BottomSheet'
 import CategoryChips from '@/components/map/CategoryChips'
 import styles from './MapPage.module.css'
 
-const MapCanvas = dynamic<MapCanvasProps>(() => import('@/components/map/MapCanvas'), { ssr: false })
+import MapLoading from '@/components/map/MapLoading'
+
+// Mapbox 번들(약 700KB)이 도착하기 전에도 같은 로딩 자리를 보여준다
+const MapCanvas = dynamic<MapCanvasProps>(() => import('@/components/map/MapCanvas'), { ssr: false, loading: () => <MapLoading /> })
 
 interface Props {
   initialStopId?: string

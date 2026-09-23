@@ -53,8 +53,7 @@ export default async function StopCardPage({ params, searchParams }: Props) {
     <main className={styles.screen}>
       <div className={styles.toolbar}>
         <PrintButton />
-        <Link href="/card" className={styles.backLink}>전체 카드 목록</Link>
-        <Link href="/downloads" className={styles.backLink}>← サイトへ戻る · Back to site · 사이트로</Link>
+        <Link href="/downloads" className={styles.backLink}>← 印刷物一覧 · All print materials · 인쇄물 목록</Link>
       </div>
       <div className={styles.card}>
         <h1 className="sr-only">No. {stop.number} {stop.name.ja}</h1>

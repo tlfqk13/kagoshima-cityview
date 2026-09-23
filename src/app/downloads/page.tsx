@@ -4,6 +4,8 @@ import Footer from '@/components/home/Footer'
 import DownloadsContent from '@/components/downloads/DownloadsContent'
 import { getServerLang } from '@/lib/serverLang'
 import { pageMetadata } from '@/lib/seo'
+import { getStopsForRoute } from '@/lib/routes'
+import { getAllHotels } from '@/lib/hotels'
 import ko from '@/messages/ko.json'
 import en from '@/messages/en.json'
 import ja from '@/messages/ja.json'
@@ -17,11 +19,12 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default function DownloadsPage() {
+  const stops = getStopsForRoute('cityview').map(s => ({ id: s.id, number: s.number, name: s.name }))
   return (
     <>
       <Nav />
       <main>
-        <DownloadsContent />
+        <DownloadsContent stops={stops} hotels={getAllHotels()} />
       </main>
       <Footer />
     </>

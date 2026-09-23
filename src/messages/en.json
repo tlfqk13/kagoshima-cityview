@@ -80,7 +80,6 @@
     "frequency": "Every {{minutes}} min · {{count}} daily runs",
     "dailyRuns": "{{count}} daily runs · intervals vary",
     "arrivals": "Arrivals (terminus · alighting only)",
-    "photoComingSoon": "Photo coming soon",
     "noStops": "No stops for this category",
     "searchPlaceholder": "Search stops & destinations",
     "noResults": "No results found",
@@ -133,7 +132,8 @@
       "nearbyNote": "Pick a hotel to see the walk from it and where to get off on the way back"
     },
     "pageTitle": "Bus stop map",
-    "routeSelector": "Choose a route"
+    "routeSelector": "Choose a route",
+    "loading": "Loading the map…"
   },
   "common": {
     "close": "Close"
@@ -164,17 +164,23 @@
     "title": "QR Cards & Documents",
     "intro": "Stop QR cards and posters for hotel front desks and visitor centers, plus proposal documents.",
     "cardTitle": "Stop Counter Cards (A6, with QR)",
-    "cardDesc": "All 20 stops. For hotel front desks and visitor-center counters — display in a card stand. Hotel-branded versions available.",
+    "cardDesc": "All 20 stops. Each QR opens that stop on the map. A6 for a card stand",
     "siteQrTitle": "Site Counter Card & Poster (A6 · A4)",
     "siteQrDesc": "A QR that opens the site’s front page. A6 card for the counter, A4 poster for the lobby. Hotel-branded versions available.",
-    "cardCta": "Choose a card",
     "tourismTitle": "Tourism Office Proposal (PDF)",
     "tourismDesc": "Official adoption proposal — problem background, service overview, maintenance & handover plan.",
     "hotelTitle": "Hotel Proposal (PDF)",
     "hotelDesc": "Proposal for placing counter cards for guests — includes nearest-stop table for major hotels.",
     "incidentTitle": "Incident Guide (PDF)",
     "incidentDesc": "For staff displaying the card — what to do if the site is down or the QR fails.",
-    "open": "Open →"
+    "open": "Open →",
+    "sitePop": "Site counter card",
+    "sitePopDesc": "A6 for the counter. QR opens the front page",
+    "sitePoster": "Site poster",
+    "sitePosterDesc": "A4 for the lobby, with hours and fares",
+    "hotelVersions": "Hotel-branded versions ({{count}} properties)",
+    "hotelVersionsDesc": "Printed with your property name and nearest stop. The QR opens the map from your hotel (walking route, boarding and return stops). Contact us to be listed",
+    "docsTitle": "Proposal documents"
   },
   "devlog": {
     "sectionTitle": "Making Of",

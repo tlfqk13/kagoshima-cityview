@@ -4,6 +4,7 @@ import mapboxgl from 'mapbox-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import { useTranslation } from 'react-i18next'
 import { normalizeLanguage } from '@/lib/locale'
+import MapLoading from './MapLoading'
 import {
   getStopsForRoute, getStopsGeoJSON, getRouteCoordinates, getRoute,
   getNearestStop, type RouteStop, type RouteId,
@@ -195,6 +196,7 @@ export default function MapCanvas({ routeId, selectedStopId, onStopSelect, onUse
   const selectedStopIdRef = useRef<string | null>(selectedStopId)
   const routeIdRef = useRef<RouteId>(routeId)
   const [styleRevision, setStyleRevision] = useState(0)
+  const [ready, setReady] = useState(false) // 첫 타일이 그려질 때까지 로딩 자리를 보여준다
   const [course, setCourse] = useState<'A' | 'B'>('B')
   const courseRef = useRef<'A' | 'B'>('B')
 
@@ -254,6 +256,7 @@ export default function MapCanvas({ routeId, selectedStopId, onStopSelect, onUse
       onUserLocation?.([longitude, latitude])
     })
 
+    map.once('load', () => setReady(true))
     map.on('load', () => {
       addMapLayers(map, selectedStopIdRef.current, routeIdRef.current, courseRef.current)
 
@@ -521,6 +524,7 @@ export default function MapCanvas({ routeId, selectedStopId, onStopSelect, onUse
   return (
     <div className={styles.wrap}>
       <div ref={containerRef} className={styles.canvas} />
+      {!ready && <MapLoading />}
       {routeId === 'islandview' && (
         <div className={styles.courseToggle}>
           <label>

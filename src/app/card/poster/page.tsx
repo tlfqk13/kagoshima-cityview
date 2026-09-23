@@ -45,8 +45,7 @@ export default async function PosterPage({ searchParams }: Props) {
       <div className={styles.toolbar}>
         <PrintButton />
         <Link href="/card/site" className={styles.toolLink}>A6 card</Link>
-        <Link href="/card" className={styles.toolLink}>전체 인쇄물 목록</Link>
-        <Link href="/downloads" className={styles.toolLink}>← サイトへ戻る · Back to site · 사이트로</Link>
+        <Link href="/downloads" className={styles.toolLink}>← 印刷物一覧 · All print materials · 인쇄물 목록</Link>
       </div>
 
       <div className={styles.poster}>

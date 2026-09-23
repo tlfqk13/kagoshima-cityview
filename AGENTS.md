@@ -29,7 +29,7 @@
 | `/story/[slug]` | 개별 에피소드 상세 (MDX) |
 | `/admin` | 관리자 페이지 (NextAuth 보호) |
 | `/admin/login` | 관리자 로그인 (Google OAuth) |
-| `/card` | 인쇄물 인덱스 — 사이트 QR·정류장 카드·호텔 이름 버전 (호텔·관광안내소 배포용, 색인 제외) |
+| `/downloads` | 호텔·관광안내소용 허브 — 사이트 POP·포스터(호텔 이름 버전 포함)·정류장 POP 20개·제안서 PDF. `/card`는 여기로 리다이렉트 |
 | `/card/site` | A6 사이트 QR 카드. QR은 첫 화면(`/`)으로 연결. `?hotel=slug`로 호텔 이름·최근접 정류장 표시 |
 | `/card/poster` | A4 사이트 QR 포스터. 운행 정보는 노선 JSON 메타데이터에서 읽음. `?hotel=slug` 지원 |
 | `/card/[stopId]` | A6 프린트용 정류장 QR 카드. 도메인은 `src/lib/site.ts`의 `SITE_URL` 하나로 관리 (`QRModal`과 공유) |
@@ -222,7 +222,7 @@ ADMIN_EMAILS=your@email.com
 - **랜딩·포스터 사진:** `public/images/home/*.jpg` — 슬롯은 `src/components/home/photos.ts`의 `HOME_PHOTOS`가 관리합니다. 현재는 루트 `image/` 일러스트의 글자 부분을 잘라낸 임시 이미지이며, 실사 사진은 같은 파일명으로 덮어쓰거나 `photos.ts`의 경로만 바꾸면 됩니다(가로 1200px 전후, JPG q70~80). 스팟 카드의 정류장 연결(`SPOTS`)도 같은 파일에 있습니다.
 - 랜딩은 여행 스크랩북 톤입니다. 토큰(`--paper`, `--tape`, `--stamp`, `--font-hand` 등)은 `src/styles/tokens.css`, 공통 요소는 `src/styles/scrapbook.module.css`에 있습니다. 스크롤 등장 연출은 `ScrapbookReveal`이 `[data-reveal]` 요소에 `data-in`을 붙이는 방식이며, 준비 클래스가 붙기 전(JS 실패 포함)에는 모든 내용이 그대로 보입니다. `prefers-reduced-motion`이면 연출하지 않습니다.
 - 손글씨 폰트는 CDN 없이 시스템 폰트(Bradley Hand·Noteworthy·Segoe Print)를 쓰며 한글·가나는 세리프로 대체됩니다.
-- **정류장 사진:** `public/images/stops/`에 내용 기반 이름(예: `senganen.jpg`, `shiroyama.jpg`, `kagoshima-bay.jpg`)으로 추가한 뒤, 해당 노선 JSON(`src/data/routes/*.json`)의 정류장 객체에 `"photos": ["/images/stops/senganen.jpg"]`를 추가해야 `StopDetail`에 표시됩니다. `photos`가 없으면 `placeholder.svg`가 표시됩니다. 무거운 PNG 원본은 `public/`이 아닌 루트 `image/`에 보관하고, 웹용은 JPG(q75~85)로 변환해 넣습니다(PWA precache 부피 절약).
+- **정류장 사진:** `public/images/stops/`에 내용 기반 이름(예: `senganen.jpg`, `shiroyama.jpg`, `kagoshima-bay.jpg`)으로 추가한 뒤, 해당 노선 JSON(`src/data/routes/*.json`)의 정류장 객체에 `"photos": ["/images/stops/senganen.jpg"]`를 추가해야 `StopDetail`에 표시됩니다. `photos`가 없으면 사진 영역 자체를 표시하지 않습니다(빈자리를 보여주지 않음). 무거운 PNG 원본은 `public/`이 아닌 루트 `image/`에 보관하고, 웹용은 JPG(q75~85)로 변환해 넣습니다(PWA precache 부피 절약).
 
 ### 디자인 시스템
 

@@ -80,7 +80,6 @@
     "frequency": "{{minutes}}分間隔・1日{{count}}便",
     "dailyRuns": "1日{{count}}便・運行間隔は一定ではありません",
     "arrivals": "到着時刻（終点・降車専用）",
-    "photoComingSoon": "写真準備中",
     "noStops": "該当カテゴリの停留所はありません",
     "searchPlaceholder": "停留所・目的地を検索",
     "noResults": "検索結果がありません",
@@ -133,7 +132,8 @@
       "nearbyNote": "ホテル名を選ぶと、ホテルからの道順と帰りに降りる停留所を表示します"
     },
     "pageTitle": "停留所マップ",
-    "routeSelector": "路線を選ぶ"
+    "routeSelector": "路線を選ぶ",
+    "loading": "地図を読み込んでいます…"
   },
   "common": {
     "close": "閉じる"
@@ -164,17 +164,23 @@
     "title": "QRカード・ご案内資料",
     "intro": "ホテルのフロントや観光案内所に置ける停留所QRカード・ポスターと、導入のご提案資料です。",
     "cardTitle": "停留所案内 卓上POP（A6・QR付き）",
-    "cardDesc": "全20停留所。ホテルフロント・観光案内所のカウンター用。カードスタンドに立ててご利用ください。ホテル名入りにも対応。",
+    "cardDesc": "全20停留所。QRはその停留所の地図を開きます。カードスタンドに立てるA6",
     "siteQrTitle": "サイト案内 卓上POP・ポスター（A6・A4）",
     "siteQrDesc": "読み取るとサイトのトップページが開くQR付き。カウンター用の卓上POPとロビー掲示用のA4ポスター。ホテル名入りにも対応。",
-    "cardCta": "カードを選ぶ",
     "tourismTitle": "観光課への提案書 (PDF)",
     "tourismDesc": "公式採用のご提案 — 問題の背景・サービス概要・保守および移管の体制。",
     "hotelTitle": "宿泊施設への提案書（PDF）",
     "hotelDesc": "宿泊のお客様向け卓上POP設置のご提案 — 主要ホテルと最寄り停留所の対応表付き。",
     "incidentTitle": "トラブル時のご案内 (PDF)",
     "incidentDesc": "掲示ご担当者向け — サイトやQRコードに不具合があった場合の対応マニュアル。",
-    "open": "開く →"
+    "open": "開く →",
+    "sitePop": "サイト案内 卓上POP",
+    "sitePopDesc": "カウンターに立てるA6。QRはトップページへ",
+    "sitePoster": "サイト案内ポスター",
+    "sitePosterDesc": "ロビー掲示用A4。運行時間・運賃入り",
+    "hotelVersions": "ホテル名入りの版（{{count}}施設）",
+    "hotelVersionsDesc": "施設名と最寄り停留所を印字。QRはそのホテルからの地図（徒歩ルート・乗る/降りる停留所）を開きます。掲載をご希望の施設はお問い合わせください",
+    "docsTitle": "ご提案資料"
   },
   "devlog": {
     "sectionTitle": "制作ストーリー",

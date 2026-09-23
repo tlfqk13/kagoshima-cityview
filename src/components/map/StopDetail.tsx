@@ -221,9 +221,9 @@ export default function StopDetail({ stop, routeId, userLocation, isFavorite, on
           )}
         </div>
       </div>
-      {/* Photo section */}
-      <div className={styles.photoSection}>
-        {stop.photos && stop.photos.length > 0 ? (
+      {/* 정류장 사진 — JSON에 photos가 있는 정류장만. 없으면 빈자리("준비 중")를 보여주지 않는다 */}
+      {stop.photos && stop.photos.length > 0 && (
+        <div className={styles.photoSection}>
           <Image
             width={640}
             height={360}
@@ -232,19 +232,8 @@ export default function StopDetail({ stop, routeId, userLocation, isFavorite, on
             alt={t('map.stopDetail.photoAlt', { name: stopName })}
             className={styles.photo}
           />
-        ) : (
-          <div className={styles.photoPlaceholder}>
-            <Image
-              width={320}
-              height={180}
-              unoptimized
-              src="/images/stops/placeholder.svg"
-              alt=""
-              className={styles.placeholderImg}
-            />
-          </div>
-        )}
-      </div>
+        </div>
+      )}
       {stop.destinations.length > 0 && (
         <div className={styles.destinations}>
           {stop.destinations.map(dest => (

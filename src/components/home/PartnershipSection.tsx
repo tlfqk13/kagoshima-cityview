@@ -37,7 +37,7 @@ export default function PartnershipSection() {
           </h2>
           <p className={styles.body}>{t('partnership.body')}</p>
           <div className={styles.actions}>
-            <Link href="/card#site-qr" className={styles.btnMap}>{t('partnership.ctaPrint')} →</Link>
+            <Link href="/downloads#site" className={styles.btnMap}>{t('partnership.ctaPrint')} →</Link>
             <button type="button" className={styles.btnContact} onClick={handleCopyEmail} aria-live="polite">
               {copied ? t('partnership.copied') : t('partnership.cta')}
             </button>

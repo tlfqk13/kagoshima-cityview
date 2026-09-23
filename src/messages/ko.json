@@ -80,7 +80,6 @@
     "frequency": "{{minutes}}분 간격 · 하루 {{count}}편",
     "dailyRuns": "하루 {{count}}편 · 운행 간격이 일정하지 않습니다",
     "arrivals": "도착 시간표 (종점·하차 전용)",
-    "photoComingSoon": "사진 준비 중",
     "noStops": "해당 카테고리의 정류장이 없습니다",
     "searchPlaceholder": "정류장·목적지 검색",
     "noResults": "검색 결과가 없습니다",
@@ -133,7 +132,8 @@
       "nearbyNote": "호텔을 누르면 호텔에서 가는 길과 돌아올 때 내리는 정류장을 보여 줍니다"
     },
     "pageTitle": "정류장 지도",
-    "routeSelector": "노선 선택"
+    "routeSelector": "노선 선택",
+    "loading": "지도를 불러오는 중…"
   },
   "common": {
     "close": "닫기"
@@ -164,17 +164,23 @@
     "title": "QR 카드·안내 자료",
     "intro": "호텔 프런트와 관광안내소에 두는 정류장 QR 카드·포스터, 도입 제안서를 받을 수 있습니다.",
     "cardTitle": "정류장 안내 탁상 POP (A6·QR 포함)",
-    "cardDesc": "전 20개 정류장. 호텔 프런트·관광안내소 카운터용. 카드 스탠드에 세워 두는 방식. 호텔 이름 넣은 버전 지원.",
+    "cardDesc": "전 20개 정류장. QR은 해당 정류장 지도를 엽니다. 카드 스탠드에 세우는 A6",
     "siteQrTitle": "사이트 안내 탁상 POP·포스터 (A6·A4)",
     "siteQrDesc": "찍으면 사이트 첫 화면이 열리는 QR. 카운터용 탁상 POP과 로비 게시용 A4 포스터. 호텔 이름 넣은 버전 지원.",
-    "cardCta": "카드 선택하기",
     "tourismTitle": "관광과 제안서 (PDF)",
     "tourismDesc": "공식 채택 제안 — 문제 배경, 서비스 개요, 유지보수·이관 체계.",
     "hotelTitle": "숙박시설 제안서 (PDF)",
     "hotelDesc": "투숙객용 탁상 POP 비치 제안 — 주요 호텔별 최근접 정류장 표 포함.",
     "incidentTitle": "장애 시 안내 (PDF)",
     "incidentDesc": "비치 담당자용 — 사이트 장애·QR 문제 발생 시 대처 매뉴얼.",
-    "open": "열기 →"
+    "open": "열기 →",
+    "sitePop": "사이트 안내 탁상 POP",
+    "sitePopDesc": "카운터에 세우는 A6. QR은 첫 화면으로",
+    "sitePoster": "사이트 안내 포스터",
+    "sitePosterDesc": "로비 게시용 A4. 운행 시간·요금 포함",
+    "hotelVersions": "호텔 이름 넣은 버전 ({{count}}곳)",
+    "hotelVersionsDesc": "호텔 이름과 최근접 정류장을 인쇄. QR은 그 호텔에서 출발하는 지도(도보 경로·타는/내리는 정류장)를 엽니다. 등록을 원하는 시설은 문의해 주세요",
+    "docsTitle": "제안 자료"
   },
   "devlog": {
     "sectionTitle": "제작 이야기",
