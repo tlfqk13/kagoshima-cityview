@@ -485,7 +485,9 @@ export default function MapCanvas({ routeId, selectedStopId, onStopSelect, onUse
     if (!map || !map.getLayer('stops-circle')) return
 
     // 기존 도보 경로 제거
+    // 도보 경로 = 흰 케이싱 + 파란 점선 (노선의 갈색 실선과 겹쳐도 구분되게. 파란색은 호텔 핀·정보 색 --sea와 통일)
     if (map.getLayer('walking-route')) map.removeLayer('walking-route')
+    if (map.getLayer('walking-route-casing')) map.removeLayer('walking-route-casing')
     if (map.getSource('walking-route')) map.removeSource('walking-route')
 
     if (!walkOrigin || !selectedStopId) return
@@ -507,14 +509,21 @@ export default function MapCanvas({ routeId, selectedStopId, onStopSelect, onUse
         } else {
           map.addSource('walking-route', { type: 'geojson', data: route })
           map.addLayer({
+            id: 'walking-route-casing',
+            type: 'line',
+            source: 'walking-route',
+            layout: { 'line-cap': 'round', 'line-join': 'round' },
+            paint: { 'line-color': '#ffffff', 'line-width': 9, 'line-opacity': 0.9 },
+          })
+          map.addLayer({
             id: 'walking-route',
             type: 'line',
             source: 'walking-route',
+            layout: { 'line-cap': 'round', 'line-join': 'round' },
             paint: {
-              'line-color': '#8B4513',
-              'line-width': 3,
-              'line-opacity': 0.8,
-              'line-dasharray': [1, 2],
+              'line-color': '#2F6A8F',
+              'line-width': 4,
+              'line-dasharray': [0.2, 1.6],
             },
           })
         }
