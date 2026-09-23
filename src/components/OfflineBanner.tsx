@@ -1,6 +1,7 @@
 'use client'
 import { useState, useEffect, useSyncExternalStore } from 'react'
 import { useTranslation } from 'react-i18next'
+import { usePathname } from 'next/navigation'
 import styles from './OfflineBanner.module.css'
 
 const DISMISSED_KEY = 'pwa-install-dismissed'
@@ -18,23 +19,24 @@ export default function OfflineBanner() {
   const { t } = useTranslation()
   const isOnline = useSyncExternalStore(subscribeOnline, () => navigator.onLine, () => true)
   const [showInstall, setShowInstall] = useState(false)
+  const pathname = usePathname()
+  // 지도(바텀시트를 가림)·인쇄물·관리자에서는 설치 안내를 띄우지 않는다
+  const installAllowed = !/^\/(map|card|admin)(\/|$)/.test(pathname ?? '')
 
   useEffect(() => {
-    // Install banner: show if not dismissed AND not already installed (standalone)
-    const dismissed = localStorage.getItem(DISMISSED_KEY)
+    // 설치 안내: 닫은 적 없고, 설치(standalone) 상태가 아닐 때만. 3초 뒤 표시, 15초 뒤 자동으로 접는다(닫기 기록은 X를 눌렀을 때만)
+    if (!installAllowed) return
+    let dismissed: string | null = null
+    try { dismissed = localStorage.getItem(DISMISSED_KEY) } catch {}
     const isStandalone = window.matchMedia('(display-mode: standalone)').matches
-    if (!dismissed && !isStandalone) {
-      // Delay 3s so it doesn't interrupt initial page load
-      const timer = setTimeout(() => setShowInstall(true), 3000)
-      return () => {
-        clearTimeout(timer)
-      }
-    }
-
-  }, [])
+    if (dismissed || isStandalone) return
+    const show = setTimeout(() => setShowInstall(true), 3000)
+    const hide = setTimeout(() => setShowInstall(false), 18000)
+    return () => { clearTimeout(show); clearTimeout(hide) }
+  }, [installAllowed])
 
   function dismissInstall() {
-    localStorage.setItem(DISMISSED_KEY, '1')
+    try { localStorage.setItem(DISMISSED_KEY, '1') } catch {}
     setShowInstall(false)
   }
 
@@ -48,7 +50,7 @@ export default function OfflineBanner() {
     )
   }
 
-  if (showInstall) {
+  if (showInstall && installAllowed) {
     return (
       <div className={`${styles.banner} ${styles.install}`} role="complementary">
         <span className={styles.text}>{t('offline.installHint')}</span>

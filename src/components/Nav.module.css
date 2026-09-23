@@ -12,6 +12,9 @@
 }
 
 .logo {
+  display: inline-block;
+  padding: 6px 0;
+  margin: -6px 0; /* 탭 타깃 ≥32px */
   font-family: var(--font-serif);
   font-size: 13px;
   letter-spacing: 0.12em;
@@ -33,6 +36,9 @@
 }
 
 .links a {
+  display: inline-block;
+  padding: 8px 2px; /* 탭 타깃 32px 이상 — 글자 위치는 그대로 */
+  margin: -8px -2px;
   font-size: 12px;
   letter-spacing: 0.08em;
   color: var(--text-subtle);
