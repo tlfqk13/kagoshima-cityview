@@ -54,3 +54,4 @@ scripts/google-maps-audit/out/
 .agents/
 skills-lock.json
 .claude/worktrees/
+.claude/skills/
