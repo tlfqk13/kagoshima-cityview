@@ -120,6 +120,19 @@ test('사이트 QR 인쇄물은 QR과 호텔 이름을 표시한다', async ({ p
   expect(await response.text()).not.toContain('ご宿泊のお客様へ')
 })
 
+test('프런트 도우미는 키가 없으면 준비 중 안내와 기본 정보만 보여준다', async ({ page, request }) => {
+  await page.goto('/desk?hotel=remm&lang=ja')
+  await expect(page.getByRole('heading', { level: 1 })).toContainText('レム鹿児島')
+  await expect(page.getByText('No.3')).toBeVisible()
+  await expect(page.getByText('No.19')).toBeVisible()
+  // ANTHROPIC_API_KEY 없는 테스트 환경: 질문 폼 대신 준비 중 안내, API는 503
+  await expect(page.getByRole('status')).toContainText(ja.desk.notConfigured)
+  const res = await request.post('/api/desk', { data: { hotel: 'remm', question: '最終バスは何時？', guestLang: 'en' } })
+  expect(res.status()).toBe(503)
+  const nf = await request.get('/desk?hotel=nope')
+  expect(nf.status()).toBe(404)
+})
+
 test('호텔 QR로 들어오면 호텔 핀과 타는·내리는 정류장을 보여준다', async ({ page, isMobile }) => {
   await page.goto('/map?hotel=remm&lang=ja')
   const panel = isMobile ? page.getByRole('complementary', { name: ja.map.stopListAria }) : page.locator('aside')

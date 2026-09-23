@@ -1,0 +1,291 @@
+/* 프런트 통역 도우미 — 기능 레이어. 종이 질감 없이 색·서체 토큰만 */
+.wrap {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.header {
+  margin-bottom: 20px;
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent-text);
+  margin-bottom: 8px;
+}
+
+.h1 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-serif);
+  font-size: clamp(20px, 3vw, 26px);
+  font-weight: 700;
+  color: var(--ink);
+  margin: 0 0 8px;
+}
+
+.intro {
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--text-subtle);
+  margin: 0;
+}
+
+/* ---- 기본 정보 ---- */
+.facts {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 12px;
+  padding: 16px;
+  border: 1.5px solid var(--sea);
+  border-radius: var(--radius);
+  background: var(--card);
+  margin-bottom: 20px;
+}
+
+.fact {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.factLabel {
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: var(--text-subtle);
+}
+
+.factStop {
+  font-size: 15px;
+  color: var(--ink);
+}
+
+.factStop b {
+  font-family: var(--font-mono);
+  color: var(--sea);
+  margin-right: 4px;
+}
+
+.factWalk {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 12px;
+  color: var(--text-subtle);
+}
+
+.qr {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.qr canvas {
+  display: block;
+  border-radius: 4px;
+}
+
+.qrCaption {
+  font-size: 10px;
+  color: var(--text-subtle);
+  text-align: center;
+  max-width: 132px;
+}
+
+/* ---- 질문 ---- */
+.notice {
+  padding: 14px 16px;
+  border: 1px dashed var(--rule);
+  border-radius: var(--radius);
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--pencil);
+}
+
+.ask {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.langRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+
+.langLabel {
+  font-size: 12px;
+  color: var(--text-subtle);
+  margin-right: 4px;
+}
+
+.langBtn {
+  min-height: 32px;
+  padding: 0 12px;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.langBtnActive {
+  background: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
+}
+
+.form {
+  display: flex;
+  gap: 8px;
+  align-items: stretch;
+}
+
+.input {
+  flex: 1;
+  padding: 10px 12px;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  background: var(--card);
+  color: var(--ink);
+  font: inherit;
+  font-size: 15px;
+  line-height: 1.6;
+  resize: vertical;
+}
+
+.input:focus {
+  outline: 2px solid var(--sea);
+  outline-offset: 1px;
+}
+
+.submit {
+  min-width: 96px;
+  padding: 0 18px;
+  border: 0;
+  border-radius: var(--radius);
+  background: var(--ink);
+  color: var(--paper);
+  font: inherit;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.submit:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.examples {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.example {
+  min-height: 32px;
+  padding: 0 12px;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--pencil);
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.example:hover {
+  border-color: var(--sea);
+  color: var(--sea);
+}
+
+.error {
+  padding: 10px 12px;
+  border-radius: var(--radius);
+  background: color-mix(in srgb, var(--warn-text) 12%, transparent);
+  color: var(--warn-text);
+  font-size: 13px;
+}
+
+/* ---- 답 카드 ---- */
+.answer {
+  margin-top: 8px;
+  padding: 20px 22px;
+  border-radius: var(--radius);
+  background: var(--card);
+  border: 1.5px solid var(--ink);
+}
+
+.guest {
+  font-size: 20px;
+  line-height: 1.6;
+  color: var(--ink);
+  margin: 0 0 14px;
+}
+
+.staff {
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--pencil);
+  padding-top: 12px;
+  border-top: 1px dashed var(--rule);
+  margin: 0;
+}
+
+.lowConfidence {
+  margin: 10px 0 0;
+  font-size: 12px;
+  color: var(--warn-text);
+}
+
+.stopLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.stopLink {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  padding: 0 12px;
+  border: 1px solid var(--sea);
+  border-radius: var(--radius);
+  color: var(--sea);
+  font-size: 13px;
+  text-decoration: none;
+}
+
+.meta {
+  margin: 14px 0 0;
+  font-size: 11px;
+  color: var(--text-subtle);
+}
+
+@media (max-width: 1023px) {
+  .facts {
+    grid-template-columns: 1fr;
+  }
+
+  .qr {
+    align-items: flex-start;
+  }
+
+  .form {
+    flex-direction: column;
+  }
+
+  .submit {
+    min-height: 44px;
+  }
+}

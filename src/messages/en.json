@@ -180,7 +180,9 @@
     "sitePosterDesc": "A4 for the lobby, with hours and fares",
     "hotelVersions": "Hotel-branded versions ({{count}} properties)",
     "hotelVersionsDesc": "Printed with your property name and nearest stop. The QR opens the map from your hotel (walking route, boarding and return stops). Contact us to be listed",
-    "docsTitle": "Proposal documents"
+    "docsTitle": "Proposal documents",
+    "desk": "Front desk interpreter",
+    "deskShort": "Desk"
   },
   "devlog": {
     "sectionTitle": "Making Of",
@@ -259,5 +261,37 @@
     "body": "The address may have changed or been mistyped. Try the bus stop map.",
     "map": "Open the stop map",
     "home": "Go to the front page"
+  },
+  "desk": {
+    "title": "Front Desk Interpreter",
+    "eyebrow": "For front desk staff",
+    "intro": "Type the guest’s question in Japanese and get an answer in the guest’s language. Stops, times and fares come only from this site’s data; anything else is answered with “I don’t know”.",
+    "factsLabel": "Basics for this hotel",
+    "askLabel": "Ask",
+    "guestLang": "Guest’s language",
+    "questionLabel": "Question (Japanese)",
+    "placeholder": "e.g. 仙巌園に行きたいそうです。どこで乗って、帰りは何時までですか？",
+    "submit": "Make an answer",
+    "loading": "Working…",
+    "qrLabel": "QR code for the map from this hotel",
+    "qrCaption": "Map the guest can open on their phone",
+    "notConfigured": "This feature is not set up yet (it works once the operator adds the AI configuration). The stop info and map QR above work as usual.",
+    "lowConfidence": "※ Part of this answer could not be confirmed from this guide. Please check the official site.",
+    "disclaimer": "Times are timetable estimates. This answer was written by AI; stops, times and fares are based on the site’s data.",
+    "examples": [
+      "仙巌園に行きたい。どこで乗る？",
+      "帰りはどこで降りればいい？",
+      "最終バスは何時？",
+      "1日乗車券はいくら？",
+      "水族館へ行くには？"
+    ],
+    "errors": {
+      "default": "Could not make an answer. Please try again.",
+      "quota": "Today’s limit has been reached. Please use the stop info and map QR above.",
+      "not_configured": "This feature is not set up yet.",
+      "network": "Network error. Please check the connection.",
+      "upstream": "The AI service is temporarily unavailable. Please try again shortly.",
+      "upstream_rate_limit": "Busy right now. Please wait a moment and try again."
+    }
   }
 }

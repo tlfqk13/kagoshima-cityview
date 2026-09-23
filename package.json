@@ -13,6 +13,7 @@
     "proposal:pdf": "python3 scripts/build-hotel-proposal.py && node scripts/proposal-pdf.mjs"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.128.0",
     "@ducanh2912/next-pwa": "^10.2.9",
     "@vercel/analytics": "^2.0.1",
     "gray-matter": "^4.0.3",
@@ -26,7 +27,8 @@
     "qrcode": "^1.5.4",
     "react": "19.2.7",
     "react-dom": "19.2.7",
-    "react-i18next": "^17.0.10"
+    "react-i18next": "^17.0.10",
+    "zod": "^4.6.5"
   },
   "devDependencies": {
     "@playwright/test": "^1.63.0",

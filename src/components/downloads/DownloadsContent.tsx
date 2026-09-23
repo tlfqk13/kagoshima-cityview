@@ -67,6 +67,7 @@ export default function DownloadsContent({ stops, hotels }: Props) {
                 <span className={styles.hotelName}>{h.nameJa}</span>
                 <Link href={`/card/site?hotel=${h.slug}`}>A6</Link>
                 <Link href={`/card/poster?hotel=${h.slug}`}>A4</Link>
+                <Link href={`/desk?hotel=${h.slug}`} title={t('downloads.desk')}>{t('downloads.deskShort')}</Link>
               </li>
             ))}
           </ul>

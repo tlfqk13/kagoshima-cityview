@@ -29,6 +29,7 @@
 | `/story/[slug]` | 개별 에피소드 상세 (MDX) |
 | `/admin` | 관리자 페이지 (NextAuth 보호) |
 | `/admin/login` | 관리자 로그인 (Google OAuth) |
+| `/desk?hotel=[slug]` | 호텔 프런트용 통역 도우미(색인 제외). 직원이 일본어로 묻고 투숙객 언어로 답 카드. 유일한 AI 호출 지점은 `POST /api/desk` — `ANTHROPIC_API_KEY` 없으면 '준비 중'만 표시하고 호출·과금 없음. 모델·하루 상한은 `DESK_MODEL`·`DESK_DAILY_LIMIT_*`. 사실(정류장·시각·요금)은 `src/lib/desk.ts`가 데이터에서 컨텍스트로 넘기고 AI는 문장만 만든다 |
 | `/downloads` | 호텔·관광안내소용 허브 — 사이트 POP·포스터(호텔 이름 버전 포함)·정류장 POP 20개·제안서 PDF. `/card`는 여기로 리다이렉트 |
 | `/card/site` | A6 사이트 QR 카드. QR은 첫 화면(`/`)으로 연결. `?hotel=slug`로 호텔 이름·최근접 정류장 표시 |
 | `/card/poster` | A4 사이트 QR 포스터. 운행 정보는 노선 JSON 메타데이터에서 읽음. `?hotel=slug` 지원 |
@@ -180,6 +181,10 @@ GOOGLE_CLIENT_SECRET=
 
 # 관리자 허용 이메일 (콤마 구분)
 ADMIN_EMAILS=your@email.com
+
+# 프런트 통역 도우미 (/desk). 비워 두면 AI 호출·과금 없음
+ANTHROPIC_API_KEY=
+DESK_MODEL=claude-haiku-4-5
 ```
 
 - `NEXT_PUBLIC_MAPBOX_TOKEN`은 반드시 Mapbox Dashboard에서 허용 URL 스코프를 제한하세요. 공개될 경우 무료 사용량이 남용될 수 있습니다.
