@@ -64,3 +64,5 @@ URL: https://kagoshima.makoro.dev
 - 정류장 수: cityview 20 / cityview-night 7 / islandview 12 (src/data/routes 기준)
 - QR 카드: `/card/[stopId]` 페이지로 구현됨 (A6 인쇄용)
 - 도메인: 운영사 MAKORO의 서브도메인 kagoshima.makoro.dev 사용 (코드는 src/lib/site.ts의 SITE_URL). 채택 시 별도 도메인으로 이전하고 기존 주소는 301 리다이렉트
+
+> (2026-09-23 추가) 제안 내용 5: 정류장별 「降りたらここ」 안내 — 관광과·상점가가 선정한 주변 장소를 4개 언어로 게재. 선정·유료 게재 없음. 상세는 `stop-spots-card.md`.

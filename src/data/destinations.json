@@ -68,5 +68,89 @@
     "name": { "ko": "사쿠라지마 페리 터미널", "en": "Sakurajima Ferry Terminal", "ja": "桜島フェリーターミナル", "zh": "櫻島渡輪碼頭" },
     "walkMinutes": 3,
     "category": "sightseeing"
+  },
+  {
+    "id": "wakaki-satsuma",
+    "stopId": "stop_01",
+    "name": { "ko": "젊은 사쓰마의 군상", "en": "Young Satsuma Pioneers Monument", "ja": "若き薩摩の群像", "zh": "年輕薩摩群像" },
+    "walkMinutes": 1,
+    "category": "sightseeing"
+  },
+  {
+    "id": "wakaki-satsuma-20",
+    "stopId": "stop_20",
+    "name": { "ko": "젊은 사쓰마의 군상", "en": "Young Satsuma Pioneers Monument", "ja": "若き薩摩の群像", "zh": "年輕薩摩群像" },
+    "walkMinutes": 1,
+    "category": "sightseeing"
+  },
+  {
+    "id": "ishin-furusato",
+    "stopId": "stop_02",
+    "name": { "ko": "유신 후루사토관", "en": "Museum of the Meiji Restoration", "ja": "維新ふるさと館", "zh": "維新故鄉館" },
+    "walkMinutes": 1,
+    "category": "sightseeing"
+  },
+  {
+    "id": "satsuma-gishi-05",
+    "stopId": "stop_05",
+    "name": { "ko": "사쓰마 의사비", "en": "Satsuma Gishi Monument", "ja": "薩摩義士碑", "zh": "薩摩義士碑" },
+    "walkMinutes": 1,
+    "category": "sightseeing"
+  },
+  {
+    "id": "satsuma-gishi-09",
+    "stopId": "stop_09",
+    "name": { "ko": "사쓰마 의사비", "en": "Satsuma Gishi Monument", "ja": "薩摩義士碑", "zh": "薩摩義士碑" },
+    "walkMinutes": 1,
+    "category": "sightseeing"
+  },
+  {
+    "id": "saigo-cave-06",
+    "stopId": "stop_06",
+    "name": { "ko": "사이고 동굴", "en": "Saigo Cave", "ja": "西郷洞窟", "zh": "西鄉洞窟" },
+    "walkMinutes": 1,
+    "category": "sightseeing"
+  },
+  {
+    "id": "saigo-cave-08",
+    "stopId": "stop_08",
+    "name": { "ko": "사이고 동굴", "en": "Saigo Cave", "ja": "西郷洞窟", "zh": "西鄉洞窟" },
+    "walkMinutes": 1,
+    "category": "sightseeing"
+  },
+  {
+    "id": "nanshu-museum",
+    "stopId": "stop_10",
+    "name": { "ko": "사이고 난슈 현창관·난슈 신사", "en": "Saigo Nanshu Memorial Museum & Nanshu Shrine", "ja": "西郷南洲顕彰館・南洲神社", "zh": "西鄉南洲顯彰館・南洲神社" },
+    "walkMinutes": 2,
+    "category": "sightseeing"
+  },
+  {
+    "id": "imaizumi-shimazu",
+    "stopId": "stop_11",
+    "name": { "ko": "이마이즈미 시마즈가 본저 터(아쓰히메 탄생지)", "en": "Site of the Imaizumi Shimazu Residence (Birthplace of Atsuhime)", "ja": "今和泉島津家本邸跡（篤姫誕生地）", "zh": "今和泉島津家本邸遺址（篤姬誕生地）" },
+    "walkMinutes": 1,
+    "category": "sightseeing"
+  },
+  {
+    "id": "kanmachia",
+    "stopId": "stop_15",
+    "name": { "ko": "간마치아 광장(가고시마역 앞)", "en": "Kanmachia Plaza (Kagoshima Station)", "ja": "かんまちあ（鹿児島駅前広場）", "zh": "KANMACHIA 廣場（鹿兒島站前）" },
+    "walkMinutes": 1,
+    "category": "sightseeing"
+  },
+  {
+    "id": "waterfront-park",
+    "stopId": "stop_17",
+    "name": { "ko": "워터프런트 파크", "en": "Waterfront Park", "ja": "ウォーターフロントパーク", "zh": "濱水公園" },
+    "walkMinutes": 1,
+    "category": "nature"
+  },
+  {
+    "id": "tenmonkan-arcade-19",
+    "stopId": "stop_19",
+    "name": { "ko": "덴몬칸 아케이드", "en": "Tenmonkan Arcade", "ja": "天文館アーケード", "zh": "天文館拱廊商店街" },
+    "walkMinutes": 3,
+    "category": "shopping"
   }
 ]
