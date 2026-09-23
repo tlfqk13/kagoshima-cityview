@@ -32,6 +32,11 @@ describe('analytics events', () => {
 
   it('일본 날짜·언어·국가 정규화', () => {
     expect(japanDay(new Date('2026-09-23T15:30:00Z'))).toBe('2026-09-24') // JST 00:30
+    // 규칙: DB 날짜는 UTC+9(KST = JST). 서울 기준으로 계산해도 항상 같아야 한다
+    const seoul = new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Seoul', year: 'numeric', month: '2-digit', day: '2-digit' })
+    for (const iso of ['2026-01-01T14:59:00Z', '2026-01-01T15:00:00Z', '2026-07-15T14:59:59Z', '2026-12-31T15:00:00Z']) {
+      expect(japanDay(new Date(iso))).toBe(seoul.format(new Date(iso)))
+    }
     expect(normalizeLang('zh-Hant')).toBe('zh-Hant')
     expect(normalizeLang('fr')).toBe('other')
     expect(normalizeCountry('JP')).toBe('JP')

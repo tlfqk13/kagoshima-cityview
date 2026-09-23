@@ -20,7 +20,8 @@ export function isAnalyticsConfigured(): boolean {
   return Boolean(process.env.DATABASE_URL)
 }
 
-// 일본 시간 기준 날짜 — 리포트가 일본 달력으로 나가므로
+// DB의 날짜는 UTC+9(KST = JST, 서머타임 없음) 기준. 서버·Vercel 리전 시간대와 무관하게 여기서만 계산한다.
+// 리포트가 일본 달력으로 나가므로 Asia/Tokyo로 쓰지만 KST와 값이 같다.
 export function japanDay(now = new Date()): string {
   return new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Tokyo', year: 'numeric', month: '2-digit', day: '2-digit' }).format(now)
 }
