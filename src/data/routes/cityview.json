@@ -336,9 +336,6 @@
       "googleMapsErrorNote": "",
       "destinations": [],
       "connections": [],
-      "photos": [
-        "/images/stops/shiroyama.jpg"
-      ],
       "schedule": {
         "departures": [
           "08:54",
@@ -564,9 +561,6 @@
       "googleMapsErrorNote": "",
       "destinations": [],
       "connections": [],
-      "photos": [
-        "/images/stops/senganen.jpg"
-      ],
       "schedule": {
         "departures": [
           "09:19",
@@ -750,9 +744,6 @@
       "googleMapsError": false,
       "googleMapsErrorNote": "",
       "destinations": [],
-      "photos": [
-        "/images/stops/kagoshima-bay.jpg"
-      ],
       "connections": [
         {
           "type": "ferry",

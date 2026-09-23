@@ -3,6 +3,7 @@ import Link from 'next/link'
 import { getRoute, getStopById, getStopsForRoute } from '@/lib/routes'
 import { findHotel } from '@/lib/hotels'
 import { SITE_URL, SITE_DOMAIN } from '@/lib/site'
+import { HOME_PHOTOS } from '@/components/home/photos'
 import { createQrSvgDataUrl } from '@/lib/printQr'
 import PrintButton from '../PrintButton'
 import styles from './site.module.css'
@@ -38,6 +39,10 @@ export default async function SiteCardPage({ searchParams }: Props) {
       </div>
 
       <div className={styles.card}>
+        <div className={styles.visual}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={HOME_PHOTOS.hero} alt="" className={styles.visualImg} />
+        </div>
         <div className={styles.header}>
           <span className={styles.service}>Kagoshima City View Bus Guide</span>
           <span className={styles.route}>{route.name.ja}</span>

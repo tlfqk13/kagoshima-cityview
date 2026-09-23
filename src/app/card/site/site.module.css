@@ -38,6 +38,20 @@
   overflow: hidden;
 }
 
+/* 엽서 띠 — 카드 상단 일러스트 (인쇄물은 고정색·실사 대신 브랜드 일러스트) */
+.visual {
+  height: 34mm;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.visualImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 55%;
+}
+
 .header {
   background: #1F1E1A;
   padding: 4.5mm 6mm;

@@ -10,9 +10,29 @@
 }
 
 .header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
   margin-bottom: 48px;
   padding-bottom: 32px;
   border-bottom: 2px solid var(--ink);
+}
+
+/* 엽서 — 여행자의 스크랩북 서사. 장식이므로 aria-hidden */
+.postcard {
+  position: relative;
+  flex: 0 0 220px;
+  aspect-ratio: 3 / 2;
+  background: var(--card);
+  padding: 6px;
+  box-shadow: var(--shadow-soft);
+  transform: rotate(2deg);
+}
+
+.postcardImg {
+  object-fit: cover;
+  padding: 6px;
 }
 
 .eyebrow {
@@ -37,8 +57,16 @@
   flex-direction: column;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1023px) {
   .main {
     padding: 40px 24px 60px;
+  }
+
+  .header {
+    align-items: flex-start;
+  }
+
+  .postcard {
+    flex-basis: 34vw;
   }
 }

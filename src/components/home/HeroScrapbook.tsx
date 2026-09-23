@@ -37,7 +37,7 @@ export default function HeroScrapbook() {
           caption={t('home.heroCaption')}
           tilt={2.2}
           tape="corners"
-          ratio={1.5}
+          ratio={1.65}
           sizes="(max-width: 1023px) 92vw, 52vw"
           priority
           className={styles.photo}
