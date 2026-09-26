@@ -389,6 +389,38 @@
   white-space: nowrap;
 }
 
+/* 근처 숙박시설 — 누르면 호텔 모드로 간다는 신호 */
+.hotelOpen {
+  font-size: 12px;
+  color: var(--sea);
+  white-space: nowrap;
+}
+
+/* 같은 자리·맞은편 정류장으로 건너가기 */
+.pair {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 6px 0 10px;
+}
+
+.pairLink {
+  display: inline-flex;
+  align-items: center;
+  min-height: 30px;
+  padding: 0 10px;
+  border: 1px dashed var(--rule);
+  border-radius: 999px;
+  font-size: 12px;
+  color: var(--text-subtle);
+  text-decoration: none;
+}
+
+.pairLink:hover {
+  border-color: var(--sea);
+  color: var(--sea);
+}
+
 .hotelNote {
   margin-top: 6px;
   font-size: 11px;

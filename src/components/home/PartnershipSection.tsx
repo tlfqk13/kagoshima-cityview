@@ -27,7 +27,7 @@ export default function PartnershipSection() {
   }
 
   return (
-    <section className={styles.section}>
+    <section className={styles.section} id="partners">
       <div className={styles.inner}>
         <article className={styles.letter} data-reveal="" style={{ '--tilt': '-0.8deg' } as CSSProperties}>
           <p className={styles.to}>{t('home.letterTo')}</p>

@@ -14,6 +14,13 @@ const worst = audit.stops.reduce((a, b) => (b.errorMeters > a.errorMeters ? b : 
 
 export const accuracySummary = {
   auditedAt: audit.auditedAt,
+  /** 번호순 20곳의 판정 — 랜딩의 점 띠 */
+  stops: audit.stops
+    .slice()
+    .sort((a, b) => Number(a.id.replace(/\D/g, '')) - Number(b.id.replace(/\D/g, '')))
+    .map(s => ({ id: s.id, number: Number(s.id.replace(/\D/g, '')), grade: s.grade, errorMeters: s.errorMeters })),
+  /** 50m 이상 어긋난 정류장 수(주의+오류) */
+  offCount: audit.stops.filter(s => s.grade !== 'ok').length,
   /** 구글맵 위치가 틀린(오류 등급) 정류장 수 */
   wrongCount: wrongStops.length,
   /** 가장 크게 어긋난 정류장 */

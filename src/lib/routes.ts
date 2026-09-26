@@ -151,26 +151,93 @@ export function getRouteCoordinates(routeId: RouteId, course: 'A' | 'B' = 'B'): 
     .map(s => [s.lng, s.lat])
 }
 
-export function getStopsGeoJSON(stops: RouteStop[]) {
-  return {
-    type: 'FeatureCollection' as const,
-    features: stops.map(stop => ({
-      type: 'Feature' as const,
-      geometry: { type: 'Point' as const, coordinates: [stop.lng, stop.lat] },
-      properties: {
-        id: stop.id,
-        number: stop.number,
-        nameKo: stop.name.ko,
-        nameEn: stop.name.en,
-        nameJa: stop.name.ja,
-        nameZh: stop.name.zh,
-        googleMapsError: stop.googleMapsError ?? false,
-        coordinatesApproximate: stop.coordinatesApproximate ?? false,
-        hasConnection: (stop.connections ?? []).length > 0,
-        isBCourseOnly: (stop.courses?.length === 1 && stop.courses[0] === 'B') ?? false,
-      },
-    })),
+function stopDistanceMeters(a: RouteStop, b: RouteStop): number {
+  const R = 6371000
+  const dLat = ((b.lat - a.lat) * Math.PI) / 180
+  const dLng = ((b.lng - a.lng) * Math.PI) / 180
+  const h = Math.sin(dLat / 2) ** 2 + Math.cos((a.lat * Math.PI) / 180) * Math.cos((b.lat * Math.PI) / 180) * Math.sin(dLng / 2) ** 2
+  return R * 2 * Math.atan2(Math.sqrt(h), Math.sqrt(1 - h))
+}
+
+/** 이 거리 안의 정류장은 낮은 줌에서 한 마커로 묶는다 (방향별 정류장 쌍은 15~28m 떨어져 있다) */
+export const STOP_GROUP_METERS = 30
+/** 같은 좌표로 본다 — 중앙역 No.1(출발)·No.20(종점)처럼 실제로 같은 정류장 */
+const SAME_PLACE_METERS = 2
+
+export interface StopGroup {
+  /** 번호순 정류장 */
+  stops: RouteStop[]
+  /** 모든 정류장이 사실상 같은 좌표(출발·종점) — 어떤 줌에서도 마커 하나 */
+  samePlace: boolean
+}
+
+/** 가까운 정류장을 묶는다. 결과는 첫 정류장 번호순 */
+export function getStopGroups(stops: RouteStop[]): StopGroup[] {
+  const sorted = stops.slice().sort((a, b) => a.number - b.number)
+  const groups: RouteStop[][] = []
+  for (const stop of sorted) {
+    const group = groups.find(g => g.some(s => stopDistanceMeters(s, stop) <= STOP_GROUP_METERS))
+    if (group) group.push(stop)
+    else groups.push([stop])
   }
+  return groups.map(group => ({
+    stops: group,
+    samePlace: group.length > 1 && group.every(s => stopDistanceMeters(s, group[0]) <= SAME_PLACE_METERS),
+  }))
+}
+
+/** 이 정류장과 묶이는 정류장들(자기 자신 제외) */
+export function getGroupedStops(routeId: RouteId, stop: RouteStop): { stop: RouteStop; meters: number; samePlace: boolean }[] {
+  const group = getStopGroups(getStopsForRoute(routeId)).find(g => g.stops.some(s => s.id === stop.id))
+  if (!group) return []
+  return group.stops
+    .filter(s => s.id !== stop.id)
+    .map(s => ({ stop: s, meters: Math.round(stopDistanceMeters(stop, s)), samePlace: group.samePlace }))
+}
+
+/** 묶인 정류장의 공통 이름 — 「天文館（仙巌園方面向け）」「天文館（鹿児島中央駅向け）」→「天文館」 */
+function commonName(names: string[]): string {
+  const bases = names.map(n => n.split(/[（(]/)[0].trim())
+  return bases.every(b => b === bases[0]) && bases[0] ? bases[0] : names[0]
+}
+
+function stopFeature(stops: RouteStop[]) {
+  const first = stops[0]
+  const lng = stops.reduce((sum, s) => sum + s.lng, 0) / stops.length
+  const lat = stops.reduce((sum, s) => sum + s.lat, 0) / stops.length
+  const one = stops.length === 1
+  return {
+    type: 'Feature' as const,
+    geometry: { type: 'Point' as const, coordinates: one ? [first.lng, first.lat] : [lng, lat] },
+    properties: {
+      id: first.id,
+      /** 이 마커가 대표하는 정류장 id — 선택 여부 판정은 `['in', id, ['get','ids']]` */
+      ids: stops.map(s => s.id).join(','),
+      number: first.number,
+      label: stops.map(s => s.number).join('·'),
+      merged: !one,
+      nameKo: one ? first.name.ko : commonName(stops.map(s => s.name.ko)),
+      nameEn: one ? first.name.en : commonName(stops.map(s => s.name.en)),
+      nameJa: one ? first.name.ja : commonName(stops.map(s => s.name.ja)),
+      nameZh: one ? first.name.zh : commonName(stops.map(s => s.name.zh)),
+      googleMapsError: stops.some(s => s.googleMapsError),
+      coordinatesApproximate: stops.some(s => s.coordinatesApproximate),
+      hasConnection: stops.some(s => (s.connections ?? []).length > 0),
+      isBCourseOnly: stops.every(s => (s.courses?.length === 1 && s.courses[0] === 'B') ?? false),
+    },
+  }
+}
+
+/**
+ * 지도 마커용 GeoJSON.
+ * - `split: false` (낮은 줌): 30m 안의 정류장을 마커 하나(라벨 "3·19")로 묶는다
+ * - `split: true` (높은 줌): 방향별 정류장은 각각 찍고, 같은 좌표(No.1·No.20)만 계속 하나로 둔다
+ */
+export function getStopsGeoJSON(stops: RouteStop[], split = true) {
+  const features = getStopGroups(stops).flatMap(group =>
+    group.samePlace || !split ? [stopFeature(group.stops)] : group.stops.map(s => stopFeature([s]))
+  )
+  return { type: 'FeatureCollection' as const, features }
 }
 
 export function getDepartureInterval(departures: string[]): number | null {

@@ -12,6 +12,7 @@ import { copyText } from '@/lib/clipboard'
 import Image from 'next/image'
 import Link from 'next/link'
 import { getHotelsNearStop } from '@/lib/hotels'
+import { getGroupedStops } from '@/lib/routes'
 import { IconBed } from '@/components/icons'
 import { track } from '@/lib/analytics/track'
 
@@ -75,6 +76,8 @@ export default function StopDetail({ stop, routeId, userLocation, isFavorite, on
   const stopName = stop.name[lang]
   // 호텔 데이터는 시티뷰 정류장 기준이라 다른 노선에서는 보여주지 않는다
   const nearbyHotels = routeId === 'cityview' ? getHotelsNearStop(stop) : []
+  // 같은 자리·맞은편의 정류장 — 중앙역 No.1/No.20은 같은 승강장, 天文館 No.3/No.19는 방향별 27m
+  const grouped = getGroupedStops(routeId, stop)
   const verification = getStopVerification(routeId, stop)
 
   const altNames = DATA_LANGS
@@ -177,6 +180,17 @@ export default function StopDetail({ stop, routeId, userLocation, isFavorite, on
             <div className={styles.badgeCourse}>{t('map.stopDetail.bCourseOnly')}</div>
           )}
         </div>
+        {grouped.length > 0 && (
+          <div className={styles.pair} role="group" aria-label={t('map.pair.aria')}>
+            {grouped.map(({ stop: other, meters, samePlace }) => (
+              <Link key={other.id} href={`/map/${other.id}`} className={styles.pairLink}>
+                {samePlace
+                  ? t(other.number < stop.number ? 'map.pair.sameDepart' : 'map.pair.sameArrive', { num: other.number })
+                  : t('map.pair.opposite', { num: other.number, m: meters })}
+              </Link>
+            ))}
+          </div>
+        )}
       </div>
       <div className={styles.faq} role="group" aria-label={t('map.faq.title')}>
         {FAQ.filter(key => key !== 'dest' || stop.destinations.length > 0).map(key => (
@@ -310,6 +324,7 @@ export default function StopDetail({ stop, routeId, userLocation, isFavorite, on
                 <Link href={`/map?hotel=${hotel.slug}`} className={styles.hotelLink}>
                   <span className={styles.hotelName}>{hotel.nameJa}</span>
                   <span className={styles.hotelWalk}><IconWalk size={12} /> {t('map.walkMin', { min: minutes })}</span>
+                  <span className={styles.hotelOpen}>{t('map.hotel.open')}</span>
                 </Link>
               </li>
             ))}

@@ -30,8 +30,35 @@
     "langsLabel": "日英韓中\n4種語言",
     "source": "依據鹿兒島市官方GTFS開放資料",
     "validated": "實地確認日",
-    "accuracyLink": "查看與Google地圖的比較結果 →",
-    "googleWrongLabel": "Google地圖\n最大偏差{{m}}m"
+    "accuracyLink": "查看完整比較結果 →",
+    "googleWrongLabel": "Google地圖\n最大偏差{{m}}m",
+    "title": "不是靠地圖 App，而是到現場確認",
+    "stripAria": "全部{{total}}個站牌與 Google 地圖的誤差",
+    "legendOk": "50m 以內",
+    "legendWarn": "50〜100m",
+    "legendError": "100m 以上",
+    "stampLabel": "現場確認",
+    "verify": {
+      "title": "20 個站牌全部現場 GPS 確認",
+      "body": "{{date}}走遍全部{{total}}個站牌，以 GPS 核對官方座標與站牌實際位置。不是桌上比對。"
+    },
+    "compare": {
+      "title": "與 Google 地圖逐站比較",
+      "body": "{{total}}個站牌中有{{off}}個，Google 地圖的標示偏差 50m 以上，最大為 No.{{num}} 的{{m}}m。每季重新調查並公開。"
+    },
+    "data": {
+      "title": "以鹿兒島市官方資料為基礎",
+      "body": "站牌位置與時刻表依據鹿兒島市公開的 GTFS-JP 開放資料（CC BY 4.0）加工而成。官方更新時，我們也以相同流程更新。",
+      "link": "查看原始資料 →"
+    },
+    "paper": {
+      "title": "從紙本 QR 直達那個站牌",
+      "body": "掃描飯店櫃檯桌上立牌的 QR，就會直接打開最近的站牌與下一班車的時間。不用安裝 App、不用註冊、沒有廣告。",
+      "step1": "掃描 QR",
+      "step2": "打開站牌",
+      "step3": "下一班車",
+      "link": "前往住宿設施說明 →"
+    }
   },
   "accuracy": {
     "eyebrow": "Google地圖比較・2026年7月",
@@ -129,7 +156,8 @@
       "estimate": "步行時間為依直線距離推算的參考值",
       "marker": "飯店",
       "nearby": "附近的住宿設施",
-      "nearbyNote": "選擇飯店名稱後，會顯示從飯店出發的路線與回程下車的站牌"
+      "nearbyNote": "選擇飯店名稱後，會顯示從飯店出發的路線與回程下車的站牌",
+      "open": "查看路線 →"
     },
     "pageTitle": "站牌地圖",
     "routeSelector": "選擇路線",
@@ -155,6 +183,12 @@
       "loop": "繞一圈",
       "loopValue": "約{{min}}分鐘",
       "note": "可使用現金與交通IC卡，一日券車上亦可購買。最新票價請至官方網站確認。"
+    },
+    "pair": {
+      "aria": "同一位置／對向站牌",
+      "sameDepart": "出發與 No.{{num}} 同一站牌",
+      "sameArrive": "抵達為 No.{{num}}（同一站牌）",
+      "opposite": "對向站牌 → No.{{num}}（{{m}}m）"
     }
   },
   "common": {
@@ -228,9 +262,15 @@
     "installHint": "加入主畫面後，離線時也能使用。"
   },
   "routes": {
-    "cityview": { "name": "城市觀光巴士" },
-    "cityview-night": { "name": "夜景路線" },
-    "islandview": { "name": "櫻島環島巴士" },
+    "cityview": {
+      "name": "城市觀光巴士"
+    },
+    "cityview-night": {
+      "name": "夜景路線"
+    },
+    "islandview": {
+      "name": "櫻島環島巴士"
+    },
     "saturdayOnly": "僅週六",
     "coordsApproximate": "座標為概略值"
   },
@@ -265,7 +305,7 @@
         "body": "渡輪碼頭就在水族館前站牌旁，約15分鐘即可抵達櫻島。"
       }
     },
-    "trustEyebrow": "值得信賴的理由",
+    "trustEyebrow": "這份指南不一樣的理由",
     "letterTo": "致住宿設施・觀光服務處",
     "tickerNextBus": "馬上知道距離下一班車還有幾分鐘",
     "figWrong": "地圖App的「天文館 巴士站」圖釘（只有1個）",

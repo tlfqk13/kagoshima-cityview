@@ -3,13 +3,14 @@ import { useEffect, useRef, useCallback, useState, useMemo } from 'react'
 import mapboxgl from 'mapbox-gl'
 import 'mapbox-gl/dist/mapbox-gl.css'
 import { useTranslation } from 'react-i18next'
+import { useRouter } from 'next/navigation'
 import MapLoading from './MapLoading'
 import { track } from '@/lib/analytics/track'
 import { distanceBand } from '@/lib/analytics/events'
 import { distanceMeters } from '@/lib/hotels'
 import {
   getStopsForRoute, getStopsGeoJSON, getRouteCoordinates, getRoute,
-  getNearestStop, nameKey, type RouteStop, type RouteId,
+  getNearestStop, getGroupedStops, nameKey, type RouteStop, type RouteId,
 } from '@/lib/routes'
 import { useResolvedTheme } from '@/lib/useResolvedTheme'
 import { IconMap, IconMoon, IconPause, IconPlay, IconSatellite } from '@/components/icons'
@@ -67,23 +68,49 @@ function interpolateRoute(coords: [number, number][], t: number): [number, numbe
   return coords[coords.length - 1]
 }
 
+/** 이 줌부터 방향별 정류장 쌍(天文館 No.3·No.19 등)을 따로 찍는다. 그 아래에서는 "3·19" 마커 하나 */
+const SPLIT_ZOOM = 16.3
+type Band = 'far' | 'near'
+const BANDS: Band[] = ['far', 'near']
+const STOP_LAYERS = BANDS.flatMap(b => [`stops-${b}-label`, `stops-${b}-selected-halo`, `stops-${b}-circle`])
+const STOP_CIRCLE_LAYERS = BANDS.map(b => `stops-${b}-circle`)
+
 function clearMapLayers(map: mapboxgl.Map) {
-  if (map.getLayer('stops-label')) map.removeLayer('stops-label')
-  if (map.getLayer('stops-selected-halo')) map.removeLayer('stops-selected-halo')
-  if (map.getLayer('stops-circle')) map.removeLayer('stops-circle')
-  if (map.getLayer('route-line')) map.removeLayer('route-line')
-  if (map.getSource('stops')) map.removeSource('stops')
-  if (map.getSource('route')) map.removeSource('route')
+  for (const id of [...STOP_LAYERS, 'route-line', 'nearby-hotels']) if (map.getLayer(id)) map.removeLayer(id)
+  for (const id of ['stops-far', 'stops-near', 'route', 'nearby-hotels']) if (map.getSource(id)) map.removeSource(id)
 }
 
-// 선택 정류장은 크게, 구글맵 오류 정류장은 약간 크게
-function selectedRadius(selectedId: string | null) {
-  return ['case', ['==', ['get', 'id'], selectedId ?? ''], 14, ['get', 'googleMapsError'], 10, 8] as unknown as number
+// 선택 판정 — 마커가 대표하는 id 목록(ids)에 선택 id가 들어 있으면 선택. 빈 문자열은 모든 문자열에 포함되므로 막는다
+function isSelected(selectedId: string | null) {
+  return ['in', selectedId || '__none__', ['get', 'ids']]
+}
+
+// 선택 정류장은 크게, 묶인 마커·구글맵 오류 정류장은 약간 크게
+function circleRadius(selectedId: string | null) {
+  return ['case', isSelected(selectedId), 14, ['get', 'merged'], 11, ['get', 'googleMapsError'], 10, 8] as unknown as number
+}
+
+function circleColor(selectedId: string | null, routeColor: string) {
+  return ['case', isSelected(selectedId), routeColor, ['get', 'googleMapsError'], '#C87A3A', '#1E3A4F'] as unknown as string
+}
+
+function labelSize(selectedId: string | null) {
+  return ['case', isSelected(selectedId), 13, ['get', 'merged'], 10.5, 10] as unknown as number
+}
+
+// 선택 변경 시 두 줌 구간의 레이어에 같은 스타일을 적용한다
+function applySelection(map: mapboxgl.Map, selectedId: string | null, routeColor: string) {
+  for (const b of BANDS) {
+    if (!map.getLayer(`stops-${b}-circle`)) continue
+    map.setPaintProperty(`stops-${b}-circle`, 'circle-color', circleColor(selectedId, routeColor))
+    map.setPaintProperty(`stops-${b}-circle`, 'circle-radius', circleRadius(selectedId))
+    map.setLayoutProperty(`stops-${b}-label`, 'text-size', labelSize(selectedId))
+    map.setFilter(`stops-${b}-selected-halo`, isSelected(selectedId) as unknown as mapboxgl.FilterSpecification)
+  }
 }
 
 function addMapLayers(map: mapboxgl.Map, selectedId: string | null, routeId: RouteId, course: 'A' | 'B') {
   const stops = getStopsForRoute(routeId)
-  const geojson = getStopsGeoJSON(stops)
   const routeCoords = getRouteCoordinates(routeId, course)
   const routeColor = getRoute(routeId).color
 
@@ -111,70 +138,72 @@ function addMapLayers(map: mapboxgl.Map, selectedId: string | null, routeId: Rou
     })
   }
 
-  // 정류장 GeoJSON
-  if (!map.getSource('stops')) {
-    map.addSource('stops', { type: 'geojson', data: geojson })
-  }
+  // 정류장 GeoJSON — 낮은 줌(far)은 30m 안의 쌍을 한 마커로, 높은 줌(near)은 따로. 같은 좌표(No.1·No.20)는 항상 하나
+  if (!map.getSource('stops-far')) map.addSource('stops-far', { type: 'geojson', data: getStopsGeoJSON(stops, false) })
+  if (!map.getSource('stops-near')) map.addSource('stops-near', { type: 'geojson', data: getStopsGeoJSON(stops, true) })
 
-  // 선택 정류장 강조 — 원 아래에 반투명 테를 깔아 현장에서 "여기"가 한눈에 보이게 한다
-  if (!map.getLayer('stops-selected-halo')) {
-    map.addLayer({
-      id: 'stops-selected-halo',
-      type: 'circle',
-      source: 'stops',
-      filter: ['==', ['get', 'id'], selectedId ?? ''],
-      paint: {
-        'circle-radius': 24,
-        'circle-color': routeColor,
-        'circle-opacity': 0.18,
-        'circle-stroke-width': 2,
-        'circle-stroke-color': routeColor,
-        'circle-stroke-opacity': 0.9,
-      },
-    })
-  }
+  for (const b of BANDS) {
+    const source = `stops-${b}`
+    const zoom = b === 'far' ? { maxzoom: SPLIT_ZOOM } : { minzoom: SPLIT_ZOOM }
 
-  if (!map.getLayer('stops-circle')) {
-    map.addLayer({
-      id: 'stops-circle',
-      type: 'circle',
-      source: 'stops',
-      paint: {
-        'circle-radius': selectedRadius(selectedId),
-        'circle-color': [
-          'case',
-          ['==', ['get', 'id'], selectedId ?? ''], routeColor,
-          ['get', 'googleMapsError'], '#C87A3A',
-          '#1E3A4F',
-        ] as unknown as string,
-        'circle-stroke-width': 2,
-        'circle-stroke-color': [
-          'case',
-          ['get', 'coordinatesApproximate'], '#C87A3A',
-          '#ffffff',
-        ] as unknown as string,
-        'circle-opacity': [
-          'case',
-          ['get', 'isBCourseOnly'], 0.55,
-          0.9,
-        ] as unknown as number,
-      },
-    })
-  }
+    // 선택 정류장 강조 — 원 아래에 반투명 테를 깔아 현장에서 "여기"가 한눈에 보이게 한다
+    if (!map.getLayer(`${source}-selected-halo`)) {
+      map.addLayer({
+        id: `${source}-selected-halo`,
+        type: 'circle',
+        source,
+        ...zoom,
+        filter: isSelected(selectedId) as unknown as mapboxgl.FilterSpecification,
+        paint: {
+          'circle-radius': 24,
+          'circle-color': routeColor,
+          'circle-opacity': 0.18,
+          'circle-stroke-width': 2,
+          'circle-stroke-color': routeColor,
+          'circle-stroke-opacity': 0.9,
+        },
+      })
+    }
 
-  if (!map.getLayer('stops-label')) {
-    map.addLayer({
-      id: 'stops-label',
-      type: 'symbol',
-      source: 'stops',
-      layout: {
-        'text-field': ['to-string', ['get', 'number']] as unknown as string,
-        'text-size': ['case', ['==', ['get', 'id'], selectedId ?? ''], 13, 10] as unknown as number,
-        'text-allow-overlap': true,
-        'text-font': ['DIN Pro Bold', 'Arial Unicode MS Bold'],
-      },
-      paint: { 'text-color': '#ffffff' },
-    })
+    if (!map.getLayer(`${source}-circle`)) {
+      map.addLayer({
+        id: `${source}-circle`,
+        type: 'circle',
+        source,
+        ...zoom,
+        paint: {
+          'circle-radius': circleRadius(selectedId),
+          'circle-color': circleColor(selectedId, routeColor),
+          'circle-stroke-width': 2,
+          'circle-stroke-color': [
+            'case',
+            ['get', 'coordinatesApproximate'], '#C87A3A',
+            '#ffffff',
+          ] as unknown as string,
+          'circle-opacity': [
+            'case',
+            ['get', 'isBCourseOnly'], 0.55,
+            0.9,
+          ] as unknown as number,
+        },
+      })
+    }
+
+    if (!map.getLayer(`${source}-label`)) {
+      map.addLayer({
+        id: `${source}-label`,
+        type: 'symbol',
+        source,
+        ...zoom,
+        layout: {
+          'text-field': ['get', 'label'] as unknown as string,
+          'text-size': labelSize(selectedId),
+          'text-allow-overlap': true,
+          'text-font': ['DIN Pro Bold', 'Arial Unicode MS Bold'],
+        },
+        paint: { 'text-color': '#ffffff' },
+      })
+    }
   }
 }
 
@@ -186,9 +215,12 @@ export interface MapCanvasProps {
   userLocation?: [number, number] | null
   /** 호텔 모드 — 호텔 핀을 찍고, 현재 위치가 없을 때 도보 경로의 출발점으로 쓴다 */
   hotel?: { lng: number; lat: number; label: string } | null
+  /** 선택 정류장 근처의 숙박시설 — 회색 점으로 찍고, 누르면 호텔 모드로 간다 */
+  nearbyHotels?: { slug: string; lng: number; lat: number; label: string }[]
 }
 
-export default function MapCanvas({ routeId, selectedStopId, onStopSelect, onUserLocation, userLocation, hotel }: MapCanvasProps) {
+export default function MapCanvas({ routeId, selectedStopId, onStopSelect, onUserLocation, userLocation, hotel, nearbyHotels }: MapCanvasProps) {
+  const router = useRouter()
   const { t, i18n } = useTranslation()
   const containerRef = useRef<HTMLDivElement>(null)
   const mapRef = useRef<mapboxgl.Map | null>(null)
@@ -224,7 +256,11 @@ export default function MapCanvas({ routeId, selectedStopId, onStopSelect, onUse
 
   useEffect(() => { courseRef.current = course }, [course])
 
-  const handleStopClick = useCallback((stopId: string) => {
+  // 마커가 여러 정류장을 대표하면(No.1·No.20, 낮은 줌의 No.3·No.19) 누를 때마다 다음 정류장으로 넘어간다
+  const handleStopClick = useCallback((ids: string) => {
+    const list = ids.split(',')
+    const idx = list.indexOf(selectedStopIdRef.current ?? '')
+    const stopId = list[(idx + 1) % list.length]
     const stop = getStopsForRoute(routeIdRef.current).find(s => s.id === stopId)
     if (stop) onStopSelect(stop)
   }, [onStopSelect])
@@ -266,32 +302,56 @@ export default function MapCanvas({ routeId, selectedStopId, onStopSelect, onUse
     map.on('load', () => {
       addMapLayers(map, selectedStopIdRef.current, routeIdRef.current, courseRef.current)
 
-      // 클릭 이벤트
-      map.on('click', 'stops-circle', e => {
-        const id = e.features?.[0]?.properties?.id
-        if (id) handleStopClick(id)
+      // 클릭·호버 — 두 줌 구간의 원 레이어에 같이 건다
+      for (const layer of STOP_CIRCLE_LAYERS) {
+        map.on('click', layer, e => {
+          const ids = e.features?.[0]?.properties?.ids
+          if (ids) handleStopClick(String(ids))
+        })
+        map.on('mouseenter', layer, e => {
+          map.getCanvas().style.cursor = 'pointer'
+          const feature = e.features?.[0]
+          if (!feature) return
+          const props = feature.properties as { label: string; nameKo: string; nameEn: string; nameJa: string; nameZh: string }
+          const lang = nameKey(i18n.language)
+          const name = lang === 'en' ? props.nameEn : lang === 'ja' ? props.nameJa : lang === 'zh' ? props.nameZh : props.nameKo
+          const coordinates = (feature.geometry as { type: string; coordinates: [number, number] }).coordinates as [number, number]
+
+          hoverPopupRef.current?.remove()
+          hoverPopupRef.current = new mapboxgl.Popup({
+            closeButton: false,
+            closeOnClick: false,
+            offset: 12,
+            className: 'stop-hover-popup',
+          })
+            .setLngLat(coordinates)
+            .setHTML(`<span class="stop-num">${props.label}</span><span class="stop-name">${name}</span>`)
+            .addTo(map)
+        })
+        map.on('mouseleave', layer, () => {
+          map.getCanvas().style.cursor = ''
+          hoverPopupRef.current?.remove()
+          hoverPopupRef.current = null
+        })
+      }
+
+      // 근처 숙박시설 점 — 누르면 호텔 모드(핀·도보 경로)
+      map.on('click', 'nearby-hotels', e => {
+        const slug = e.features?.[0]?.properties?.slug
+        if (slug) router.push(`/map?hotel=${slug}`)
       })
-      map.on('mouseenter', 'stops-circle', e => {
+      map.on('mouseenter', 'nearby-hotels', e => {
         map.getCanvas().style.cursor = 'pointer'
         const feature = e.features?.[0]
         if (!feature) return
-        const props = feature.properties as { id: string; number: number; nameKo: string; nameEn: string; nameJa: string; nameZh: string }
-        const lang = nameKey(i18n.language)
-        const name = lang === 'en' ? props.nameEn : lang === 'ja' ? props.nameJa : lang === 'zh' ? props.nameZh : props.nameKo
         const coordinates = (feature.geometry as { type: string; coordinates: [number, number] }).coordinates as [number, number]
-
         hoverPopupRef.current?.remove()
-        hoverPopupRef.current = new mapboxgl.Popup({
-          closeButton: false,
-          closeOnClick: false,
-          offset: 12,
-          className: 'stop-hover-popup',
-        })
+        hoverPopupRef.current = new mapboxgl.Popup({ closeButton: false, closeOnClick: false, offset: 8, className: 'stop-hover-popup' })
           .setLngLat(coordinates)
-          .setHTML(`<span class="stop-num">${props.number}</span><span class="stop-name">${name}</span>`)
+          .setHTML(`<span class="stop-name">${String(feature.properties?.label ?? '')}</span>`)
           .addTo(map)
       })
-      map.on('mouseleave', 'stops-circle', () => {
+      map.on('mouseleave', 'nearby-hotels', () => {
         map.getCanvas().style.cursor = ''
         hoverPopupRef.current?.remove()
         hoverPopupRef.current = null
@@ -313,7 +373,7 @@ export default function MapCanvas({ routeId, selectedStopId, onStopSelect, onUse
       map.remove()
       mapRef.current = null
     }
-  }, [handleStopClick, i18n, onStopSelect, onUserLocation])
+  }, [handleStopClick, i18n, onStopSelect, onUserLocation, router])
 
   // Apply style change when mapStyle state changes
   useEffect(() => {
@@ -396,28 +456,18 @@ export default function MapCanvas({ routeId, selectedStopId, onStopSelect, onUse
     const map = mapRef.current
     // style.load 직후에는 새 GeoJSON 소스 로딩 때문에 isStyleLoaded()가 다시 false일 수 있다.
     // 레이어 생성 여부로 판단해야 초기 선택·스타일 복원 처리를 빠뜨리지 않는다.
-    if (!map || !map.getLayer('stops-circle')) return
+    if (!map || !map.getLayer('stops-near-circle')) return
     if (selectedStopId) {
       const stop = getStopsForRoute(routeIdRef.current).find(s => s.id === selectedStopId)
       if (stop) {
         // 모바일 상세가 화면 절반을 덮으므로 선택 마커를 보이는 지도 중앙으로 이동한다.
         const offsetY = window.matchMedia(MOBILE_QUERY).matches ? -window.innerHeight / 4 : 0
-        map.flyTo({ center: [stop.lng, stop.lat], zoom: 15, duration: 600, offset: [0, offsetY] })
+        // 방향별 쌍(27m 떨어진 No.3·No.19 등)은 두 마커가 갈라져 보이는 줌까지 들어간다
+        const paired = getGroupedStops(routeIdRef.current, stop).some(g => !g.samePlace)
+        map.flyTo({ center: [stop.lng, stop.lat], zoom: paired ? 17 : 15, duration: 600, offset: [0, offsetY] })
       }
     }
-    // 핀 색상 업데이트
-    if (map.getLayer('stops-circle')) {
-      const routeColor = getRoute(routeIdRef.current).color
-      map.setPaintProperty('stops-circle', 'circle-color', [
-        'case',
-        ['==', ['get', 'id'], selectedStopId ?? ''], routeColor,
-        ['get', 'googleMapsError'], '#C87A3A',
-        '#1E3A4F',
-      ])
-      map.setPaintProperty('stops-circle', 'circle-radius', selectedRadius(selectedStopId))
-      map.setLayoutProperty('stops-label', 'text-size', ['case', ['==', ['get', 'id'], selectedStopId ?? ''], 13, 10])
-      map.setFilter('stops-selected-halo', ['==', ['get', 'id'], selectedStopId ?? ''])
-    }
+    applySelection(map, selectedStopId, getRoute(routeIdRef.current).color)
 
     // Remove previous wrong pin
     if (wrongPinRef.current) {
@@ -475,6 +525,39 @@ export default function MapCanvas({ routeId, selectedStopId, onStopSelect, onUse
     return () => { hotelMarkerRef.current?.remove(); hotelMarkerRef.current = null }
   }, [hotel, styleRevision, t])
 
+  // 근처 숙박시설 점 — 선택 정류장 450m 안만. 호텔 모드에서는 호텔 핀이 있으므로 찍지 않는다
+  useEffect(() => {
+    const map = mapRef.current
+    if (!map || !map.getLayer('stops-near-circle')) return
+    const data = {
+      type: 'FeatureCollection' as const,
+      features: (hotel ? [] : nearbyHotels ?? []).map(h => ({
+        type: 'Feature' as const,
+        geometry: { type: 'Point' as const, coordinates: [h.lng, h.lat] },
+        properties: { slug: h.slug, label: h.label },
+      })),
+    }
+    const source = map.getSource('nearby-hotels') as mapboxgl.GeoJSONSource | undefined
+    if (source) {
+      source.setData(data)
+      return
+    }
+    map.addSource('nearby-hotels', { type: 'geojson', data })
+    // 정류장 원보다 아래에 깔아 정류장이 항상 위에 보이게 한다
+    map.addLayer({
+      id: 'nearby-hotels',
+      type: 'circle',
+      source: 'nearby-hotels',
+      paint: {
+        'circle-radius': 5.5,
+        'circle-color': '#6E675E',
+        'circle-stroke-width': 2,
+        'circle-stroke-color': '#ffffff',
+        'circle-opacity': 0.85,
+      },
+    }, 'stops-far-selected-halo')
+  }, [nearbyHotels, hotel, styleRevision, routeId])
+
   // 도보 경로의 출발점 — 현재 위치가 있으면 현재 위치, 없으면 호텔
   const walkOrigin = useMemo<[number, number] | null>(() => userLocation ?? (hotel ? [hotel.lng, hotel.lat] : null), [userLocation, hotel])
 
@@ -482,7 +565,7 @@ export default function MapCanvas({ routeId, selectedStopId, onStopSelect, onUse
   // cleanup에서 이전 요청을 abort해 중복 요청과 stale 응답 덮어쓰기를 방지
   useEffect(() => {
     const map = mapRef.current
-    if (!map || !map.getLayer('stops-circle')) return
+    if (!map || !map.getLayer('stops-near-circle')) return
 
     // 기존 도보 경로 제거
     // 도보 경로 = 흰 케이싱 + 파란 점선 (노선의 갈색 실선과 겹쳐도 구분되게. 파란색은 호텔 핀·정보 색 --sea와 통일)
@@ -503,7 +586,7 @@ export default function MapCanvas({ routeId, selectedStopId, onStopSelect, onUse
       })
       .then(data => {
         const route = data.routes?.[0]?.geometry
-        if (controller.signal.aborted || !route || !map.getLayer('stops-circle')) return
+        if (controller.signal.aborted || !route || !map.getLayer('stops-near-circle')) return
         if (map.getSource('walking-route')) {
           (map.getSource('walking-route') as mapboxgl.GeoJSONSource).setData(route)
         } else {

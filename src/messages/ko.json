@@ -30,8 +30,35 @@
     "langsLabel": "KO · EN · JP · 繁中",
     "source": "가고시마시 공식 GTFS 오픈데이터 기반",
     "validated": "현장 검증일",
-    "accuracyLink": "구글맵 위치와 비교한 결과 보기 →",
-    "googleWrongLabel": "구글맵이 틀린 정류장\n최대 {{m}}m 차이"
+    "accuracyLink": "비교 결과 전체 보기 →",
+    "googleWrongLabel": "구글맵이 틀린 정류장\n최대 {{m}}m 차이",
+    "title": "지도 앱이 아니라 현장에서 확인했습니다",
+    "stripAria": "정류장 {{total}}곳의 구글맵 오차",
+    "legendOk": "50m 미만",
+    "legendWarn": "50~100m",
+    "legendError": "100m 이상",
+    "stampLabel": "현지 확인",
+    "verify": {
+      "title": "20곳 전부 현장 GPS 확인",
+      "body": "{{date}}에 정류장 {{total}}곳을 직접 걸어 돌며 공식 좌표와 표지판 위치를 GPS로 대조했습니다. 책상 위 대조가 아닙니다."
+    },
+    "compare": {
+      "title": "구글맵과 전수 비교",
+      "body": "{{total}}곳 중 {{off}}곳에서 구글맵 표시가 50m 이상 어긋나 있었습니다. 최대는 No.{{num}}의 {{m}}m. 분기마다 다시 조사해 공개합니다."
+    },
+    "data": {
+      "title": "가고시마시 공식 데이터가 바탕",
+      "body": "정류장 위치와 시간표는 가고시마시가 공개한 GTFS-JP 오픈데이터(CC BY 4.0)를 가공했습니다. 개정되면 같은 절차로 갱신합니다.",
+      "link": "원본 데이터 보기 →"
+    },
+    "paper": {
+      "title": "종이 QR에서 바로 그 정류장으로",
+      "body": "호텔 프런트의 탁상 POP QR을 찍으면 가장 가까운 정류장과 다음 버스까지의 시간이 바로 열립니다. 앱 설치도, 가입도, 광고도 없습니다.",
+      "step1": "QR 찍기",
+      "step2": "정류장이 열림",
+      "step3": "다음 버스까지",
+      "link": "숙박시설 안내로 →"
+    }
   },
   "accuracy": {
     "eyebrow": "구글맵 비교 · 2026.07",
@@ -129,7 +156,8 @@
       "estimate": "도보 시간은 직선거리 기준 추정치입니다",
       "marker": "호텔",
       "nearby": "근처 숙박시설",
-      "nearbyNote": "호텔을 누르면 호텔에서 가는 길과 돌아올 때 내리는 정류장을 보여 줍니다"
+      "nearbyNote": "호텔을 누르면 호텔에서 가는 길과 돌아올 때 내리는 정류장을 보여 줍니다",
+      "open": "길 안내 보기 →"
     },
     "pageTitle": "정류장 지도",
     "routeSelector": "노선 선택",
@@ -155,6 +183,12 @@
       "loop": "한 바퀴",
       "loopValue": "약 {{min}}분",
       "note": "현금·교통 IC카드 사용 가능, 1일 승차권은 차내에서도 살 수 있습니다. 최신 요금은 공식 사이트에서 확인하세요."
+    },
+    "pair": {
+      "aria": "같은 자리·맞은편 정류장",
+      "sameDepart": "출발은 No.{{num}}과 같은 승강장",
+      "sameArrive": "도착은 No.{{num}} (같은 승강장)",
+      "opposite": "반대 방향 승강장 → No.{{num}} ({{m}}m)"
     }
   },
   "common": {
@@ -228,9 +262,15 @@
     "installHint": "홈 화면에 추가하면 오프라인에서도 사용할 수 있습니다."
   },
   "routes": {
-    "cityview": { "name": "시티뷰" },
-    "cityview-night": { "name": "야경 코스" },
-    "islandview": { "name": "아일랜드뷰" },
+    "cityview": {
+      "name": "시티뷰"
+    },
+    "cityview-night": {
+      "name": "야경 코스"
+    },
+    "islandview": {
+      "name": "아일랜드뷰"
+    },
     "saturdayOnly": "토요일",
     "coordsApproximate": "좌표 근사치"
   },
@@ -265,7 +305,7 @@
         "body": "수족관 앞 정류장 바로 옆이 페리 터미널입니다. 약 15분이면 사쿠라지마에 닿습니다."
       }
     },
-    "trustEyebrow": "믿을 수 있는 이유",
+    "trustEyebrow": "이 가이드가 다른 이유",
     "letterTo": "호텔·관광안내소 담당자분께",
     "tickerNextBus": "다음 버스까지 몇 분인지 바로 확인",
     "figWrong": "지도 앱의 「天文館 バス停」 핀(1개)",

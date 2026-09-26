@@ -85,3 +85,14 @@ export const IconClose = (p: IconProps) => (
 export const IconClock = (p: IconProps) => (
   <Svg {...p}><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 2" /></Svg>
 )
+
+export function IconQr(props: IconProps) {
+  return (
+    <Svg {...props}>
+      <rect x="3" y="3" width="7" height="7" rx="1" />
+      <rect x="14" y="3" width="7" height="7" rx="1" />
+      <rect x="3" y="14" width="7" height="7" rx="1" />
+      <path d="M14 14h3v3h-3zM20 14v1M20 18v3h-3M14 20v1" />
+    </Svg>
+  )
+}

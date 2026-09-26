@@ -30,8 +30,35 @@
     "langsLabel": "KO · EN · JP · 繁中",
     "source": "Based on official Kagoshima City GTFS open data",
     "validated": "Last field-verified",
-    "accuracyLink": "See how Google Maps compares →",
-    "googleWrongLabel": "Google Maps errors\nup to {{m}} m"
+    "accuracyLink": "See the full comparison →",
+    "googleWrongLabel": "Google Maps errors\nup to {{m}} m",
+    "title": "Checked on the street, not in a map app",
+    "stripAria": "Google Maps error for all {{total}} stops",
+    "legendOk": "under 50 m",
+    "legendWarn": "50–100 m",
+    "legendError": "over 100 m",
+    "stampLabel": "FIELD CHECK",
+    "verify": {
+      "title": "All 20 stops GPS-checked on site",
+      "body": "On {{date}} we walked to every one of the {{total}} stops and matched the official coordinates against the actual sign with GPS. Not a desk check."
+    },
+    "compare": {
+      "title": "Every stop compared with Google Maps",
+      "body": "At {{off}} of {{total}} stops, Google Maps is off by 50 m or more. The worst is No.{{num}} at {{m}} m. We re-audit every quarter and publish the results."
+    },
+    "data": {
+      "title": "Built on Kagoshima City's official data",
+      "body": "Stop locations and timetables are processed from the GTFS-JP open data published by Kagoshima City (CC BY 4.0). When the city updates it, so do we.",
+      "link": "View the source data →"
+    },
+    "paper": {
+      "title": "From a paper QR straight to the stop",
+      "body": "Scan the QR on the counter card at your hotel front desk and the nearest stop opens with the time to the next bus. No app, no sign-up, no ads.",
+      "step1": "Scan the QR",
+      "step2": "Your stop opens",
+      "step3": "Next bus",
+      "link": "For hotels and tourist offices →"
+    }
   },
   "accuracy": {
     "eyebrow": "Google Maps check · July 2026",
@@ -129,7 +156,8 @@
       "estimate": "Walking times are estimates from straight-line distance",
       "marker": "Hotel",
       "nearby": "Hotels nearby",
-      "nearbyNote": "Pick a hotel to see the walk from it and where to get off on the way back"
+      "nearbyNote": "Pick a hotel to see the walk from it and where to get off on the way back",
+      "open": "Directions →"
     },
     "pageTitle": "Bus stop map",
     "routeSelector": "Choose a route",
@@ -155,6 +183,12 @@
       "loop": "One loop",
       "loopValue": "about {{min}} min",
       "note": "Cash and transit IC cards accepted; day passes are sold on board. Check the official site for the latest fares."
+    },
+    "pair": {
+      "aria": "Same place / opposite direction",
+      "sameDepart": "Departs from the same stop as No.{{num}}",
+      "sameArrive": "Arrives as No.{{num}} (same stop)",
+      "opposite": "Opposite direction → No.{{num}} ({{m}} m)"
     }
   },
   "common": {
@@ -228,9 +262,15 @@
     "installHint": "Add to home screen for offline access."
   },
   "routes": {
-    "cityview": { "name": "City View" },
-    "cityview-night": { "name": "Night View" },
-    "islandview": { "name": "Island View" },
+    "cityview": {
+      "name": "City View"
+    },
+    "cityview-night": {
+      "name": "Night View"
+    },
+    "islandview": {
+      "name": "Island View"
+    },
     "saturdayOnly": "Sat only",
     "coordsApproximate": "Approx. coords"
   },
@@ -265,7 +305,7 @@
         "body": "The ferry terminal is right by the Aquarium stop. Sakurajima is about 15 minutes away by ferry."
       }
     },
-    "trustEyebrow": "Why you can trust it",
+    "trustEyebrow": "What makes this guide different",
     "letterTo": "For hotels & tourist information centers",
     "tickerNextBus": "See how many minutes until the next bus",
     "figWrong": "Map app’s single “Tenmonkan bus stop” pin",

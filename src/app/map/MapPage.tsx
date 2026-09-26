@@ -5,7 +5,7 @@ import dynamic from 'next/dynamic'
 import { useTranslation } from 'react-i18next'
 import { getStopsForRoute, getStopsByCategory, getRoute, DATA_LANGS, type Lang, type RouteStop, type RouteId, type Category } from '@/lib/routes'
 import { getFavorites, toggleFavorite, subscribeFavorites, getServerFavorites } from '@/lib/favorites'
-import { findHotel, getHotelStops } from '@/lib/hotels'
+import { findHotel, getHotelStops, getHotelsNearStop } from '@/lib/hotels'
 import HotelBanner from '@/components/map/HotelBanner'
 import type { MapCanvasProps } from '@/components/map/MapCanvas'
 import Nav from '@/components/Nav'
@@ -87,6 +87,11 @@ export default function MapPage({ initialStopId, initialRouteId = 'cityview', in
 
   // 호텔 모드는 시티뷰 탭에서만 보인다
   const hotelActive = hotel && hotelStops && activeRoute === 'cityview'
+  // 선택 정류장 근처 숙박시설(도보권) — 지도에 회색 점으로. 호텔 데이터는 시티뷰 기준
+  const nearbyHotels = useMemo(
+    () => (selectedStop && activeRoute === 'cityview' ? getHotelsNearStop(selectedStop).map(({ hotel: h }) => ({ slug: h.slug, lng: h.lng, lat: h.lat, label: h.nameJa })) : []),
+    [selectedStop, activeRoute]
+  )
 
   // 이용 통계 — 정류장 열람, 호텔 POP 진입 (개인 식별 없음, src/lib/analytics)
   useEffect(() => {
@@ -128,6 +133,7 @@ export default function MapPage({ initialStopId, initialRouteId = 'cityview', in
             onUserLocation={setUserLocation}
             userLocation={userLocation}
             hotel={hotelActive ? { lng: hotel.lng, lat: hotel.lat, label: hotel.nameJa } : null}
+            nearbyHotels={nearbyHotels}
           />
         </div>
 
