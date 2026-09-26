@@ -96,3 +96,12 @@ export function IconQr(props: IconProps) {
     </Svg>
   )
 }
+
+export function IconCity(props: IconProps) {
+  return (
+    <Svg {...props}>
+      <path d="M3 21h18M5 21V7l5-3v17M10 21V11l5-2v12M15 21V13l4-1v9" />
+      <path d="M7 9h1M7 12h1M7 15h1M12 13h1M12 16h1" />
+    </Svg>
+  )
+}

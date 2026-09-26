@@ -128,3 +128,36 @@
 .hotelPin svg {
   transform: rotate(45deg);
 }
+
+/* 구글맵이 가리키는(틀린) 위치 — 빨간 점선 원 + 꼬리표. 정류장 원과 절대 헷갈리지 않게 채우지 않는다 */
+.ghostPin {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  pointer-events: none;
+}
+
+.ghostPin[hidden] {
+  display: none;
+}
+
+.ghostRing {
+  width: 18px;
+  height: 18px;
+  border: 2px dashed #C8352A;
+  border-radius: 50%;
+  background: rgba(200, 53, 42, 0.12);
+}
+
+.ghostTag {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: #C8352A;
+  background: rgba(255, 255, 255, 0.92);
+  padding: 1px 5px;
+  border-radius: 3px;
+  line-height: 1.3;
+}

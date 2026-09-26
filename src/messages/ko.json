@@ -133,7 +133,7 @@
     "googleWrongShort": "구글맵 위치 오류",
     "allStops": "전체 정류장",
     "mapStyle": "지도 스타일",
-    "styleStreets": "일반 지도",
+    "styleStreets": "상세 지도",
     "styleSatellite": "위성 지도",
     "styleDark": "어두운 지도",
     "today": {
@@ -189,7 +189,8 @@
       "sameDepart": "출발은 No.{{num}}과 같은 승강장",
       "sameArrive": "도착은 No.{{num}} (같은 승강장)",
       "opposite": "반대 방향 승강장 → No.{{num}} ({{m}}m)"
-    }
+    },
+    "styleLight": "심플"
   },
   "common": {
     "close": "닫기"

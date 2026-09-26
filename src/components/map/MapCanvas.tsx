@@ -13,26 +13,30 @@ import {
   getNearestStop, getGroupedStops, nameKey, type RouteStop, type RouteId,
 } from '@/lib/routes'
 import { useResolvedTheme } from '@/lib/useResolvedTheme'
-import { IconMap, IconMoon, IconPause, IconPlay, IconSatellite } from '@/components/icons'
+import { IconCity, IconMap, IconMoon, IconPause, IconPlay, IconSatellite } from '@/components/icons'
 import styles from './MapCanvas.module.css'
 
 mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN!
 
-type MapStyle = 'streets' | 'satellite' | 'dark'
+type MapStyle = 'light' | 'streets' | 'satellite' | 'dark'
 
+// 기본은 회색조(light) — 바탕 지도가 조용해야 갈색 노선·파란 도보 경로가 "우리 층"으로 읽힌다
 const MAP_STYLES: Record<MapStyle, string> = {
+  light: 'mapbox://styles/mapbox/light-v11',
   streets: 'mapbox://styles/mapbox/streets-v12',
   satellite: 'mapbox://styles/mapbox/satellite-streets-v12',
   dark: 'mapbox://styles/mapbox/dark-v11',
 }
 
 const STYLE_ICONS: Record<MapStyle, typeof IconMap> = {
-  streets: IconMap,
+  light: IconMap,
+  streets: IconCity,
   satellite: IconSatellite,
   dark: IconMoon,
 }
 
 const STYLE_LABEL_KEYS: Record<MapStyle, string> = {
+  light: 'map.styleLight',
   streets: 'map.styleStreets',
   satellite: 'map.styleSatellite',
   dark: 'map.styleDark',
@@ -41,7 +45,10 @@ const STYLE_LABEL_KEYS: Record<MapStyle, string> = {
 // 모바일(바텀시트) 전환점 — 디자인 시스템 공통 기준
 const MOBILE_QUERY = '(max-width: 1023px)'
 
-const STYLE_ORDER: MapStyle[] = ['streets', 'satellite', 'dark']
+/** 구글 위치 표시는 이 줌부터 */
+const GHOST_MIN_ZOOM = 15.5
+
+const STYLE_ORDER: MapStyle[] = ['light', 'streets', 'satellite', 'dark']
 
 function interpolateRoute(coords: [number, number][], t: number): [number, number] {
   if (t <= 0) return coords[0]
@@ -76,7 +83,7 @@ const STOP_LAYERS = BANDS.flatMap(b => [`stops-${b}-label`, `stops-${b}-selected
 const STOP_CIRCLE_LAYERS = BANDS.map(b => `stops-${b}-circle`)
 
 function clearMapLayers(map: mapboxgl.Map) {
-  for (const id of [...STOP_LAYERS, 'route-line', 'nearby-hotels']) if (map.getLayer(id)) map.removeLayer(id)
+  for (const id of [...STOP_LAYERS, 'route-line', 'route-line-casing', 'nearby-hotels']) if (map.getLayer(id)) map.removeLayer(id)
   for (const id of ['stops-far', 'stops-near', 'route', 'nearby-hotels']) if (map.getSource(id)) map.removeSource(id)
 }
 
@@ -87,11 +94,17 @@ function isSelected(selectedId: string | null) {
 
 // 선택 정류장은 크게, 묶인 마커·구글맵 오류 정류장은 약간 크게
 function circleRadius(selectedId: string | null) {
-  return ['case', isSelected(selectedId), 14, ['get', 'merged'], 11, ['get', 'googleMapsError'], 10, 8] as unknown as number
+  return ['case', isSelected(selectedId), 14, ['get', 'merged'], 11, 9] as unknown as number
 }
 
+// 정류장은 두 상태뿐 — 기본은 흰 바탕에 노선색 테두리·숫자, 선택은 노선색 채움에 흰 숫자.
+// 구글맵 오차는 상세 패널 배지로 알리고 마커 색으로는 구분하지 않는다(여행자에게는 "다른 종류의 정류장"으로 읽힌다)
 function circleColor(selectedId: string | null, routeColor: string) {
-  return ['case', isSelected(selectedId), routeColor, ['get', 'googleMapsError'], '#C87A3A', '#1E3A4F'] as unknown as string
+  return ['case', isSelected(selectedId), routeColor, '#FFFFFF'] as unknown as string
+}
+
+function labelColor(selectedId: string | null, routeColor: string) {
+  return ['case', isSelected(selectedId), '#FFFFFF', routeColor] as unknown as string
 }
 
 function labelSize(selectedId: string | null) {
@@ -105,11 +118,12 @@ function applySelection(map: mapboxgl.Map, selectedId: string | null, routeColor
     map.setPaintProperty(`stops-${b}-circle`, 'circle-color', circleColor(selectedId, routeColor))
     map.setPaintProperty(`stops-${b}-circle`, 'circle-radius', circleRadius(selectedId))
     map.setLayoutProperty(`stops-${b}-label`, 'text-size', labelSize(selectedId))
+    map.setPaintProperty(`stops-${b}-label`, 'text-color', labelColor(selectedId, routeColor))
     map.setFilter(`stops-${b}-selected-halo`, isSelected(selectedId) as unknown as mapboxgl.FilterSpecification)
   }
 }
 
-function addMapLayers(map: mapboxgl.Map, selectedId: string | null, routeId: RouteId, course: 'A' | 'B') {
+function addMapLayers(map: mapboxgl.Map, selectedId: string | null, routeId: RouteId, course: 'A' | 'B', darkBase = false) {
   const stops = getStopsForRoute(routeId)
   const routeCoords = getRouteCoordinates(routeId, course)
   const routeColor = getRoute(routeId).color
@@ -125,16 +139,23 @@ function addMapLayers(map: mapboxgl.Map, selectedId: string | null, routeId: Rou
       },
     })
   }
+  // 도보 경로와 같은 문법(테두리 + 본선)으로, 바탕 지도의 도로보다 위 층으로 읽히게 한다
+  if (!map.getLayer('route-line-casing')) {
+    map.addLayer({
+      id: 'route-line-casing',
+      type: 'line',
+      source: 'route',
+      layout: { 'line-cap': 'round', 'line-join': 'round' },
+      paint: { 'line-color': darkBase ? '#0F0E0C' : '#FFFFFF', 'line-width': 8, 'line-opacity': 0.85 },
+    })
+  }
   if (!map.getLayer('route-line')) {
     map.addLayer({
       id: 'route-line',
       type: 'line',
       source: 'route',
-      paint: {
-        'line-color': routeColor,
-        'line-width': 3,
-        'line-opacity': 0.7,
-      },
+      layout: { 'line-cap': 'round', 'line-join': 'round' },
+      paint: { 'line-color': routeColor, 'line-width': 4.5, 'line-opacity': 1 },
     })
   }
 
@@ -174,11 +195,12 @@ function addMapLayers(map: mapboxgl.Map, selectedId: string | null, routeId: Rou
         paint: {
           'circle-radius': circleRadius(selectedId),
           'circle-color': circleColor(selectedId, routeColor),
-          'circle-stroke-width': 2,
+          'circle-stroke-width': ['case', isSelected(selectedId), 2, 2.5] as unknown as number,
           'circle-stroke-color': [
             'case',
+            isSelected(selectedId), '#FFFFFF',
             ['get', 'coordinatesApproximate'], '#C87A3A',
-            '#ffffff',
+            routeColor,
           ] as unknown as string,
           'circle-opacity': [
             'case',
@@ -201,7 +223,7 @@ function addMapLayers(map: mapboxgl.Map, selectedId: string | null, routeId: Rou
           'text-allow-overlap': true,
           'text-font': ['DIN Pro Bold', 'Arial Unicode MS Bold'],
         },
-        paint: { 'text-color': '#ffffff' },
+        paint: { 'text-color': labelColor(selectedId, routeColor) },
       })
     }
   }
@@ -237,7 +259,7 @@ export default function MapCanvas({ routeId, selectedStopId, onStopSelect, onUse
   // 사용자가 스타일 버튼을 누르기 전에는 사이트 테마(라이트/다크)를 따른다
   const resolvedTheme = useResolvedTheme()
   const [userStyle, setUserStyle] = useState<MapStyle | null>(null)
-  const mapStyle: MapStyle = userStyle ?? (resolvedTheme === 'dark' ? 'dark' : 'streets')
+  const mapStyle: MapStyle = userStyle ?? (resolvedTheme === 'dark' ? 'dark' : 'light')
   const mapStyleRef = useRef<MapStyle>(mapStyle)
 
   const [animating, setAnimating] = useState(false)
@@ -299,8 +321,12 @@ export default function MapCanvas({ routeId, selectedStopId, onStopSelect, onUse
     })
 
     map.once('load', () => setReady(true))
+    map.on('zoom', () => {
+      const el = wrongPinRef.current?.getElement()
+      if (el) el.hidden = map.getZoom() < GHOST_MIN_ZOOM
+    })
     map.on('load', () => {
-      addMapLayers(map, selectedStopIdRef.current, routeIdRef.current, courseRef.current)
+      addMapLayers(map, selectedStopIdRef.current, routeIdRef.current, courseRef.current, mapStyleRef.current === 'dark')
 
       // 클릭·호버 — 두 줌 구간의 원 레이어에 같이 건다
       for (const layer of STOP_CIRCLE_LAYERS) {
@@ -360,7 +386,7 @@ export default function MapCanvas({ routeId, selectedStopId, onStopSelect, onUse
 
     // Re-add layers after style change (setStyle removes all custom layers/sources)
     map.on('style.load', () => {
-      addMapLayers(map, selectedStopIdRef.current, routeIdRef.current, courseRef.current)
+      addMapLayers(map, selectedStopIdRef.current, routeIdRef.current, courseRef.current, mapStyleRef.current === 'dark')
       setStyleRevision(value => value + 1)
     })
 
@@ -388,7 +414,7 @@ export default function MapCanvas({ routeId, selectedStopId, onStopSelect, onUse
     const map = mapRef.current
     if (!map || !map.isStyleLoaded()) return
     clearMapLayers(map)
-    addMapLayers(map, selectedStopIdRef.current, routeId, course)
+    addMapLayers(map, selectedStopIdRef.current, routeId, course, mapStyleRef.current === 'dark')
     const meta = getRoute(routeId)
     map.flyTo({ center: meta.center, zoom: meta.zoom, duration: 800 })
     // Stop bus animation when switching routes
@@ -479,18 +505,14 @@ export default function MapCanvas({ routeId, selectedStopId, onStopSelect, onUse
     if (selectedStopId) {
       const stop = getStopsForRoute(routeIdRef.current).find(s => s.id === selectedStopId)
       if (stop?.googleMapsError && stop.googleMapsLat != null && stop.googleMapsLng != null) {
+        // 빨간 점선 원 + "Google" 꼬리표. 멀리서는 노이즈라 확대했을 때만 보인다(GHOST_MIN_ZOOM)
         const el = document.createElement('div')
-        el.style.cssText = `
-          width: 12px;
-          height: 12px;
-          background: rgba(220, 50, 50, 0.6);
-          border: 2px solid rgba(220, 50, 50, 0.9);
-          border-radius: 50%;
-          cursor: default;
-        `
+        el.className = styles.ghostPin
         el.title = i18n.t('map.wrongPin')
+        el.innerHTML = `<span class="${styles.ghostRing}"></span><span class="${styles.ghostTag}">Google</span>`
+        el.hidden = map.getZoom() < GHOST_MIN_ZOOM
 
-        const marker = new mapboxgl.Marker({ element: el })
+        const marker = new mapboxgl.Marker({ element: el, anchor: 'center' })
           .setLngLat([stop.googleMapsLng, stop.googleMapsLat])
           .addTo(map)
 
@@ -550,7 +572,7 @@ export default function MapCanvas({ routeId, selectedStopId, onStopSelect, onUse
       source: 'nearby-hotels',
       paint: {
         'circle-radius': 5.5,
-        'circle-color': '#6E675E',
+        'circle-color': '#2F6A8F', /* 호텔·도보 경로와 같은 파랑 — light 스타일의 회색 POI 점과 구분 */
         'circle-stroke-width': 2,
         'circle-stroke-color': '#ffffff',
         'circle-opacity': 0.85,

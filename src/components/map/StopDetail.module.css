@@ -6,13 +6,14 @@
 
 .header {
   padding: 20px;
-  background: var(--dark);
+  background: var(--card);
+  border-bottom: 1px solid var(--rule);
 }
 
 .num {
   font-family: var(--font-mono);
   font-size: 10px;
-  color: var(--accent-on-dark); /* 어두운 헤더 위 */
+  color: var(--accent-text);
   letter-spacing: 0.12em;
   margin-bottom: 4px;
 }
@@ -20,8 +21,7 @@
 .name {
   font-family: var(--font-serif);
   font-size: 18px;
-  /* 헤더는 항상 어두운(var(--dark)) 배경이므로 고정 화이트 — 다크 테마에서 묻히지 않도록 */
-  color: #FFFFFF;
+  color: var(--ink);
   font-weight: 400;
   margin-bottom: 2px;
   line-height: 1.4;
@@ -29,14 +29,14 @@
 
 .nameAlt {
   font-size: 11px;
-  color: rgba(255, 255, 255, 0.68); /* 어두운 헤더 위 AA 대비 */
+  color: var(--text-subtle);
   margin-bottom: 12px;
   line-height: 1.6;
 }
 
 .badgeSource {
-  background: #35434b;
-  color: #dbe5ec;
+  background: color-mix(in srgb, var(--sea) 12%, transparent);
+  color: var(--sea);
   padding: 4px 8px;
   border-radius: 3px;
   font-size: 11px;
@@ -47,9 +47,9 @@
   align-items: center;
   gap: 4px;
   padding: 4px 10px;
-  background: rgba(139, 69, 19, 0.2);
-  border: 1px solid rgba(139, 69, 19, 0.4);
-  color: #E8805A;
+  background: color-mix(in srgb, var(--leaf) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--leaf) 40%, transparent);
+  color: var(--leaf);
   font-size: 11px;
   border-radius: 2px;
   font-family: var(--font-sans);
@@ -60,9 +60,9 @@
   align-items: center;
   gap: 4px;
   padding: 4px 10px;
-  background: rgba(200, 122, 58, 0.2); /* 어두운 헤더 위 */
-  border: 1px solid rgba(200, 122, 58, 0.4);
-  color: var(--accent-on-dark); /* 어두운 헤더 위 5.6:1 */
+  background: color-mix(in srgb, var(--warn-text) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--warn-text) 40%, transparent);
+  color: var(--warn-text);
   font-size: 11px;
   border-radius: 2px;
   font-family: var(--font-sans);
@@ -73,9 +73,9 @@
   align-items: center;
   gap: 4px;
   padding: 4px 10px;
-  background: rgba(200, 122, 58, 0.12);
-  border: 1px dashed rgba(200, 122, 58, 0.5);
-  color: #C87A3A;
+  background: color-mix(in srgb, var(--warn-text) 8%, transparent);
+  border: 1px dashed color-mix(in srgb, var(--warn-text) 50%, transparent);
+  color: var(--warn-text);
   font-size: 11px;
   border-radius: 2px;
   font-family: var(--font-sans);
@@ -84,9 +84,9 @@
 .badgeCourse {
   display: inline-block;
   padding: 4px 10px;
-  background: rgba(141, 182, 211, 0.14);
-  border: 1px solid rgba(141, 182, 211, 0.45);
-  color: #A9CBE3; /* 어두운 헤더 위 AA 대비 */
+  background: color-mix(in srgb, var(--sea) 12%, transparent);
+  border: 1px solid color-mix(in srgb, var(--sea) 45%, transparent);
+  color: var(--sea);
   font-size: 11px;
   border-radius: 2px;
   font-family: var(--font-mono);
@@ -240,14 +240,14 @@
   background: transparent;
   border: none;
   cursor: pointer;
-  color: rgba(255, 255, 255, 0.5);
+  color: var(--text-subtle);
   padding: 4px;
   transition: color 0.15s;
   line-height: 1;
 }
 
 .shareBtn:hover {
-  color: #FFFFFF; /* 어두운 헤더 위이므로 고정 화이트 */
+  color: var(--ink);
 }
 
 .favBtn {
@@ -255,22 +255,22 @@
   border: none;
   cursor: pointer;
   font-size: 18px;
-  color: rgba(255, 255, 255, 0.4);
+  color: var(--muted);
   padding: 4px;
   line-height: 1;
   transition: color 0.15s;
 }
 
 .favBtn:hover {
-  color: rgba(255, 255, 255, 0.8);
+  color: var(--ink);
 }
 
 .favActive {
-  color: #F4C430;
+  color: var(--accent-text);
 }
 
 .favActive:hover {
-  color: #F4C430;
+  color: var(--accent-text);
 }
 
 .toast {

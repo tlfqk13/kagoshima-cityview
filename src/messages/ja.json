@@ -133,7 +133,7 @@
     "googleWrongShort": "Googleマップと位置ずれ",
     "allStops": "全停留所",
     "mapStyle": "地図の表示",
-    "styleStreets": "標準",
+    "styleStreets": "詳細地図",
     "styleSatellite": "航空写真",
     "styleDark": "ダーク",
     "today": {
@@ -189,7 +189,8 @@
       "sameDepart": "出発は No.{{num}} と同じ乗り場",
       "sameArrive": "到着は No.{{num}}（同じ乗り場）",
       "opposite": "反対方向の乗り場 → No.{{num}}（{{m}}m）"
-    }
+    },
+    "styleLight": "シンプル"
   },
   "common": {
     "close": "閉じる"

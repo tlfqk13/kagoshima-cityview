@@ -133,7 +133,7 @@
     "googleWrongShort": "與Google地圖位置有偏差",
     "allStops": "全部站牌",
     "mapStyle": "地圖顯示",
-    "styleStreets": "標準",
+    "styleStreets": "詳細地圖",
     "styleSatellite": "衛星影像",
     "styleDark": "深色",
     "today": {
@@ -189,7 +189,8 @@
       "sameDepart": "出發與 No.{{num}} 同一站牌",
       "sameArrive": "抵達為 No.{{num}}（同一站牌）",
       "opposite": "對向站牌 → No.{{num}}（{{m}}m）"
-    }
+    },
+    "styleLight": "簡潔"
   },
   "common": {
     "close": "關閉"
