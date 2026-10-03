@@ -227,6 +227,104 @@
   .nums b { display: block; font-family: "Gothic A1", sans-serif; font-weight: 300; font-size: 40px; color: var(--blue); line-height: 1; letter-spacing: 0; font-variant-numeric: tabular-nums; }
   .nums small { display: block; font-size: 11px; letter-spacing: 0.06em; color: var(--ink); margin-top: 6px; line-height: 1.5; }
 
+  /* ── 自社サービス: 스크롤 스토리텔링 ── */
+  #products { overflow: visible; overflow: clip; } /* overflow:hidden 이면 position:sticky 가 듣지 않는다. clip 은 스크롤 컨테이너를 만들지 않는다 */
+  .scase { display: grid; grid-template-columns: 1fr 1fr; gap: 70px; margin-top: 100px; align-items: start; }
+  .scase.rev .stage { order: 2; }
+  .stage { position: sticky; top: 13vh; height: 74vh; min-height: 520px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; }
+  .device { position: relative; width: min(290px, 78%); aspect-ratio: 9 / 18.2; border-radius: 38px; border: 9px solid #12263C; background: #fff; overflow: hidden; box-shadow: 0 40px 80px rgba(14,42,71,0.28), 0 0 0 1px rgba(255,255,255,0.4) inset; transform: perspective(1400px) rotateY(var(--ry, -12deg)) rotateX(5deg); transition: transform 1s var(--ease); }
+  .device::before { content: ""; position: absolute; top: 8px; left: 50%; width: 70px; height: 18px; border-radius: 12px; background: #12263C; transform: translateX(-50%); z-index: 5; }
+  .scase[data-step="2"] .device { --ry: 0deg; } .scase[data-step="3"] .device { --ry: 12deg; }
+  .scr { position: absolute; inset: 0; opacity: 0; transform: translateY(18px) scale(0.97); transition: opacity 0.55s ease, transform 0.8s var(--ease); display: flex; flex-direction: column; padding: 44px 16px 18px; letter-spacing: 0.02em; line-height: 1.5; color: #12263C; }
+  .scase[data-step="1"] .s1, .scase[data-step="2"] .s2, .scase[data-step="3"] .s3 { opacity: 1; transform: none; }
+  .scr .cap { font-size: 10px; letter-spacing: 0.14em; color: #6B7C8F; text-align: center; margin-bottom: 14px; }
+  .paperbg { background: #F3EEE6; }
+  .pop { margin: auto; width: 82%; background: #fff; border-radius: 6px; box-shadow: 0 14px 30px rgba(60,40,20,0.18); padding: 0 12px 14px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 8px; transform: rotate(-3deg); animation: floatY 5s ease-in-out infinite; }
+  .pop .band { display: block; align-self: stretch; height: 22px; margin: 0 -12px; background: #12263C; border-radius: 6px 6px 0 0; }
+  .pop b { font-size: 10px; letter-spacing: 0.08em; color: #0099D9; }
+  .pop em { font-style: normal; font-family: "Zen Old Mincho", serif; font-weight: 700; font-size: 14px; line-height: 1.5; }
+  .pop small { font-size: 8px; color: #6B7C8F; letter-spacing: 0.04em; }
+  .qrw { position: relative; width: 62%; }
+  .qr { width: 100%; height: auto; display: block; }
+  .scan { position: absolute; left: -6%; right: -6%; top: 0; height: 2px; background: #0099D9; box-shadow: 0 0 12px 3px rgba(0,153,217,0.5); opacity: 0; }
+  .scase[data-step="1"] .scan { animation: scan 2.2s ease-in-out 0.6s infinite; }
+  @keyframes scan { 0% { top: 0; opacity: 0; } 12% { opacity: 1; } 88% { opacity: 1; } 100% { top: 100%; opacity: 0; } }
+  .s2 { padding: 0; }
+  .map { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .map text { font: 700 9.5px "Gothic A1", sans-serif; text-anchor: middle; fill: #0099D9; letter-spacing: 0; }
+  .map .route { stroke-dasharray: 1; stroke-dashoffset: 1; }
+  .map .walk { opacity: 0; }
+  .map .sp { opacity: 0; transform: scale(0.2); transform-box: fill-box; transform-origin: center; }
+  .map .hotel { opacity: 0; }
+  .scase[data-step="2"] .route { animation: draw 1.5s var(--ease) 0.15s forwards; }
+  .scase[data-step="2"] .sp { animation: pop 0.5s var(--ease) var(--d) forwards; }
+  .scase[data-step="2"] .hotel { animation: fadeUp 0.5s ease 1.3s forwards; }
+  .scase[data-step="2"] .walk { animation: fadeUp 0.6s ease 1.6s forwards; }
+  @keyframes draw { to { stroke-dashoffset: 0; } }
+  @keyframes pop { to { opacity: 1; transform: scale(1); } }
+  @keyframes fadeUp { from { opacity: 0; } to { opacity: 1; } }
+  .sheet { position: absolute; left: 8px; right: 8px; bottom: 8px; background: #fff; border-radius: 18px; padding: 12px 14px; box-shadow: 0 -6px 24px rgba(14,42,71,0.14); transform: translateY(110%); display: flex; flex-direction: column; gap: 2px; }
+  .scase[data-step="2"] .sheet { animation: sheet 0.7s var(--ease) 1.2s forwards; }
+  @keyframes sheet { to { transform: none; } }
+  .sheet small { font: 500 9px "Gothic A1", sans-serif; letter-spacing: 0.14em; color: #0099D9; }
+  .sheet > b { font-size: 16px; letter-spacing: 0.06em; }
+  .sheet .next { display: flex; align-items: baseline; justify-content: space-between; margin-top: 4px; padding-top: 6px; border-top: 1px dashed #DCE5EE; }
+  .sheet .next span { font-size: 10px; color: #6B7C8F; }
+  .sheet .next strong { font: 500 26px "Gothic A1", sans-serif; color: #0099D9; letter-spacing: 0; line-height: 1; }
+  .sheet .next strong i { font-style: normal; font-size: 11px; margin-left: 2px; }
+  .chips { display: flex; gap: 4px; margin-top: 8px; }
+  .chips i { font-style: normal; font-size: 9px; letter-spacing: 0; padding: 3px 7px; border-radius: 20px; border: 1px solid #DCE5EE; color: #6B7C8F; line-height: 1.2; }
+  .chips i.on { background: #12263C; border-color: #12263C; color: #fff; }
+  .chat { background: #F4F8FB; gap: 10px; }
+  .chat .me { align-self: flex-end; max-width: 84%; background: #12263C; color: #fff; font-size: 12px; padding: 8px 12px; border-radius: 14px 14px 4px 14px; opacity: 0; }
+  .typing { align-self: flex-start; display: flex; gap: 4px; padding: 9px 12px; background: #fff; border-radius: 14px; opacity: 0; }
+  .typing i { width: 5px; height: 5px; border-radius: 50%; background: #9BB0C4; animation: blink 1s infinite; } .typing i:nth-child(2) { animation-delay: 0.15s; } .typing i:nth-child(3) { animation-delay: 0.3s; }
+  @keyframes blink { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
+  .ans { align-self: flex-start; max-width: 92%; background: #fff; border: 1.5px solid #0099D9; border-radius: 14px 14px 14px 4px; padding: 10px 12px; display: flex; flex-direction: column; gap: 4px; opacity: 0; }
+  .ans .lg { align-self: flex-start; font-size: 9px; padding: 2px 8px; border-radius: 20px; background: #0099D9; color: #fff; line-height: 1.3; }
+  .ans b { font-size: 13px; } .ans p { font-size: 11px; color: #3D5166; } .ans small { font-size: 9px; color: #6B7C8F; }
+  .scase[data-step="3"] .me { animation: msg 0.5s var(--ease) 0.2s forwards; }
+  .scase[data-step="3"] .typing { animation: typing 1.3s ease 0.7s forwards; }
+  .scase[data-step="3"] .ans { animation: msg 0.6s var(--ease) 1.9s forwards; }
+  .scase.rev[data-step="3"] .ans { animation-delay: 0.8s; }
+  @keyframes msg { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+  @keyframes typing { 0% { opacity: 0; } 15%, 85% { opacity: 1; height: auto; } 100% { opacity: 0; height: 0; padding: 0; margin-top: -10px; } }
+  .pages { margin: auto; position: relative; width: 70%; aspect-ratio: 3 / 4; }
+  .pages > i { position: absolute; inset: 0; background: #fff; border-radius: 4px; box-shadow: 0 8px 20px rgba(60,40,20,0.14); padding: 16px 12px; display: flex; flex-direction: column; gap: 9px; }
+  .pages > i:nth-child(1) { transform: rotate(-9deg) translate(-8px, 6px); } .pages > i:nth-child(2) { transform: rotate(5deg) translate(8px, 2px); } .pages > i:nth-child(3) { transform: rotate(-2deg); animation: floatY 5s ease-in-out infinite; }
+  .pages u { display: block; height: 5px; border-radius: 3px; background: #E3DDD3; } .pages u.s { width: 60%; }
+  .pages em { position: absolute; right: -14%; bottom: -8%; font-style: normal; font-size: 10px; line-height: 1.5; background: #F6DF62; padding: 8px 10px; transform: rotate(4deg); box-shadow: 0 6px 14px rgba(0,0,0,0.12); }
+  .srch { background: #F4F8FB; gap: 10px; padding: 46px 14px 18px; } /* .s2{padding:0}은 지도 화면용 — 검색 화면은 노치 아래에서 시작 */
+  .srch .bar { display: flex; align-items: center; gap: 8px; background: #fff; border: 1.5px solid #0099D9; border-radius: 22px; padding: 8px 12px; color: #0099D9; font-size: 12px; }
+  .type { display: inline-block; overflow: hidden; white-space: nowrap; color: #12263C; width: 0; border-right: 1.5px solid #0099D9; }
+  .scase[data-step="2"] .type { animation: typeW 0.8s steps(5) 0.2s forwards; }
+  @keyframes typeW { to { width: 5.2em; } }
+  .srch ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .srch li { background: #fff; border-radius: 10px; padding: 9px 11px; box-shadow: 0 4px 12px rgba(14,42,71,0.07); opacity: 0; display: flex; flex-direction: column; gap: 2px; }
+  .scase[data-step="2"] .srch li { animation: msg 0.5s var(--ease) var(--d) forwards; }
+  .srch li b { font-size: 12px; } .srch li small { font-size: 9px; color: #0099D9; }
+  .quiz { background: #fff; border-radius: 12px; padding: 9px 11px; display: flex; flex-direction: column; gap: 5px; opacity: 0; box-shadow: 0 4px 12px rgba(14,42,71,0.07); }
+  .quiz b { font-size: 11px; } .quiz i { font-style: normal; font-size: 10px; padding: 5px 9px; border: 1px solid #DCE5EE; border-radius: 8px; }
+  .scase[data-step="3"] .quiz { animation: msg 0.6s var(--ease) 1.6s forwards; }
+  .scase[data-step="3"] .quiz .ok { animation: pick 0.4s ease 2.6s forwards; }
+  @keyframes pick { to { background: #0099D9; border-color: #0099D9; color: #fff; } }
+  .score { display: flex; align-items: center; gap: 8px; font-size: 11px; opacity: 0; }
+  .score svg { width: 30px; height: 30px; } .score .ring { stroke-dashoffset: 1; }
+  .scase[data-step="3"] .score { animation: msg 0.5s var(--ease) 3s forwards; }
+  .scase[data-step="3"] .score .ring { animation: ring 1s var(--ease) 3.2s forwards; }
+  @keyframes ring { to { stroke-dashoffset: 0.2; } }
+  .dots { display: flex; gap: 8px; } .dots i { width: 22px; height: 3px; border-radius: 2px; background: rgba(14,42,71,0.18); transition: background 0.4s, width 0.4s var(--ease); } .dots i.on { background: var(--blue); width: 40px; }
+  .imgnote { font-size: 10px; letter-spacing: 0.1em; color: var(--sub); }
+  .story { padding-top: 6vh; }
+  .shead h3 { font-weight: 700; font-size: clamp(22px, 2.2vw, 28px); letter-spacing: 0.1em; line-height: 1.6; margin: 0 0 16px; }
+  .shead p { font-size: 15px; letter-spacing: 0.12em; line-height: 2.1; max-width: 27em; }
+  .st { min-height: 62vh; display: flex; flex-direction: column; justify-content: center; opacity: 0.28; transition: opacity 0.6s; padding-left: 22px; border-left: 2px solid rgba(14,42,71,0.12); }
+  .st.act { opacity: 1; border-left-color: var(--blue); }
+  .st .k { font-family: "Gothic A1", sans-serif; font-weight: 400; font-size: 12px; letter-spacing: 0.34em; color: var(--blue); }
+  .st h4 { font-family: "Zen Old Mincho", serif; font-weight: 700; font-size: clamp(20px, 2vw, 26px); letter-spacing: 0.12em; line-height: 1.6; color: var(--head); margin: 10px 0 16px; }
+  .st p { font-size: 15px; letter-spacing: 0.12em; line-height: 2.1; max-width: 26em; }
+  .st .more { margin-top: 30px; align-self: flex-start; }
+
   /* ── 불안 말풍선(KABU&) ── */
   .bubbles { display: grid; grid-template-columns: repeat(2, 1fr); gap: 34px 30px; max-width: 900px; margin: 80px auto 0; align-items: start; }
   .bubble { position: relative; background: #fff; border-radius: 22px; padding: 26px 30px 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.07); }
@@ -283,6 +381,7 @@
     .hbox[data-reveal]::before { opacity: 1; transform: none; transition: none; }
     .rule { transform: scaleX(1); transition: none; }
     .drift, .panel img, .hero .sc i::after { animation: none; }
+    .device { transform: none; transition: none; } .scr *, .scr { animation-duration: 0.01s !important; animation-delay: 0s !important; }
     .donut .fg { stroke-dashoffset: 203.6; transition: none; }
     .hero { position: relative; }
   }
@@ -302,6 +401,13 @@
     .pcards .pcard:nth-child(2), .pcards .pcard:nth-child(3) { margin-top: 0; }
     .pcard .orb { max-width: 190px; }
     .row, .row.rev { grid-template-columns: 1fr; gap: 34px; margin-top: 70px; }
+    .scase { grid-template-columns: 1fr; gap: 30px; margin-top: 64px; }
+    .scase.rev .stage { order: 0; }
+    .stage { position: relative; top: 0; height: auto; min-height: 0; }
+    .device { width: 230px; transform: none; }
+    .story { padding-top: 0; }
+    .st { min-height: 0; opacity: 1; padding: 22px 0 22px 18px; }
+    .st.act { border-left-color: var(--blue); }
     .row.rev .vis { order: 0; }
     .txt .l2, .txt .l3 { margin-left: 0; }
     .float { width: 80px; height: 80px; }
@@ -497,7 +603,6 @@
 
     <!-- Products -->
     <section id="products" class="sky">
-      <i class="cloud b drift" data-parallax="0.2" style="width:480px;height:200px;right:-100px;top:80px"></i>
       <span class="side">Our Products</span>
       <div class="wrap">
         <p class="t-en" data-reveal>OUR PRODUCTS</p>
@@ -506,37 +611,66 @@
         <p class="t-lead blk" data-lang="ja" data-reveal>同じ考え方で、自分たちでも作って運営しています。</p>
         <p class="t-lead blk" data-lang="en" data-reveal>Built and run on the same idea.</p>
 
-        <div class="row">
-          <div class="vis" data-reveal="left"><div class="photo"><img src="/og.jpg" alt="" width="1200" height="630"></div><img class="float" data-parallax="-0.1" src="/img/3d/location.png" alt="" width="256" height="256" style="right:-30px;bottom:-30px"></div>
-          <div class="txt" data-stagger>
-            <span class="pill live" data-reveal><span class="inl" data-lang="ja">運営中</span><span class="inl" data-lang="en">Live</span></span>
-            <h3 data-reveal><span class="hl"><span class="inl" data-lang="ja">鹿児島シティビューバスガイド</span><span class="inl" data-lang="en">Kagoshima City View Bus Guide</span></span></h3>
-            <p class="l1 blk" data-lang="ja" data-reveal>旅行 × 交通案内。観光周遊バス全20停留所の正確な位置と次のバスを、4か国語で。</p>
-            <p class="l2 blk" data-lang="ja" data-reveal>停留所の標識・ホテルのフロント・紙のPOP（アナログ）を、地図とデータ（デジタル）につなぎます。</p>
-            <p class="l3 blk" data-lang="ja" data-reveal>フロント向けAI通訳は、データに基づく文章だけを生成します。</p>
-            <p class="l1 blk" data-lang="en" data-reveal>Travel × transit. Exact locations of all 20 sightseeing-bus stops and the next bus, in four languages.</p>
-            <p class="l2 blk" data-lang="en" data-reveal>Bus-stop signs, hotel desks and paper cards (analog), connected to maps and data (digital).</p>
-            <p class="l3 blk" data-lang="en" data-reveal>The front-desk AI interpreter generates only wording, from data.</p>
-            <div class="stat" data-reveal>
-              <div class="dwrap"><div class="donut"><svg viewBox="0 0 132 132" aria-hidden="true"><circle class="bg" cx="66" cy="66" r="54"/><circle class="fg" cx="66" cy="66" r="54"/></svg><div class="c"><b>8<small>/20</small></b></div></div><small class="dcap"><span class="inl" data-lang="ja">Googleマップと<br>50m以上ずれ</span><span class="inl" data-lang="en">stops off 50 m+<br>on Google Maps</span></small></div>
-              <div class="nums"><div><b data-count="20">0</b><small><span class="inl" data-lang="ja">停留所を<br>現地GPS確認</span><span class="inl" data-lang="en">stops<br>GPS-checked</span></small></div><div><b data-count="4">0</b><small><span class="inl" data-lang="ja">言語</span><span class="inl" data-lang="en">languages</span></small></div><div><b data-count="31">0</b><small><span class="inl" data-lang="ja">施設の<br>専用QR</span><span class="inl" data-lang="en">hotels,<br>own QR</span></small></div></div>
+        <!-- 스크롤 스토리텔링: 왼쪽 기기 화면이 고정된 채, 오른쪽 단계(Analog→Digital→AI)에 맞춰 바뀐다 -->
+        <div class="scase" data-step="1">
+          <div class="stage">
+            <div class="device" aria-hidden="true">
+              <div class="scr s1 paperbg">
+                <span class="cap">フロントの卓上POP</span>
+                <div class="pop"><i class="band"></i><b>ご宿泊のお客様へ</b><em>バス停の正確な位置を、<br>スマホで。</em><div class="qrw"><svg class="qr" viewBox="-1 -1 23 23" aria-hidden="true"><rect x="-1" y="-1" width="23" height="23" fill="#fff"/><g fill="#1b2a3a"><rect x="0" y="8" width="1" height="1"/><rect x="0" y="9" width="1" height="1"/><rect x="0" y="11" width="1" height="1"/><rect x="1" y="8" width="1" height="1"/><rect x="1" y="9" width="1" height="1"/><rect x="1" y="11" width="1" height="1"/><rect x="1" y="12" width="1" height="1"/><rect x="2" y="8" width="1" height="1"/><rect x="2" y="9" width="1" height="1"/><rect x="2" y="10" width="1" height="1"/><rect x="2" y="12" width="1" height="1"/><rect x="3" y="8" width="1" height="1"/><rect x="3" y="12" width="1" height="1"/><rect x="4" y="9" width="1" height="1"/><rect x="4" y="11" width="1" height="1"/><rect x="4" y="12" width="1" height="1"/><rect x="5" y="8" width="1" height="1"/><rect x="5" y="9" width="1" height="1"/><rect x="5" y="11" width="1" height="1"/><rect x="6" y="9" width="1" height="1"/><rect x="6" y="11" width="1" height="1"/><rect x="6" y="12" width="1" height="1"/><rect x="7" y="8" width="1" height="1"/><rect x="7" y="10" width="1" height="1"/><rect x="7" y="11" width="1" height="1"/><rect x="8" y="0" width="1" height="1"/><rect x="8" y="1" width="1" height="1"/><rect x="8" y="4" width="1" height="1"/><rect x="8" y="9" width="1" height="1"/><rect x="8" y="11" width="1" height="1"/><rect x="8" y="12" width="1" height="1"/><rect x="8" y="14" width="1" height="1"/><rect x="8" y="16" width="1" height="1"/><rect x="9" y="0" width="1" height="1"/><rect x="9" y="4" width="1" height="1"/><rect x="9" y="7" width="1" height="1"/><rect x="9" y="9" width="1" height="1"/><rect x="9" y="14" width="1" height="1"/><rect x="9" y="15" width="1" height="1"/><rect x="9" y="17" width="1" height="1"/><rect x="9" y="18" width="1" height="1"/><rect x="9" y="19" width="1" height="1"/><rect x="9" y="20" width="1" height="1"/><rect x="10" y="0" width="1" height="1"/><rect x="10" y="2" width="1" height="1"/><rect x="10" y="3" width="1" height="1"/><rect x="10" y="4" width="1" height="1"/><rect x="10" y="6" width="1" height="1"/><rect x="10" y="7" width="1" height="1"/><rect x="10" y="12" width="1" height="1"/><rect x="10" y="13" width="1" height="1"/><rect x="10" y="14" width="1" height="1"/><rect x="10" y="17" width="1" height="1"/><rect x="10" y="18" width="1" height="1"/><rect x="10" y="19" width="1" height="1"/><rect x="10" y="20" width="1" height="1"/><rect x="11" y="2" width="1" height="1"/><rect x="11" y="3" width="1" height="1"/><rect x="11" y="4" width="1" height="1"/><rect x="11" y="5" width="1" height="1"/><rect x="11" y="12" width="1" height="1"/><rect x="11" y="17" width="1" height="1"/><rect x="11" y="18" width="1" height="1"/><rect x="11" y="19" width="1" height="1"/><rect x="12" y="0" width="1" height="1"/><rect x="12" y="1" width="1" height="1"/><rect x="12" y="2" width="1" height="1"/><rect x="12" y="3" width="1" height="1"/><rect x="12" y="4" width="1" height="1"/><rect x="12" y="5" width="1" height="1"/><rect x="12" y="6" width="1" height="1"/><rect x="12" y="7" width="1" height="1"/><rect x="12" y="8" width="1" height="1"/><rect x="12" y="9" width="1" height="1"/><rect x="12" y="10" width="1" height="1"/><rect x="12" y="13" width="1" height="1"/><rect x="12" y="14" width="1" height="1"/><rect x="12" y="15" width="1" height="1"/><rect x="12" y="16" width="1" height="1"/><rect x="12" y="17" width="1" height="1"/><rect x="12" y="20" width="1" height="1"/><rect x="13" y="9" width="1" height="1"/><rect x="13" y="10" width="1" height="1"/><rect x="13" y="11" width="1" height="1"/><rect x="13" y="12" width="1" height="1"/><rect x="13" y="14" width="1" height="1"/><rect x="13" y="15" width="1" height="1"/><rect x="13" y="18" width="1" height="1"/><rect x="13" y="20" width="1" height="1"/><rect x="14" y="12" width="1" height="1"/><rect x="14" y="13" width="1" height="1"/><rect x="14" y="14" width="1" height="1"/><rect x="14" y="18" width="1" height="1"/><rect x="14" y="19" width="1" height="1"/><rect x="15" y="13" width="1" height="1"/><rect x="15" y="15" width="1" height="1"/><rect x="15" y="16" width="1" height="1"/><rect x="15" y="17" width="1" height="1"/><rect x="15" y="18" width="1" height="1"/><rect x="15" y="19" width="1" height="1"/><rect x="16" y="9" width="1" height="1"/><rect x="16" y="13" width="1" height="1"/><rect x="16" y="14" width="1" height="1"/><rect x="16" y="15" width="1" height="1"/><rect x="16" y="16" width="1" height="1"/><rect x="16" y="17" width="1" height="1"/><rect x="17" y="8" width="1" height="1"/><rect x="17" y="11" width="1" height="1"/><rect x="17" y="16" width="1" height="1"/><rect x="17" y="17" width="1" height="1"/><rect x="17" y="19" width="1" height="1"/><rect x="18" y="9" width="1" height="1"/><rect x="18" y="10" width="1" height="1"/><rect x="18" y="13" width="1" height="1"/><rect x="18" y="14" width="1" height="1"/><rect x="18" y="15" width="1" height="1"/><rect x="18" y="18" width="1" height="1"/><rect x="19" y="9" width="1" height="1"/><rect x="19" y="11" width="1" height="1"/><rect x="19" y="12" width="1" height="1"/><rect x="19" y="17" width="1" height="1"/><rect x="19" y="20" width="1" height="1"/><rect x="20" y="8" width="1" height="1"/><rect x="20" y="9" width="1" height="1"/><rect x="20" y="10" width="1" height="1"/><rect x="20" y="12" width="1" height="1"/><rect x="20" y="13" width="1" height="1"/><rect x="20" y="14" width="1" height="1"/><rect x="20" y="16" width="1" height="1"/><rect x="20" y="17" width="1" height="1"/><rect x="20" y="20" width="1" height="1"/><rect x="0" y="0" width="7" height="7"/><rect x="1" y="1" width="5" height="5" fill="#fff"/><rect x="2" y="2" width="3" height="3"/><rect x="14" y="0" width="7" height="7"/><rect x="15" y="1" width="5" height="5" fill="#fff"/><rect x="16" y="2" width="3" height="3"/><rect x="0" y="14" width="7" height="7"/><rect x="1" y="15" width="5" height="5" fill="#fff"/><rect x="2" y="16" width="3" height="3"/></g></svg><i class="scan"></i></div><small>日本語 · English · 한국어 · 繁體中文</small></div>
+              </div>
+              <div class="scr s2">
+                <svg class="map" viewBox="0 0 200 400" preserveAspectRatio="xMidYMid slice"><rect width="200" height="400" fill="#EAF2F7"/><g stroke="#fff" stroke-width="9" fill="none" stroke-linecap="round"><path d="M-10,110 L210,90"/><path d="M-10,230 L210,250"/><path d="M60,-10 L45,410"/><path d="M150,-10 L165,410"/></g><path class="route" pathLength="1" d="M8,300 C40,260 40,200 90,160 S165,150 190,70" fill="none" stroke="#0099D9" stroke-width="4.5" stroke-linecap="round"/><path class="walk" pathLength="1" d="M126,236 C124,212 108,186 94,166" fill="none" stroke="#0E2A47" stroke-width="2.2" stroke-dasharray="0.05 0.07" stroke-linecap="round"/><g class="stops"><g class="sp" style="--d:.5s"><circle cx="36" cy="245" r="9" fill="#fff" stroke="#0099D9" stroke-width="2.6"/><text x="36" y="248.6">2</text></g><g class="sp sel" style="--d:.8s"><circle cx="90" cy="160" r="17" fill="rgba(0,153,217,.18)"/><circle cx="90" cy="160" r="11" fill="#0099D9" stroke="#fff" stroke-width="2.6"/><text x="90" y="163.6" fill="#fff">3</text></g><g class="sp" style="--d:1.1s"><circle cx="158" cy="125" r="9" fill="#fff" stroke="#0099D9" stroke-width="2.6"/><text x="158" y="128.6">4</text></g></g><g class="hotel"><rect x="116" y="228" width="20" height="20" rx="5" fill="#0E2A47" stroke="#fff" stroke-width="2.2"/><path d="M121,242v-8m0,4h10v4m-10,-2h10" stroke="#fff" stroke-width="1.4" fill="none" stroke-linecap="round"/></g></svg>
+                <div class="sheet"><small>No.3</small><b>天文館</b><div class="next"><span>次のバスまで</span><strong>12<i>分</i></strong></div><div class="chips"><i class="on">日本語</i><i>EN</i><i>한국어</i><i>繁中</i></div></div>
+              </div>
+              <div class="scr s3 chat">
+                <span class="cap">フロント向け AI通訳</span>
+                <p class="me">仙巌園に行きたいそうです</p>
+                <p class="typing"><i></i><i></i><i></i></p>
+                <div class="ans"><span class="lg">한국어</span><b>No.3 天文館에서 타세요</b><p>호텔에서 걸어서 약 1분 · 다음 버스 12분 뒤 · 요금 230엔</p><small>データ：停留所・時刻・運賃</small></div>
+              </div>
             </div>
-            <a class="more" href="https://kagoshima.makoro.dev/" data-reveal><span class="inl" data-lang="ja">サイトへ</span><span class="inl" data-lang="en">Open the guide</span></a>
+            <div class="dots" aria-hidden="true"><i></i><i></i><i></i></div>
+            <small class="imgnote"><span class="inl" data-lang="ja">画面はイメージです</span><span class="inl" data-lang="en">Screens are illustrative</span></small>
+          </div>
+          <div class="story">
+            <div class="shead" data-reveal><span class="pill live"><span class="inl" data-lang="ja">運営中</span><span class="inl" data-lang="en">Live</span></span><h3><span class="hl"><span class="inl" data-lang="ja">鹿児島シティビューバスガイド</span><span class="inl" data-lang="en">Kagoshima City View Bus Guide</span></span></h3><p><span class="inl" data-lang="ja">旅行 × 交通案内。観光周遊バス全20停留所の正確な位置と次のバスを、4か国語で。</span><span class="inl" data-lang="en">Travel × transit. Exact locations of all 20 sightseeing-bus stops and the next bus, in four languages.</span></p></div>
+            <div class="st"><span class="k">01 ANALOG</span><h4><span class="inl" data-lang="ja">フロントの紙から、始まる</span><span class="inl" data-lang="en">It starts with paper at the front desk</span></h4><p><span class="inl" data-lang="ja">停留所の標識、ホテルのフロント、卓上POP。旅行者は人に尋ねます。だから入口は紙のQRです。</span><span class="inl" data-lang="en">Bus-stop signs, hotel desks, counter cards. Travelers ask people, so the way in is a paper QR.</span></p></div>
+            <div class="st"><span class="k">02 DIGITAL</span><h4><span class="inl" data-lang="ja">現地で確かめた位置を、地図に</span><span class="inl" data-lang="en">Field-checked locations, on a map</span></h4><p><span class="inl" data-lang="ja">QRを読むと、ホテルから乗り場までの道順と、次のバスまでの時間がそのまま開きます。アプリは不要です。</span><span class="inl" data-lang="en">Scan and the walk from the hotel to the stop opens, with the time to the next bus. No app.</span></p></div>
+            <div class="st"><span class="k">03 AI</span><h4><span class="inl" data-lang="ja">言葉だけを、AIが</span><span class="inl" data-lang="en">AI handles only the words</span></h4><p><span class="inl" data-lang="ja">フロント向けのAI通訳は、停留所・時刻・運賃をデータから受け取り、文章だけを生成します。</span><span class="inl" data-lang="en">The front-desk AI interpreter takes stops, times and fares from data and generates only the wording.</span></p>
+              <div class="stat"><div class="dwrap"><div class="donut"><svg viewBox="0 0 132 132" aria-hidden="true"><circle class="bg" cx="66" cy="66" r="54"/><circle class="fg" cx="66" cy="66" r="54"/></svg><div class="c"><b>8<small>/20</small></b></div></div><small class="dcap"><span class="inl" data-lang="ja">Googleマップと<br>50m以上ずれ</span><span class="inl" data-lang="en">stops off 50 m+<br>on Google Maps</span></small></div><div class="nums"><div><b data-count="20">0</b><small><span class="inl" data-lang="ja">停留所を<br>現地GPS確認</span><span class="inl" data-lang="en">stops<br>GPS-checked</span></small></div><div><b data-count="4">0</b><small><span class="inl" data-lang="ja">言語</span><span class="inl" data-lang="en">languages</span></small></div><div><b data-count="31">0</b><small><span class="inl" data-lang="ja">施設の<br>専用QR</span><span class="inl" data-lang="en">hotels,<br>own QR</span></small></div></div></div>
+              <a class="more" href="https://kagoshima.makoro.dev/"><span class="inl" data-lang="ja">サイトへ</span><span class="inl" data-lang="en">Open the guide</span></a></div>
           </div>
         </div>
 
-        <div class="row rev">
-          <div class="vis" data-reveal="right"><div class="panel c2"><img src="/img/3d/books.png" alt="" width="256" height="256"></div><img class="float" data-parallax="-0.1" src="/img/3d/robot.png" alt="" width="256" height="256" style="left:-26px;bottom:-26px"><img class="float" data-parallax="-0.06" src="/img/3d/tick.png" alt="" width="256" height="256" style="right:-18px;top:-26px;width:84px;height:84px"></div>
-          <div class="txt" data-stagger>
-            <span class="pill" data-reveal><span class="inl" data-lang="ja">準備中</span><span class="inl" data-lang="en">In preparation</span></span>
-            <h3 data-reveal><span class="hl"><span class="inl" data-lang="ja">社内マニュアル学習・評価</span><span class="inl" data-lang="en">Manual-based learning &amp; assessment</span></span></h3>
-            <p class="l1 blk" data-lang="ja" data-reveal>社内マニュアル × 学習。紙やPDFのマニュアル、先輩が口頭で教えてきたこと（アナログ）を、検索できるデータ（デジタル）に。</p>
-            <p class="l2 blk" data-lang="ja" data-reveal>AIへの問答、理解度クイズの自動生成、評価への反映までつなぎます。</p>
-            <p class="l3 blk" data-lang="ja" data-reveal>マニュアルにない答えはしません。</p>
-            <p class="l1 blk" data-lang="en" data-reveal>Manuals × learning. Paper and PDF manuals, and what seniors taught by word of mouth (analog), become searchable data (digital).</p>
-            <p class="l2 blk" data-lang="en" data-reveal>Connected to AI Q&amp;A, auto-generated quizzes and assessment.</p>
-            <p class="l3 blk" data-lang="en" data-reveal>No answers that aren't in the manual.</p>
-            <a class="more" href="#contact" data-reveal><span class="inl" data-lang="ja">先行してご相談</span><span class="inl" data-lang="en">Ask about early access</span></a>
+        <div class="scase rev" data-step="1">
+          <div class="stage">
+            <div class="device" aria-hidden="true">
+              <div class="scr s1 paperbg">
+                <span class="cap">紙のマニュアル</span>
+                <div class="pages"><i></i><i></i><i><u></u><u></u><u></u><u class="s"></u><u></u><u class="s"></u></i><em>先輩が口頭で<br>教えてきたこと</em></div>
+              </div>
+              <div class="scr s2 srch">
+                <div class="bar"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.5-4.5"/></svg><span class="type">返品の手順</span></div>
+                <ul><li style="--d:.9s"><b>返品・交換の受付</b><small>マニュアル p.12 · 2026.04版</small></li><li style="--d:1.1s"><b>レシートがない場合</b><small>マニュアル p.13 · 2026.04版</small></li><li style="--d:1.3s"><b>返金の方法</b><small>マニュアル p.14 · 2026.04版</small></li></ul>
+              </div>
+              <div class="scr s3 chat">
+                <span class="cap">AI問答 → クイズ → 評価</span>
+                <p class="me">返品は何日以内？</p>
+                <div class="ans"><b>レシートがあれば30日以内です。</b><small>出典：マニュアル p.12</small></div>
+                <div class="quiz"><b>Q. レシートがない場合は？</b><i>そのまま返金</i><i class="ok">責任者に確認</i><i>受付不可</i></div>
+                <div class="score"><svg viewBox="0 0 44 44"><circle cx="22" cy="22" r="18" fill="none" stroke="#E6ECF2" stroke-width="5"/><circle class="ring" cx="22" cy="22" r="18" fill="none" stroke="#0099D9" stroke-width="5" pathLength="1" stroke-dasharray="1" transform="rotate(-90 22 22)"/></svg><span>理解度 8/10</span></div>
+              </div>
+            </div>
+            <div class="dots" aria-hidden="true"><i></i><i></i><i></i></div>
+            <small class="imgnote"><span class="inl" data-lang="ja">画面はイメージです（準備中）</span><span class="inl" data-lang="en">Screens are illustrative (in preparation)</span></small>
+          </div>
+          <div class="story">
+            <div class="shead" data-reveal><span class="pill"><span class="inl" data-lang="ja">準備中</span><span class="inl" data-lang="en">In preparation</span></span><h3><span class="hl"><span class="inl" data-lang="ja">社内マニュアル学習・評価</span><span class="inl" data-lang="en">Manual-based learning &amp; assessment</span></span></h3><p><span class="inl" data-lang="ja">社内マニュアル × 学習。紙と口伝えを、聞ける・学べる・測れる仕組みに。</span><span class="inl" data-lang="en">Manuals × learning. Paper and word of mouth, made askable, learnable and measurable.</span></p></div>
+            <div class="st"><span class="k">01 ANALOG</span><h4><span class="inl" data-lang="ja">紙と、口伝えから</span><span class="inl" data-lang="en">From paper and word of mouth</span></h4><p><span class="inl" data-lang="ja">紙やPDFのマニュアル、先輩が口頭で教えてきたこと。現場の知恵は、そこにあります。</span><span class="inl" data-lang="en">Paper and PDF manuals, and what seniors taught by word of mouth. That is where the know-how lives.</span></p></div>
+            <div class="st"><span class="k">02 DIGITAL</span><h4><span class="inl" data-lang="ja">検索できるデータに</span><span class="inl" data-lang="en">Into searchable data</span></h4><p><span class="inl" data-lang="ja">版と出典を残したまま、探せる形に整えます。どのページの、いつの版かが分かります。</span><span class="inl" data-lang="en">Made searchable while keeping version and source, so you know which page and which edition.</span></p></div>
+            <div class="st"><span class="k">03 AI</span><h4><span class="inl" data-lang="ja">聞ける・学べる・測れる</span><span class="inl" data-lang="en">Ask, learn, assess</span></h4><p><span class="inl" data-lang="ja">AIへの問答、理解度クイズの自動生成、評価への反映まで。マニュアルにない答えはしません。</span><span class="inl" data-lang="en">AI Q&amp;A, auto-generated quizzes, assessment. No answers that are not in the manual.</span></p>
+              <a class="more" href="#contact"><span class="inl" data-lang="ja">先行してご相談</span><span class="inl" data-lang="en">Ask about early access</span></a></div>
           </div>
         </div>
       </div>
@@ -701,6 +835,25 @@
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', function () { desktop = window.matchMedia('(min-width: 1024px)').matches; onScroll(); });
     frame();
+
+    // 自社サービス 스크롤 스토리텔링 — 데스크톱은 스크롤 위치로, 모바일은 3.6초마다 화면 전환
+    document.querySelectorAll('.scase').forEach(function (sh) {
+      var sts = [].slice.call(sh.querySelectorAll('.st')), dots = sh.querySelectorAll('.dots i'), cur = 0;
+      function setStep(n) { if (n === cur) return; cur = n; sh.setAttribute('data-step', String(n)); sts.forEach(function (e, i) { e.classList.toggle('act', i === n - 1); }); dots.forEach(function (d, i) { d.classList.toggle('on', i === n - 1); }); if (n === 3) sts[2].querySelectorAll('[data-count]').forEach(function (c) { if (!c.dataset.done) { c.dataset.done = '1'; reduce ? (c.textContent = c.getAttribute('data-count')) : countUp(c); } }); }
+      setStep(1);
+      if (!('IntersectionObserver' in window)) return;
+      if (desktop) {
+        var so = new IntersectionObserver(function (es) { es.forEach(function (en) { if (en.isIntersecting) setStep(sts.indexOf(en.target) + 1); }); }, { rootMargin: '-45% 0px -45% 0px' });
+        sts.forEach(function (e) { so.observe(e); });
+        var st3 = sts[2]; if (st3) { var dn = st3.querySelector('.donut'); if (dn) new IntersectionObserver(function (es, o) { es.forEach(function (en) { if (en.isIntersecting) { dn.setAttribute('data-in', ''); o.disconnect(); } }); }, { threshold: 0.5 }).observe(dn); }
+      } else {
+        sh.querySelectorAll('.donut').forEach(function (d) { d.setAttribute('data-in', ''); });
+        sh.querySelectorAll('[data-count]').forEach(function (c) { c.dataset.done = '1'; c.textContent = c.getAttribute('data-count'); });
+        if (reduce) return;
+        var vis = false, timer = null;
+        new IntersectionObserver(function (es) { vis = es[0].isIntersecting; if (vis && !timer) timer = setInterval(function () { if (vis) setStep(cur % 3 + 1); }, 3600); }, { threshold: 0.3 }).observe(sh.querySelector('.device'));
+      }
+    });
 
     // 핸들 카드 3D 기울기 + 모눈 커서 광원 (마우스가 있는 데스크톱만)
     if (!reduce && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
