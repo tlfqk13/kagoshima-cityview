@@ -116,12 +116,14 @@
 
   /* ── blob 카드 ── */
   .blobs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 36px 28px; margin-top: 96px; align-items: start; }
-  .blob { position: relative; background: #fff; padding: 56px 44px 52px; box-shadow: 0 22px 60px rgba(95,146,199,0.14); border-radius: 58% 42% 46% 54% / 48% 56% 44% 52%; min-height: 300px; display: flex; flex-direction: column; justify-content: center; }
+  .blob { position: relative; background: #fff; box-shadow: 0 22px 60px rgba(95,146,199,0.14); border-radius: 58% 42% 46% 54% / 48% 56% 44% 52%; aspect-ratio: 0.86; display: flex; align-items: center; justify-content: center; }
+  /* 타원에 내접하는 사각형(한 변 ≈ 지름×0.7) 안에만 글자를 둔다 — 모서리로 삐져나오지 않게 */
+  .blob .in { width: 68%; max-width: 68%; display: flex; flex-direction: column; align-items: flex-start; }
   .blobs .blob:nth-child(2) { margin-top: 70px; } .blobs .blob:nth-child(3) { margin-top: 24px; }
-  .blob .ic { width: 64px; height: 64px; object-fit: contain; margin-bottom: 18px; filter: drop-shadow(0 8px 14px rgba(0,0,0,0.10)); }
+  .blob .ic { width: 56px; height: 56px; object-fit: contain; margin-bottom: 14px; filter: drop-shadow(0 8px 14px rgba(0,0,0,0.10)); }
   .blob .no { font-family: "Gothic A1", sans-serif; font-weight: 300; font-size: 11px; letter-spacing: 0.34em; color: var(--blue); margin-bottom: 8px; }
-  .blob h3 { font-weight: 500; font-size: 20px; letter-spacing: 0.12em; line-height: 1.6; margin-bottom: 12px; }
-  .blob p { font-size: 14px; line-height: 1.9; letter-spacing: var(--ls); color: var(--ink); }
+  .blob h3 { font-weight: 500; font-size: 19px; letter-spacing: 0.1em; line-height: 1.55; margin-bottom: 10px; }
+  .blob p { font-size: 13.5px; line-height: 1.85; letter-spacing: 0.06em; color: var(--ink); }
 
   /* ── 비대칭 2단 (事業内容·自社サービス) ── */
   .row { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; margin-top: 110px; }
@@ -187,7 +189,8 @@
     .side { display: none; }
     .blobs { grid-template-columns: 1fr; gap: 28px; margin-top: 56px; }
     .blobs .blob:nth-child(2), .blobs .blob:nth-child(3) { margin-top: 0; }
-    .blob { min-height: 0; padding: 48px 36px; }
+    .blob { aspect-ratio: 1.05; max-width: 420px; margin: 0 auto; }
+    .blob .in { width: 72%; }
     .row, .row.rev { grid-template-columns: 1fr; gap: 34px; margin-top: 70px; }
     .row.rev .vis { order: 0; }
     .txt .l2, .txt .l3 { margin-left: 0; }
@@ -267,9 +270,9 @@
         <p class="t-ja blk" data-lang="ja" data-reveal data-delay="1">アナログから生まれる、新しいサービス。</p>
         <p class="t-ja blk" data-lang="en" data-reveal data-delay="1">New services, born from the analog world.</p>
         <div class="blobs" data-stagger>
-          <div class="blob blob-anim" data-reveal="scale"><img class="ic" src="/img/3d/memo.png" alt="" width="256" height="256"><div class="no">01 ANALOG</div><h3 class="blk" data-lang="ja">現場から、<br>始める。</h3><h3 class="blk" data-lang="en">Start in<br>the field.</h3><p class="blk" data-lang="ja">机上ではなく、使われる場所と人を見てからつくります。標識、マニュアル、口伝え。そこに価値があります。</p><p class="blk" data-lang="en">We look at the place and the people before we build. Signs, manuals, word of mouth. That's where the value is.</p></div>
-          <div class="blob blob-anim" data-reveal="scale" style="animation-delay:-5s"><img class="ic" src="/img/3d/laptop.png" alt="" width="256" height="256"><div class="no">02 DIGITAL</div><h3 class="blk" data-lang="ja">出どころを、<br>残す。</h3><h3 class="blk" data-lang="en">Keep<br>the source.</h3><p class="blk" data-lang="ja">データには出典と確認日を残し、誰でも確かめられる形にします。Web・アプリは、その上に立ちます。</p><p class="blk" data-lang="en">Every piece of data keeps its source and check date, so anyone can verify it. Web and apps stand on that.</p></div>
-          <div class="blob blob-anim" data-reveal="scale" style="animation-delay:-9s"><img class="ic" src="/img/3d/robot.png" alt="" width="256" height="256"><div class="no">03 AI</div><h3 class="blk" data-lang="ja">言葉はAI、<br>事実はデータ。</h3><h3 class="blk" data-lang="en">Words by AI,<br>facts by data.</h3><p class="blk" data-lang="ja">AIにはデータの外のことを言わせません。聞ける・学べる・測れる仕組みを、安心して任せられる形で。</p><p class="blk" data-lang="en">AI never speaks beyond the data. Ask, learn, assess — in a form you can rely on.</p></div>
+          <div class="blob blob-anim" data-reveal="scale"><div class="in"><img class="ic" src="/img/3d/memo.png" alt="" width="256" height="256"><div class="no">01 ANALOG</div><h3 class="blk" data-lang="ja">現場から、<br>始める。</h3><h3 class="blk" data-lang="en">Start in<br>the field.</h3><p class="blk" data-lang="ja">机上ではなく、使われる場所と人を見てからつくります。標識、マニュアル、口伝え。そこに価値があります。</p><p class="blk" data-lang="en">We look at the place and the people before we build. Signs, manuals, word of mouth. That's where the value is.</p></div></div>
+          <div class="blob blob-anim" data-reveal="scale" style="animation-delay:-5s"><div class="in"><img class="ic" src="/img/3d/laptop.png" alt="" width="256" height="256"><div class="no">02 DIGITAL</div><h3 class="blk" data-lang="ja">出どころを、<br>残す。</h3><h3 class="blk" data-lang="en">Keep<br>the source.</h3><p class="blk" data-lang="ja">データには出典と確認日を残し、誰でも確かめられる形にします。Web・アプリは、その上に立ちます。</p><p class="blk" data-lang="en">Every piece of data keeps its source and check date, so anyone can verify it. Web and apps stand on that.</p></div></div>
+          <div class="blob blob-anim" data-reveal="scale" style="animation-delay:-9s"><div class="in"><img class="ic" src="/img/3d/robot.png" alt="" width="256" height="256"><div class="no">03 AI</div><h3 class="blk" data-lang="ja">言葉はAI、<br>事実はデータ。</h3><h3 class="blk" data-lang="en">Words by AI,<br>facts by data.</h3><p class="blk" data-lang="ja">AIにはデータの外のことを言わせません。聞ける・学べる・測れる仕組みを、安心して任せられる形で。</p><p class="blk" data-lang="en">AI never speaks beyond the data. Ask, learn, assess — in a form you can rely on.</p></div></div>
         </div>
       </div>
     </section>
