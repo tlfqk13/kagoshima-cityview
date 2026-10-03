@@ -121,7 +121,7 @@ function html(h, shots) {
   <div class="top"><span>${dateJa}</span><span>MAKORO（マコロ）｜ 鹿児島シティビューバスガイド 運営</span></div>
   <div class="to">${addressee}</div>
   <h1>外国人のお客様向け「シティビュー停留所案内」<br>卓上POPのご案内</h1>
-  <div class="tagline">無料 ・ 広告なし ・ お申込み不要 ・ 日英韓繁の4言語</div>
+  <div class="tagline">日英韓繁の4か国語 ・ 現地でGPS確認した全20停留所</div>
   <p class="lead">シティビューバス全20停留所の正確な位置、次のバスまでの時間、ホテルからの道順をスマートフォンで案内する無料サービスです。フロントに卓上POP（A6）を1枚置いていただくだけで、お客様がQRから最寄りの停留所を確認できます。</p>
 
   <div class="grid prob">
@@ -174,7 +174,7 @@ function html(h, shots) {
   </div>
 
   <div class="cta">
-    <div><b>ご関心をお持ちいただけましたら、hello@makoro.dev までご返信いただけますと幸いです。</b><small>ご不要の場合は、ご返信には及びません。</small></div>
+    <div><b>ご関心をお持ちいただけましたら、hello@makoro.dev までご返信いただけますと幸いです。</b><small>置くかどうか、置く場所は貴館のご判断にお任せします。</small></div>
   </div>
 
   <div class="foot">
