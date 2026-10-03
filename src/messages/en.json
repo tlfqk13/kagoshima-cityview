@@ -199,7 +199,16 @@
       "sameArrive": "Arrives as No.{{num}} (same stop)",
       "opposite": "Opposite direction → No.{{num}} ({{m}} m)"
     },
-    "styleLight": "Simple"
+    "styleLight": "Simple",
+    "ticket": {
+      "marker": "Ticket office",
+      "sells": {
+        "dayPass": "Day pass",
+        "cute": "CUTE"
+      },
+      "near": "{{name}} ({{min}} min walk)",
+      "mapHint": "Look for the black square with a ticket icon on the map."
+    }
   },
   "common": {
     "close": "Close"

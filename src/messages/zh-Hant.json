@@ -199,7 +199,16 @@
       "sameArrive": "抵達為 No.{{num}}（同一站牌）",
       "opposite": "對向站牌 → No.{{num}}（{{m}}m）"
     },
-    "styleLight": "簡潔"
+    "styleLight": "簡潔",
+    "ticket": {
+      "marker": "車票販售處",
+      "sells": {
+        "dayPass": "一日乘車券",
+        "cute": "CUTE"
+      },
+      "near": "{{name}}（步行約{{min}}分鐘）",
+      "mapHint": "地圖上的黑色方形（車票圖示）就是販售處。"
+    }
   },
   "common": {
     "close": "關閉"

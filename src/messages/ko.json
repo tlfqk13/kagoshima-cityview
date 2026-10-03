@@ -199,7 +199,16 @@
       "sameArrive": "도착은 No.{{num}} (같은 승강장)",
       "opposite": "반대 방향 승강장 → No.{{num}} ({{m}}m)"
     },
-    "styleLight": "심플"
+    "styleLight": "심플",
+    "ticket": {
+      "marker": "승차권 판매처",
+      "sells": {
+        "dayPass": "1일 승차권",
+        "cute": "CUTE"
+      },
+      "near": "{{name}} (도보 약 {{min}}분)",
+      "mapHint": "지도의 검은 네모(표 아이콘)가 판매처입니다."
+    }
   },
   "common": {
     "close": "닫기"

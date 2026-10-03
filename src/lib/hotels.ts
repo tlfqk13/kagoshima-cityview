@@ -45,7 +45,7 @@ export function distanceMeters(lat1: number, lng1: number, lat2: number, lng2: n
   return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
 }
 
-function walkMinutes(meters: number): number {
+export function walkMinutes(meters: number): number {
   return Math.max(1, Math.round(meters / WALK_METERS_PER_MIN))
 }
 

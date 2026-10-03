@@ -199,7 +199,16 @@
       "sameArrive": "到着は No.{{num}}（同じ乗り場）",
       "opposite": "反対方向の乗り場 → No.{{num}}（{{m}}m）"
     },
-    "styleLight": "シンプル"
+    "styleLight": "シンプル",
+    "ticket": {
+      "marker": "乗車券の販売所",
+      "sells": {
+        "dayPass": "1日乗車券",
+        "cute": "CUTE"
+      },
+      "near": "{{name}}（徒歩約{{min}}分）",
+      "mapHint": "地図の黒い四角（きっぷのマーク）が販売所です。"
+    }
   },
   "common": {
     "close": "閉じる"

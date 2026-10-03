@@ -149,6 +149,12 @@ test('정류장 상세의 FAQ 버튼은 요금·돌아가는 법으로 이동한
   await expect(panel.getByText(ja.map.fare.passTitle)).toBeVisible()
   // 230엔 × 4회 = 920엔 > 700엔 → "4回以上"
   await expect(panel.getByText(/1日に4回以上/)).toBeVisible()
+  // 중앙역 정류장에서는 걸어갈 수 있는 1일권 판매처를 보여준다 (No.3에는 없음)
+  await expect(panel.getByText(/鹿児島中央駅総合観光案内所（徒歩約/)).toHaveCount(0)
+  await page.goto('/map/stop_01?lang=ja')
+  await panel.getByRole('group', { name: ja.map.faq.title }).getByRole('button', { name: ja.map.faq.fare }).click()
+  await expect(panel.getByText(/鹿児島中央駅総合観光案内所（徒歩約\d分）/)).toBeVisible()
+  await page.goto('/map/stop_03?lang=ja')
   await expect(panel.getByText(ja.map.back.title)).toBeVisible()
   // 호텔 모드에서는 그 호텔의 내리는 정류장
   await page.goto('/map?hotel=remm&lang=ja')

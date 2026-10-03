@@ -7,12 +7,13 @@ import type { HotelStops } from '@/lib/hotels'
 import styles from './StopDetail.module.css'
 import QRModal from './QRModal'
 import TodayBoard from './TodayBoard'
-import { IconWalk, IconWarn } from '@/components/icons'
+import { IconTicket, IconWalk, IconWarn } from '@/components/icons'
 import { copyText } from '@/lib/clipboard'
 import Image from 'next/image'
 import Link from 'next/link'
 import { getHotelsNearStop } from '@/lib/hotels'
 import { getGroupedStops } from '@/lib/routes'
+import { getTicketOfficesNearStop } from '@/lib/tickets'
 import { IconBed } from '@/components/icons'
 import { track } from '@/lib/analytics/track'
 
@@ -78,6 +79,8 @@ export default function StopDetail({ stop, routeId, userLocation, isFavorite, on
   const nearbyHotels = routeId === 'cityview' ? getHotelsNearStop(stop) : []
   // 같은 자리·맞은편의 정류장 — 중앙역 No.1/No.20은 같은 승강장, 天文館 No.3/No.19는 방향별 27m
   const grouped = getGroupedStops(routeId, stop)
+  // 이 정류장에서 걸어갈 수 있는 1일권 판매처 (아일랜드뷰 제외)
+  const nearOffices = routeId === 'islandview' ? [] : getTicketOfficesNearStop(stop).filter(n => n.office.sells.includes('dayPass'))
   const verification = getStopVerification(routeId, stop)
 
   const altNames = DATA_LANGS
@@ -272,6 +275,17 @@ export default function StopDetail({ stop, routeId, userLocation, isFavorite, on
           <div className={styles.fareBox}>
             <div className={styles.fareBoxTitle}>{t('map.fare.passTitle')}</div>
             <p>{t('map.fare.passWhere')}</p>
+            {nearOffices.length > 0 && (
+              <ul className={styles.ticketNear}>
+                {nearOffices.map(({ office, minutes }) => (
+                  <li key={office.id}>
+                    <IconTicket size={13} /> {t('map.ticket.near', { name: office.name[lang], min: minutes })}
+                    {office.hours && <span className={styles.ticketHours}> {office.hours}</span>}
+                  </li>
+                ))}
+                <li className={styles.ticketHint}>{t('map.ticket.mapHint')}</li>
+              </ul>
+            )}
             {/* 몇 번 타면 1일권이 이득인지 — 데이터에서 계산 */}
             <p className={styles.infoNote}>{t('map.fare.passTip', { n: Math.floor(route.dayPass.adult / route.fare.adult) + 1, price: route.dayPass.adult.toLocaleString('en-US') })}</p>
           </div>

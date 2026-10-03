@@ -302,6 +302,8 @@ console.log(JSON.stringify(timetable, null, 2))
 | 아일랜드뷰 1일권 | **미확인** — 공식 근거를 찾지 못함 | 500 / 250 (기존 값 유지, `fareCheckedAt` 없음) |
 | 결제 수단 | https://www.kotsu-city-kagoshima.jp/howto/ · 터치결제 안내 페이지 | 현금·Rapica·신용카드 터치결제. **전국 교통계 IC(Suica 등) 불가** |
 
+판매처 위치는 `src/data/ticket-offices.json`(좌표 출처 `coordSource`, 판매 출처 `sellsSource`)에 있고, 지도에는 줌 14.5 이상에서 검은 사각 표 아이콘으로, 정류장 상세에는 450m 안의 1일권 판매처로 표시된다. 판매처를 추가할 때는 공식 페이지로 판매 여부를, 공식 관광 사이트나 OSM으로 좌표를 확인한다.
+
 결제 수단·판매처 문구는 번역 파일 `map.fare.*`(4개 언어)와 `src/lib/desk.ts`에 있다. 교통국이 Suica 등을 도입하면 `map.fare.noIc` 경고를 지운다.
 가고시마시 FAQ(q26)에는 개정 전 600엔이 남아 있어 공식 페이지끼리 어긋난다. 교통국 페이지를 우선한다.
 

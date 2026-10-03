@@ -1,0 +1,48 @@
+{
+  "updatedAt": "2026-10-03",
+  "note": "시티뷰 1일 승차권·CUTE를 살 수 있는 곳 중 노선 가까운 곳. 판매 여부는 공식 페이지 기준(sellsSource), 좌표는 coordSource 기준. 정류장 좌표가 아니므로 노선 JSON이 아닌 이 파일에 둔다.",
+  "offices": [
+    {
+      "id": "chuo-station-tic",
+      "name": {
+        "ja": "鹿児島中央駅総合観光案内所",
+        "en": "Kagoshima-Chuo Station Tourist Information Center",
+        "ko": "가고시마주오역 종합관광안내소",
+        "zh": "鹿兒島中央站綜合觀光服務處"
+      },
+      "place": {
+        "ja": "駅構内",
+        "en": "inside the station",
+        "ko": "역 안",
+        "zh": "車站內"
+      },
+      "hours": "8:00–19:00",
+      "sells": ["dayPass", "cute"],
+      "lat": 31.583953,
+      "lng": 130.541996,
+      "coordSource": "https://www.kagoshima-yokanavi.jp/spot/10187",
+      "sellsSource": "https://www.kotsu-city-kagoshima.jp/ticket-summary/oneday/"
+    },
+    {
+      "id": "chuo-east-plaza",
+      "name": {
+        "ja": "鹿児島中央駅東口駅前広場観光案内所",
+        "en": "Kagoshima-Chuo Station East Exit Plaza Tourist Information",
+        "ko": "가고시마주오역 동쪽 출구 광장 관광안내소",
+        "zh": "鹿兒島中央站東口站前廣場觀光服務處"
+      },
+      "place": {
+        "ja": "東口の駅前広場",
+        "en": "east exit plaza",
+        "ko": "동쪽 출구 광장",
+        "zh": "東口站前廣場"
+      },
+      "hours": null,
+      "sells": ["cute"],
+      "lat": 31.5842911,
+      "lng": 130.5431118,
+      "coordSource": "https://www.openstreetmap.org/way/117143319",
+      "sellsSource": "https://www.kagoshima-yokanavi.jp/article/one-day-pass"
+    }
+  ]
+}

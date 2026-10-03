@@ -8,6 +8,7 @@ import MapLoading from './MapLoading'
 import { track } from '@/lib/analytics/track'
 import { distanceBand } from '@/lib/analytics/events'
 import { distanceMeters } from '@/lib/hotels'
+import { getTicketOffices } from '@/lib/tickets'
 import {
   getStopsForRoute, getStopsGeoJSON, getRouteCoordinates, getRoute,
   getNearestStop, getGroupedStops, nameKey, type RouteStop, type RouteId,
@@ -47,6 +48,8 @@ const MOBILE_QUERY = '(max-width: 1023px)'
 
 /** 구글 위치 표시는 이 줌부터 */
 const GHOST_MIN_ZOOM = 15.5
+/** 승차권 판매처 표시는 이 줌부터 — 멀리서는 중앙역 「1·20」 마커를 가리지 않게 */
+const TICKET_MIN_ZOOM = 14.5
 
 const STYLE_ORDER: MapStyle[] = ['light', 'streets', 'satellite', 'dark']
 
@@ -248,6 +251,7 @@ export default function MapCanvas({ routeId, selectedStopId, onStopSelect, onUse
   const mapRef = useRef<mapboxgl.Map | null>(null)
   const wrongPinRef = useRef<mapboxgl.Marker | null>(null)
   const hotelMarkerRef = useRef<mapboxgl.Marker | null>(null)
+  const ticketMarkersRef = useRef<mapboxgl.Marker[]>([])
   const hoverPopupRef = useRef<mapboxgl.Popup | null>(null)
   const selectedStopIdRef = useRef<string | null>(selectedStopId)
   const routeIdRef = useRef<RouteId>(routeId)
@@ -324,6 +328,7 @@ export default function MapCanvas({ routeId, selectedStopId, onStopSelect, onUse
     map.on('zoom', () => {
       const el = wrongPinRef.current?.getElement()
       if (el) el.hidden = map.getZoom() < GHOST_MIN_ZOOM
+      for (const m of ticketMarkersRef.current) m.getElement().hidden = map.getZoom() < TICKET_MIN_ZOOM
     })
     map.on('load', () => {
       addMapLayers(map, selectedStopIdRef.current, routeIdRef.current, courseRef.current, mapStyleRef.current === 'dark')
@@ -546,6 +551,39 @@ export default function MapCanvas({ routeId, selectedStopId, onStopSelect, onUse
     }
     return () => { hotelMarkerRef.current?.remove(); hotelMarkerRef.current = null }
   }, [hotel, styleRevision, t])
+
+  // 승차권 판매처 — 1일권·CUTE를 사는 곳. 시티뷰·야경 코스에서만(아일랜드뷰는 사쿠라지마라 멀다)
+  useEffect(() => {
+    const map = mapRef.current
+    if (!map) return
+    for (const m of ticketMarkersRef.current) m.remove()
+    ticketMarkersRef.current = []
+    if (routeId === 'islandview') return
+    const lang = nameKey(i18n.language)
+    for (const office of getTicketOffices()) {
+      const el = document.createElement('button')
+      el.type = 'button'
+      el.className = styles.ticketPin
+      const label = `${t('map.ticket.marker')}: ${office.name[lang]}`
+      el.setAttribute('aria-label', label)
+      el.title = label
+      el.innerHTML = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8a2 2 0 0 0 2-2h14a2 2 0 0 0 2 2v2a2 2 0 0 0 0 4v2a2 2 0 0 0-2 2H5a2 2 0 0 0-2-2v-2a2 2 0 0 0 0-4z"/><path d="M14 6v12" stroke-dasharray="2 2"/></svg>'
+      el.hidden = map.getZoom() < TICKET_MIN_ZOOM
+      const sells = office.sells.map(k => t(`map.ticket.sells.${k}`)).join(' · ')
+      const popup = new mapboxgl.Popup({ offset: 16, closeButton: true, className: 'stop-hover-popup', maxWidth: '260px' })
+      const body = document.createElement('div')
+      body.className = styles.ticketPopup
+      const title = document.createElement('strong'); title.textContent = office.name[lang]
+      const meta = document.createElement('span'); meta.textContent = [office.place[lang], office.hours].filter(Boolean).join(' · ')
+      const what = document.createElement('span'); what.textContent = sells
+      body.append(title, meta, what)
+      popup.setDOMContent(body)
+      ticketMarkersRef.current.push(
+        new mapboxgl.Marker({ element: el, anchor: 'center' }).setLngLat([office.lng, office.lat]).setPopup(popup).addTo(map)
+      )
+    }
+    return () => { for (const m of ticketMarkersRef.current) m.remove(); ticketMarkersRef.current = [] }
+  }, [routeId, i18n.language, styleRevision, t])
 
   // 근처 숙박시설 점 — 선택 정류장 450m 안만. 호텔 모드에서는 호텔 핀이 있으므로 찍지 않는다
   useEffect(() => {
