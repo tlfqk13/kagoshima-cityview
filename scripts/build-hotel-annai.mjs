@@ -174,7 +174,7 @@ function html(h, shots) {
   </div>
 
   <div class="cta">
-    <div><b>ご関心をお持ちいただけましたら、本メールへのご返信をお願いいたします。</b><small>ご不要の場合は、本メールはご放念ください。</small></div>
+    <div><b>ご関心をお持ちいただけましたら、hello@makoro.dev までご返信いただけますと幸いです。</b><small>ご不要の場合は、ご返信には及びません。</small></div>
   </div>
 
   <div class="foot">
