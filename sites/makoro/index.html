@@ -18,7 +18,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Inter:wght@600;700&display=swap" rel="stylesheet">
 <style>
   /* 레퍼런스(Brother SDGs STORY)에서 추출한 색 체계: 주색 파랑, 글자 #222, 띠 #F0F2F4, 파스텔 포인트 4색.
-     원형(50%)·알약 버튼(30px)·카드 10px 도 레퍼런스 값. 3D 아이콘은 3dicons(CC0). docs/design/company-site-brief.md */
+     원형(50%)·알약 버튼(30px)·카드 10px 도 레퍼런스 값. 3D 아이콘은 Microsoft Fluent Emoji 3D(MIT). docs/design/company-site-brief.md */
   :root {
     --blue: #0F2EA0; --blue-deep: #0B2278;
     --ink: #222; --sub: #666; --line: #D3D3D3; --band: #F0F2F4; --band2: #F1F1EF; --white: #fff;
@@ -63,7 +63,7 @@
 
   /* 원형 3D 아이콘 — 레퍼런스의 원형 테마 아이콘 문법 */
   .orb { border-radius: 50%; display: grid; place-items: center; flex-shrink: 0; }
-  .orb img { width: 58%; height: 58%; object-fit: contain; filter: drop-shadow(0 8px 14px rgba(0,0,0,0.12)); }
+  .orb img { width: 60%; height: 60%; object-fit: contain; filter: drop-shadow(0 10px 16px rgba(0,0,0,0.14)); }
   .orb.gold { background: var(--gold-l); } .orb.peri { background: var(--peri-l); } .orb.mint { background: var(--mint-l); } .orb.coral { background: var(--coral-l); }
 
   /* 히어로 */
@@ -207,11 +207,11 @@
         <div class="cta flx" data-lang="en"><a class="btn" href="#contact">Talk to us <span class="ar">→</span></a><a class="btn ghost" href="#services">What we do</a></div>
       </div>
       <div class="trio" data-reveal>
-        <div class="item"><div class="orb gold"><img src="/img/3d/notebook.webp" alt="" width="200" height="200"></div><b class="inl" data-lang="ja">アナログ</b><b class="inl" data-lang="en">Analog</b><small class="inl" data-lang="ja">現場・紙・人<br>標識、マニュアル、口伝え</small><small class="inl" data-lang="en">Places, paper, people<br>signs, manuals, word of mouth</small></div>
+        <div class="item"><div class="orb gold"><img src="/img/3d/memo.png" alt="" width="256" height="256"></div><b class="inl" data-lang="ja">アナログ</b><b class="inl" data-lang="en">Analog</b><small class="inl" data-lang="ja">現場・紙・人<br>標識、マニュアル、口伝え</small><small class="inl" data-lang="en">Places, paper, people<br>signs, manuals, word of mouth</small></div>
         <div class="ar">→</div>
-        <div class="item"><div class="orb peri"><img src="/img/3d/computer.webp" alt="" width="200" height="200"></div><b class="inl" data-lang="ja">デジタル</b><b class="inl" data-lang="en">Digital</b><small class="inl" data-lang="ja">データ・Web・アプリ<br>出どころの確かな形に</small><small class="inl" data-lang="en">Data, web, apps<br>with verified sources</small></div>
+        <div class="item"><div class="orb peri"><img src="/img/3d/laptop.png" alt="" width="256" height="256"></div><b class="inl" data-lang="ja">デジタル</b><b class="inl" data-lang="en">Digital</b><small class="inl" data-lang="ja">データ・Web・アプリ<br>出どころの確かな形に</small><small class="inl" data-lang="en">Data, web, apps<br>with verified sources</small></div>
         <div class="ar">→</div>
-        <div class="item"><div class="orb mint"><img src="/img/3d/chat.webp" alt="" width="200" height="200"></div><b>AI</b><small class="inl" data-lang="ja">聞ける・学べる・測れる<br>言葉はAI、事実はデータ</small><small class="inl" data-lang="en">Ask, learn, assess<br>words by AI, facts by data</small></div>
+        <div class="item"><div class="orb mint"><img src="/img/3d/robot.png" alt="" width="256" height="256"></div><b>AI</b><small class="inl" data-lang="ja">聞ける・学べる・測れる<br>言葉はAI、事実はデータ</small><small class="inl" data-lang="en">Ask, learn, assess<br>words by AI, facts by data</small></div>
       </div>
     </div>
     <div class="curve" aria-hidden="true"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><path d="M0,80 C360,0 1080,0 1440,80 L1440,80 L0,80 Z" fill="#fff"/></svg></div>
@@ -226,9 +226,9 @@
       <p class="blk" data-lang="ja">MAKOROは、それらを捨てずにデジタルへ移し、AIを加えて、使う人の手元に返す会社です。アナログとデジタルの融合にとどまらず、AIまで結びつけたWeb・アプリサービスをつくります。</p>
       <p class="blk" data-lang="en">MAKORO carries them into digital form without discarding them, adds AI, and hands them back to the people who use them. Not just analog meets digital, but web and app services with AI built in.</p>
       <div class="pillars">
-        <div class="pillar" data-reveal><div class="orb gold"><img src="/img/3d/location.webp" alt="" width="200" height="200"></div><b>01 ANALOG</b><strong class="blk" data-lang="ja">現場から始める</strong><strong class="blk" data-lang="en">Start in the field</strong><p class="blk" data-lang="ja">机上ではなく、使われる場所と人を見てからつくります。</p><p class="blk" data-lang="en">We look at the place and the people before we build.</p></div>
-        <div class="pillar" data-reveal><div class="orb peri"><img src="/img/3d/file-text.webp" alt="" width="200" height="200"></div><b>02 DIGITAL</b><strong class="blk" data-lang="ja">出どころを残す</strong><strong class="blk" data-lang="en">Keep the source</strong><p class="blk" data-lang="ja">データには出典と確認日を残し、誰でも確かめられるようにします。</p><p class="blk" data-lang="en">Every piece of data keeps its source and check date.</p></div>
-        <div class="pillar" data-reveal><div class="orb mint"><img src="/img/3d/bulb.webp" alt="" width="200" height="200"></div><b>03 AI</b><strong class="blk" data-lang="ja">言葉はAI、事実はデータ</strong><strong class="blk" data-lang="en">Words by AI, facts by data</strong><p class="blk" data-lang="ja">AIにはデータの外のことを言わせません。だから安心して任せられます。</p><p class="blk" data-lang="en">AI never speaks beyond the data. That's what makes it safe to rely on.</p></div>
+        <div class="pillar" data-reveal><div class="orb gold"><img src="/img/3d/location.png" alt="" width="256" height="256"></div><b>01 ANALOG</b><strong class="blk" data-lang="ja">現場から始める</strong><strong class="blk" data-lang="en">Start in the field</strong><p class="blk" data-lang="ja">机上ではなく、使われる場所と人を見てからつくります。</p><p class="blk" data-lang="en">We look at the place and the people before we build.</p></div>
+        <div class="pillar" data-reveal><div class="orb peri"><img src="/img/3d/file-text.png" alt="" width="256" height="256"></div><b>02 DIGITAL</b><strong class="blk" data-lang="ja">出どころを残す</strong><strong class="blk" data-lang="en">Keep the source</strong><p class="blk" data-lang="ja">データには出典と確認日を残し、誰でも確かめられるようにします。</p><p class="blk" data-lang="en">Every piece of data keeps its source and check date.</p></div>
+        <div class="pillar" data-reveal><div class="orb mint"><img src="/img/3d/bulb.png" alt="" width="256" height="256"></div><b>03 AI</b><strong class="blk" data-lang="ja">言葉はAI、事実はデータ</strong><strong class="blk" data-lang="en">Words by AI, facts by data</strong><p class="blk" data-lang="ja">AIにはデータの外のことを言わせません。だから安心して任せられます。</p><p class="blk" data-lang="en">AI never speaks beyond the data. That's what makes it safe to rely on.</p></div>
       </div>
     </div>
   </section>
@@ -241,7 +241,7 @@
       <p class="sub blk" data-lang="en">Three ways to work with us. In every case, one company from planning to operations.</p>
       <div class="cards">
         <div class="card" data-reveal>
-          <div class="orb peri"><img src="/img/3d/mobile.webp" alt="" width="200" height="200"></div>
+          <div class="orb peri"><img src="/img/3d/mobile.png" alt="" width="256" height="256"></div>
           <span class="num">01</span>
           <h3 class="blk" data-lang="ja">Web・アプリサービスの構築</h3><h3 class="blk" data-lang="en">Web &amp; app services</h3>
           <p class="blk" data-lang="ja">案内・予約・学習・管理など、利用者が日々使うサービスを設計し、構築し、運用します。アプリのインストールなしでスマートフォンから使える形が基本です。</p>
@@ -249,7 +249,7 @@
           <ul><li class="inl" data-lang="ja">企画・UI設計・多言語対応（日英韓繁）</li><li class="inl" data-lang="en">Planning, UI, four languages (JA·EN·KO·ZH-Hant)</li><li class="inl" data-lang="ja">AI機能の組み込み（問答・要約・クイズ生成・通訳）</li><li class="inl" data-lang="en">Built-in AI: Q&amp;A, summaries, quiz generation, interpretation</li><li class="inl" data-lang="ja">運用・月次レポート</li><li class="inl" data-lang="en">Operations and monthly reports</li></ul>
         </div>
         <div class="card" data-reveal>
-          <div class="orb gold"><img src="/img/3d/explorer.webp" alt="" width="200" height="200"></div>
+          <div class="orb gold"><img src="/img/3d/explorer.png" alt="" width="256" height="256"></div>
           <span class="num">02</span>
           <h3 class="blk" data-lang="ja">Webサイト制作</h3><h3 class="blk" data-lang="en">Websites</h3>
           <p class="blk" data-lang="ja">会社・施設・サービスのサイトを、速く、読みやすく、検索に強い形で作ります。公開して終わりではなく、更新と計測まで含めてお渡しします。</p>
@@ -257,7 +257,7 @@
           <ul><li class="inl" data-lang="ja">ランディングページ・コーポレートサイト</li><li class="inl" data-lang="en">Landing pages and corporate sites</li><li class="inl" data-lang="ja">多言語・アクセシビリティ・表示速度</li><li class="inl" data-lang="en">Languages, accessibility, performance</li><li class="inl" data-lang="ja">紙の印刷物（QR付きPOP・ポスター）まで</li><li class="inl" data-lang="en">Down to print: QR cards and posters</li></ul>
         </div>
         <div class="card" data-reveal>
-          <div class="orb mint"><img src="/img/3d/tools.webp" alt="" width="200" height="200"></div>
+          <div class="orb mint"><img src="/img/3d/wrench.png" alt="" width="256" height="256"></div>
           <span class="num">03</span>
           <h3 class="blk" data-lang="ja">受託開発</h3><h3 class="blk" data-lang="en">Contract development</h3>
           <p class="blk" data-lang="ja">御社の課題に合わせた個別開発。紙やPDFにしかない情報のデータ化、既存システムへのAI機能追加、小さく始める検証用の開発などを承ります。</p>
@@ -288,7 +288,7 @@
           </div>
         </article>
         <article class="product" data-reveal>
-          <div class="visual plan" aria-hidden="true"><div class="orb gold"><img src="/img/3d/notebook.webp" alt="" width="200" height="200"></div><span class="ar">→</span><div class="orb mint"><img src="/img/3d/chat.webp" alt="" width="200" height="200"></div><span class="ar">→</span><div class="orb peri"><img src="/img/3d/tick.webp" alt="" width="200" height="200"></div></div>
+          <div class="visual plan" aria-hidden="true"><div class="orb gold"><img src="/img/3d/books.png" alt="" width="256" height="256"></div><span class="ar">→</span><div class="orb mint"><img src="/img/3d/robot.png" alt="" width="256" height="256"></div><span class="ar">→</span><div class="orb peri"><img src="/img/3d/tick.png" alt="" width="256" height="256"></div></div>
           <div class="body">
             <span class="tag inl" data-lang="ja">準備中</span><span class="tag inl" data-lang="en">In preparation</span>
             <h3 class="blk" data-lang="ja">社内マニュアル学習・評価</h3><h3 class="blk" data-lang="en">Manual-based learning &amp; assessment</h3>
@@ -309,10 +309,10 @@
       <p class="sub blk" data-lang="ja">自社サービスと同じ手順で進めます。作って終わりにしません。</p>
       <p class="sub blk" data-lang="en">The same steps as our own services. We don't stop at delivery.</p>
       <div class="steps">
-        <div class="step" data-reveal><div class="orb gold"><img src="/img/3d/location.webp" alt="" width="200" height="200"></div><span class="n">STEP 1</span><b class="blk" data-lang="ja">現場を見る</b><b class="blk" data-lang="en">See the field</b><p class="blk" data-lang="ja">困りごとと、置かれる場所、使う人を確認します。</p><p class="blk" data-lang="en">The problem, where it lives, who uses it.</p></div>
-        <div class="step" data-reveal><div class="orb peri"><img src="/img/3d/file-text.webp" alt="" width="200" height="200"></div><span class="n">STEP 2</span><b class="blk" data-lang="ja">データにする</b><b class="blk" data-lang="en">Make it data</b><p class="blk" data-lang="ja">紙・標識・口伝えを、出どころの残るデータに整えます。</p><p class="blk" data-lang="en">Paper, signs and word of mouth become data with sources.</p></div>
-        <div class="step" data-reveal><div class="orb coral"><img src="/img/3d/rocket.webp" alt="" width="200" height="200"></div><span class="n">STEP 3</span><b class="blk" data-lang="ja">小さく作って置く</b><b class="blk" data-lang="en">Build small, place it</b><p class="blk" data-lang="ja">まず動くものを現場に置き、数字を見ます。</p><p class="blk" data-lang="en">Something live in the field first, then look at the numbers.</p></div>
-        <div class="step" data-reveal><div class="orb mint"><img src="/img/3d/chart.webp" alt="" width="200" height="200"></div><span class="n">STEP 4</span><b class="blk" data-lang="ja">AIを載せ、運用する</b><b class="blk" data-lang="en">Add AI, operate</b><p class="blk" data-lang="ja">整ったデータの上にAIを置き、月次で報告します。</p><p class="blk" data-lang="en">AI on top of clean data, monthly reports.</p></div>
+        <div class="step" data-reveal><div class="orb gold"><img src="/img/3d/search.png" alt="" width="256" height="256"></div><span class="n">STEP 1</span><b class="blk" data-lang="ja">現場を見る</b><b class="blk" data-lang="en">See the field</b><p class="blk" data-lang="ja">困りごとと、置かれる場所、使う人を確認します。</p><p class="blk" data-lang="en">The problem, where it lives, who uses it.</p></div>
+        <div class="step" data-reveal><div class="orb peri"><img src="/img/3d/clipboard.png" alt="" width="256" height="256"></div><span class="n">STEP 2</span><b class="blk" data-lang="ja">データにする</b><b class="blk" data-lang="en">Make it data</b><p class="blk" data-lang="ja">紙・標識・口伝えを、出どころの残るデータに整えます。</p><p class="blk" data-lang="en">Paper, signs and word of mouth become data with sources.</p></div>
+        <div class="step" data-reveal><div class="orb coral"><img src="/img/3d/rocket.png" alt="" width="256" height="256"></div><span class="n">STEP 3</span><b class="blk" data-lang="ja">小さく作って置く</b><b class="blk" data-lang="en">Build small, place it</b><p class="blk" data-lang="ja">まず動くものを現場に置き、数字を見ます。</p><p class="blk" data-lang="en">Something live in the field first, then look at the numbers.</p></div>
+        <div class="step" data-reveal><div class="orb mint"><img src="/img/3d/chart-up.png" alt="" width="256" height="256"></div><span class="n">STEP 4</span><b class="blk" data-lang="ja">AIを載せ、運用する</b><b class="blk" data-lang="en">Add AI, operate</b><p class="blk" data-lang="ja">整ったデータの上にAIを置き、月次で報告します。</p><p class="blk" data-lang="en">AI on top of clean data, monthly reports.</p></div>
       </div>
       <p class="principle blk" data-lang="ja">原則はひとつ。<span>事実はデータが、言葉はAIが。</span></p>
       <p class="principle blk" data-lang="en">One rule: <span>facts come from data, words from AI.</span></p>
@@ -343,7 +343,7 @@
         <dt class="inl" data-lang="ja">お問い合わせ</dt><dt class="inl" data-lang="en">Contact</dt><dd><a href="mailto:info@makoro.dev">info@makoro.dev</a></dd>
       </dl>
       <div class="founder" data-reveal>
-        <div class="orb coral"><img src="/img/3d/travel.webp" alt="" width="200" height="200"></div>
+        <div class="orb coral"><img src="/img/3d/travel.png" alt="" width="256" height="256"></div>
         <p><b>ソン・ドンギュ</b><span class="inl" data-lang="ja">鹿児島の天文館で、地図アプリの示す場所にバス停がなかった旅行者です。その30秒のために全停留所を歩いて確かめる案内をつくったのが、この会社の始まりです。だから私たちの開発は、画面の中で終わりません。</span><span class="inl" data-lang="en">A traveler who once found no bus stop where the map app said, in Tenmonkan, Kagoshima. Building a guide and walking every stop to check it is how this company began. That's why our work never ends on the screen.</span></p>
       </div>
     </div>
@@ -353,8 +353,8 @@
 <footer>
   <div class="wrap row">
     <a class="logo" href="/"><i>M</i>MAKORO</a>
-    <p class="note blk" data-lang="ja">© MAKORO ／ 鹿児島シティビューバスガイドの停留所データ提供：鹿児島市（原データより加工）CC BY 4.0。停留所位置は2026年5月31日に現地確認。3Dアイコン：3dicons（CC0）。</p>
-    <p class="note blk" data-lang="en">© MAKORO · Kagoshima stop data: Kagoshima City (processed), CC BY 4.0. Stops field-checked 2026-05-31. 3D icons: 3dicons (CC0).</p>
+    <p class="note blk" data-lang="ja">© MAKORO ／ 鹿児島シティビューバスガイドの停留所データ提供：鹿児島市（原データより加工）CC BY 4.0。停留所位置は2026年5月31日に現地確認。3Dアイコン：Microsoft Fluent Emoji（MIT License）。</p>
+    <p class="note blk" data-lang="en">© MAKORO · Kagoshima stop data: Kagoshima City (processed), CC BY 4.0. Stops field-checked 2026-05-31. 3D icons: Microsoft Fluent Emoji (MIT License).</p>
   </div>
 </footer>
 
