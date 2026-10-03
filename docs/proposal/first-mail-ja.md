@@ -30,7 +30,7 @@
 ご多用のところ恐れ入りますが、何卒よろしくお願い申し上げます。
 
 MAKORO（マコロ） ソン・ドンギュ
-メール：hello@makoro.dev ／ 電話：+82-10-XXXX-XXXX（韓国）
+メール：son@makoro.dev ／ 電話：+82-10-XXXX-XXXX（韓国）
 https://makoro.dev
 ```
 

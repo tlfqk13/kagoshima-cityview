@@ -17,7 +17,7 @@
 | 항목 | 입력 |
 |---|---|
 | 姓 / 名 | ソン / ドンギュ |
-| メールアドレス | hello@makoro.dev (확인란에 한 번 더) |
+| メールアドレス | son@makoro.dev (확인란에 한 번 더) |
 | 電話番号 | 폼 칸(반각 숫자 3칸)에는 국내 형식 010 / XXXX / XXXX, 서명에는 +82 표기. 실제 번호는 저장소에 두지 않고 `~/.config/makoro/company.json`에 보관 |
 | お問い合わせ内容 | 아래 본문 |
 
@@ -43,11 +43,11 @@
 
 資料：https://kagoshima.makoro.dev/downloads/annai/KagoshimaCityView_Annai_remm.pdf
 
-ご関心をお持ちいただけましたら、hello@makoro.dev までご一報ください。
+ご関心をお持ちいただけましたら、son@makoro.dev までご一報ください。
 ご多用のところ恐れ入りますが、何卒よろしくお願い申し上げます。
 
 MAKORO（マコロ） ソン・ドンギュ
-メール：hello@makoro.dev ／ 電話：+82-10-XXXX-XXXX（韓国）
+メール：son@makoro.dev ／ 電話：+82-10-XXXX-XXXX（韓国）
 https://makoro.dev
 ```
 

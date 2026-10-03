@@ -176,14 +176,14 @@ function html(h, shots) {
   </div>
 
   <div class="cta">
-    <div><b>ご関心をお持ちいただけましたら、hello@makoro.dev までご返信いただけますと幸いです。</b><small>置くかどうか、置く場所は貴館のご判断にお任せします。</small></div>
+    <div><b>ご関心をお持ちいただけましたら、son@makoro.dev までご返信いただけますと幸いです。</b><small>置くかどうか、置く場所は貴館のご判断にお任せします。</small></div>
   </div>
 
   <div class="foot">
     <div>
       <b>MAKORO（マコロ）</b>　旅行者向け公共交通案内サービスの開発・運営<br>
       所在地：${ADDRESS}<br>
-      担当：${CONTACT_NAME}　｜　hello@makoro.dev　｜　https://makoro.dev<br>
+      担当：${CONTACT_NAME}　｜　son@makoro.dev　｜　https://makoro.dev<br>
       鹿児島シティビューバスガイド：${previewUrl}<br>
       <span class="credit">データ提供：鹿児島市（原データより加工）　停留所位置は${verifiedAt}に現地確認</span>
     </div>
