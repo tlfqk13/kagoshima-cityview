@@ -6,6 +6,13 @@
 - 회신 도메인: @hankyu-hotel.com — Gmail에서 스팸으로 가지 않는지 발송 후 확인
 - 발송: 화〜목 13〜14시(JST)
 
+## レム鹿児島 브랜드 색 (2026-10-03 공식 사이트에서 확인)
+- 로고(logo_main.png): 흰·회색 단색. 사이트 기본색 `#1B1B1B`(먹색)과 회색 계열(`#636363` 등)뿐, 유채색 강조 없음. 템플릿의 적갈색(`#870000`·`#7F0020`)은 한큐 그룹 공통색이라 レム 것이 아니다.
+- 건물 외관은 다크 브론즈 + 따뜻한 조명(공식 썸네일).
+- → 안내서·POP 미리보기는 **무채색**(accent `#4A4A4A`, 띠 `#1B1B1B`)으로. 대안으로 브론즈(accent `#6B4F2A`)도 준비. 정식 색은 호텔이 답장하면 확인한다(`hotels.json`의 `theme`에는 합의한 값만).
+- 미리보기: https://kagoshima.makoro.dev/card/site?hotel=remm&accent=4A4A4A&dark=1B1B1B · 브론즈 `&accent=6B4F2A&dark=1B1B1B` · 포스터 `/card/poster?hotel=remm&accent=4A4A4A&dark=1B1B1B`
+- 생성: `ANNAI_ACCENT=4A4A4A ANNAI_DARK=1B1B1B [ANNAI_PUBLIC=1] node scripts/build-hotel-annai.mjs remm`
+
 ## 폼 입력값
 | 항목 | 입력 |
 |---|---|

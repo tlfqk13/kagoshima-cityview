@@ -12,6 +12,8 @@ const ROOT = process.cwd()
 const BASE = process.env.BASE_URL ?? 'https://kagoshima.makoro.dev'
 const OUT = resolve(ROOT, process.env.ANNAI_PUBLIC === '1' ? 'public/downloads/annai' : 'docs/proposal/annai')
 const CONTACT_NAME = process.env.ANNAI_NAME ?? 'ソン・ドンギュ'
+// 안내서에 넣는 POP 그림의 색 — 호텔 이미지 컬러로 미리 보여줄 때 ANNAI_ACCENT=RRGGBB ANNAI_DARK=RRGGBB
+const THEME_QS = ['accent', 'dark'].map(k => (process.env[`ANNAI_${k.toUpperCase()}`] ? `&${k}=${process.env[`ANNAI_${k.toUpperCase()}`]}` : '')).join('')
 // 소재지 — 저장소가 공개라 상세 주소는 커밋하지 않는다. ~/.config/makoro/company.json 에만 두고, 없으면 도시까지만.
 const COMPANY_FILE = resolve(homedir(), '.config/makoro/company.json')
 const company = existsSync(COMPANY_FILE) ? JSON.parse(readFileSync(COMPANY_FILE, 'utf8')) : {}
@@ -152,7 +154,7 @@ function html(h, shots) {
     <div class="shots">
       <img src="${shots.phone}" alt="" style="width:23mm">
       <img src="${shots.pop}" alt="" style="width:23mm">
-      <div class="cap" style="margin-top:0">左：QRを読んだ画面。ホテルから乗り場までの道順と、乗る／帰りに降りる停留所<br><br>右：フロントに置く卓上POP（A6・施設名入り）</div>
+      <div class="cap" style="margin-top:0">左：QRを読んだ画面。ホテルから乗り場までの道順と、乗る／帰りに降りる停留所<br><br>右：フロントに置く卓上POP（A6・施設名入り${THEME_QS ? '・貴館のイメージに合わせた配色例' : ''}）</div>
     </div>
     ${personal}
   </div>
@@ -204,7 +206,7 @@ for (const h of targets) {
   await m.close()
   const c = await b.newContext({ viewport: { width: 397, height: 560 }, deviceScaleFactor: 2 })
   const q = await c.newPage()
-  await q.goto(`${BASE}/card/site${h ? `?hotel=${h.slug}` : ''}`, { waitUntil: 'load' }); await q.waitForTimeout(2500)
+  await q.goto(`${BASE}/card/site?${h ? `hotel=${h.slug}` : ''}${THEME_QS}`, { waitUntil: 'load' }); await q.waitForTimeout(2500)
   await q.emulateMedia({ media: 'print' }); await q.waitForTimeout(300)
   const popPng = await q.screenshot({ type: 'jpeg', quality: 80 })
   // 사이트 QR: 카드의 QR(svg data URL)을 그대로 쓴다
