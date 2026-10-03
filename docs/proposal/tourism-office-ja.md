@@ -2,7 +2,7 @@
 
 **宛先:** 鹿児島市 観光課 御中
 **日付:** 2026年　月　日
-**提案者:** MAKORO（担当: [氏名]） / hello@makoro.dev
+**提案者:** MAKORO（担当: ソン・ドンギュ） / 大韓民国 仁川広域市 / hello@makoro.dev
 
 ---
 
@@ -50,7 +50,7 @@ URL: https://kagoshima.makoro.dev
 
 ## 6. お問い合わせ先
 
-- 運営: MAKORO（担当: [氏名]）
+- 運営: MAKORO（担当: ソン・ドンギュ、所在地: 大韓民国 仁川広域市）
 - メールアドレス: hello@makoro.dev
 - サービスURL: https://kagoshima.makoro.dev
 

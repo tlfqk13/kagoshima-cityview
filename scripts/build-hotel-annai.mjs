@@ -2,14 +2,20 @@
 //   node scripts/build-hotel-annai.mjs [slug ...]   (slug 없으면 generic 1장)
 // 구조는 docs/proposal/jp-proposal-patterns.md 의 정공법(課題→概要→特徴3→条件→流れ→連絡先)을 따른다.
 // 화면 캡처는 BASE_URL(기본: 운영)에서 찍는다. 산출물: docs/proposal/annai/KagoshimaCityView_Annai_<slug>_<YYYYMMDD>.pdf
+// 산출 PDF에는 상세 주소가 들어가므로 git에 올리지 않는다(.gitignore). 발송할 때 이 폴더에서 첨부한다.
 import { chromium } from 'playwright'
-import { readFileSync, writeFileSync, mkdirSync } from 'node:fs'
+import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs'
 import { resolve } from 'node:path'
+import { homedir } from 'node:os'
 
 const ROOT = process.cwd()
 const BASE = process.env.BASE_URL ?? 'https://kagoshima.makoro.dev'
 const OUT = resolve(ROOT, 'docs/proposal/annai')
-const CONTACT_NAME = process.env.ANNAI_NAME ?? '［氏名］' // 담당자 표기는 사장님 확정 후 ANNAI_NAME 으로 지정
+const CONTACT_NAME = process.env.ANNAI_NAME ?? 'ソン・ドンギュ'
+// 소재지 — 저장소가 공개라 상세 주소는 커밋하지 않는다. ~/.config/makoro/company.json 에만 두고, 없으면 도시까지만.
+const COMPANY_FILE = resolve(homedir(), '.config/makoro/company.json')
+const company = existsSync(COMPANY_FILE) ? JSON.parse(readFileSync(COMPANY_FILE, 'utf8')) : {}
+const ADDRESS = company.addressJa ?? '大韓民国 仁川広域市'
 const today = new Date(Date.now() + 9 * 3600e3) // JST
 const ymd = today.toISOString().slice(0, 10)
 const ymdCompact = ymd.replaceAll('-', '')
@@ -172,6 +178,7 @@ function html(h, shots) {
   <div class="foot">
     <div>
       <b>MAKORO（マコロ）</b>　旅行者向け公共交通案内サービスの開発・運営<br>
+      所在地：${ADDRESS}<br>
       担当：${CONTACT_NAME}　｜　hello@makoro.dev　｜　https://makoro.dev<br>
       鹿児島シティビューバスガイド：${previewUrl}<br>
       <span class="credit">データ提供：鹿児島市（原データより加工）　停留所位置は${verifiedAt}に現地確認</span>

@@ -58,3 +58,5 @@ skills-lock.json
 
 # 호텔 한 장 안내서 중간 HTML (PDF만 커밋)
 docs/proposal/annai/*.html
+# 호텔별 안내서 PDF에는 상세 주소가 들어간다 — 공개 저장소에 올리지 않는다
+docs/proposal/annai/*.pdf
