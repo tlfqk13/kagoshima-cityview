@@ -55,3 +55,6 @@ scripts/google-maps-audit/out/
 skills-lock.json
 .claude/worktrees/
 .claude/skills/
+
+# 호텔 한 장 안내서 중간 HTML (PDF만 커밋)
+docs/proposal/annai/*.html
