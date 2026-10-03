@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { getRoute, getStopById, getStopsForRoute } from '@/lib/routes'
 import { findHotel } from '@/lib/hotels'
+import { printThemeStyle, resolvePrintTheme } from '@/lib/printTheme'
 import { SITE_URL, SITE_DOMAIN } from '@/lib/site'
 import { createQrSvgDataUrl } from '@/lib/printQr'
 import { HOME_PHOTOS } from '@/components/home/photos'
@@ -14,14 +15,16 @@ export const metadata: Metadata = {
 }
 
 interface Props {
-  searchParams: Promise<{ hotel?: string }>
+  searchParams: Promise<{ hotel?: string; accent?: string; dark?: string }>
 }
 
 // 호텔 프런트·로비·관광안내소 게시용 A4 포스터 — QR은 사이트 첫 화면(/)으로 연결된다.
 // 운행 정보는 노선 JSON 메타데이터에서 읽으므로 데이터 갱신 시 자동 반영된다.
 export default async function PosterPage({ searchParams }: Props) {
-  const { hotel: hotelSlug } = await searchParams
+  const { hotel: hotelSlug, accent, dark } = await searchParams
   const hotel = findHotel(hotelSlug)
+  // 호텔 이미지 컬러 (hotels.json theme 또는 ?accent=&dark= 미리보기)
+  const theme = printThemeStyle(resolvePrintTheme(hotel, { accent, dark }))
   const nearestStop = hotel ? getStopById('cityview', hotel.stopId) : undefined
   const route = getRoute('cityview')
   const stopCount = getStopsForRoute('cityview').length
@@ -41,7 +44,7 @@ export default async function PosterPage({ searchParams }: Props) {
   facts.push({ ja: '1周', sub: 'Loop · 한 바퀴', value: `約${route.loopDurationMin}分 / ${route.loopDurationMin} min` })
 
   return (
-    <main className={styles.screen}>
+    <main className={styles.screen} style={theme}>
       <div className={styles.toolbar}>
         <PrintButton />
         <Link href="/card/site" className={styles.toolLink}>A6 card</Link>

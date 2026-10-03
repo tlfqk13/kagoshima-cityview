@@ -145,7 +145,7 @@ function html(h, shots) {
   <div class="feat">
     <div><b>① 現地でGPS確認した20停留所</b><small>${verifiedAt}に全停留所を歩いて確認。Googleマップとの比較では${audit.stops.length}か所中${offCount}か所が50m以上ずれていました（最大${worst.errorMeters}m）。</small></div>
     <div><b>② ホテルから乗り場までを案内</b><small>施設ごとの専用QRで、道順・乗る停留所・帰りに降りる停留所・次のバスまでの時間を表示します。</small></div>
-    <div><b>③ 4言語・アプリ不要</b><small>日本語・英語・韓国語・繁体字中国語。端末の言語を自動で判別し、ブラウザで開くだけです。</small></div>
+    <div><b>③ 貴館のイメージに合わせて</b><small>POP・ポスターの色やデザインは貴館のイメージカラーに合わせてお作りします。日英韓繁の4言語、アプリ不要です。</small></div>
   </div>
 
   <div class="grid">

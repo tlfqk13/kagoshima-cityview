@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { getRoute, getStopById, getStopsForRoute } from '@/lib/routes'
 import { findHotel } from '@/lib/hotels'
+import { printThemeStyle, resolvePrintTheme } from '@/lib/printTheme'
 import { SITE_URL, SITE_DOMAIN } from '@/lib/site'
 import { HOME_PHOTOS } from '@/components/home/photos'
 import { createQrSvgDataUrl } from '@/lib/printQr'
@@ -14,15 +15,17 @@ export const metadata: Metadata = {
 }
 
 interface Props {
-  searchParams: Promise<{ hotel?: string }>
+  searchParams: Promise<{ hotel?: string; accent?: string; dark?: string }>
 }
 
 // 팜플렛·프런트 비치용 A6 카드 — QR은 사이트 첫 화면(/)으로 연결된다.
 // 정류장별 카드(/card/[stopId])와 달리 특정 정류장이 아닌 서비스 전체를 안내한다.
 // ?hotel=<slug> 지정 시 호텔 이름과 최근접 정류장이 들어간다 (hotels.json 참조).
 export default async function SiteCardPage({ searchParams }: Props) {
-  const { hotel: hotelSlug } = await searchParams
+  const { hotel: hotelSlug, accent, dark } = await searchParams
   const hotel = findHotel(hotelSlug)
+  // 호텔 이미지 컬러 (hotels.json theme 또는 ?accent=&dark= 미리보기)
+  const theme = printThemeStyle(resolvePrintTheme(hotel, { accent, dark }))
   const nearestStop = hotel ? getStopById('cityview', hotel.stopId) : undefined
   const route = getRoute('cityview')
   const stopCount = getStopsForRoute('cityview').length
@@ -31,7 +34,7 @@ export default async function SiteCardPage({ searchParams }: Props) {
   const qr = await createQrSvgDataUrl(url)
 
   return (
-    <main className={styles.screen}>
+    <main className={styles.screen} style={theme}>
       <div className={styles.toolbar}>
         <PrintButton />
         <Link href="/card/poster" className={styles.toolLink}>A4 poster</Link>

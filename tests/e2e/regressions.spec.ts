@@ -120,6 +120,15 @@ test('사이트 QR 인쇄물은 QR과 호텔 이름을 표시한다', async ({ p
   expect(await response.text()).not.toContain('ご宿泊のお客様へ')
 })
 
+test('인쇄물은 호텔 이미지 컬러로 바꿀 수 있고 잘못된 값은 무시한다', async ({ page }) => {
+  await page.goto('/card/site?hotel=remm&accent=1a5c3a&dark=0b2a4a')
+  const style = await page.locator('main').first().getAttribute('style')
+  expect(style).toContain('#1A5C3A')
+  expect(style).toContain('#0B2A4A')
+  await page.goto('/card/poster?hotel=remm&accent=red;x')
+  expect(await page.locator('main').first().getAttribute('style')).toContain('#8B4513')
+})
+
 test('A6 사이트 QR 카드는 인쇄 시 푸터까지 한 장에 들어간다', async ({ page, isMobile }) => {
   test.skip(isMobile, '인쇄 크기 검사는 데스크톱 뷰포트에서만')
   // 호텔 이름 띠가 들어가면 QR 아래(URL·안내·출처)가 잘리던 회귀

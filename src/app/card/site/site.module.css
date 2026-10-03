@@ -53,7 +53,7 @@
 }
 
 .header {
-  background: #1F1E1A;
+  background: var(--print-dark, #1F1E1A);
   padding: 4.5mm 6mm;
   display: flex;
   justify-content: space-between;
@@ -85,7 +85,7 @@
 }
 
 .hotelBand {
-  border: 1px solid #8B4513;
+  border: 1px solid var(--print-accent, #8B4513);
   border-radius: 2px;
   padding: 1.8mm 4mm;
   margin-bottom: 3.5mm;
@@ -99,7 +99,7 @@
   font-family: var(--font-serif);
   font-size: 10pt;
   font-weight: 700;
-  color: #8B4513;
+  color: var(--print-accent, #8B4513);
 }
 
 .hotelNote,
@@ -147,7 +147,7 @@
 
 .points li::before {
   content: '●';
-  color: #8B4513;
+  color: var(--print-accent, #8B4513);
   font-size: 5pt;
   margin-right: 1.5mm;
   vertical-align: 1px;

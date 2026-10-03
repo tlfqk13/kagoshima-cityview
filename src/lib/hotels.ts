@@ -10,6 +10,8 @@ export interface Hotel {
   walkMeters: number
   lat: number
   lng: number
+  /** 인쇄물 색 (호텔 이미지 컬러). 호텔과 합의한 값만 넣는다 */
+  theme?: { accent?: string; dark?: string }
 }
 
 // 호텔에서 걸어갈 수 있는 정류장 쌍. 시티뷰는 한 방향 순환이라
