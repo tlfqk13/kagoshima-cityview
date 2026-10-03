@@ -129,8 +129,8 @@
   .nd b { position: absolute; top: 26px; left: 50%; transform: translateX(-50%); font-family: "Gothic A1", sans-serif; font-weight: 500; font-size: 11px; letter-spacing: 0.3em; padding-left: 0.3em; color: var(--blue); opacity: 0; transition: opacity 0.5s; white-space: nowrap; }
   .nd.on i { transform: none; opacity: 1; background: var(--blue); box-shadow: 0 0 0 7px rgba(0,153,217,0.16); }
   .nd.on b { opacity: 1; }
-  /* 모눈 바탕의 커서 광원 */
-  .paper::after { content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 0; opacity: 0; transition: opacity 0.5s; background: radial-gradient(280px circle at var(--mx, 50%) var(--my, 50%), rgba(0,153,217,0.13), transparent 70%); }
+  /* 커서 근처에만 드러나는 점 격자 */
+  .paper::after { content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 0; opacity: 0; transition: opacity 0.5s; background-image: radial-gradient(circle, rgba(0,153,217,0.5) 1px, transparent 1.6px); background-size: 22px 22px; -webkit-mask-image: radial-gradient(240px circle at var(--mx, 50%) var(--my, 50%), #000 0%, transparent 72%); mask-image: radial-gradient(240px circle at var(--mx, 50%) var(--my, 50%), #000 0%, transparent 72%); }
   .paper.lit::after { opacity: 1; }
 
   /* ── 히어로(mpuni) ── */
@@ -147,7 +147,7 @@
 
   /* ── 섹션 공통 ── */
   section { padding: 150px 0; position: relative; overflow: hidden; }
-  .paper { background-color: var(--paper); background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px); background-size: 26px 26px; }
+  .paper { background: linear-gradient(180deg, #F6F9FC 0%, var(--paper) 100%); } /* 모눈(체크) 무늬는 뺐다 — 2026-10-03 사장님 '구리다'. 평평한 연한 바탕 + 커서 근처에만 점 격자 */
   .sky { background: linear-gradient(180deg, var(--sky-l) 0%, var(--sky-xl) 100%); }
   .side { position: absolute; left: 26px; top: 50%; transform: translateY(-50%); writing-mode: vertical-rl; font-family: "Gothic A1", sans-serif; font-weight: 300; font-size: 12px; letter-spacing: 0.34em; color: var(--sub); z-index: 1; }
   .t-en { font-family: "Gothic A1", sans-serif; font-weight: 300; font-size: 13px; letter-spacing: 0.34em; color: var(--blue); margin-bottom: 14px; }
