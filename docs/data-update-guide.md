@@ -289,6 +289,22 @@ console.log(JSON.stringify(timetable, null, 2))
 
 ---
 
+## 5-1. 운임·승차권 업데이트
+
+운임·1일권·CUTE 가격은 노선 JSON `metadata`의 `fare`·`dayPass`·`cutePass`에 있고, 대조한 공식 페이지와 날짜를 `fareSource`·`fareCheckedAt`에 남긴다. 화면(정류장 상세 「運賃・乗り方」), A4 포스터, 프런트 도우미가 모두 이 값을 읽는다.
+
+| 항목 | 공식 출처 | 2026-10-03 값 |
+|---|---|---|
+| 1회 운임 (시티뷰·야경·아일랜드뷰 공통) | https://www.kotsu-city-kagoshima.jp/kensaku/service/ | 대인 230 / 소인 120 |
+| 시전·시버스·시티뷰 1일 승차권 | https://www.kotsu-city-kagoshima.jp/ticket-summary/oneday/ | 700 / 350 (2026-08-01 개정, 이전 600 / 300) |
+| 야경코스 1일 승차권 | https://www.kotsu-city-kagoshima.jp/sakurajima-tabi/ | 250 / 130 |
+| CUTE 1일권 | https://www.city.kagoshima.lg.jp/sakurajima-ferry/unchin/cute.html | 1,400 / 700 |
+| 아일랜드뷰 1일권 | **미확인** — 공식 근거를 찾지 못함 | 500 / 250 (기존 값 유지, `fareCheckedAt` 없음) |
+| 결제 수단 | https://www.kotsu-city-kagoshima.jp/howto/ · 터치결제 안내 페이지 | 현금·Rapica·신용카드 터치결제. **전국 교통계 IC(Suica 등) 불가** |
+
+결제 수단·판매처 문구는 번역 파일 `map.fare.*`(4개 언어)와 `src/lib/desk.ts`에 있다. 교통국이 Suica 등을 도입하면 `map.fare.noIc` 경고를 지운다.
+가고시마시 FAQ(q26)에는 개정 전 600엔이 남아 있어 공식 페이지끼리 어긋난다. 교통국 페이지를 우선한다.
+
 ## 6. 업데이트 절차 (전 노선 공통)
 
 ```
@@ -317,6 +333,7 @@ console.log(JSON.stringify(timetable, null, 2))
 - [ ] stop_01 / stop_20이 동일 위치(가고시마 중앙역)인지
 - [ ] stop_03(텐몬칸 센간엔방면) / stop_19(텐몬칸 중앙역방면)이 약 20m 간격 분리
 - [ ] 시간표 첫/막 편이 공식 PDF와 일치
+- [ ] 운임·1일권 가격이 교통국 페이지와 일치하고 `fareCheckedAt` 갱신(§5-1)
 
 **야경 코스:**
 - [ ] 7개 마커 위치가 실제 야경 코스 정류장과 일치
