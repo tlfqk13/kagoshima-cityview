@@ -39,3 +39,17 @@
 
 ## 4. 측정 방법
 Playwright로 데스크톱 1440·모바일 390 전체 캡처, computed style에서 서체·색 빈도, p 길이 평균을 수집(2026-10-03). 캡처는 스크래치패드 `ref/`에만 두고 저장소에는 넣지 않는다(타사 저작물).
+
+
+## 5. 모션 (레퍼런스 3: 三菱鉛筆 JETSTREAM Lite 특설 https://www.mpuni.co.jp/special/lite24S/ — 2026-10-03 분석)
+측정: jQuery + inview.js + Rellax. 라이브러리 없이 같은 문법을 바닐라 JS/CSS로 옮겼다(`sites/makoro/index.html` 하단 script).
+| 레퍼런스 기법 | 측정값 | 우리 구현 |
+|---|---|---|
+| 뷰포트 진입 시 등장(`.inview`→`.is-show`) | transition 1.2s, translate3d → 0, opacity 0→1 | `[data-reveal]`(up/left/right/scale) 1.1s `cubic-bezier(.22,1,.36,1)`, IntersectionObserver threshold 0.08 |
+| 형제 순차 등장 | `:nth-child(n)` 0.1s 간격 | 부모 `[data-stagger]` → 자식 0.1s 간격, 히어로는 `data-delay` 0.12s 단위 |
+| 고정 히어로 페이드(`.s-mv.is-disable`) | 스크롤 10px부터 opacity 0, 0.5s 지연, 다음 섹션이 위로 | 히어로 `position:sticky`, rAF로 scrollY/(높이×0.7)만큼 opacity·translateY 40px·scale 0.96. 모바일·reduced-motion은 해제 |
+| 패럴랙스(Rellax) | `data-rellax-speed="1.3"` 구름 | `[data-parallax=k]` 화면 중앙 기준 거리 × k, 장식 원(blob)과 히어로 아이콘(−0.08/−0.14/−0.2) |
+| 루프 애니메이션 | floatHorizontal, Rotate, arrow-hover | 히어로 원 floatY 6s(위상 −2s/−4s), 화살표 nudge 1.8s, scroll 인디케이터 선 1.6s |
+| 스크롤 인디케이터 | "scroll" + 세로선 | 동일 |
+| 추가(IT 회사 톤) | — | 상단 진행 바(scaleX), 숫자 카운트업 1.1s ease-out, 제목 자간 0.14em→0.02em, 키커 밑줄 그리기, 카드 호버 −6px + 아이콘 기울기 |
+규칙: `prefers-reduced-motion`이면 모든 연출 해제·즉시 표시. 모바일(<1024px)은 등장만 유지하고 고정 히어로·패럴랙스·blob은 끈다. JS 실패 시에도 첫 화면은 보이도록 히어로 요소는 로드 직후 표시.
