@@ -88,12 +88,11 @@
   .more::after { content: ""; width: 100%; height: 14px; background: linear-gradient(to top, var(--head) 0, var(--head) 1px, transparent 1px) no-repeat, linear-gradient(135deg, transparent calc(50% - 0.6px), var(--head) calc(50% - 0.6px), var(--head) calc(50% + 0.6px), transparent calc(50% + 0.6px)) no-repeat; background-size: 100% 100%, 20px 14px; background-position: 0 0, 100% 0; transition: transform 0.3s ease-out; }
   .more:hover::after { transform: translateX(6px); }
   /* 선택 핸들 테두리 (Sapporo) */
-  .hbox { position: relative; background: linear-gradient(var(--head), var(--head)) 0 0 / 0 1px no-repeat, linear-gradient(var(--head), var(--head)) 100% 0 / 1px 0 no-repeat, linear-gradient(var(--head), var(--head)) 100% 100% / 0 1px no-repeat, linear-gradient(var(--head), var(--head)) 0 100% / 1px 0 no-repeat, rgba(255,255,255,0.6); }
-  .hbox[data-reveal] { transition: opacity var(--dur) var(--ease), transform var(--dur) var(--ease), background-size 1s var(--ease); }
-  .hbox[data-in], .hbox:not([data-reveal]) { background-size: 100% 1px, 1px 100%, 100% 1px, 1px 100%, auto; }
-  .hbox[data-reveal]::before { opacity: 0; transform: scale(1.08); transition: opacity 0.3s ease 0.9s, transform 0.5s var(--ease) 0.9s; }
-  .hbox[data-in]::before { opacity: 1; transform: none; }
-  .hbox::before { content: ""; position: absolute; inset: -5px; pointer-events: none; background: linear-gradient(var(--head), var(--head)) 0 0 / 9px 9px no-repeat, linear-gradient(var(--head), var(--head)) 100% 0 / 9px 9px no-repeat, linear-gradient(var(--head), var(--head)) 0 100% / 9px 9px no-repeat, linear-gradient(var(--head), var(--head)) 100% 100% / 9px 9px no-repeat; }
+  /* 카드: 네모 선·모서리 핸들은 폐기(2026-10-03 사장님 '촌스럽다'). 둥근 흰 카드 + 부드러운 그림자 + 대각선으로 사라지는 그라데이션 헤어라인 */
+  .hbox { position: relative; background: #fff; border-radius: 26px; box-shadow: 0 24px 60px rgba(14,42,71,0.09), 0 2px 6px rgba(14,42,71,0.04); transition: opacity var(--dur) var(--ease), transform var(--dur) var(--ease), box-shadow 0.5s; }
+  .hbox::before { content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 1.5px; pointer-events: none; background: linear-gradient(140deg, rgba(0,153,217,0.7), rgba(0,153,217,0) 32%, rgba(0,153,217,0) 68%, rgba(111,182,236,0.75)); -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0); opacity: 0.55; transition: opacity 0.5s; }
+  .hbox:hover { box-shadow: 0 34px 80px rgba(0,153,217,0.18), 0 2px 6px rgba(14,42,71,0.04); }
+  .hbox:hover::before { opacity: 1; }
   .jtags { display: flex; flex-wrap: wrap; gap: 12px 14px; margin-top: 26px; }
   .jtag { position: relative; display: inline-flex; align-items: center; min-height: 30px; padding: 0 10px; border: 1px solid var(--head); background: #fff; font-size: 12.5px; letter-spacing: 0.06em; color: var(--head); line-height: 1; }
   .jtag::before { content: ""; position: absolute; inset: -3px; pointer-events: none; background: linear-gradient(var(--head), var(--head)) 0 0 / 5px 5px no-repeat, linear-gradient(var(--head), var(--head)) 100% 0 / 5px 5px no-repeat, linear-gradient(var(--head), var(--head)) 0 100% / 5px 5px no-repeat, linear-gradient(var(--head), var(--head)) 100% 100% / 5px 5px no-repeat; }
@@ -180,12 +179,15 @@
 
   /* ── 세 기둥: 원형 아이콘(Brother) + 핸들 카드 엇갈림(Sapporo) ── */
   .pcards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 36px; margin-top: 90px; align-items: start; }
-  .pcard { padding: 22px 22px 30px; }
+  .pcard { padding: 34px 30px 36px; overflow: hidden; }
+  .pcard::after { content: attr(data-n); position: absolute; right: 20px; top: 10px; font: 300 96px "Gothic A1", sans-serif; letter-spacing: 0; line-height: 1; color: rgba(0,153,217,0.09); pointer-events: none; }
+  .pcard .orb { position: relative; }
+  .pcard .orb::before { content: ""; position: absolute; inset: -18%; border-radius: 50%; background: radial-gradient(circle, rgba(0,153,217,0.16), transparent 65%); z-index: -1; }
   .pcards .pcard:nth-child(2) { margin-top: 80px; } .pcards .pcard:nth-child(3) { margin-top: -30px; }
   .orb { border-radius: 50%; display: grid; place-items: center; }
   .orb img { width: 50%; height: 50%; object-fit: contain; filter: drop-shadow(0 12px 18px rgba(0,0,0,0.14)); transition: transform 0.5s var(--ease); }
   .orb.gold { background: var(--gold-l); } .orb.peri { background: var(--peri-l); } .orb.mint { background: var(--mint-l); } .orb.coral { background: var(--coral-l); }
-  .pcard .orb { width: 100%; aspect-ratio: 1; max-width: 250px; margin: 0 auto 22px; }
+  .pcard .orb { width: 100%; aspect-ratio: 1; max-width: 190px; margin: 0 0 26px; z-index: 0; }
   .pcard:hover .orb img { transform: translateY(-6px) rotate(-6deg) scale(1.05); }
   .pcard .no { font-family: "Gothic A1", sans-serif; font-weight: 300; font-size: 11px; letter-spacing: 0.34em; color: var(--blue); }
   .pcard h3 { font-weight: 700; font-size: 21px; letter-spacing: 0.08em; line-height: 1.5; color: var(--head); margin: 6px 0 12px; }
@@ -329,6 +331,7 @@
   @keyframes blink { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
   .ans { align-self: flex-start; max-width: 92%; background: #fff; border: 1.5px solid #0099D9; border-radius: 14px 14px 14px 4px; padding: 10px 12px; display: flex; flex-direction: column; gap: 4px; opacity: 0; }
   .ans .lg { align-self: flex-start; font-size: 9px; padding: 2px 8px; border-radius: 20px; background: #0099D9; color: #fff; line-height: 1.3; }
+  .ans .tr { display: flex; flex-wrap: wrap; align-items: center; gap: 4px; margin-top: 4px; padding-top: 6px; border-top: 1px dashed #DCE5EE; } .ans .tr i { font-style: normal; font-size: 9px; padding: 2px 7px; border-radius: 20px; border: 1px solid #0099D9; color: #0099D9; line-height: 1.3; } .ans .tr em { font-style: normal; font-size: 9px; color: #6B7C8F; }
   .ans b { font-size: 13px; } .ans p { font-size: 11px; color: #3D5166; } .ans small { font-size: 9px; color: #6B7C8F; }
   .scase[data-step="3"] .me { animation: msg 0.5s var(--ease) 0.2s forwards; }
   .scase[data-step="3"] .typing { animation: typing 1.3s ease 0.7s forwards; }
@@ -345,7 +348,8 @@
   .srch .bar { display: flex; align-items: center; gap: 8px; background: #fff; border: 1.5px solid #0099D9; border-radius: 22px; padding: 8px 12px; color: #0099D9; font-size: 12px; }
   .type { display: inline-block; overflow: hidden; white-space: nowrap; color: #12263C; width: 0; border-right: 1.5px solid #0099D9; }
   .scase[data-step="2"] .type { animation: typeW 0.8s steps(5) 0.2s forwards; }
-  @keyframes typeW { to { width: 5.2em; } }
+  @keyframes typeW { to { width: var(--tw, 5.2em); } }
+  html[data-ui="en"] .type { --tw: 6.4em; }
   .srch ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
   .srch li { background: #fff; border-radius: 10px; padding: 9px 11px; box-shadow: 0 4px 12px rgba(14,42,71,0.07); opacity: 0; display: flex; flex-direction: column; gap: 2px; }
   .scase[data-step="2"] .srch li { animation: msg 0.5s var(--ease) var(--d) forwards; }
@@ -432,7 +436,6 @@
   @media (prefers-reduced-motion: reduce) {
     [data-reveal] { opacity: 1; transform: none; transition: none; }
     .res b span { opacity: 1; transform: none; transition: none; }
-    .hbox[data-reveal]::before { opacity: 1; transform: none; transition: none; }
     .ui *, .ui { animation-duration: 0.01s !important; animation-delay: 0s !important; } .bubble .a { opacity: 1; transform: none; transition: none; }
     .rule { transform: scaleX(1); transition: none; }
     .drift, .panel img, .hero .sc i::after { animation: none; }
@@ -454,7 +457,7 @@
     .eq .term b { font-size: 26px; }
     .pcards { grid-template-columns: 1fr; gap: 34px; margin-top: 56px; }
     .pcards .pcard:nth-child(2), .pcards .pcard:nth-child(3) { margin-top: 0; }
-    .pcard .orb { max-width: 190px; }
+    .pcard .orb { max-width: 150px; }
     .row, .row.rev { grid-template-columns: 1fr; gap: 34px; margin-top: 70px; }
     .scase { grid-template-columns: 1fr; gap: 30px; margin-top: 64px; }
     .scase.rev .stage { order: 0; }
@@ -483,7 +486,7 @@
     .cta { padding: 84px 0; }
   }
 </style>
-<noscript><style>[data-reveal]{opacity:1!important;transform:none!important}.rule{transform:none!important}.res b span{opacity:1!important;transform:none!important}.hbox{background-size:100% 1px,1px 100%,100% 1px,1px 100%,auto!important}.hbox::before{opacity:1!important}#linkPath{stroke-dashoffset:0!important}.ui *{opacity:1!important}.bubble .a{opacity:1!important;transform:none!important}.step .orb{filter:none!important}html [data-lang="ja"].inl{display:inline!important}html [data-lang="ja"].blk{display:block!important}</style></noscript>
+<noscript><style>[data-reveal]{opacity:1!important;transform:none!important}.rule{transform:none!important}.res b span{opacity:1!important;transform:none!important}#linkPath{stroke-dashoffset:0!important}.ui *{opacity:1!important}.bubble .a{opacity:1!important;transform:none!important}.step .orb{filter:none!important}html [data-lang="ja"].inl{display:inline!important}html [data-lang="ja"].blk{display:block!important}</style></noscript>
 </head>
 <body>
 <header class="hd" id="hd">
@@ -591,9 +594,9 @@
         <h2 class="t-ja" data-reveal><span class="inl" data-lang="ja">私たちの考え方</span><span class="inl" data-lang="en">How we think</span></h2>
         <div class="rule"></div>
         <div class="pcards" data-stagger>
-          <div class="pcard hbox" data-reveal><div class="orb gold"><img src="/img/3d/memo.png" alt="" width="256" height="256"></div><div class="no">01 ANALOG</div><h3 class="blk" data-lang="ja"><em>現場から</em>始める</h3><h3 class="blk" data-lang="en"><em>Start</em> in the field</h3><p class="blk" data-lang="ja">机上ではなく、使われる場所と人を見てからつくります。標識、マニュアル、口伝え。そこに価値があります。</p><p class="blk" data-lang="en">We look at the place and the people before we build. Signs, manuals, word of mouth. That's where the value is.</p></div>
-          <div class="pcard hbox" data-reveal><div class="orb peri"><img src="/img/3d/laptop.png" alt="" width="256" height="256"></div><div class="no">02 DIGITAL</div><h3 class="blk" data-lang="ja"><em>出どころを</em>残す</h3><h3 class="blk" data-lang="en"><em>Keep</em> the source</h3><p class="blk" data-lang="ja">データには出典と確認日を残し、誰でも確かめられる形にします。Web・アプリは、その上に立ちます。</p><p class="blk" data-lang="en">Every piece of data keeps its source and check date, so anyone can verify it. Web and apps stand on that.</p></div>
-          <div class="pcard hbox" data-reveal><div class="orb mint"><img src="/img/3d/robot.png" alt="" width="256" height="256"></div><div class="no">03 AI</div><h3 class="blk" data-lang="ja">言葉はAI、<br><em>事実はデータ</em></h3><h3 class="blk" data-lang="en">Words by AI,<br><em>facts by data</em></h3><p class="blk" data-lang="ja">AIにはデータの外のことを言わせません。聞ける・学べる・測れる仕組みを、安心して任せられる形で。</p><p class="blk" data-lang="en">AI never speaks beyond the data. Ask, learn, assess, in a form you can rely on.</p></div>
+          <div class="pcard hbox" data-n="01" data-reveal><div class="orb gold"><img src="/img/3d/memo.png" alt="" width="256" height="256"></div><div class="no">01 ANALOG</div><h3 class="blk" data-lang="ja"><em>現場から</em>始める</h3><h3 class="blk" data-lang="en"><em>Start</em> in the field</h3><p class="blk" data-lang="ja">机上ではなく、使われる場所と人を見てからつくります。標識、マニュアル、口伝え。そこに価値があります。</p><p class="blk" data-lang="en">We look at the place and the people before we build. Signs, manuals, word of mouth. That's where the value is.</p></div>
+          <div class="pcard hbox" data-n="02" data-reveal><div class="orb peri"><img src="/img/3d/laptop.png" alt="" width="256" height="256"></div><div class="no">02 DIGITAL</div><h3 class="blk" data-lang="ja"><em>出どころを</em>残す</h3><h3 class="blk" data-lang="en"><em>Keep</em> the source</h3><p class="blk" data-lang="ja">データには出典と確認日を残し、誰でも確かめられる形にします。Web・アプリは、その上に立ちます。</p><p class="blk" data-lang="en">Every piece of data keeps its source and check date, so anyone can verify it. Web and apps stand on that.</p></div>
+          <div class="pcard hbox" data-n="03" data-reveal><div class="orb mint"><img src="/img/3d/robot.png" alt="" width="256" height="256"></div><div class="no">03 AI</div><h3 class="blk" data-lang="ja">言葉はAI、<br><em>事実はデータ</em></h3><h3 class="blk" data-lang="en">Words by AI,<br><em>facts by data</em></h3><p class="blk" data-lang="ja">AIにはデータの外のことを言わせません。聞ける・学べる・測れる仕組みを、安心して任せられる形で。</p><p class="blk" data-lang="en">AI never speaks beyond the data. Ask, learn, assess, in a form you can rely on.</p></div>
         </div>
       </div>
     </section>
@@ -670,18 +673,18 @@
           <div class="stage">
             <div class="device" aria-hidden="true">
               <div class="scr s1 paperbg">
-                <span class="cap">フロントの卓上POP</span>
+                <span class="cap"><span class="inl" data-lang="ja">フロントの卓上POP</span><span class="inl" data-lang="en">Counter card at the front desk</span></span>
                 <div class="pop"><i class="band"></i><b>ご宿泊のお客様へ</b><em>バス停の正確な位置を、<br>スマホで。</em><div class="qrw"><svg class="qr" viewBox="-1 -1 23 23" aria-hidden="true"><rect x="-1" y="-1" width="23" height="23" fill="#fff"/><g fill="#1b2a3a"><rect x="0" y="8" width="1" height="1"/><rect x="0" y="9" width="1" height="1"/><rect x="0" y="11" width="1" height="1"/><rect x="1" y="8" width="1" height="1"/><rect x="1" y="9" width="1" height="1"/><rect x="1" y="11" width="1" height="1"/><rect x="1" y="12" width="1" height="1"/><rect x="2" y="8" width="1" height="1"/><rect x="2" y="9" width="1" height="1"/><rect x="2" y="10" width="1" height="1"/><rect x="2" y="12" width="1" height="1"/><rect x="3" y="8" width="1" height="1"/><rect x="3" y="12" width="1" height="1"/><rect x="4" y="9" width="1" height="1"/><rect x="4" y="11" width="1" height="1"/><rect x="4" y="12" width="1" height="1"/><rect x="5" y="8" width="1" height="1"/><rect x="5" y="9" width="1" height="1"/><rect x="5" y="11" width="1" height="1"/><rect x="6" y="9" width="1" height="1"/><rect x="6" y="11" width="1" height="1"/><rect x="6" y="12" width="1" height="1"/><rect x="7" y="8" width="1" height="1"/><rect x="7" y="10" width="1" height="1"/><rect x="7" y="11" width="1" height="1"/><rect x="8" y="0" width="1" height="1"/><rect x="8" y="1" width="1" height="1"/><rect x="8" y="4" width="1" height="1"/><rect x="8" y="9" width="1" height="1"/><rect x="8" y="11" width="1" height="1"/><rect x="8" y="12" width="1" height="1"/><rect x="8" y="14" width="1" height="1"/><rect x="8" y="16" width="1" height="1"/><rect x="9" y="0" width="1" height="1"/><rect x="9" y="4" width="1" height="1"/><rect x="9" y="7" width="1" height="1"/><rect x="9" y="9" width="1" height="1"/><rect x="9" y="14" width="1" height="1"/><rect x="9" y="15" width="1" height="1"/><rect x="9" y="17" width="1" height="1"/><rect x="9" y="18" width="1" height="1"/><rect x="9" y="19" width="1" height="1"/><rect x="9" y="20" width="1" height="1"/><rect x="10" y="0" width="1" height="1"/><rect x="10" y="2" width="1" height="1"/><rect x="10" y="3" width="1" height="1"/><rect x="10" y="4" width="1" height="1"/><rect x="10" y="6" width="1" height="1"/><rect x="10" y="7" width="1" height="1"/><rect x="10" y="12" width="1" height="1"/><rect x="10" y="13" width="1" height="1"/><rect x="10" y="14" width="1" height="1"/><rect x="10" y="17" width="1" height="1"/><rect x="10" y="18" width="1" height="1"/><rect x="10" y="19" width="1" height="1"/><rect x="10" y="20" width="1" height="1"/><rect x="11" y="2" width="1" height="1"/><rect x="11" y="3" width="1" height="1"/><rect x="11" y="4" width="1" height="1"/><rect x="11" y="5" width="1" height="1"/><rect x="11" y="12" width="1" height="1"/><rect x="11" y="17" width="1" height="1"/><rect x="11" y="18" width="1" height="1"/><rect x="11" y="19" width="1" height="1"/><rect x="12" y="0" width="1" height="1"/><rect x="12" y="1" width="1" height="1"/><rect x="12" y="2" width="1" height="1"/><rect x="12" y="3" width="1" height="1"/><rect x="12" y="4" width="1" height="1"/><rect x="12" y="5" width="1" height="1"/><rect x="12" y="6" width="1" height="1"/><rect x="12" y="7" width="1" height="1"/><rect x="12" y="8" width="1" height="1"/><rect x="12" y="9" width="1" height="1"/><rect x="12" y="10" width="1" height="1"/><rect x="12" y="13" width="1" height="1"/><rect x="12" y="14" width="1" height="1"/><rect x="12" y="15" width="1" height="1"/><rect x="12" y="16" width="1" height="1"/><rect x="12" y="17" width="1" height="1"/><rect x="12" y="20" width="1" height="1"/><rect x="13" y="9" width="1" height="1"/><rect x="13" y="10" width="1" height="1"/><rect x="13" y="11" width="1" height="1"/><rect x="13" y="12" width="1" height="1"/><rect x="13" y="14" width="1" height="1"/><rect x="13" y="15" width="1" height="1"/><rect x="13" y="18" width="1" height="1"/><rect x="13" y="20" width="1" height="1"/><rect x="14" y="12" width="1" height="1"/><rect x="14" y="13" width="1" height="1"/><rect x="14" y="14" width="1" height="1"/><rect x="14" y="18" width="1" height="1"/><rect x="14" y="19" width="1" height="1"/><rect x="15" y="13" width="1" height="1"/><rect x="15" y="15" width="1" height="1"/><rect x="15" y="16" width="1" height="1"/><rect x="15" y="17" width="1" height="1"/><rect x="15" y="18" width="1" height="1"/><rect x="15" y="19" width="1" height="1"/><rect x="16" y="9" width="1" height="1"/><rect x="16" y="13" width="1" height="1"/><rect x="16" y="14" width="1" height="1"/><rect x="16" y="15" width="1" height="1"/><rect x="16" y="16" width="1" height="1"/><rect x="16" y="17" width="1" height="1"/><rect x="17" y="8" width="1" height="1"/><rect x="17" y="11" width="1" height="1"/><rect x="17" y="16" width="1" height="1"/><rect x="17" y="17" width="1" height="1"/><rect x="17" y="19" width="1" height="1"/><rect x="18" y="9" width="1" height="1"/><rect x="18" y="10" width="1" height="1"/><rect x="18" y="13" width="1" height="1"/><rect x="18" y="14" width="1" height="1"/><rect x="18" y="15" width="1" height="1"/><rect x="18" y="18" width="1" height="1"/><rect x="19" y="9" width="1" height="1"/><rect x="19" y="11" width="1" height="1"/><rect x="19" y="12" width="1" height="1"/><rect x="19" y="17" width="1" height="1"/><rect x="19" y="20" width="1" height="1"/><rect x="20" y="8" width="1" height="1"/><rect x="20" y="9" width="1" height="1"/><rect x="20" y="10" width="1" height="1"/><rect x="20" y="12" width="1" height="1"/><rect x="20" y="13" width="1" height="1"/><rect x="20" y="14" width="1" height="1"/><rect x="20" y="16" width="1" height="1"/><rect x="20" y="17" width="1" height="1"/><rect x="20" y="20" width="1" height="1"/><rect x="0" y="0" width="7" height="7"/><rect x="1" y="1" width="5" height="5" fill="#fff"/><rect x="2" y="2" width="3" height="3"/><rect x="14" y="0" width="7" height="7"/><rect x="15" y="1" width="5" height="5" fill="#fff"/><rect x="16" y="2" width="3" height="3"/><rect x="0" y="14" width="7" height="7"/><rect x="1" y="15" width="5" height="5" fill="#fff"/><rect x="2" y="16" width="3" height="3"/></g></svg><i class="scan"></i></div><small>日本語 · English · 한국어 · 繁體中文</small></div>
               </div>
               <div class="scr s2">
                 <svg class="map" viewBox="0 0 200 400" preserveAspectRatio="xMidYMid slice"><rect width="200" height="400" fill="#EAF2F7"/><g stroke="#fff" stroke-width="9" fill="none" stroke-linecap="round"><path d="M-10,110 L210,90"/><path d="M-10,230 L210,250"/><path d="M60,-10 L45,410"/><path d="M150,-10 L165,410"/></g><path class="route" pathLength="1" d="M8,300 C40,260 40,200 90,160 S165,150 190,70" fill="none" stroke="#0099D9" stroke-width="4.5" stroke-linecap="round"/><path class="walk" pathLength="1" d="M126,236 C124,212 108,186 94,166" fill="none" stroke="#0E2A47" stroke-width="2.2" stroke-dasharray="0.05 0.07" stroke-linecap="round"/><g class="stops"><g class="sp" style="--d:.5s"><circle cx="36" cy="245" r="9" fill="#fff" stroke="#0099D9" stroke-width="2.6"/><text x="36" y="248.6">2</text></g><g class="sp sel" style="--d:.8s"><circle cx="90" cy="160" r="17" fill="rgba(0,153,217,.18)"/><circle cx="90" cy="160" r="11" fill="#0099D9" stroke="#fff" stroke-width="2.6"/><text x="90" y="163.6" fill="#fff">3</text></g><g class="sp" style="--d:1.1s"><circle cx="158" cy="125" r="9" fill="#fff" stroke="#0099D9" stroke-width="2.6"/><text x="158" y="128.6">4</text></g></g><g class="hotel"><rect x="116" y="228" width="20" height="20" rx="5" fill="#0E2A47" stroke="#fff" stroke-width="2.2"/><path d="M121,242v-8m0,4h10v4m-10,-2h10" stroke="#fff" stroke-width="1.4" fill="none" stroke-linecap="round"/></g></svg>
-                <div class="sheet"><small>No.3</small><b>天文館</b><div class="next"><span>次のバスまで</span><strong>12<i>分</i></strong></div><div class="chips"><i class="on">日本語</i><i>EN</i><i>한국어</i><i>繁中</i></div></div>
+                <div class="sheet"><small>No.3</small><b><span class="inl" data-lang="ja">天文館</span><span class="inl" data-lang="en">Tenmonkan</span></b><div class="next"><span><span class="inl" data-lang="ja">次のバスまで</span><span class="inl" data-lang="en">Next bus in</span></span><strong>12<i><span class="inl" data-lang="ja">分</span><span class="inl" data-lang="en">min</span></i></strong></div><div class="chips"><i class="on">日本語</i><i>EN</i><i>한국어</i><i>繁中</i></div></div>
               </div>
               <div class="scr s3 chat">
-                <span class="cap">フロント向け AI通訳</span>
-                <p class="me">仙巌園に行きたいそうです</p>
+                <span class="cap"><span class="inl" data-lang="ja">フロント向け AI通訳</span><span class="inl" data-lang="en">AI interpreter for the front desk</span></span>
+                <p class="me"><span class="inl" data-lang="ja">仙巌園に行きたいそうです</span><span class="inl" data-lang="en">The guest wants to go to Sengan‑en</span></p>
                 <p class="typing"><i></i><i></i><i></i></p>
-                <div class="ans"><span class="lg">한국어</span><b>No.3 天文館에서 타세요</b><p>호텔에서 걸어서 약 1분 · 다음 버스 12분 뒤 · 요금 230엔</p><small>データ：停留所・時刻・運賃</small></div>
+                <div class="ans"><span class="lg"><span class="inl" data-lang="ja">お客様へのご案内</span><span class="inl" data-lang="en">Answer for the guest</span></span><b><span class="inl" data-lang="ja">No.3 天文館からご乗車ください</span><span class="inl" data-lang="en">Board at No.3 Tenmonkan</span></b><p><span class="inl" data-lang="ja">ホテルから徒歩約1分 · 次のバスまで12分 · 運賃230円</span><span class="inl" data-lang="en">About 1 min walk from the hotel · next bus in 12 min · fare ¥230</span></p><small><span class="inl" data-lang="ja">データ：停留所・時刻・運賃</span><span class="inl" data-lang="en">Data: stops · times · fares</span></small><div class="tr"><i>English</i><i>한국어</i><i>繁體中文</i><em><span class="inl" data-lang="ja">に切り替え</span><span class="inl" data-lang="en">switch to</span></em></div></div>
               </div>
             </div>
             <div class="dots" aria-hidden="true"><i></i><i></i><i></i></div>
@@ -701,19 +704,19 @@
           <div class="stage">
             <div class="device" aria-hidden="true">
               <div class="scr s1 paperbg">
-                <span class="cap">紙のマニュアル</span>
-                <div class="pages"><i></i><i></i><i><u></u><u></u><u></u><u class="s"></u><u></u><u class="s"></u></i><em>先輩が口頭で<br>教えてきたこと</em></div>
+                <span class="cap"><span class="inl" data-lang="ja">紙のマニュアル</span><span class="inl" data-lang="en">Paper manuals</span></span>
+                <div class="pages"><i></i><i></i><i><u></u><u></u><u></u><u class="s"></u><u></u><u class="s"></u></i><em><span class="inl" data-lang="ja">先輩が口頭で<br>教えてきたこと</span><span class="inl" data-lang="en">What seniors<br>taught by mouth</span></em></div>
               </div>
               <div class="scr s2 srch">
-                <div class="bar"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.5-4.5"/></svg><span class="type">返品の手順</span></div>
-                <ul><li style="--d:.9s"><b>返品・交換の受付</b><small>マニュアル p.12 · 2026.04版</small></li><li style="--d:1.1s"><b>レシートがない場合</b><small>マニュアル p.13 · 2026.04版</small></li><li style="--d:1.3s"><b>返金の方法</b><small>マニュアル p.14 · 2026.04版</small></li></ul>
+                <div class="bar"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.5-4.5"/></svg><span class="type"><span class="inl" data-lang="ja">返品の手順</span><span class="inl" data-lang="en">Return policy</span></span></div>
+                <ul><li style="--d:.9s"><b><span class="inl" data-lang="ja">返品・交換の受付</span><span class="inl" data-lang="en">Returns and exchanges</span></b><small><span class="inl" data-lang="ja">マニュアル p.12 · 2026.04版</span><span class="inl" data-lang="en">Manual p.12 · Apr 2026 ed.</span></small></li><li style="--d:1.1s"><b><span class="inl" data-lang="ja">レシートがない場合</span><span class="inl" data-lang="en">Without a receipt</span></b><small><span class="inl" data-lang="ja">マニュアル p.13 · 2026.04版</span><span class="inl" data-lang="en">Manual p.13 · Apr 2026 ed.</span></small></li><li style="--d:1.3s"><b><span class="inl" data-lang="ja">返金の方法</span><span class="inl" data-lang="en">Refund methods</span></b><small><span class="inl" data-lang="ja">マニュアル p.14 · 2026.04版</span><span class="inl" data-lang="en">Manual p.14 · Apr 2026 ed.</span></small></li></ul>
               </div>
               <div class="scr s3 chat">
-                <span class="cap">AI問答 → クイズ → 評価</span>
-                <p class="me">返品は何日以内？</p>
-                <div class="ans"><b>レシートがあれば30日以内です。</b><small>出典：マニュアル p.12</small></div>
-                <div class="quiz"><b>Q. レシートがない場合は？</b><i>そのまま返金</i><i class="ok">責任者に確認</i><i>受付不可</i></div>
-                <div class="score"><svg viewBox="0 0 44 44"><circle cx="22" cy="22" r="18" fill="none" stroke="#E6ECF2" stroke-width="5"/><circle class="ring" cx="22" cy="22" r="18" fill="none" stroke="#0099D9" stroke-width="5" pathLength="1" stroke-dasharray="1" transform="rotate(-90 22 22)"/></svg><span>理解度 8/10</span></div>
+                <span class="cap"><span class="inl" data-lang="ja">AI問答 → クイズ → 評価</span><span class="inl" data-lang="en">AI Q&amp;A → quiz → assessment</span></span>
+                <p class="me"><span class="inl" data-lang="ja">返品は何日以内？</span><span class="inl" data-lang="en">How many days for returns?</span></p>
+                <div class="ans"><b><span class="inl" data-lang="ja">レシートがあれば30日以内です。</span><span class="inl" data-lang="en">Within 30 days with a receipt.</span></b><small><span class="inl" data-lang="ja">出典：マニュアル p.12</span><span class="inl" data-lang="en">Source: manual p.12</span></small></div>
+                <div class="quiz"><b><span class="inl" data-lang="ja">Q. レシートがない場合は？</span><span class="inl" data-lang="en">Q. And without a receipt?</span></b><i><span class="inl" data-lang="ja">そのまま返金</span><span class="inl" data-lang="en">Refund anyway</span></i><i class="ok"><span class="inl" data-lang="ja">責任者に確認</span><span class="inl" data-lang="en">Check with the manager</span></i><i><span class="inl" data-lang="ja">受付不可</span><span class="inl" data-lang="en">Refuse</span></i></div>
+                <div class="score"><svg viewBox="0 0 44 44"><circle cx="22" cy="22" r="18" fill="none" stroke="#E6ECF2" stroke-width="5"/><circle class="ring" cx="22" cy="22" r="18" fill="none" stroke="#0099D9" stroke-width="5" pathLength="1" stroke-dasharray="1" transform="rotate(-90 22 22)"/></svg><span><span class="inl" data-lang="ja">理解度 8/10</span><span class="inl" data-lang="en">Score 8/10</span></span></div>
               </div>
             </div>
             <div class="dots" aria-hidden="true"><i></i><i></i><i></i></div>
