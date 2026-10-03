@@ -16,6 +16,10 @@
       "adult": 500,
       "child": 250
     },
+    "cutePass": {
+      "adult": 1400,
+      "child": 700
+    },
     "operatingDays": "daily",
     "loopDurationMin": 55,
     "center": [

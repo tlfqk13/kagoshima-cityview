@@ -143,6 +143,12 @@ test('정류장 상세의 FAQ 버튼은 요금·돌아가는 법으로 이동한
   await expect(faq).toBeVisible()
   await faq.getByRole('button', { name: ja.map.faq.fare }).click()
   await expect(panel.getByText('¥230')).toBeVisible()
+  // 1일권은 2026-08-01 개정 가격, 교통계 IC 불가 경고와 판매처
+  await expect(panel.getByText('¥700 / ¥350')).toBeVisible()
+  await expect(panel.getByText(ja.map.fare.noIc)).toBeVisible()
+  await expect(panel.getByText(ja.map.fare.passTitle)).toBeVisible()
+  // 230엔 × 4회 = 920엔 > 700엔 → "4回以上"
+  await expect(panel.getByText(/1日に4回以上/)).toBeVisible()
   await expect(panel.getByText(ja.map.back.title)).toBeVisible()
   // 호텔 모드에서는 그 호텔의 내리는 정류장
   await page.goto('/map?hotel=remm&lang=ja')

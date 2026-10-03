@@ -60,6 +60,11 @@ export interface RouteMetadata {
   color: string
   fare: { adult: number; child: number }
   dayPass: { adult: number; child: number } | null
+  /** CUTE(시전·시버스·시티뷰·사쿠라지마 페리·아일랜드뷰 공통 1일권) */
+  cutePass?: { adult: number; child: number }
+  /** 운임·승차권 공식 출처와 대조일 — 미대조 노선은 없음 */
+  fareSource?: string
+  fareCheckedAt?: string
   operatingDays: 'daily' | 'saturday'
   seasonalExtra?: string[]
   loopDurationMin: number

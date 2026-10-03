@@ -168,7 +168,7 @@
       "dest": "Places from here",
       "back": "Getting back?",
       "last": "Last bus?",
-      "fare": "Fare?"
+      "fare": "Fares & tickets?"
     },
     "back": {
       "title": "Getting back",
@@ -176,13 +176,22 @@
       "hotel": "On the way back, get off at No.{{num}} {{name}} (about {{min}} min walk to the hotel)."
     },
     "fare": {
-      "title": "Fare",
+      "title": "Fares & how to ride",
       "adult": "Adult",
       "child": "Child",
       "dayPass": "Day pass (adult / child)",
       "loop": "One loop",
       "loopValue": "about {{min}} min",
-      "note": "Cash and transit IC cards accepted; day passes are sold on board. Check the official site for the latest fares."
+      "noIc": "Suica, ICOCA and other nationwide IC cards are NOT accepted",
+      "howTo": "Board through the middle door and pay at the front door when you get off.",
+      "payOk": "Accepted: cash, Rapica (Kagoshima's local IC card), and contactless credit cards (Visa, Mastercard, JCB, etc.; phones work too). With contactless, tap once when boarding and once when getting off.",
+      "change": "The change machine on board takes ¥1,000 notes and coins only.",
+      "passTitle": "Where to buy a day pass",
+      "passWhere": "On the City View bus, at the Kagoshima-Chuo Station Tourist Information Center (inside the station, 8:00–19:00), or in the smartphone app “乗換案内” (Norikae Annai). Also valid on city trams and buses.",
+      "passTip": "If you ride {{n}} or more times in a day, the day pass (¥{{price}}) is cheaper.",
+      "cute": "Going to Sakurajima? The “CUTE” pass (¥{{price}}/day) adds the Sakurajima Ferry and Island View bus to trams, city buses and City View.",
+      "official": "Official fares & tickets",
+      "checked": "checked {{date}}"
     },
     "pair": {
       "aria": "Same place / opposite direction",

@@ -16,6 +16,12 @@
       "adult": 250,
       "child": 130
     },
+    "cutePass": {
+      "adult": 1400,
+      "child": 700
+    },
+    "fareSource": "https://www.kotsu-city-kagoshima.jp/sakurajima-tabi/",
+    "fareCheckedAt": "2026-10-03",
     "operatingDays": "saturday",
     "seasonalExtra": [
       "august",

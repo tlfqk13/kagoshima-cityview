@@ -506,6 +506,62 @@
   color: var(--text-subtle);
 }
 
+/* 운임·타는 법 */
+.fareWarn {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  margin: 12px 0 8px;
+  padding: 8px 10px;
+  border: 1px solid color-mix(in srgb, var(--warn-text) 40%, transparent);
+  background: color-mix(in srgb, var(--warn-text) 10%, transparent);
+  color: var(--warn-text);
+  font-size: 12.5px;
+  font-weight: 700;
+  border-radius: var(--radius);
+  line-height: 1.5;
+}
+
+.fareWarn svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.fareHow {
+  margin: 0 0 10px;
+  padding-left: 18px;
+  font-size: 12.5px;
+  line-height: 1.65;
+  color: var(--ink);
+}
+
+.fareHow li + li {
+  margin-top: 2px;
+}
+
+.fareBox {
+  border: 1px dashed var(--rule);
+  border-radius: var(--radius);
+  padding: 10px 12px;
+  margin-bottom: 8px;
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: var(--ink);
+}
+
+.fareBox p {
+  margin: 0;
+}
+
+.fareBoxTitle {
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.fareBox .infoNote {
+  margin-top: 6px;
+}
+
 /* FAQ로 이동했을 때 잠깐 강조 */
 .flash {
   animation: flash 1.6s ease-out;
@@ -518,4 +574,10 @@
 
 @media (prefers-reduced-motion: reduce) {
   .flash { animation: none; box-shadow: inset 0 0 0 2px var(--sea); }
+}
+
+.infoNote a {
+  color: var(--sea);
+  text-decoration: underline;
+  text-underline-offset: 2px;
 }

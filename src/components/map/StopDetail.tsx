@@ -253,7 +253,7 @@ export default function StopDetail({ stop, routeId, userLocation, isFavorite, on
           <p className={styles.infoText}>{t('map.back.generic', { min: route.loopDurationMin })}</p>
         )}
       </div>
-      {/* 요금 — 포스터에만 있던 정보를 지도에도 */}
+      {/* 운임·타는 법·결제·1일권 판매처 — 외국인이 가장 많이 막히는 곳(교통계 IC 불가)을 경고로 먼저 */}
       <div className={styles.infoSection} ref={fareRef}>
         <div className={styles.scheduleSectionLabel}>{t('map.fare.title')}</div>
         <dl className={styles.fareList}>
@@ -262,7 +262,29 @@ export default function StopDetail({ stop, routeId, userLocation, isFavorite, on
           {route.dayPass && <div className={styles.fareWide}><dt>{t('map.fare.dayPass')}</dt><dd>¥{route.dayPass.adult} / ¥{route.dayPass.child}</dd></div>}
           <div><dt>{t('map.fare.loop')}</dt><dd>{t('map.fare.loopValue', { min: route.loopDurationMin })}</dd></div>
         </dl>
-        <p className={styles.infoNote}>{t('map.fare.note')}</p>
+        <p className={styles.fareWarn}><IconWarn size={13} /> {t('map.fare.noIc')}</p>
+        <ul className={styles.fareHow}>
+          <li>{t('map.fare.howTo')}</li>
+          <li>{t('map.fare.payOk')}</li>
+          <li>{t('map.fare.change')}</li>
+        </ul>
+        {route.dayPass && routeId !== 'islandview' && (
+          <div className={styles.fareBox}>
+            <div className={styles.fareBoxTitle}>{t('map.fare.passTitle')}</div>
+            <p>{t('map.fare.passWhere')}</p>
+            {/* 몇 번 타면 1일권이 이득인지 — 데이터에서 계산 */}
+            <p className={styles.infoNote}>{t('map.fare.passTip', { n: Math.floor(route.dayPass.adult / route.fare.adult) + 1, price: route.dayPass.adult.toLocaleString('en-US') })}</p>
+          </div>
+        )}
+        {route.cutePass && (
+          <p className={styles.infoNote}>{t('map.fare.cute', { price: route.cutePass.adult.toLocaleString('en-US') })}</p>
+        )}
+        <p className={styles.infoNote}>
+          {route.fareSource ? (
+            <a href={route.fareSource} target="_blank" rel="noopener noreferrer">{t('map.fare.official')}</a>
+          ) : t('map.fare.official')}
+          {route.fareCheckedAt && ` · ${t('map.fare.checked', { date: route.fareCheckedAt })}`}
+        </p>
       </div>
       <div className={styles.mapsSection}>
         <div className={styles.mapsSectionLabel}>{t('map.stopDetail.openInMaps')}</div>

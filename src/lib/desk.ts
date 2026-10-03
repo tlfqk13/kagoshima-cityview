@@ -75,6 +75,8 @@ export function buildHotelContext(hotel: Hotel, stops: HotelStops): string {
     '',
     `# 路線: カゴシマシティビュー（一方向の循環バス、1周約${route.loopDurationMin}分、約${route.frequencyMin}分間隔、1日${route.totalRuns}便、${route.firstDeparture}〜${route.lastDeparture}）`,
     `運賃: 大人${route.fare.adult}円・小児${route.fare.child}円${route.dayPass ? ` / 1日乗車券 大人${route.dayPass.adult}円・小児${route.dayPass.child}円` : ''}`,
+    '支払い: 中ほどのドアから乗り、降りるときに前のドアで払う。現金（両替機は千円札と硬貨のみ）・Rapica・クレジットカードのタッチ決済（乗車時と降車時に2回タッチ）。Suica・ICOCAなど全国の交通系ICカードは使えない。',
+    `1日乗車券の販売: シティビュー車内、鹿児島中央駅総合観光案内所（8:00〜19:00）、アプリ「乗換案内」。${route.cutePass ? `桜島へ行くならCUTE（1日${route.cutePass.adult}円、桜島フェリー・アイランドビュー込み）。` : ''}`,
     '注意: 一方向循環なので、目的地が乗る停留所より前の番号なら1周近く乗ることになる。No.1とNo.20は同じ鹿児島中央駅。',
     '',
     '# 停留所一覧（番号順・近くの見どころ）',

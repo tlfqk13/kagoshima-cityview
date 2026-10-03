@@ -13,9 +13,15 @@
       "child": 120
     },
     "dayPass": {
-      "adult": 600,
-      "child": 300
+      "adult": 700,
+      "child": 350
     },
+    "cutePass": {
+      "adult": 1400,
+      "child": 700
+    },
+    "fareSource": "https://www.kotsu-city-kagoshima.jp/ticket-summary/oneday/",
+    "fareCheckedAt": "2026-10-03",
     "operatingDays": "daily",
     "loopDurationMin": 80,
     "center": [
