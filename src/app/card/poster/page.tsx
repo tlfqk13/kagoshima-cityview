@@ -109,7 +109,7 @@ export default async function PosterPage({ searchParams }: Props) {
                 読み取ってください<br />Scan me · 스캔하세요
               </div>
               <div className={styles.url}>{SITE_DOMAIN}</div>
-              <div className={styles.langs}>日本語 · English · 한국어</div>
+              <div className={styles.langs}>日本語 · English · 한국어 · 繁體中文</div>
             </div>
           </div>
 

@@ -40,7 +40,7 @@
 
 /* 엽서 띠 — 카드 상단 일러스트 (인쇄물은 고정색·실사 대신 브랜드 일러스트) */
 .visual {
-  height: 34mm;
+  height: 28mm;
   overflow: hidden;
   flex-shrink: 0;
 }
@@ -80,7 +80,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 4mm 7mm;
+  padding: 3mm 7mm;
   text-align: center;
 }
 
@@ -125,8 +125,8 @@
 }
 
 .qr {
-  width: 44mm;
-  height: 44mm;
+  width: 40mm;
+  height: 40mm;
   margin-bottom: 1.5mm;
 }
 
@@ -171,6 +171,42 @@
   font-family: var(--font-mono);
   font-size: 7pt;
   font-weight: 700;
+}
+
+/* 호텔 이름 띠가 들어가면 세로가 모자라 QR 아래가 잘렸다 — 그림·제목·QR을 조금 줄여 A6 안에 맞춘다 */
+.withHotel .visual {
+  height: 20mm;
+}
+
+.withHotel .body {
+  padding: 3mm 7mm;
+}
+
+.withHotel .points {
+  font-size: 6.5pt;
+  line-height: 1.6;
+}
+
+.withHotel .url {
+  margin-bottom: 2.5mm;
+}
+
+.withHotel .titleJa {
+  font-size: 12.5pt;
+  margin-bottom: 1.5mm;
+}
+
+.withHotel .titleSub {
+  margin-bottom: 2.5mm;
+}
+
+.withHotel .qr {
+  width: 34mm;
+  height: 34mm;
+}
+
+.withHotel .hotelBand {
+  margin-bottom: 2.5mm;
 }
 
 @page {

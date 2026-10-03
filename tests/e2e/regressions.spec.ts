@@ -120,6 +120,22 @@ test('사이트 QR 인쇄물은 QR과 호텔 이름을 표시한다', async ({ p
   expect(await response.text()).not.toContain('ご宿泊のお客様へ')
 })
 
+test('A6 사이트 QR 카드는 인쇄 시 푸터까지 한 장에 들어간다', async ({ page, isMobile }) => {
+  test.skip(isMobile, '인쇄 크기 검사는 데스크톱 뷰포트에서만')
+  // 호텔 이름 띠가 들어가면 QR 아래(URL·안내·출처)가 잘리던 회귀
+  for (const path of ['/card/site', '/card/site?hotel=remm']) {
+    await page.goto(path)
+    await page.emulateMedia({ media: 'print' })
+    const fit = await page.evaluate(() => {
+      const card = document.querySelector('[class*="card"]') as HTMLElement
+      const footer = card.querySelector('[class*="footer"]') as HTMLElement
+      return footer.getBoundingClientRect().bottom <= card.getBoundingClientRect().bottom + 0.5
+    })
+    expect(fit, `${path} 푸터가 A6 안에 있어야 한다`).toBe(true)
+    await page.emulateMedia({ media: 'screen' })
+  }
+})
+
 test('정류장 상세의 FAQ 버튼은 요금·돌아가는 법으로 이동한다', async ({ page, isMobile }) => {
   await page.goto('/map/stop_03?lang=ja')
   const panel = isMobile ? page.getByRole('complementary', { name: ja.map.stopListAria }) : page.locator('aside')

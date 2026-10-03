@@ -38,7 +38,7 @@ export default async function SiteCardPage({ searchParams }: Props) {
         <Link href="/downloads" className={styles.toolLink}>← 印刷物一覧 · All print materials · 인쇄물 목록</Link>
       </div>
 
-      <div className={styles.card}>
+      <div className={`${styles.card} ${hotel ? styles.withHotel : ''}`}>
         <div className={styles.visual}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={HOME_PHOTOS.hero} alt="" className={styles.visualImg} />
@@ -73,7 +73,7 @@ export default async function SiteCardPage({ searchParams }: Props) {
 
           <ul className={styles.points}>
             <li>全{stopCount}停留所マップ · All {stopCount} stops · {stopCount}개 정류장</li>
-            <li>日本語 · English · 한국어</li>
+            <li>日本語 · English · 한국어 · 繁體中文</li>
             <li>無料 · アプリ不要 · Free, no app · 무료, 설치 불필요</li>
           </ul>
         </div>
