@@ -10,12 +10,14 @@ import { homedir } from 'node:os'
 
 const ROOT = process.cwd()
 const BASE = process.env.BASE_URL ?? 'https://kagoshima.makoro.dev'
-const OUT = resolve(ROOT, 'docs/proposal/annai')
+const OUT = resolve(ROOT, process.env.ANNAI_PUBLIC === '1' ? 'public/downloads/annai' : 'docs/proposal/annai')
 const CONTACT_NAME = process.env.ANNAI_NAME ?? 'ソン・ドンギュ'
 // 소재지 — 저장소가 공개라 상세 주소는 커밋하지 않는다. ~/.config/makoro/company.json 에만 두고, 없으면 도시까지만.
 const COMPANY_FILE = resolve(homedir(), '.config/makoro/company.json')
 const company = existsSync(COMPANY_FILE) ? JSON.parse(readFileSync(COMPANY_FILE, 'utf8')) : {}
-const ADDRESS = company.addressJa ?? '大韓民国 仁川広域市'
+// ANNAI_PUBLIC=1 이면 사이트에 올리는 공개판(문의 폼처럼 첨부가 안 될 때 링크로 보낸다): 도시까지만, public/downloads/annai/ 에 날짜 없는 이름으로
+const PUBLIC = process.env.ANNAI_PUBLIC === '1'
+const ADDRESS = PUBLIC ? '大韓民国 仁川広域市' : (company.addressJa ?? '大韓民国 仁川広域市')
 const today = new Date(Date.now() + 9 * 3600e3) // JST
 const ymd = today.toISOString().slice(0, 10)
 const ymdCompact = ymd.replaceAll('-', '')
@@ -210,12 +212,12 @@ for (const h of targets) {
   await c.close()
   const shots = { phone: `data:image/jpeg;base64,${phonePng.toString('base64')}`, pop: `data:image/jpeg;base64,${popPng.toString('base64')}`, qr: qrSrc }
   const doc = html(h, shots)
-  const htmlPath = resolve(OUT, `${key}.html`)
+  const htmlPath = resolve(ROOT, 'docs/proposal/annai', `${key}${PUBLIC ? '.public' : ''}.html`)
   writeFileSync(htmlPath, doc)
   const pdf = await b.newPage()
   await pdf.goto(`file://${htmlPath}`, { waitUntil: 'networkidle' })
   const pages = await pdf.evaluate(() => Math.ceil(document.documentElement.scrollHeight / (297 * 96 / 25.4)))
-  const out = resolve(OUT, `KagoshimaCityView_Annai_${key}_${ymdCompact}.pdf`)
+  const out = resolve(OUT, PUBLIC ? `KagoshimaCityView_Annai_${key}.pdf` : `KagoshimaCityView_Annai_${key}_${ymdCompact}.pdf`)
   await pdf.pdf({ path: out, format: 'A4', printBackground: true, preferCSSPageSize: true, scale: 0.95 })
   await pdf.close()
   console.log('pdf', out.replace(ROOT + '/', ''), `(${(readFileSync(out).length / 1024).toFixed(0)} KB, approx pages ${pages})`)
