@@ -12,15 +12,19 @@
 <meta property="og:url" content="https://makoro.dev/">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%238B4513'/%3E%3Ctext x='32' y='42' text-anchor='middle' font-family='sans-serif' font-weight='700' font-size='30' fill='%23fff'%3EM%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='32' fill='%230F2EA0'/%3E%3Ctext x='32' y='42' text-anchor='middle' font-family='sans-serif' font-weight='700' font-size='30' fill='%23fff'%3EM%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Inter:wght@600;700&display=swap" rel="stylesheet">
 <style>
+  /* 레퍼런스(Brother SDGs STORY)에서 추출한 색 체계: 주색 파랑, 글자 #222, 띠 #F0F2F4, 파스텔 포인트 4색.
+     원형(50%)·알약 버튼(30px)·카드 10px 도 레퍼런스 값. 3D 아이콘은 3dicons(CC0). docs/design/company-site-brief.md */
   :root {
-    --brand: #8B4513; --brand-deep: #6E3610; --brand-soft: #F4E9DF;
-    --ink: #222; --sub: #6B655E; --band: #F6F3EE; --line: #E6E0D8; --white: #fff;
-    --r: 24px; --r-s: 14px; --max: 1080px;
+    --blue: #0F2EA0; --blue-deep: #0B2278;
+    --ink: #222; --sub: #666; --line: #D3D3D3; --band: #F0F2F4; --band2: #F1F1EF; --white: #fff;
+    --coral: #E98788; --gold: #DCA556; --peri: #748CDB; --mint: #6CC8B2;
+    --coral-l: #FBE9E9; --gold-l: #FAF0DD; --peri-l: #E6EAF9; --mint-l: #E2F5F0;
+    --pill: 30px; --card: 10px; --max: 1080px;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
@@ -36,119 +40,131 @@
   html[data-ui="ja"] .blk[data-lang="ja"], html[data-ui="en"] .blk[data-lang="en"] { display: block !important; }
   html[data-ui="ja"] .flx[data-lang="ja"], html[data-ui="en"] .flx[data-lang="en"] { display: flex !important; }
 
-  header { position: sticky; top: 0; z-index: 10; background: rgba(255,255,255,0.92); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
+  header { position: sticky; top: 0; z-index: 10; background: rgba(255,255,255,0.94); backdrop-filter: blur(8px); border-bottom: 1px solid #E8E8E8; }
   .nav { display: flex; align-items: center; justify-content: space-between; height: 64px; }
-  .logo { font-weight: 700; letter-spacing: 0.22em; font-size: 15px; text-decoration: none; }
+  .logo { display: flex; align-items: center; gap: 10px; font-weight: 700; letter-spacing: 0.2em; font-size: 15px; text-decoration: none; }
+  .logo i { width: 28px; height: 28px; border-radius: 50%; background: var(--blue); color: #fff; display: grid; place-items: center; font-style: normal; font-size: 14px; letter-spacing: 0; font-family: "Inter", sans-serif; }
   .nav ul { display: flex; gap: 22px; list-style: none; font-size: 13.5px; }
   .nav ul a { text-decoration: none; color: var(--sub); }
-  .nav ul a:hover { color: var(--ink); }
+  .nav ul a:hover { color: var(--blue); }
   .lang { display: flex; gap: 4px; }
-  .lang button { min-height: 32px; padding: 0 12px; border: 1px solid var(--line); background: transparent; color: var(--sub); border-radius: 999px; font: inherit; font-size: 12px; cursor: pointer; }
+  .lang button { min-height: 32px; padding: 0 12px; border: 1px solid var(--line); background: transparent; color: var(--sub); border-radius: var(--pill); font: inherit; font-size: 12px; cursor: pointer; }
   .lang button[aria-pressed="true"] { background: var(--ink); color: #fff; border-color: var(--ink); }
-  .btn { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 0 26px; border-radius: 999px; background: var(--brand); color: #fff; text-decoration: none; font-weight: 700; font-size: 15px; border: 2px solid var(--brand); transition: background 0.15s; }
-  .btn:hover { background: var(--brand-deep); border-color: var(--brand-deep); }
-  .btn.ghost { background: transparent; color: var(--brand); }
-  .btn.ghost:hover { background: var(--brand-soft); }
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 50px; padding: 0 28px; border-radius: var(--pill); background: var(--blue); color: #fff; text-decoration: none; font-weight: 700; font-size: 15px; border: 2px solid var(--blue); transition: background 0.15s, transform 0.15s; }
+  .btn:hover { background: var(--blue-deep); border-color: var(--blue-deep); }
+  .btn.ghost { background: #fff; color: var(--blue); }
+  .btn.ghost:hover { background: var(--peri-l); }
   .btn.sm { min-height: 40px; padding: 0 18px; font-size: 13.5px; }
+  .btn .ar { font-family: "Inter", sans-serif; }
 
   [data-reveal] { opacity: 0; transform: translateY(14px); transition: opacity 0.6s ease, transform 0.6s ease; }
   [data-reveal][data-in] { opacity: 1; transform: none; }
   @media (prefers-reduced-motion: reduce) { [data-reveal] { opacity: 1; transform: none; transition: none; } }
 
-  /* 히어로 — 회사 모토 + 세 축 */
+  /* 원형 3D 아이콘 — 레퍼런스의 원형 테마 아이콘 문법 */
+  .orb { border-radius: 50%; display: grid; place-items: center; flex-shrink: 0; }
+  .orb img { width: 58%; height: 58%; object-fit: contain; filter: drop-shadow(0 8px 14px rgba(0,0,0,0.12)); }
+  .orb.gold { background: var(--gold-l); } .orb.peri { background: var(--peri-l); } .orb.mint { background: var(--mint-l); } .orb.coral { background: var(--coral-l); }
+
+  /* 히어로 */
   .hero { position: relative; background: var(--band); overflow: hidden; }
-  .hero .wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; padding-top: 80px; padding-bottom: 120px; }
-  .eyebrow { display: inline-block; font-size: 12px; letter-spacing: 0.18em; color: var(--brand); font-weight: 700; margin-bottom: 18px; padding: 4px 12px; border: 1px solid var(--brand); border-radius: 999px; }
-  h1 { font-size: clamp(34px, 5vw, 56px); line-height: 1.28; letter-spacing: 0.02em; margin-bottom: 22px; font-weight: 700; }
+  .hero .wrap { display: grid; grid-template-columns: 1.05fr 1fr; gap: 40px; align-items: center; padding-top: 84px; padding-bottom: 130px; }
+  .eyebrow { display: inline-block; font-size: 12px; letter-spacing: 0.2em; color: var(--blue); font-weight: 700; margin-bottom: 18px; padding: 5px 14px; background: #fff; border-radius: var(--pill); }
+  h1 { font-size: clamp(34px, 4.8vw, 54px); line-height: 1.3; letter-spacing: 0.02em; margin-bottom: 22px; font-weight: 700; }
+  h1 em { font-style: normal; color: var(--blue); }
   .lead { font-size: 17px; color: var(--sub); max-width: 32em; margin-bottom: 30px; }
   .cta { display: flex; gap: 12px; flex-wrap: wrap; }
-  .flow { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; align-items: stretch; gap: 10px; }
-  .node { background: #fff; border-radius: var(--r); padding: 24px 14px 20px; text-align: center; box-shadow: 0 14px 40px rgba(60,40,20,0.10); display: flex; flex-direction: column; align-items: center; gap: 8px; }
-  .node .ic { width: 56px; height: 56px; border-radius: 18px; background: var(--brand-soft); color: var(--brand); display: grid; place-items: center; }
-  .node.ai .ic { background: var(--brand); color: #fff; }
-  .node b { font-size: 15px; letter-spacing: 0.04em; }
-  .node small { font-size: 12.5px; color: var(--sub); line-height: 1.6; }
-  .arrow { display: grid; place-items: center; color: var(--brand); font-size: 22px; font-weight: 700; }
-  .curve { position: absolute; left: 0; right: 0; bottom: -1px; height: 70px; }
+  .trio { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; align-items: start; gap: 4px; }
+  .trio .item { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 12px; }
+  .trio .orb { width: 150px; height: 150px; box-shadow: 0 16px 40px rgba(15,46,160,0.10); }
+  .trio b { font-size: 15px; letter-spacing: 0.06em; }
+  .trio small { font-size: 12.5px; color: var(--sub); line-height: 1.6; }
+  .trio .ar { color: var(--blue); font-size: 26px; font-weight: 700; margin-top: 60px; font-family: "Inter", sans-serif; }
+  .curve { position: absolute; left: 0; right: 0; bottom: -1px; height: 80px; }
   .curve svg { width: 100%; height: 100%; display: block; }
 
   section { padding: 96px 0; }
-  .band { background: var(--band); }
+  .band-bg { background: var(--band); }
   h2 { font-size: clamp(26px, 3.4vw, 38px); line-height: 1.35; text-align: center; margin-bottom: 14px; font-weight: 700; }
-  .kicker { text-align: center; color: var(--brand); font-weight: 700; font-size: 13px; letter-spacing: 0.16em; margin-bottom: 14px; }
+  .kicker { text-align: center; color: var(--blue); font-weight: 700; font-size: 13px; letter-spacing: 0.18em; margin-bottom: 14px; }
   .sub { text-align: center; color: var(--sub); max-width: 36em; margin: 0 auto 48px; }
 
   /* 비전 */
   .vision { max-width: 820px; margin: 0 auto; text-align: center; }
   .vision .big { font-size: clamp(21px, 2.7vw, 29px); font-weight: 700; line-height: 1.65; margin-bottom: 22px; text-wrap: balance; word-break: keep-all; overflow-wrap: anywhere; }
-  .vision .big span { background: linear-gradient(transparent 60%, var(--brand-soft) 60%); }
+  .vision .big span { background: linear-gradient(transparent 62%, var(--gold-l) 62%); }
   .vision p { color: var(--sub); }
-  .pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 40px; text-align: left; }
-  .pillar { background: #fff; border: 1px solid var(--line); border-radius: var(--r-s); padding: 20px 20px 18px; }
-  .pillar b { display: block; color: var(--brand); font-size: 13px; letter-spacing: 0.1em; margin-bottom: 6px; }
-  .pillar strong { display: block; font-size: 17px; margin-bottom: 6px; }
+  .pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 44px; }
+  .pillar { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 10px; }
+  .pillar .orb { width: 112px; height: 112px; }
+  .pillar b { color: var(--blue); font-size: 12px; letter-spacing: 0.14em; font-family: "Inter", sans-serif; }
+  .pillar strong { font-size: 17px; }
   .pillar p { font-size: 13.5px; }
 
   /* 사업 내용 */
   .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-  .card { background: #fff; border-radius: var(--r); padding: 30px 26px; box-shadow: 0 8px 28px rgba(60,40,20,0.07); }
-  .band .card { box-shadow: none; border: 1px solid var(--line); }
-  .card .num { font-family: "Inter", sans-serif; color: var(--brand); font-weight: 700; font-size: 13px; letter-spacing: 0.14em; }
-  .card h3 { font-size: 20px; margin: 8px 0 10px; }
+  .card { background: #fff; border-radius: var(--card); padding: 30px 26px 26px; box-shadow: 0 6px 24px rgba(0,0,0,0.06); }
+  .card .orb { width: 76px; height: 76px; margin-bottom: 16px; }
+  .card .num { color: var(--blue); font-weight: 700; font-size: 12px; letter-spacing: 0.16em; font-family: "Inter", sans-serif; }
+  .card h3 { font-size: 20px; margin: 6px 0 10px; }
   .card p { color: var(--sub); font-size: 14.5px; }
   .card ul { margin: 14px 0 0; padding: 0; list-style: none; font-size: 13.5px; }
-  .card li { padding: 7px 0; border-top: 1px dashed var(--line); }
+  .card li { padding: 7px 0; border-top: 1px solid #ECECEC; }
 
-  /* 자사 제품 */
+  /* 자사 서비스 */
   .products { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
-  .product { background: #fff; border: 1px solid var(--line); border-radius: var(--r); overflow: hidden; display: flex; flex-direction: column; }
-  .product .visual { aspect-ratio: 16 / 9; overflow: hidden; background: var(--brand-soft); }
+  .product { background: #fff; border-radius: var(--card); overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 6px 24px rgba(0,0,0,0.06); }
+  .product .visual { aspect-ratio: 16 / 9; overflow: hidden; }
   .product .visual img { width: 100%; height: 100%; object-fit: cover; }
-  .product .visual.plan { display: grid; place-items: center; }
-  .product .visual.plan .mock { width: 72%; background: #fff; border-radius: 14px; box-shadow: 0 12px 30px rgba(60,40,20,0.12); padding: 14px 16px; font-size: 12px; color: var(--sub); line-height: 1.6; }
-  .product .visual.plan .mock b { display: block; color: var(--ink); font-size: 13px; margin-bottom: 4px; }
-  .product .visual.plan .mock i { display: block; height: 8px; border-radius: 4px; background: var(--band); margin: 6px 0; }
-  .product .visual.plan .mock i.s { width: 60%; }
+  .product .visual.plan { background: var(--band2); display: flex; align-items: center; justify-content: center; gap: 14px; }
+  .product .visual.plan .orb { width: 92px; height: 92px; }
+  .product .visual.plan .ar { color: var(--blue); font-weight: 700; font-size: 22px; font-family: "Inter", sans-serif; }
   .product .body { padding: 24px 26px 26px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
-  .tag { display: inline-block; font-size: 12px; font-weight: 700; letter-spacing: 0.08em; padding: 3px 10px; border-radius: 999px; border: 1px solid var(--line); color: var(--sub); align-self: flex-start; }
-  .tag.live { background: var(--brand); border-color: var(--brand); color: #fff; }
+  .tag { display: inline-block; font-size: 12px; font-weight: 700; letter-spacing: 0.08em; padding: 3px 12px; border-radius: var(--pill); border: 1px solid var(--line); color: var(--sub); align-self: flex-start; }
+  .tag.live { background: var(--blue); border-color: var(--blue); color: #fff; }
   .product h3 { font-size: 20px; }
   .product p { color: var(--sub); font-size: 14.5px; }
-  .product .facts { display: flex; gap: 18px; flex-wrap: wrap; margin-top: 4px; }
-  .product .facts div b { display: block; font-size: 22px; color: var(--brand); line-height: 1.1; }
-  .product .facts div small { font-size: 12px; color: var(--sub); }
+  .facts { display: flex; gap: 20px; flex-wrap: wrap; margin-top: 4px; }
+  .facts div b { display: block; font-size: 24px; color: var(--blue); line-height: 1.1; font-family: "Inter", sans-serif; }
+  .facts div small { font-size: 12px; color: var(--sub); }
   .product .btn { align-self: flex-start; margin-top: auto; }
 
   /* 방식 */
-  .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
-  .step { background: #fff; border: 1px solid var(--line); border-radius: var(--r-s); padding: 22px 20px 20px; }
-  .step .n { font-family: "Inter", sans-serif; color: var(--brand); font-weight: 700; font-size: 12px; letter-spacing: 0.12em; }
-  .step b { display: block; font-size: 16px; margin: 6px 0 4px; }
+  .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .step { background: #fff; border-radius: var(--card); padding: 24px 20px 22px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 6px; box-shadow: 0 6px 24px rgba(0,0,0,0.05); }
+  .step .orb { width: 84px; height: 84px; margin-bottom: 6px; }
+  .step .n { color: var(--blue); font-weight: 700; font-size: 12px; letter-spacing: 0.14em; font-family: "Inter", sans-serif; }
+  .step b { font-size: 16px; }
   .step p { font-size: 13.5px; color: var(--sub); }
+  .principle { margin-top: 40px; text-align: center; font-size: clamp(18px, 2.3vw, 24px); font-weight: 700; line-height: 1.6; }
+  .principle span { background: linear-gradient(transparent 62%, var(--mint-l) 62%); }
 
   /* CTA·회사 */
-  .ctaBand { background: var(--brand); color: #fff; text-align: center; padding: 72px 0; }
+  .ctaBand { background: var(--blue); color: #fff; text-align: center; padding: 76px 0; }
   .ctaBand h2 { color: #fff; }
   .ctaBand p { color: rgba(255,255,255,0.85); margin-bottom: 26px; }
-  .ctaBand .btn { background: #fff; color: var(--brand); border-color: #fff; }
-  .ctaBand .btn:hover { background: var(--brand-soft); }
+  .ctaBand .btn { background: #fff; color: var(--blue); border-color: #fff; }
+  .ctaBand .btn:hover { background: var(--peri-l); }
   .ctaBand .mail { margin-top: 18px; font-size: 14px; color: rgba(255,255,255,0.85); }
   .ctaBand .mail a { color: #fff; }
   dl { display: grid; grid-template-columns: 140px 1fr; gap: 12px 20px; max-width: 720px; margin: 0 auto; font-size: 15px; }
   dt { color: var(--sub); }
   dd { margin: 0; }
-  .founder { max-width: 720px; margin: 36px auto 0; display: flex; gap: 16px; align-items: flex-start; background: var(--band); border-radius: var(--r); padding: 22px 24px; }
-  .founder i { flex-shrink: 0; width: 48px; height: 48px; border-radius: 50%; background: var(--brand); color: #fff; display: grid; place-items: center; font-weight: 700; font-style: normal; }
+  .founder { max-width: 720px; margin: 36px auto 0; display: flex; gap: 16px; align-items: flex-start; background: var(--band); border-radius: var(--card); padding: 22px 24px; }
+  .founder .orb { width: 56px; height: 56px; }
   .founder p { font-size: 14.5px; color: var(--sub); }
   .founder b { display: block; color: var(--ink); margin-bottom: 2px; }
-  footer { padding: 36px 0 56px; font-size: 12.5px; color: var(--sub); border-top: 1px solid var(--line); }
-  footer .note { max-width: 60em; line-height: 1.7; }
+  footer { background: var(--ink); color: #BABABA; padding: 40px 0 56px; font-size: 12.5px; }
+  footer .row { display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; align-items: flex-start; }
+  footer .logo { color: #fff; }
+  footer .note { max-width: 56em; line-height: 1.7; }
 
   @media (max-width: 1023px) {
     .nav ul { display: none; }
-    .hero .wrap { grid-template-columns: 1fr; padding-top: 44px; padding-bottom: 90px; gap: 34px; }
-    .flow { grid-template-columns: 1fr; }
-    .arrow { transform: rotate(90deg); height: 28px; }
+    .hero .wrap { grid-template-columns: 1fr; padding-top: 44px; padding-bottom: 96px; gap: 34px; }
+    .trio { grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+    .trio .ar { display: none; }
+    .trio .orb { width: 92px; height: 92px; }
     section { padding: 68px 0; }
     .cards, .steps, .products, .pillars { grid-template-columns: 1fr; }
     dl { grid-template-columns: 1fr; gap: 2px 0; }
@@ -159,7 +175,7 @@
 <body>
 <header>
   <div class="wrap nav">
-    <a class="logo" href="/">MAKORO</a>
+    <a class="logo" href="/"><i>M</i>MAKORO</a>
     <ul>
       <li><a href="#vision" class="inl" data-lang="ja">私たちについて</a><a href="#vision" class="inl" data-lang="en">About</a></li>
       <li><a href="#services" class="inl" data-lang="ja">事業内容</a><a href="#services" class="inl" data-lang="en">Services</a></li>
@@ -179,30 +195,28 @@
 </header>
 
 <main>
-  <!-- 1. 회사 — 모토 -->
   <div class="hero">
     <div class="wrap">
       <div>
         <span class="eyebrow en">ANALOG × DIGITAL × AI</span>
-        <h1 class="blk" data-lang="ja">アナログを、<br>デジタルとAIで<br>つなぐ開発会社。</h1>
-        <h1 class="blk" data-lang="en">A development company<br>connecting the analog world<br>with digital and AI.</h1>
+        <h1 class="blk" data-lang="ja">アナログを、<br><em>デジタルとAI</em>で<br>つなぐ開発会社。</h1>
+        <h1 class="blk" data-lang="en">A development company<br>connecting the analog world<br>with <em>digital and AI</em>.</h1>
         <p class="lead blk" data-lang="ja">MAKORO（マコロ）は、Web・アプリサービスの構築、Webサイト制作、受託開発を行う開発会社です。現場・紙・人といったアナログを起点に、デジタルで形にし、AIで「聞ける・学べる・測れる」仕組みにします。</p>
         <p class="lead blk" data-lang="en">MAKORO builds web and app services and websites, and takes on contract development. We start from the analog world of places, paper and people, shape it digitally, and make it askable, learnable and measurable with AI.</p>
-        <div class="cta flx" data-lang="ja"><a class="btn" href="#contact">開発のご相談</a><a class="btn ghost" href="#services">事業内容を見る</a></div>
-        <div class="cta flx" data-lang="en"><a class="btn" href="#contact">Talk to us</a><a class="btn ghost" href="#services">What we do</a></div>
+        <div class="cta flx" data-lang="ja"><a class="btn" href="#contact">開発のご相談 <span class="ar">→</span></a><a class="btn ghost" href="#services">事業内容を見る</a></div>
+        <div class="cta flx" data-lang="en"><a class="btn" href="#contact">Talk to us <span class="ar">→</span></a><a class="btn ghost" href="#services">What we do</a></div>
       </div>
-      <div class="flow" data-reveal aria-hidden="true">
-        <div class="node"><div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h9l4 4v14H6z"/><path d="M15 3v4h4M9 12h7M9 16h7"/></svg></div><b class="inl" data-lang="ja">アナログ</b><b class="inl" data-lang="en">Analog</b><small class="inl" data-lang="ja">現場・紙・人<br>標識、マニュアル、口伝え</small><small class="inl" data-lang="en">Places, paper, people<br>signs, manuals, word of mouth</small></div>
-        <div class="arrow">→</div>
-        <div class="node"><div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4M7 9h4M7 12h7"/></svg></div><b class="inl" data-lang="ja">デジタル</b><b class="inl" data-lang="en">Digital</b><small class="inl" data-lang="ja">データ・Web・アプリ<br>出どころの確かな形に</small><small class="inl" data-lang="en">Data, web, apps<br>with verified sources</small></div>
-        <div class="arrow">→</div>
-        <div class="node ai"><div class="ic"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 4.6L18.5 9l-4.7 1.4L12 15l-1.8-4.6L5.5 9l4.7-1.4z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/></svg></div><b>AI</b><small class="inl" data-lang="ja">聞ける・学べる・測れる<br>言葉はAI、事実はデータ</small><small class="inl" data-lang="en">Ask, learn, assess<br>words by AI, facts by data</small></div>
+      <div class="trio" data-reveal>
+        <div class="item"><div class="orb gold"><img src="/img/3d/notebook.webp" alt="" width="200" height="200"></div><b class="inl" data-lang="ja">アナログ</b><b class="inl" data-lang="en">Analog</b><small class="inl" data-lang="ja">現場・紙・人<br>標識、マニュアル、口伝え</small><small class="inl" data-lang="en">Places, paper, people<br>signs, manuals, word of mouth</small></div>
+        <div class="ar">→</div>
+        <div class="item"><div class="orb peri"><img src="/img/3d/computer.webp" alt="" width="200" height="200"></div><b class="inl" data-lang="ja">デジタル</b><b class="inl" data-lang="en">Digital</b><small class="inl" data-lang="ja">データ・Web・アプリ<br>出どころの確かな形に</small><small class="inl" data-lang="en">Data, web, apps<br>with verified sources</small></div>
+        <div class="ar">→</div>
+        <div class="item"><div class="orb mint"><img src="/img/3d/chat.webp" alt="" width="200" height="200"></div><b>AI</b><small class="inl" data-lang="ja">聞ける・学べる・測れる<br>言葉はAI、事実はデータ</small><small class="inl" data-lang="en">Ask, learn, assess<br>words by AI, facts by data</small></div>
       </div>
     </div>
-    <div class="curve" aria-hidden="true"><svg viewBox="0 0 1440 70" preserveAspectRatio="none"><path d="M0,70 C360,0 1080,0 1440,70 L1440,70 L0,70 Z" fill="#fff"/></svg></div>
+    <div class="curve" aria-hidden="true"><svg viewBox="0 0 1440 80" preserveAspectRatio="none"><path d="M0,80 C360,0 1080,0 1440,80 L1440,80 L0,80 Z" fill="#fff"/></svg></div>
   </div>
 
-  <!-- 2. 비전 -->
   <section id="vision">
     <div class="wrap vision">
       <p class="kicker en">VISION</p>
@@ -212,15 +226,14 @@
       <p class="blk" data-lang="ja">MAKOROは、それらを捨てずにデジタルへ移し、AIを加えて、使う人の手元に返す会社です。アナログとデジタルの融合にとどまらず、AIまで結びつけたWeb・アプリサービスをつくります。</p>
       <p class="blk" data-lang="en">MAKORO carries them into digital form without discarding them, adds AI, and hands them back to the people who use them. Not just analog meets digital, but web and app services with AI built in.</p>
       <div class="pillars">
-        <div class="pillar" data-reveal><b>01 ANALOG</b><strong class="blk" data-lang="ja">現場から始める</strong><strong class="blk" data-lang="en">Start in the field</strong><p class="blk" data-lang="ja">机上ではなく、使われる場所と人を見てからつくります。</p><p class="blk" data-lang="en">We look at the place and the people before we build.</p></div>
-        <div class="pillar" data-reveal><b>02 DIGITAL</b><strong class="blk" data-lang="ja">出どころを残す</strong><strong class="blk" data-lang="en">Keep the source</strong><p class="blk" data-lang="ja">データには出典と確認日を残し、誰でも確かめられるようにします。</p><p class="blk" data-lang="en">Every piece of data keeps its source and check date.</p></div>
-        <div class="pillar" data-reveal><b>03 AI</b><strong class="blk" data-lang="ja">言葉はAI、事実はデータ</strong><strong class="blk" data-lang="en">Words by AI, facts by data</strong><p class="blk" data-lang="ja">AIにはデータの外のことを言わせません。だから安心して任せられます。</p><p class="blk" data-lang="en">AI never speaks beyond the data. That's what makes it safe to rely on.</p></div>
+        <div class="pillar" data-reveal><div class="orb gold"><img src="/img/3d/location.webp" alt="" width="200" height="200"></div><b>01 ANALOG</b><strong class="blk" data-lang="ja">現場から始める</strong><strong class="blk" data-lang="en">Start in the field</strong><p class="blk" data-lang="ja">机上ではなく、使われる場所と人を見てからつくります。</p><p class="blk" data-lang="en">We look at the place and the people before we build.</p></div>
+        <div class="pillar" data-reveal><div class="orb peri"><img src="/img/3d/file-text.webp" alt="" width="200" height="200"></div><b>02 DIGITAL</b><strong class="blk" data-lang="ja">出どころを残す</strong><strong class="blk" data-lang="en">Keep the source</strong><p class="blk" data-lang="ja">データには出典と確認日を残し、誰でも確かめられるようにします。</p><p class="blk" data-lang="en">Every piece of data keeps its source and check date.</p></div>
+        <div class="pillar" data-reveal><div class="orb mint"><img src="/img/3d/bulb.webp" alt="" width="200" height="200"></div><b>03 AI</b><strong class="blk" data-lang="ja">言葉はAI、事実はデータ</strong><strong class="blk" data-lang="en">Words by AI, facts by data</strong><p class="blk" data-lang="ja">AIにはデータの外のことを言わせません。だから安心して任せられます。</p><p class="blk" data-lang="en">AI never speaks beyond the data. That's what makes it safe to rely on.</p></div>
       </div>
     </div>
   </section>
 
-  <!-- 3. 사업 내용 -->
-  <section id="services" class="band">
+  <section id="services" class="band-bg">
     <div class="wrap">
       <p class="kicker en">SERVICES</p>
       <h2 class="blk" data-lang="ja">事業内容</h2><h2 class="blk" data-lang="en">What we do</h2>
@@ -228,6 +241,7 @@
       <p class="sub blk" data-lang="en">Three ways to work with us. In every case, one company from planning to operations.</p>
       <div class="cards">
         <div class="card" data-reveal>
+          <div class="orb peri"><img src="/img/3d/mobile.webp" alt="" width="200" height="200"></div>
           <span class="num">01</span>
           <h3 class="blk" data-lang="ja">Web・アプリサービスの構築</h3><h3 class="blk" data-lang="en">Web &amp; app services</h3>
           <p class="blk" data-lang="ja">案内・予約・学習・管理など、利用者が日々使うサービスを設計し、構築し、運用します。アプリのインストールなしでスマートフォンから使える形が基本です。</p>
@@ -235,6 +249,7 @@
           <ul><li class="inl" data-lang="ja">企画・UI設計・多言語対応（日英韓繁）</li><li class="inl" data-lang="en">Planning, UI, four languages (JA·EN·KO·ZH-Hant)</li><li class="inl" data-lang="ja">AI機能の組み込み（問答・要約・クイズ生成・通訳）</li><li class="inl" data-lang="en">Built-in AI: Q&amp;A, summaries, quiz generation, interpretation</li><li class="inl" data-lang="ja">運用・月次レポート</li><li class="inl" data-lang="en">Operations and monthly reports</li></ul>
         </div>
         <div class="card" data-reveal>
+          <div class="orb gold"><img src="/img/3d/explorer.webp" alt="" width="200" height="200"></div>
           <span class="num">02</span>
           <h3 class="blk" data-lang="ja">Webサイト制作</h3><h3 class="blk" data-lang="en">Websites</h3>
           <p class="blk" data-lang="ja">会社・施設・サービスのサイトを、速く、読みやすく、検索に強い形で作ります。公開して終わりではなく、更新と計測まで含めてお渡しします。</p>
@@ -242,6 +257,7 @@
           <ul><li class="inl" data-lang="ja">ランディングページ・コーポレートサイト</li><li class="inl" data-lang="en">Landing pages and corporate sites</li><li class="inl" data-lang="ja">多言語・アクセシビリティ・表示速度</li><li class="inl" data-lang="en">Languages, accessibility, performance</li><li class="inl" data-lang="ja">紙の印刷物（QR付きPOP・ポスター）まで</li><li class="inl" data-lang="en">Down to print: QR cards and posters</li></ul>
         </div>
         <div class="card" data-reveal>
+          <div class="orb mint"><img src="/img/3d/tools.webp" alt="" width="200" height="200"></div>
           <span class="num">03</span>
           <h3 class="blk" data-lang="ja">受託開発</h3><h3 class="blk" data-lang="en">Contract development</h3>
           <p class="blk" data-lang="ja">御社の課題に合わせた個別開発。紙やPDFにしかない情報のデータ化、既存システムへのAI機能追加、小さく始める検証用の開発などを承ります。</p>
@@ -252,7 +268,6 @@
     </div>
   </section>
 
-  <!-- 4. 자사 서비스 -->
   <section id="products">
     <div class="wrap">
       <p class="kicker en">OUR SERVICES</p>
@@ -268,38 +283,39 @@
             <p class="blk" data-lang="ja">旅行 × 交通案内。観光周遊バス全20停留所の正確な位置と次のバスを4か国語で。停留所の標識・ホテルのフロント・紙のPOP（アナログ）を地図とデータ（デジタル）につなぎ、フロント向けAI通訳はデータに基づく文章だけを生成します。</p>
             <p class="blk" data-lang="en">Travel × transit. Exact locations of all 20 sightseeing-bus stops and the next bus, in four languages. Bus-stop signs, hotel desks and paper cards (analog) connected to maps and data (digital); the front-desk AI interpreter generates only wording, from data.</p>
             <div class="facts"><div><b>20</b><small class="inl" data-lang="ja">停留所を現地GPS確認</small><small class="inl" data-lang="en">stops GPS-checked</small></div><div><b>4</b><small class="inl" data-lang="ja">言語</small><small class="inl" data-lang="en">languages</small></div><div><b>31</b><small class="inl" data-lang="ja">施設の専用QR</small><small class="inl" data-lang="en">hotels with own QR</small></div></div>
-            <a class="btn ghost sm inl" href="https://kagoshima.makoro.dev/" data-lang="ja">サイトを見る →</a>
-            <a class="btn ghost sm inl" href="https://kagoshima.makoro.dev/?lang=en" data-lang="en">Open the guide →</a>
+            <a class="btn ghost sm inl" href="https://kagoshima.makoro.dev/" data-lang="ja">サイトを見る <span class="ar">→</span></a>
+            <a class="btn ghost sm inl" href="https://kagoshima.makoro.dev/?lang=en" data-lang="en">Open the guide <span class="ar">→</span></a>
           </div>
         </article>
         <article class="product" data-reveal>
-          <div class="visual plan" aria-hidden="true"><div class="mock"><b class="inl" data-lang="ja">マニュアル → 問答 → クイズ → 評価</b><b class="inl" data-lang="en">Manual → Q&amp;A → quiz → assessment</b><i></i><i class="s"></i><i></i><i class="s"></i></div></div>
+          <div class="visual plan" aria-hidden="true"><div class="orb gold"><img src="/img/3d/notebook.webp" alt="" width="200" height="200"></div><span class="ar">→</span><div class="orb mint"><img src="/img/3d/chat.webp" alt="" width="200" height="200"></div><span class="ar">→</span><div class="orb peri"><img src="/img/3d/tick.webp" alt="" width="200" height="200"></div></div>
           <div class="body">
             <span class="tag inl" data-lang="ja">準備中</span><span class="tag inl" data-lang="en">In preparation</span>
             <h3 class="blk" data-lang="ja">社内マニュアル学習・評価</h3><h3 class="blk" data-lang="en">Manual-based learning &amp; assessment</h3>
             <p class="blk" data-lang="ja">社内マニュアル × 学習。紙やPDFのマニュアル、先輩が口頭で教えてきたこと（アナログ）を、検索できるデータ（デジタル）にし、AIへの問答、理解度クイズの自動生成、評価への反映までつなぎます。マニュアルにない答えはしません。</p>
             <p class="blk" data-lang="en">Manuals × learning. Paper and PDF manuals and what seniors taught by word of mouth (analog) become searchable data (digital), connected to AI Q&amp;A, auto-generated quizzes and assessment. No answers that aren't in the manual.</p>
-            <a class="btn ghost sm inl" href="#contact" data-lang="ja">先行してご相談 →</a>
-            <a class="btn ghost sm inl" href="#contact" data-lang="en">Ask about early access →</a>
+            <a class="btn ghost sm inl" href="#contact" data-lang="ja">先行してご相談 <span class="ar">→</span></a>
+            <a class="btn ghost sm inl" href="#contact" data-lang="en">Ask about early access <span class="ar">→</span></a>
           </div>
         </article>
       </div>
     </div>
   </section>
 
-  <!-- 5. 방식 -->
-  <section id="how" class="band">
+  <section id="how" class="band-bg">
     <div class="wrap">
       <p class="kicker en">HOW WE WORK</p>
       <h2 class="blk" data-lang="ja">私たちのやり方</h2><h2 class="blk" data-lang="en">How we work</h2>
       <p class="sub blk" data-lang="ja">自社サービスと同じ手順で進めます。作って終わりにしません。</p>
       <p class="sub blk" data-lang="en">The same steps as our own services. We don't stop at delivery.</p>
       <div class="steps">
-        <div class="step" data-reveal><span class="n">STEP 1</span><b class="blk" data-lang="ja">現場を見る</b><b class="blk" data-lang="en">See the field</b><p class="blk" data-lang="ja">困りごとと、置かれる場所、使う人を確認します。</p><p class="blk" data-lang="en">The problem, where it lives, who uses it.</p></div>
-        <div class="step" data-reveal><span class="n">STEP 2</span><b class="blk" data-lang="ja">データにする</b><b class="blk" data-lang="en">Make it data</b><p class="blk" data-lang="ja">紙・標識・口伝えを、出どころの残るデータに整えます。</p><p class="blk" data-lang="en">Paper, signs and word of mouth become data with sources.</p></div>
-        <div class="step" data-reveal><span class="n">STEP 3</span><b class="blk" data-lang="ja">小さく作って置く</b><b class="blk" data-lang="en">Build small, place it</b><p class="blk" data-lang="ja">まず動くものを現場に置き、数字を見ます。</p><p class="blk" data-lang="en">Something live in the field first, then look at the numbers.</p></div>
-        <div class="step" data-reveal><span class="n">STEP 4</span><b class="blk" data-lang="ja">AIを載せ、運用する</b><b class="blk" data-lang="en">Add AI, operate</b><p class="blk" data-lang="ja">整ったデータの上にAIを置き、月次で報告します。</p><p class="blk" data-lang="en">AI on top of clean data, monthly reports.</p></div>
+        <div class="step" data-reveal><div class="orb gold"><img src="/img/3d/location.webp" alt="" width="200" height="200"></div><span class="n">STEP 1</span><b class="blk" data-lang="ja">現場を見る</b><b class="blk" data-lang="en">See the field</b><p class="blk" data-lang="ja">困りごとと、置かれる場所、使う人を確認します。</p><p class="blk" data-lang="en">The problem, where it lives, who uses it.</p></div>
+        <div class="step" data-reveal><div class="orb peri"><img src="/img/3d/file-text.webp" alt="" width="200" height="200"></div><span class="n">STEP 2</span><b class="blk" data-lang="ja">データにする</b><b class="blk" data-lang="en">Make it data</b><p class="blk" data-lang="ja">紙・標識・口伝えを、出どころの残るデータに整えます。</p><p class="blk" data-lang="en">Paper, signs and word of mouth become data with sources.</p></div>
+        <div class="step" data-reveal><div class="orb coral"><img src="/img/3d/rocket.webp" alt="" width="200" height="200"></div><span class="n">STEP 3</span><b class="blk" data-lang="ja">小さく作って置く</b><b class="blk" data-lang="en">Build small, place it</b><p class="blk" data-lang="ja">まず動くものを現場に置き、数字を見ます。</p><p class="blk" data-lang="en">Something live in the field first, then look at the numbers.</p></div>
+        <div class="step" data-reveal><div class="orb mint"><img src="/img/3d/chart.webp" alt="" width="200" height="200"></div><span class="n">STEP 4</span><b class="blk" data-lang="ja">AIを載せ、運用する</b><b class="blk" data-lang="en">Add AI, operate</b><p class="blk" data-lang="ja">整ったデータの上にAIを置き、月次で報告します。</p><p class="blk" data-lang="en">AI on top of clean data, monthly reports.</p></div>
       </div>
+      <p class="principle blk" data-lang="ja">原則はひとつ。<span>事実はデータが、言葉はAIが。</span></p>
+      <p class="principle blk" data-lang="en">One rule: <span>facts come from data, words from AI.</span></p>
     </div>
   </section>
 
@@ -309,7 +325,7 @@
       <h2 class="blk" data-lang="en">Start with the problem.</h2>
       <p class="blk" data-lang="ja">小さなご相談で構いません。日本語でご連絡ください。</p>
       <p class="blk" data-lang="en">Small questions welcome. Japanese or English.</p>
-      <a class="btn" href="mailto:info@makoro.dev?subject=%E9%96%8B%E7%99%BA%E3%83%BB%E5%88%B6%E4%BD%9C%E3%81%AE%E3%81%94%E7%9B%B8%E8%AB%87"><span class="inl" data-lang="ja">メールで相談する</span><span class="inl" data-lang="en">Email us</span></a>
+      <a class="btn" href="mailto:info@makoro.dev?subject=%E9%96%8B%E7%99%BA%E3%83%BB%E5%88%B6%E4%BD%9C%E3%81%AE%E3%81%94%E7%9B%B8%E8%AB%87"><span class="inl" data-lang="ja">メールで相談する</span><span class="inl" data-lang="en">Email us</span> <span class="ar">→</span></a>
       <p class="mail"><a href="mailto:info@makoro.dev">info@makoro.dev</a></p>
     </div>
   </section>
@@ -327,7 +343,7 @@
         <dt class="inl" data-lang="ja">お問い合わせ</dt><dt class="inl" data-lang="en">Contact</dt><dd><a href="mailto:info@makoro.dev">info@makoro.dev</a></dd>
       </dl>
       <div class="founder" data-reveal>
-        <i>S</i>
+        <div class="orb coral"><img src="/img/3d/travel.webp" alt="" width="200" height="200"></div>
         <p><b>ソン・ドンギュ</b><span class="inl" data-lang="ja">鹿児島の天文館で、地図アプリの示す場所にバス停がなかった旅行者です。その30秒のために全停留所を歩いて確かめる案内をつくったのが、この会社の始まりです。だから私たちの開発は、画面の中で終わりません。</span><span class="inl" data-lang="en">A traveler who once found no bus stop where the map app said, in Tenmonkan, Kagoshima. Building a guide and walking every stop to check it is how this company began. That's why our work never ends on the screen.</span></p>
       </div>
     </div>
@@ -335,9 +351,10 @@
 </main>
 
 <footer>
-  <div class="wrap">
-    <p class="note blk" data-lang="ja">© MAKORO ／ 鹿児島シティビューバスガイドの停留所データ提供：鹿児島市（原データより加工）CC BY 4.0。停留所位置は2026年5月31日に現地確認。</p>
-    <p class="note blk" data-lang="en">© MAKORO · Kagoshima stop data: Kagoshima City (processed), CC BY 4.0. Stops field-checked 2026-05-31.</p>
+  <div class="wrap row">
+    <a class="logo" href="/"><i>M</i>MAKORO</a>
+    <p class="note blk" data-lang="ja">© MAKORO ／ 鹿児島シティビューバスガイドの停留所データ提供：鹿児島市（原データより加工）CC BY 4.0。停留所位置は2026年5月31日に現地確認。3Dアイコン：3dicons（CC0）。</p>
+    <p class="note blk" data-lang="en">© MAKORO · Kagoshima stop data: Kagoshima City (processed), CC BY 4.0. Stops field-checked 2026-05-31. 3D icons: 3dicons (CC0).</p>
   </div>
 </footer>
 
