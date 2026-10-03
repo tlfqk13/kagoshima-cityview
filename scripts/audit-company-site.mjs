@@ -39,15 +39,26 @@ const OVERFLOW = `(() => { const out = []
     for (const rc of range.getClientRects()) { if (!rc.width) continue
       const pts = [[rc.left + 1, rc.top + 1], [rc.right - 1, rc.top + 1], [rc.left + 1, rc.bottom - 1], [rc.right - 1, rc.bottom - 1]]
       if (pts.some(([x, y]) => !inside(box, x, y))) { out.push({ text: n.nodeValue.trim().slice(0, 28), box: (box.className || box.tagName).toString().slice(0, 28) }); break } } }
+  // 도넛: 가운데 글자가 고리 안쪽 원(반지름 = (54-7)/132 × 폭) 안에 있어야 한다
+  for (const d of document.querySelectorAll('.donut')) { const r = d.getBoundingClientRect(), cx = r.left + r.width / 2, cy = r.top + r.height / 2, R = r.width * 47 / 132 - 1
+    const range = document.createRange(); range.selectNodeContents(d.querySelector('.c'))
+    for (const rc of range.getClientRects()) { if (!rc.width) continue; if ([[rc.left, rc.top], [rc.right, rc.top], [rc.left, rc.bottom], [rc.right, rc.bottom]].some(([x, y]) => Math.hypot(x - cx, y - cy) > R)) { out.push({ text: 'DONUT TEXT TOUCHES RING', box: 'donut' }); break } } }
+  // 사진이 object-fit: cover 로 15% 이상 잘리면 보고(글자가 든 그림이 끊긴다)
+  for (const im of document.images) { const cs = getComputedStyle(im); if (cs.objectFit !== 'cover' || !im.naturalWidth) continue; const r = im.getBoundingClientRect(); if (r.width < 120) continue; const a = im.naturalWidth / im.naturalHeight, b = r.width / r.height; const lost = 1 - Math.min(a, b) / Math.max(a, b); if (lost > 0.15) out.push({ text: 'IMAGE CROPPED ' + Math.round(lost * 100) + '%', box: im.getAttribute('src') }) }
+  // 고정 요소(.fix)가 본문 폭(.wrap) 안쪽을 가리면 보고
+  const fx = document.querySelector('.fix'), wr = document.querySelector('section .wrap')
+  if (fx && wr && getComputedStyle(fx).display !== 'none') { const f = fx.getBoundingClientRect(), w = wr.getBoundingClientRect(); if (f.left < w.right - 20) out.push({ text: 'FIXED CTA OVERLAPS CONTENT', box: Math.round(w.right - f.left) + 'px' }) }
+  // 히어로를 지난 뒤 헤더에 바탕이 있어야 한다(로고가 본문 글자와 겹쳐 보이지 않게)
+  const hd = document.querySelector('.hd'); if (hd && hd.classList.contains('on-light') && parseFloat(getComputedStyle(hd, '::before').opacity) < 0.5) out.push({ text: 'HEADER HAS NO BACKING OVER CONTENT', box: 'hd' })
   // 가로 스크롤 발생 여부
   if (document.documentElement.scrollWidth > innerWidth + 1) out.push({ text: 'HORIZONTAL SCROLL', box: 'html ' + document.documentElement.scrollWidth + ' > ' + innerWidth })
   return [...new Map(out.map(o => [o.text + o.box, o])).values()] })()`
 const b = await chromium.launch(); let total = 0
-for (const [w, h] of [[1440, 900], [390, 844]]) for (const lang of ['ja', 'en']) {
+for (const [w, h] of [[1440, 900], [1100, 800], [768, 1024], [390, 844]]) for (const lang of ['ja', 'en']) {
   const p = await (await b.newContext({ viewport: { width: w, height: h }, locale: 'ja-JP', deviceScaleFactor: w < 500 ? 2 : 1 })).newPage()
   const errs = []; p.on('pageerror', e => errs.push(e.message))
   await p.goto('http://localhost:3997/', { waitUntil: 'networkidle' }); await p.evaluate(l => document.documentElement.setAttribute('data-ui', l), lang)
-  await p.addStyleTag({ content: '[data-reveal]{opacity:1!important;transform:none!important;transition:none!important} .rule{transform:none!important} *{animation:none!important} .fix{opacity:1!important;transform:translate(0,-50%)!important}' }); await p.waitForTimeout(500)
+  await p.addStyleTag({ content: '[data-reveal]{opacity:1!important;transform:none!important;transition:none!important} .rule{transform:none!important} *{animation:none!important} .fix{opacity:1!important;transform:translate(0,-50%)!important}' }); await p.evaluate(() => window.scrollTo(0, window.innerHeight * 1.6)); await p.waitForTimeout(900)
   const c = await p.evaluate(CENTER), o = await p.evaluate(OVERFLOW)
   total += c.length + o.length + errs.length
   console.log(`${w} ${lang}: off-center ${c.length}, overflow ${o.length}, js errors ${errs.length}`)

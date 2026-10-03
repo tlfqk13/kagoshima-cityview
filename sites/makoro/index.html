@@ -44,8 +44,12 @@
   html[data-ui="ja"] .blk[data-lang="ja"], html[data-ui="en"] .blk[data-lang="en"] { display: block !important; }
 
   /* ── 헤더(mpuni) ── */
-  .hd { position: fixed; top: 0; left: 0; right: 0; z-index: 30; display: flex; align-items: center; justify-content: space-between; padding: 26px 32px; pointer-events: none; }
+  .hd { position: fixed; top: 0; left: 0; right: 0; z-index: 30; display: flex; align-items: center; justify-content: space-between; padding: 14px 32px; pointer-events: none; }
   .hd > * { pointer-events: auto; }
+  /* 히어로를 지나면 흰 반투명 바탕 — 로고·햄버거가 본문 글자와 겹쳐 보이지 않게 */
+  .hd::before { content: ""; position: absolute; inset: 0; background: rgba(255,255,255,0.9); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); opacity: 0; transition: opacity 0.4s; z-index: -1; }
+  .hd.on-light::before { opacity: 1; }
+  .hd.open::before { opacity: 0; }
   .logo { font-family: "Gothic A1", sans-serif; font-weight: 500; letter-spacing: 0.3em; font-size: 14px; color: #fff; transition: color 0.5s; }
   .hd.on-light .logo { color: var(--head); }
   .hamb { width: 44px; height: 44px; border: 0; background: transparent; cursor: pointer; display: grid; place-items: center; }
@@ -171,7 +175,7 @@
   .panel.c1 { background: linear-gradient(160deg, var(--peri-l), #fff 75%); } .panel.c2 { background: linear-gradient(160deg, var(--gold-l), #fff 75%); } .panel.c3 { background: linear-gradient(160deg, var(--mint-l), #fff 75%); }
   .panel img { width: 40%; object-fit: contain; filter: drop-shadow(0 16px 24px rgba(0,0,0,0.14)); animation: floatY 7s ease-in-out infinite; }
   .photo { overflow: hidden; box-shadow: 0 18px 50px rgba(0,0,0,0.10); }
-  .photo img { aspect-ratio: 4 / 3; width: 100%; height: 100%; object-fit: cover; }
+  .photo img { aspect-ratio: 1200 / 630; width: 100%; height: auto; object-fit: contain; } /* 엽서 그림은 자르지 않는다 */
   .float { position: absolute; width: 108px; height: 108px; object-fit: contain; filter: drop-shadow(0 18px 24px rgba(0,0,0,0.18)); z-index: 2; }
   .txt .n { display: flex; align-items: baseline; gap: 16px; }
   .num-i { font-family: "Times New Roman", Georgia, serif; font-style: italic; font-size: 60px; line-height: 1; color: var(--blue); letter-spacing: 0; }
@@ -182,7 +186,8 @@
   .txt .more { margin-top: 34px; }
 
   /* ── Products: 도넛(KABU&) ── */
-  .stat { display: flex; align-items: center; gap: 26px; margin-top: 30px; flex-wrap: wrap; }
+  .stat { display: flex; align-items: flex-start; gap: 30px; margin-top: 30px; flex-wrap: wrap; }
+  .stat .nums { padding-top: 34px; }
   .donut { position: relative; width: 132px; height: 132px; flex-shrink: 0; }
   .donut svg { width: 100%; height: 100%; transform: rotate(-90deg); }
   .donut circle { fill: none; stroke-width: 14; }
@@ -191,7 +196,8 @@
   .donut .c { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; line-height: 1.1; }
   .donut .c b { font-family: "Gothic A1", sans-serif; font-weight: 500; font-size: 34px; color: var(--blue); letter-spacing: 0; }
   .donut .c b small { font-size: 15px; color: var(--sub); }
-  .donut .c span { display: block; font-size: 10px; letter-spacing: 0.06em; color: var(--ink); margin-top: 2px; }
+  .dwrap { display: flex; flex-direction: column; align-items: center; gap: 8px; flex-shrink: 0; }
+  .dcap { font-size: 11px; letter-spacing: 0.06em; color: var(--ink); line-height: 1.5; text-align: center; }
   .nums { display: flex; gap: 28px; }
   .nums b { display: block; font-family: "Gothic A1", sans-serif; font-weight: 300; font-size: 40px; color: var(--blue); line-height: 1; letter-spacing: 0; font-variant-numeric: tabular-nums; }
   .nums small { display: block; font-size: 11px; letter-spacing: 0.06em; color: var(--ink); margin-top: 6px; line-height: 1.5; }
@@ -253,8 +259,10 @@
     .donut .fg { stroke-dashoffset: 203.6; transition: none; }
     .hero { position: relative; }
   }
+  /* 1024〜1279: 본문 옆 여백이 좁아 고정 CTA·세로 라벨·노란 사각이 내용을 가린다 → 숨김 */
+  @media (max-width: 1279px) { .fix, .side, .ysq { display: none; } }
   @media (max-width: 1023px) {
-    .hd { padding: 18px 18px; }
+    .hd { padding: 8px 14px 8px 20px; }
     .hero { position: relative; min-height: 560px; }
     .cloud { scale: 0.6; opacity: 0.7; }
     .hero .cloud:nth-child(3) { display: none; }
@@ -270,6 +278,12 @@
     .row.rev .vis { order: 0; }
     .txt .l2, .txt .l3 { margin-left: 0; }
     .float { width: 80px; height: 80px; }
+    .stat { gap: 22px 26px; }
+    .stat .nums { padding-top: 0; gap: 22px; flex: 1 1 100%; }
+    .dwrap { flex-direction: row; gap: 16px; align-items: center; }
+    .dcap { text-align: left; }
+    .donut { width: 108px; height: 108px; }
+    .donut .c b { font-size: 28px; }
     .bubbles { grid-template-columns: 1fr; gap: 30px; margin-top: 54px; }
     .bubble:nth-child(even) { margin-top: 0; }
     .steps { grid-template-columns: 1fr 1fr; gap: 40px 0; margin-top: 56px; }
@@ -472,7 +486,7 @@
             <p class="l2 blk" data-lang="en" data-reveal>Bus-stop signs, hotel desks and paper cards (analog), connected to maps and data (digital).</p>
             <p class="l3 blk" data-lang="en" data-reveal>The front-desk AI interpreter generates only wording, from data.</p>
             <div class="stat" data-reveal>
-              <div class="donut"><svg viewBox="0 0 132 132" aria-hidden="true"><circle class="bg" cx="66" cy="66" r="54"/><circle class="fg" cx="66" cy="66" r="54"/></svg><div class="c"><div><b>8<small>/20</small></b><span><span class="inl" data-lang="ja">Googleマップと<br>50m以上ずれ</span><span class="inl" data-lang="en">stops off 50 m+<br>on Google Maps</span></span></div></div></div>
+              <div class="dwrap"><div class="donut"><svg viewBox="0 0 132 132" aria-hidden="true"><circle class="bg" cx="66" cy="66" r="54"/><circle class="fg" cx="66" cy="66" r="54"/></svg><div class="c"><b>8<small>/20</small></b></div></div><small class="dcap"><span class="inl" data-lang="ja">Googleマップと<br>50m以上ずれ</span><span class="inl" data-lang="en">stops off 50 m+<br>on Google Maps</span></small></div>
               <div class="nums"><div><b data-count="20">0</b><small><span class="inl" data-lang="ja">停留所を<br>現地GPS確認</span><span class="inl" data-lang="en">stops<br>GPS-checked</span></small></div><div><b data-count="4">0</b><small><span class="inl" data-lang="ja">言語</span><span class="inl" data-lang="en">languages</span></small></div><div><b data-count="31">0</b><small><span class="inl" data-lang="ja">施設の<br>専用QR</span><span class="inl" data-lang="en">hotels,<br>own QR</span></small></div></div>
             </div>
             <a class="more" href="https://kagoshima.makoro.dev/" data-reveal><span class="inl" data-lang="ja">サイトへ</span><span class="inl" data-lang="en">Open the guide</span></a>
@@ -628,7 +642,7 @@
     function frame() {
       ticking = false;
       var y = window.pageYOffset, h = hero.offsetHeight, vh = window.innerHeight;
-      hd.classList.toggle('on-light', y > h - 70);
+      hd.classList.toggle('on-light', y > h - 60);
       // 고정 CTA: 히어로를 지나면 나타나고, CTA 띠·푸터 근처에서는 숨긴다
       var cr = contact.getBoundingClientRect();
       fix.classList.toggle('show', y > h * 0.9 && cr.top > vh * 0.6);
