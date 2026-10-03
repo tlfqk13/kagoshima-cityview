@@ -44,6 +44,9 @@
   html[data-ui="ja"] .inl[data-lang="ja"], html[data-ui="en"] .inl[data-lang="en"] { display: inline !important; }
   html[data-ui="ja"] .blk[data-lang="ja"], html[data-ui="en"] .blk[data-lang="en"] { display: block !important; }
 
+  /* 일본어 UI의 영문 소제목은 장식 겸 보조. 영어 UI에서는 본제목과 같은 말이 겹치므로 숨긴다 */
+  html[data-ui="en"] .ja-only { display: none !important; }
+
   /* ── 헤더(mpuni) ── */
   .hd { position: fixed; top: 0; left: 0; right: 0; z-index: 30; display: flex; align-items: center; justify-content: space-between; padding: 14px 32px; pointer-events: none; }
   .hd > * { pointer-events: auto; }
@@ -496,13 +499,13 @@
 <nav class="menu" id="menu" aria-label="Site menu">
   <div>
     <ul>
-      <li><a href="#name"><small>NAME</small><span class="inl" data-lang="ja">MAKOROとは</span><span class="inl" data-lang="en">About the name</span></a></li>
-      <li><a href="#about"><small>ABOUT</small><span class="inl" data-lang="ja">私たちの考え方</span><span class="inl" data-lang="en">How we think</span></a></li>
-      <li><a href="#services"><small>SERVICE</small><span class="inl" data-lang="ja">事業内容</span><span class="inl" data-lang="en">What we do</span></a></li>
-      <li><a href="#products"><small>PRODUCTS</small><span class="inl" data-lang="ja">自社サービス</span><span class="inl" data-lang="en">Our services</span></a></li>
-      <li><a href="#how"><small>HOW</small><span class="inl" data-lang="ja">私たちのやり方</span><span class="inl" data-lang="en">How we work</span></a></li>
-      <li><a href="#company"><small>COMPANY</small><span class="inl" data-lang="ja">会社概要</span><span class="inl" data-lang="en">Company</span></a></li>
-      <li><a href="#contact"><small>CONTACT</small><span class="inl" data-lang="ja">ご相談</span><span class="inl" data-lang="en">Contact</span></a></li>
+      <li><a href="#name"><small class="ja-only">NAME</small><span class="inl" data-lang="ja">MAKOROとは</span><span class="inl" data-lang="en">About the name</span></a></li>
+      <li><a href="#about"><small class="ja-only">ABOUT</small><span class="inl" data-lang="ja">私たちの考え方</span><span class="inl" data-lang="en">How we think</span></a></li>
+      <li><a href="#services"><small class="ja-only">SERVICE</small><span class="inl" data-lang="ja">事業内容</span><span class="inl" data-lang="en">What we do</span></a></li>
+      <li><a href="#products"><small class="ja-only">PRODUCTS</small><span class="inl" data-lang="ja">自社サービス</span><span class="inl" data-lang="en">Our services</span></a></li>
+      <li><a href="#how"><small class="ja-only">HOW</small><span class="inl" data-lang="ja">私たちのやり方</span><span class="inl" data-lang="en">How we work</span></a></li>
+      <li><a href="#company"><small class="ja-only">COMPANY</small><span class="inl" data-lang="ja">会社概要</span><span class="inl" data-lang="en">Company</span></a></li>
+      <li><a href="#contact"><small class="ja-only">CONTACT</small><span class="inl" data-lang="ja">ご相談</span><span class="inl" data-lang="en">Contact</span></a></li>
     </ul>
     <div class="lang" role="group" aria-label="Language">
       <button type="button" data-set="ja" aria-pressed="true">日本語</button>
@@ -615,7 +618,7 @@
         <div class="row">
           <div class="vis" data-reveal="left"><div class="panel c1 ui" aria-hidden="true"><div class="win"><div class="wbar"><i></i><i></i><i></i><span></span></div><div class="pg"><div class="blk-h a1"></div><div class="ln w70 a2"></div><div class="ln w45 a3"></div><div class="g3"><i class="a4"></i><i class="a5"></i><i class="a6"></i></div></div></div><div class="ph a7"><div class="blk-h"></div><div class="ln w80"></div><div class="ln w55"></div><i class="pc"></i></div><span class="tagx a8">Web ⇄ App</span></div></div>
           <div class="txt" data-stagger>
-            <div class="n" data-reveal><span class="num-i">1</span><small>WEB &amp; APP SERVICES</small></div>
+            <div class="n" data-reveal><span class="num-i">1</span><small class="ja-only">WEB &amp; APP SERVICES</small></div>
             <h3 data-reveal><span class="inl" data-lang="ja">Web・アプリサービスの構築</span><span class="inl" data-lang="en">Web &amp; app services</span></h3>
             <p class="l1 blk" data-lang="ja" data-reveal>案内・予約・学習・管理など、利用者が日々使うサービスを設計し、構築し、運用します。</p>
             <p class="l2 blk" data-lang="ja" data-reveal>アプリのインストールなしで、スマートフォンからそのまま使える形が基本です。</p>
@@ -629,7 +632,7 @@
         <div class="row rev">
           <div class="vis" data-reveal="right"><div class="panel c2 ui" aria-hidden="true"><div class="win wide"><div class="wbar"><i></i><i></i><i></i><span></span><div class="langs"><b>JA</b><b>EN</b><b>KO</b><b>繁</b></div></div><div class="pg"><div class="ln w60 a1 big"></div><div class="ln w85 a2"></div><div class="ln w70 a2"></div><div class="meters"><div class="m a3"><small>表示速度</small><u><i style="--w:94%"></i></u></div><div class="m a4"><small>読みやすさ</small><u><i style="--w:90%"></i></u></div><div class="m a5"><small>検索</small><u><i style="--w:96%"></i></u></div></div></div></div></div></div>
           <div class="txt" data-stagger>
-            <div class="n" data-reveal><span class="num-i">2</span><small>WEBSITES</small></div>
+            <div class="n" data-reveal><span class="num-i">2</span><small class="ja-only">WEBSITES</small></div>
             <h3 data-reveal><span class="inl" data-lang="ja">Webサイト制作</span><span class="inl" data-lang="en">Websites</span></h3>
             <p class="l1 blk" data-lang="ja" data-reveal>会社・施設・サービスのサイトを、速く、読みやすく、検索に強い形で作ります。</p>
             <p class="l2 blk" data-lang="ja" data-reveal>公開して終わりではなく、更新と計測まで含めてお渡しします。</p>
@@ -644,7 +647,7 @@
         <div class="row">
           <div class="vis" data-reveal="left"><div class="panel c3 ui" aria-hidden="true"><div class="doc a1"><b>PDF</b><u></u><u></u><u class="s"></u><u></u><u class="s"></u></div><svg class="flow" viewBox="0 0 60 20"><path d="M2,10 H52 M46,4 L54,10 L46,16" fill="none" stroke="#0099D9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" pathLength="1"/></svg><div class="tbl"><div class="r a3"><i></i><u></u><em>p.3</em></div><div class="r a4"><i></i><u class="s"></u><em>p.7</em></div><div class="r a5"><i></i><u></u><em>p.12</em></div><div class="ai a6"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.2 6.3L20.5 10l-6.3 1.7L12 18l-2.2-6.3L3.5 10l6.3-1.7z"/></svg>AI</div></div></div></div>
           <div class="txt" data-stagger>
-            <div class="n" data-reveal><span class="num-i">3</span><small>CONTRACT DEVELOPMENT</small></div>
+            <div class="n" data-reveal><span class="num-i">3</span><small class="ja-only">CONTRACT DEVELOPMENT</small></div>
             <h3 data-reveal><span class="inl" data-lang="ja">受託開発</span><span class="inl" data-lang="en">Contract development</span></h3>
             <p class="l1 blk" data-lang="ja" data-reveal>御社の課題に合わせた個別開発。</p>
             <p class="l2 blk" data-lang="ja" data-reveal>紙やPDFにしかない情報のデータ化、既存システムへのAI機能追加、小さく始める検証用の開発。</p>
@@ -753,7 +756,7 @@
       <i class="diag" data-parallax="0.18" style="width:38vw;height:260px;right:0;bottom:0;transform:scaleY(-1)"></i>
       <span class="side">How we work</span>
       <div class="wrap">
-        <p class="t-en" data-reveal>HOW WE WORK</p>
+        <p class="t-en ja-only" data-reveal>HOW WE WORK</p>
         <h2 class="t-ja" data-reveal><span class="inl" data-lang="ja">私たちのやり方</span><span class="inl" data-lang="en">How we work</span></h2>
         <div class="rule"></div>
         <p class="t-lead blk" data-lang="ja" data-reveal>自社サービスと同じ手順で進めます。作って終わりにしません。</p>
@@ -783,7 +786,7 @@
     <section id="company" class="paper">
       <span class="side">Company</span>
       <div class="wrap">
-        <p class="t-en" data-reveal>COMPANY</p>
+        <p class="t-en ja-only" data-reveal>COMPANY</p>
         <h2 class="t-ja" data-reveal><span class="inl" data-lang="ja">会社概要</span><span class="inl" data-lang="en">Company</span></h2>
         <div class="rule"></div>
         <div class="cbox hbox" data-reveal>
