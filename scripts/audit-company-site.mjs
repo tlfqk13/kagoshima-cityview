@@ -58,7 +58,7 @@ for (const [w, h] of [[1440, 900], [1100, 800], [768, 1024], [390, 844]]) for (c
   const p = await (await b.newContext({ viewport: { width: w, height: h }, locale: 'ja-JP', deviceScaleFactor: w < 500 ? 2 : 1 })).newPage()
   const errs = []; p.on('pageerror', e => errs.push(e.message))
   await p.goto('http://localhost:3997/', { waitUntil: 'networkidle' }); await p.evaluate(l => document.documentElement.setAttribute('data-ui', l), lang)
-  await p.addStyleTag({ content: '[data-reveal]{opacity:1!important;transform:none!important;transition:none!important} .rule{transform:none!important} *{animation:none!important} .fix{opacity:1!important;transform:translate(0,-50%)!important} .res b span{opacity:1!important;transform:none!important} .device{transform:none!important} .scr,.scr *{opacity:1!important}' }); await p.evaluate(() => window.scrollTo(0, window.innerHeight * 1.6)); await p.waitForTimeout(900)
+  await p.addStyleTag({ content: '[data-reveal]{opacity:1!important;transform:none!important;transition:none!important} .rule{transform:none!important} *{animation:none!important} .fix{opacity:1!important;transform:translate(0,-50%)!important} .res b span{opacity:1!important;transform:none!important} .device{transform:none!important} .ui *{opacity:1!important} .scr,.scr *{opacity:1!important}' }); await p.evaluate(() => window.scrollTo(0, window.innerHeight * 1.6)); await p.waitForTimeout(900)
   const c = await p.evaluate(CENTER), o = await p.evaluate(OVERFLOW)
   total += c.length + o.length + errs.length
   console.log(`${w} ${lang}: off-center ${c.length}, overflow ${o.length}, js errors ${errs.length}`)

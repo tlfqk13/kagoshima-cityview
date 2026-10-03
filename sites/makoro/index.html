@@ -227,6 +227,53 @@
   .nums b { display: block; font-family: "Gothic A1", sans-serif; font-weight: 300; font-size: 40px; color: var(--blue); line-height: 1; letter-spacing: 0; font-variant-numeric: tabular-nums; }
   .nums small { display: block; font-size: 11px; letter-spacing: 0.06em; color: var(--ink); margin-top: 6px; line-height: 1.5; }
 
+  /* ── Service 패널: 코드로 그린 미니 UI (뷰포트에 들어오면 조립된다) ── */
+  .ui { position: relative; overflow: hidden; }
+  .ui [class*=" a"], .ui [class^="a"] { opacity: 0; }
+  .vis[data-in] .ui .a1 { animation: build 0.6s var(--ease) 0.5s forwards; } .vis[data-in] .ui .a2 { animation: build 0.6s var(--ease) 0.7s forwards; }
+  .vis[data-in] .ui .a3 { animation: build 0.6s var(--ease) 0.9s forwards; } .vis[data-in] .ui .a4 { animation: build 0.6s var(--ease) 1.1s forwards; }
+  .vis[data-in] .ui .a5 { animation: build 0.6s var(--ease) 1.25s forwards; } .vis[data-in] .ui .a6 { animation: build 0.6s var(--ease) 1.4s forwards; }
+  .vis[data-in] .ui .a7 { animation: slideIn 0.9s var(--ease) 1.6s forwards; } .vis[data-in] .ui .a8 { animation: build 0.5s var(--ease) 2.2s forwards; }
+  @keyframes build { from { opacity: 0; transform: translateY(10px) scale(0.96); } to { opacity: 1; transform: none; } }
+  @keyframes slideIn { from { opacity: 0; transform: translate(30px, 20px) rotate(6deg); } to { opacity: 1; transform: rotate(3deg); } }
+  .win { position: absolute; left: 9%; top: 12%; width: 66%; height: 72%; background: #fff; border-radius: 10px; box-shadow: 0 18px 40px rgba(14,42,71,0.16); overflow: hidden; display: flex; flex-direction: column; }
+  .win.wide { left: 10%; width: 80%; top: 50%; height: auto; transform: translateY(-50%); }
+  .wbar { display: flex; align-items: center; gap: 5px; padding: 8px 10px; background: #F0F4F8; }
+  .wbar > i { width: 7px; height: 7px; border-radius: 50%; background: #C9D5E1; }
+  .wbar > span { flex: 1; height: 8px; border-radius: 4px; background: #fff; margin-left: 6px; }
+  .pg { padding: 12px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+  .blk-h { height: 34%; min-height: 34px; border-radius: 6px; background: linear-gradient(135deg, #6FB6EC, #0099D9); }
+  .ln { height: 7px; border-radius: 4px; background: #DCE5EE; } .ln.big { height: 12px; background: #12263C; }
+  .w85 { width: 85%; } .w80 { width: 80%; } .w70 { width: 70%; } .w60 { width: 60%; } .w55 { width: 55%; } .w45 { width: 45%; }
+  .g3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; flex: 1; } .g3 i { border-radius: 6px; background: #EAF2F7; border: 1px solid #DCE5EE; }
+  .ph { position: absolute; right: 9%; bottom: 9%; width: 25%; aspect-ratio: 9 / 17; background: #fff; border: 5px solid #12263C; border-radius: 16px; box-shadow: 0 16px 34px rgba(14,42,71,0.24); padding: 12px 7px 8px; display: flex; flex-direction: column; gap: 6px; }
+  .ph .blk-h { height: 34%; min-height: 0; } .ph .pc { display: block; margin-top: auto; height: 12px; border-radius: 8px; background: #0099D9; }
+  .tagx { position: absolute; left: 9%; bottom: 7%; font: 500 10px "Gothic A1", sans-serif; letter-spacing: 0.2em; color: #0099D9; line-height: 1; }
+  .langs { display: flex; gap: 3px; margin-left: 8px; }
+  .langs b { font: 500 8px "Gothic A1", sans-serif; letter-spacing: 0; padding: 2px 5px; border-radius: 8px; color: #6B7C8F; line-height: 1.2; animation: langOn 6s steps(1) infinite; }
+  .langs b:nth-child(2) { animation-delay: 1.5s; } .langs b:nth-child(3) { animation-delay: 3s; } .langs b:nth-child(4) { animation-delay: 4.5s; }
+  @keyframes langOn { 0% { background: #12263C; color: #fff; } 25%, 100% { background: transparent; color: #6B7C8F; } }
+  .meters { margin-top: 16px; display: flex; flex-direction: column; gap: 9px; padding-bottom: 4px; }
+  .m { display: grid; grid-template-columns: 64px 1fr; align-items: center; gap: 8px; }
+  .m small { font-size: 9px; letter-spacing: 0.04em; color: #3D5166; line-height: 1.2; white-space: nowrap; }
+  .m u { display: block; height: 7px; border-radius: 4px; background: #E6ECF2; overflow: hidden; }
+  .m u i { display: block; height: 100%; width: 0; border-radius: 4px; background: linear-gradient(90deg, #6FB6EC, #0099D9); }
+  .vis[data-in] .m u i { animation: fill 1.2s var(--ease) 1.5s forwards; }
+  @keyframes fill { to { width: var(--w); } }
+  .doc { position: absolute; left: 9%; top: 24%; width: 28%; aspect-ratio: 3 / 4; background: #fff; border-radius: 5px; box-shadow: 0 12px 26px rgba(60,40,20,0.16); padding: 12px 10px; display: flex; flex-direction: column; gap: 8px; }
+  .vis[data-in] .ui .doc.a1 { animation: docIn 0.8s var(--ease) 0.4s forwards; }
+  @keyframes docIn { from { opacity: 0; transform: translateY(14px) rotate(-10deg); } to { opacity: 1; transform: rotate(-5deg); } }
+  .doc b { font: 500 9px "Gothic A1", sans-serif; letter-spacing: 0.1em; color: #B8432F; line-height: 1; }
+  .doc u, .tbl u { display: block; height: 5px; border-radius: 3px; background: #E3DDD3; } .doc u.s, .tbl u.s { width: 60%; }
+  .flow { position: absolute; left: 39%; top: 47%; width: 13%; }
+  .flow path { stroke-dasharray: 1; stroke-dashoffset: 1; }
+  .vis[data-in] .flow path { animation: draw 0.8s var(--ease) 1s forwards; }
+  .tbl { position: absolute; right: 8%; top: 29%; width: 38%; display: flex; flex-direction: column; gap: 7px; }
+  .tbl .r { display: grid; grid-template-columns: 8px 1fr auto; align-items: center; gap: 7px; background: #fff; border-radius: 7px; padding: 9px 9px; box-shadow: 0 5px 14px rgba(14,42,71,0.08); }
+  .tbl .r > i { width: 8px; height: 8px; border-radius: 50%; background: #0099D9; } .tbl u { background: #DCE5EE; }
+  .tbl em { font: 500 8px "Gothic A1", sans-serif; font-style: normal; letter-spacing: 0; color: #0099D9; line-height: 1; }
+  .tbl .ai { align-self: flex-end; display: inline-flex; align-items: center; gap: 4px; font: 500 10px "Gothic A1", sans-serif; letter-spacing: 0.1em; color: #fff; background: #0099D9; padding: 5px 10px; border-radius: 14px; line-height: 1; margin-top: 4px; }
+
   /* ── 自社サービス: 스크롤 스토리텔링 ── */
   #products { overflow: visible; overflow: clip; } /* overflow:hidden 이면 position:sticky 가 듣지 않는다. clip 은 스크롤 컨테이너를 만들지 않는다 */
   .scase { display: grid; grid-template-columns: 1fr 1fr; gap: 70px; margin-top: 100px; align-items: start; }
@@ -335,10 +382,17 @@
   .bubble .a { display: flex; gap: 10px; margin-top: 12px; padding-top: 12px; border-top: 1px dashed var(--line); font-size: 14px; letter-spacing: 0.06em; line-height: 1.9; }
   .bubble .a::before { content: "A"; flex-shrink: 0; width: 24px; height: 24px; border-radius: 50%; background: var(--blue); color: #fff; font-family: "Gothic A1", sans-serif; font-size: 12px; letter-spacing: 0; display: grid; place-items: center; margin-top: 2px; }
 
+  .bubble .a { opacity: 0; transform: translateY(8px); transition: opacity 0.6s ease 0.9s, transform 0.7s var(--ease) 0.9s; }
+  .bubble[data-in] .a { opacity: 1; transform: none; }
+
   /* ── やり方 ── */
   .steps { display: grid; grid-template-columns: repeat(4, 1fr); margin-top: 90px; position: relative; }
   .steps::before { content: ""; position: absolute; left: 12.5%; right: 12.5%; top: 42px; height: 1px; background: var(--head); opacity: 0.3; }
+  .steps::after { content: ""; position: absolute; left: 12.5%; top: 41px; height: 3px; border-radius: 2px; width: calc(75% * var(--p, 0)); background: var(--blue); }
   .step { text-align: center; padding: 0 18px; position: relative; }
+  .step .orb { transition: box-shadow 0.5s, transform 0.5s var(--ease), filter 0.5s; filter: saturate(0.2) opacity(0.6); }
+  .step.on .orb { filter: none; transform: scale(1.08); box-shadow: 0 0 0 6px rgba(0,153,217,0.16), 0 10px 24px rgba(0,153,217,0.22); }
+  .step .num-i, .step b { transition: color 0.5s, opacity 0.5s; } .step:not(.on) .num-i { color: var(--sub); }
   .step .orb { width: 84px; height: 84px; margin: 0 auto 22px; position: relative; z-index: 1; border: 1px solid #fff; box-shadow: 0 8px 20px rgba(0,0,0,0.08); }
   .step .num-i { font-size: 38px; display: block; }
   .step b { display: block; font-weight: 700; font-size: 17px; letter-spacing: 0.1em; color: var(--head); margin: 6px 0 10px; }
@@ -379,6 +433,7 @@
     [data-reveal] { opacity: 1; transform: none; transition: none; }
     .res b span { opacity: 1; transform: none; transition: none; }
     .hbox[data-reveal]::before { opacity: 1; transform: none; transition: none; }
+    .ui *, .ui { animation-duration: 0.01s !important; animation-delay: 0s !important; } .bubble .a { opacity: 1; transform: none; transition: none; }
     .rule { transform: scaleX(1); transition: none; }
     .drift, .panel img, .hero .sc i::after { animation: none; }
     .device { transform: none; transition: none; } .scr *, .scr { animation-duration: 0.01s !important; animation-delay: 0s !important; }
@@ -420,7 +475,7 @@
     .bubbles { grid-template-columns: 1fr; gap: 30px; margin-top: 54px; }
     .bubble:nth-child(even) { margin-top: 0; }
     .steps { grid-template-columns: 1fr 1fr; gap: 40px 0; margin-top: 56px; }
-    .steps::before { display: none; }
+    .steps::before, .steps::after { display: none; }
     .cbox { padding: 30px 24px; }
     dl { grid-template-columns: 1fr; gap: 2px 0; } dt { margin-top: 14px; }
     .founder { grid-template-columns: 1fr; justify-items: center; text-align: center; }
@@ -428,7 +483,7 @@
     .cta { padding: 84px 0; }
   }
 </style>
-<noscript><style>[data-reveal]{opacity:1!important;transform:none!important}.rule{transform:none!important}.res b span{opacity:1!important;transform:none!important}.hbox{background-size:100% 1px,1px 100%,100% 1px,1px 100%,auto!important}.hbox::before{opacity:1!important}#linkPath{stroke-dashoffset:0!important}html [data-lang="ja"].inl{display:inline!important}html [data-lang="ja"].blk{display:block!important}</style></noscript>
+<noscript><style>[data-reveal]{opacity:1!important;transform:none!important}.rule{transform:none!important}.res b span{opacity:1!important;transform:none!important}.hbox{background-size:100% 1px,1px 100%,100% 1px,1px 100%,auto!important}.hbox::before{opacity:1!important}#linkPath{stroke-dashoffset:0!important}.ui *{opacity:1!important}.bubble .a{opacity:1!important;transform:none!important}.step .orb{filter:none!important}html [data-lang="ja"].inl{display:inline!important}html [data-lang="ja"].blk{display:block!important}</style></noscript>
 </head>
 <body>
 <header class="hd" id="hd">
@@ -555,7 +610,7 @@
         <p class="t-lead blk" data-lang="en" data-reveal>Three ways to work with us. One company, from planning to operations.</p>
 
         <div class="row">
-          <div class="vis" data-reveal="left"><div class="panel c1"><img src="/img/3d/mobile.png" alt="" width="256" height="256"></div></div>
+          <div class="vis" data-reveal="left"><div class="panel c1 ui" aria-hidden="true"><div class="win"><div class="wbar"><i></i><i></i><i></i><span></span></div><div class="pg"><div class="blk-h a1"></div><div class="ln w70 a2"></div><div class="ln w45 a3"></div><div class="g3"><i class="a4"></i><i class="a5"></i><i class="a6"></i></div></div></div><div class="ph a7"><div class="blk-h"></div><div class="ln w80"></div><div class="ln w55"></div><i class="pc"></i></div><span class="tagx a8">Web ⇄ App</span></div></div>
           <div class="txt" data-stagger>
             <div class="n" data-reveal><span class="num-i">1</span><small>WEB &amp; APP SERVICES</small></div>
             <h3 data-reveal><span class="inl" data-lang="ja">Web・アプリサービスの構築</span><span class="inl" data-lang="en">Web &amp; app services</span></h3>
@@ -569,7 +624,7 @@
         </div>
 
         <div class="row rev">
-          <div class="vis" data-reveal="right"><div class="panel c2"><img src="/img/3d/explorer.png" alt="" width="256" height="256" style="animation-delay:-2s"></div></div>
+          <div class="vis" data-reveal="right"><div class="panel c2 ui" aria-hidden="true"><div class="win wide"><div class="wbar"><i></i><i></i><i></i><span></span><div class="langs"><b>JA</b><b>EN</b><b>KO</b><b>繁</b></div></div><div class="pg"><div class="ln w60 a1 big"></div><div class="ln w85 a2"></div><div class="ln w70 a2"></div><div class="meters"><div class="m a3"><small>表示速度</small><u><i style="--w:94%"></i></u></div><div class="m a4"><small>読みやすさ</small><u><i style="--w:90%"></i></u></div><div class="m a5"><small>検索</small><u><i style="--w:96%"></i></u></div></div></div></div></div></div>
           <div class="txt" data-stagger>
             <div class="n" data-reveal><span class="num-i">2</span><small>WEBSITES</small></div>
             <h3 data-reveal><span class="inl" data-lang="ja">Webサイト制作</span><span class="inl" data-lang="en">Websites</span></h3>
@@ -584,7 +639,7 @@
         </div>
 
         <div class="row">
-          <div class="vis" data-reveal="left"><div class="panel c3"><img src="/img/3d/wrench.png" alt="" width="256" height="256" style="animation-delay:-4s"></div></div>
+          <div class="vis" data-reveal="left"><div class="panel c3 ui" aria-hidden="true"><div class="doc a1"><b>PDF</b><u></u><u></u><u class="s"></u><u></u><u class="s"></u></div><svg class="flow" viewBox="0 0 60 20"><path d="M2,10 H52 M46,4 L54,10 L46,16" fill="none" stroke="#0099D9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" pathLength="1"/></svg><div class="tbl"><div class="r a3"><i></i><u></u><em>p.3</em></div><div class="r a4"><i></i><u class="s"></u><em>p.7</em></div><div class="r a5"><i></i><u></u><em>p.12</em></div><div class="ai a6"><svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.2 6.3L20.5 10l-6.3 1.7L12 18l-2.2-6.3L3.5 10l6.3-1.7z"/></svg>AI</div></div></div></div>
           <div class="txt" data-stagger>
             <div class="n" data-reveal><span class="num-i">3</span><small>CONTRACT DEVELOPMENT</small></div>
             <h3 data-reveal><span class="inl" data-lang="ja">受託開発</span><span class="inl" data-lang="en">Contract development</span></h3>
@@ -803,6 +858,7 @@
     var hero = document.getElementById('hero'), heroInner = document.getElementById('heroInner'), contact = document.getElementById('contact');
     var para = [].slice.call(document.querySelectorAll('[data-parallax]')).map(function (el) { return { el: el, k: parseFloat(el.getAttribute('data-parallax')) || 0, base: el.style.transform || '' }; });
     var linkEl = document.getElementById('link'), linkPath = document.getElementById('linkPath'), nds = [].slice.call(document.querySelectorAll('.nd'));
+    var stepsEl = document.querySelector('.steps'), stepEls = [].slice.call(document.querySelectorAll('.step'));
     var ticking = false;
     function frame() {
       ticking = false;
@@ -816,6 +872,12 @@
         var lr = linkEl.getBoundingClientRect(), lp = reduce ? 1 : Math.min(1, Math.max(0, (vh * 0.9 - lr.top) / (vh * 0.5)));
         linkPath.style.strokeDashoffset = String(1 - lp);
         nds.forEach(function (n, i) { n.classList.toggle('on', lp > [0.02, 0.5, 0.97][i]); });
+      }
+      // やり方 — 스크롤 진행만큼 선이 채워지고 단계가 차례로 켜진다
+      if (stepsEl) {
+        var sr = stepsEl.getBoundingClientRect(), sp = reduce ? 1 : Math.min(1, Math.max(0, (vh * 0.82 - sr.top) / (vh * 0.45)));
+        stepsEl.style.setProperty('--p', sp.toFixed(3));
+        stepEls.forEach(function (e, i) { e.classList.toggle('on', sp >= i / 3 - 0.001 && sp > 0.02); });
       }
       if (!reduce && desktop && heroInner) {
         var p = Math.min(1, Math.max(0, y / (h * 0.6)));
