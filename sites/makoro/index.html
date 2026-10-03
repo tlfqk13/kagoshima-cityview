@@ -93,9 +93,8 @@
   .hbox::before { content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 1.5px; pointer-events: none; background: linear-gradient(140deg, rgba(0,153,217,0.7), rgba(0,153,217,0) 32%, rgba(0,153,217,0) 68%, rgba(111,182,236,0.75)); -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0); opacity: 0.55; transition: opacity 0.5s; }
   .hbox:hover { box-shadow: 0 34px 80px rgba(0,153,217,0.18), 0 2px 6px rgba(14,42,71,0.04); }
   .hbox:hover::before { opacity: 1; }
-  .jtags { display: flex; flex-wrap: wrap; gap: 12px 14px; margin-top: 26px; }
-  .jtag { position: relative; display: inline-flex; align-items: center; min-height: 30px; padding: 0 10px; border: 1px solid var(--head); background: #fff; font-size: 12.5px; letter-spacing: 0.06em; color: var(--head); line-height: 1; }
-  .jtag::before { content: ""; position: absolute; inset: -3px; pointer-events: none; background: linear-gradient(var(--head), var(--head)) 0 0 / 5px 5px no-repeat, linear-gradient(var(--head), var(--head)) 100% 0 / 5px 5px no-repeat, linear-gradient(var(--head), var(--head)) 0 100% / 5px 5px no-repeat, linear-gradient(var(--head), var(--head)) 100% 100% / 5px 5px no-repeat; }
+  .jtags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 26px; }
+  .jtag { display: inline-flex; align-items: center; min-height: 30px; padding: 0 14px; border-radius: 30px; background: rgba(0,153,217,0.09); font-size: 12.5px; letter-spacing: 0.06em; color: var(--blue-deep); line-height: 1; }
   .pill { display: inline-flex; align-items: center; min-height: 26px; font-size: 11px; letter-spacing: 0.24em; padding: 0 14px; border-radius: 30px; border: 1px solid var(--blue); color: var(--blue); line-height: 1; margin-bottom: 14px; }
   .pill.live { background: var(--blue); color: #fff; }
   .hl { display: inline; background: var(--blue); color: #fff; padding: 0.06em 0.3em; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
@@ -393,11 +392,12 @@
   .steps { display: grid; grid-template-columns: repeat(4, 1fr); margin-top: 90px; position: relative; }
   .steps::before { content: ""; position: absolute; left: 12.5%; right: 12.5%; top: 42px; height: 1px; background: var(--head); opacity: 0.3; }
   .steps::after { content: ""; position: absolute; left: 12.5%; top: 41px; height: 3px; border-radius: 2px; width: calc(75% * var(--p, 0)); background: var(--blue); }
-  .step { text-align: center; padding: 0 18px; position: relative; }
-  .step .orb { transition: box-shadow 0.5s, transform 0.5s var(--ease), filter 0.5s; filter: saturate(0.2) opacity(0.6); }
+  .steps::before, .steps::after { z-index: 0; }
+  .step { text-align: center; padding: 0 18px; position: relative; z-index: 1; } /* 선(z 0) 위에 단계(z 1) — 원의 불투명 바탕이 선을 가린다 */
+  .step .orb { transition: box-shadow 0.5s, transform 0.5s var(--ease), filter 0.5s; filter: saturate(0.15) brightness(1.04); }
   .step.on .orb { filter: none; transform: scale(1.08); box-shadow: 0 0 0 6px rgba(0,153,217,0.16), 0 10px 24px rgba(0,153,217,0.22); }
   .step .num-i, .step b { transition: color 0.5s, opacity 0.5s; } .step:not(.on) .num-i { color: var(--sub); }
-  .step .orb { width: 84px; height: 84px; margin: 0 auto 22px; position: relative; z-index: 1; border: 1px solid #fff; box-shadow: 0 8px 20px rgba(0,0,0,0.08); }
+  .step .orb { width: 84px; height: 84px; margin: 0 auto 22px; position: relative; z-index: 1; border: 4px solid #fff; box-shadow: 0 8px 20px rgba(0,0,0,0.08); background-color: #DDF0FA; }
   .step .num-i { font-size: 38px; display: block; }
   .step b { display: block; font-weight: 700; font-size: 17px; letter-spacing: 0.1em; color: var(--head); margin: 6px 0 10px; }
   .step p { font-size: 13px; line-height: 1.9; letter-spacing: 0.06em; }

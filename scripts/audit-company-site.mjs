@@ -50,6 +50,8 @@ const OVERFLOW = `(() => { const out = []
   if (fx && wr && getComputedStyle(fx).display !== 'none') { const f = fx.getBoundingClientRect(), w = wr.getBoundingClientRect(); if (f.left < w.right - 20) out.push({ text: 'FIXED CTA OVERLAPS CONTENT', box: Math.round(w.right - f.left) + 'px' }) }
   // 히어로를 지난 뒤 헤더에 바탕이 있어야 한다(로고가 본문 글자와 겹쳐 보이지 않게)
   const hd = document.querySelector('.hd'); if (hd && hd.classList.contains('on-light') && parseFloat(getComputedStyle(hd, '::before').opacity) < 0.5) out.push({ text: 'HEADER HAS NO BACKING OVER CONTENT', box: 'hd' })
+  // やり方: 진행선이 아이콘 원 위에 그려지면 안 된다 — 원 중심·좌우 가장자리 픽셀의 맨 위 요소가 원 안쪽이어야 한다
+  const stp = document.querySelector('.steps'); if (stp) { stp.style.setProperty('--p', '1'); for (const o of stp.querySelectorAll('.orb')) { const r = o.getBoundingClientRect(); if (r.top < 0 || r.bottom > innerHeight) continue; for (const dx of [-0.3, 0, 0.3]) { const el = document.elementFromPoint(r.left + r.width * (0.5 + dx), r.top + r.height / 2); if (el && !o.contains(el) && !el.closest('.hd, .fix')) { out.push({ text: 'LINE OVER STEP ICON', box: (el.className || el.tagName).toString().slice(0, 24) }); break } } } }
   // 가로 스크롤 발생 여부
   if (document.documentElement.scrollWidth > innerWidth + 1) out.push({ text: 'HORIZONTAL SCROLL', box: 'html ' + document.documentElement.scrollWidth + ' > ' + innerWidth })
   return [...new Map(out.map(o => [o.text + o.box, o])).values()] })()`
@@ -60,6 +62,8 @@ for (const [w, h] of [[1440, 900], [1100, 800], [768, 1024], [390, 844]]) for (c
   await p.goto('http://localhost:3997/', { waitUntil: 'networkidle' }); await p.evaluate(l => document.documentElement.setAttribute('data-ui', l), lang)
   await p.addStyleTag({ content: '[data-reveal]{opacity:1!important;transform:none!important;transition:none!important} .rule{transform:none!important} *{animation:none!important} .fix{opacity:1!important;transform:translate(0,-50%)!important} .res b span{opacity:1!important;transform:none!important} .device{transform:none!important} .ui *{opacity:1!important} .scr,.scr *{opacity:1!important}' }); await p.evaluate(() => window.scrollTo(0, window.innerHeight * 1.6)); await p.waitForTimeout(900)
   const c = await p.evaluate(CENTER), o = await p.evaluate(OVERFLOW)
+  await p.evaluate(() => { const e = document.querySelector('.steps'); window.scrollTo(0, e.getBoundingClientRect().top + scrollY - innerHeight * 0.4) }); await p.waitForTimeout(700)
+  for (const x of await p.evaluate(OVERFLOW)) if (/LINE OVER/.test(x.text)) o.push(x)
   total += c.length + o.length + errs.length
   console.log(`${w} ${lang}: off-center ${c.length}, overflow ${o.length}, js errors ${errs.length}`)
   ;[...c, ...o, ...errs.map(e => ({ error: e }))].forEach(x => console.log('   ', JSON.stringify(x)))
