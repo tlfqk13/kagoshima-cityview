@@ -21,7 +21,8 @@ mapboxgl.accessToken = process.env.NEXT_PUBLIC_MAPBOX_TOKEN!
 
 type MapStyle = 'light' | 'streets' | 'satellite' | 'dark'
 
-// 기본은 회색조(light) — 바탕 지도가 조용해야 갈색 노선·파란 도보 경로가 "우리 층"으로 읽힌다
+// 기본은 상세 지도(streets) — 여행자가 주변 가게·건물로 위치를 잡을 수 있게(2026-10-03 결정).
+// 회색조(light)는 노선만 또렷하게 보고 싶을 때 고르는 선택지. 노선은 흰 테두리로 어느 바탕에서도 위 층으로 읽힌다
 const MAP_STYLES: Record<MapStyle, string> = {
   light: 'mapbox://styles/mapbox/light-v11',
   streets: 'mapbox://styles/mapbox/streets-v12',
@@ -51,7 +52,7 @@ const GHOST_MIN_ZOOM = 15.5
 /** 승차권 판매처 표시는 이 줌부터 — 멀리서는 중앙역 「1·20」 마커를 가리지 않게 */
 const TICKET_MIN_ZOOM = 14.5
 
-const STYLE_ORDER: MapStyle[] = ['light', 'streets', 'satellite', 'dark']
+const STYLE_ORDER: MapStyle[] = ['streets', 'light', 'satellite', 'dark']
 
 function interpolateRoute(coords: [number, number][], t: number): [number, number] {
   if (t <= 0) return coords[0]
@@ -263,7 +264,7 @@ export default function MapCanvas({ routeId, selectedStopId, onStopSelect, onUse
   // 사용자가 스타일 버튼을 누르기 전에는 사이트 테마(라이트/다크)를 따른다
   const resolvedTheme = useResolvedTheme()
   const [userStyle, setUserStyle] = useState<MapStyle | null>(null)
-  const mapStyle: MapStyle = userStyle ?? (resolvedTheme === 'dark' ? 'dark' : 'light')
+  const mapStyle: MapStyle = userStyle ?? (resolvedTheme === 'dark' ? 'dark' : 'streets')
   const mapStyleRef = useRef<MapStyle>(mapStyle)
 
   const [animating, setAnimating] = useState(false)
