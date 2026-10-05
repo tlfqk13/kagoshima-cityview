@@ -42,3 +42,5 @@
 | 「ご放念」 | dime.jp/genre/2076456 · oggi.jp/7645252 · forbesjapan.com/articles/detail/72749 |
 | 「返信不要」 | dime.jp/genre/2004027 · luft.co.jp/media/?p=13570 · oggi.jp/7883546 |
 | 숙박시설 게시·설치 | city.minato.tokyo.jp/cp/about.html(卓上ポップ 배치 선례) · city.sapporo.jp/citytax/shukuhakuzei/kouhouform_2.html · kankomie.or.jp/mailmag/4144 · city.tsuruoka.lg.jp(掲示（設置）依頼書) |
+
+> 2026-10-05 보완: 목적 문장은 '왜 이 호텔인가'를 담은 정형 문형으로 쓴다 — 「〜を拝見し、〜と考え、ご連絡いたしました」(분석 예문 약 18/24). 계절 인사·잡담은 첫 연락 메일에 쓰지 않는다(편지·기존 거래처용). 부드러움은 이 한 문장과 서두·맺음의 완충 표현으로 낸다.
