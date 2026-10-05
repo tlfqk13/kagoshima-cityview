@@ -183,7 +183,8 @@
 
 .qr {
   width: 56mm;
-  height: 56mm;
+  height: auto;
+  aspect-ratio: 1; /* 좁은 화면에서 폭만 줄어 정사각형이 눌리지 않게 */
 }
 
 .scan {

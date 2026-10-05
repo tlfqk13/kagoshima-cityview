@@ -95,7 +95,10 @@ function html(h, shots) {
   .feat b { display: block; margin-bottom: 0.5mm; color: #1a1a1a; }
   .feat small { font-size: 8pt; color: #444; line-height: 1.45; display: block; }
   .main { display: grid; grid-template-columns: 1fr 84.5mm; gap: 6mm; margin-bottom: 2.5mm; align-items: start; }
-  .main .fig { margin-top: 2mm; height: 25mm; }
+  .lrow { display: grid; grid-template-columns: 1fr 43mm; gap: 3mm; align-items: start; }
+  .figwrap { height: 62mm; overflow: hidden; border: 1px solid #bbb; border-radius: 2px; }
+  .main .fig { width: 100%; height: 100%; object-fit: cover; object-position: 52% 50%; border: 0; margin: 0; }
+  .lrow .cap { margin-top: 2mm; font-size: 7.6pt; }
   .shots { display: grid; grid-template-columns: 45mm 35.5mm; gap: 4mm; align-items: start; }
   .shots figure { margin: 0; }
   .shots img { width: 100%; display: block; border: 1px solid #bbb; border-radius: 2px; } /* 그림자는 PDF 뷰어에 따라 회색 띠로 보여서 쓰지 않는다 */
@@ -137,15 +140,20 @@ function html(h, shots) {
   <div class="main">
     <div class="left">
       <h2>こんなお困りごとはありませんか</h2>
-      <div class="box">
-        <ul>
-          <li>外国人のお客様に「シティビューの乗り場はどこですか」と聞かれる</li>
-          <li>Googleマップの停留所表示が実際の乗り場とずれている（天文館は1か所しか表示されず、実際は方面別に2か所）</li>
-          <li>帰りに降りる停留所が行きと違うことを、言葉の壁で伝えにくい</li>
-        </ul>
+      <div class="lrow">
+        <div>
+          <div class="box">
+            <ul>
+              <li>外国人のお客様に「シティビューの乗り場はどこですか」と聞かれる</li>
+              <li>Googleマップの停留所表示が実際の乗り場とずれている</li>
+              <li>帰りに降りる停留所が行きと違うことを、言葉の壁で伝えにくい</li>
+            </ul>
+          </div>
+          <div class="cap">右図は天文館の例です。地図アプリのピン（赤）は1か所ですが、実際の停留所は No.3 と No.19 の2か所で、ピンから86m・74m離れています（${audit.auditedAt} 調査）。</div>
+        </div>
+        <!-- 지도는 핀 3개(빨강·3·19)와 거리 라벨이 모두 보이는 세로 창으로 잘라 보여준다 -->
+        <div class="figwrap"><img class="fig" src="${img(resolve(ROOT, 'public/images/home/tenmonkan-map.jpg'))}" alt=""></div>
       </div>
-      <img class="fig" src="${img(resolve(ROOT, 'public/images/home/tenmonkan-map.jpg'))}" alt="">
-      <div class="cap">天文館：地図アプリのピン（赤）は1か所。実際の停留所は No.3・No.19 で、ピンから86m・74m離れています（${audit.auditedAt} 調査）。</div>
     </div>
     <div class="right">
       <h2>フロントに置く卓上POPと、QRを読んだ画面</h2>
