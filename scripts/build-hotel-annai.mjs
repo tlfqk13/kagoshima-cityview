@@ -57,139 +57,94 @@ function html(h, shots) {
   const hs = h ? hotelStops(h) : null
   const addressee = h ? `${h.nameJa} 様<br><span class="sub">フロントご担当者様</span>` : '宿泊施設 ご担当者様'
   const personal = h
-    ? `<div class="box personal">
-        <div class="boxTitle">${h.nameJa} 様の場合</div>
-        <table class="kv">
-          <tr><th>乗る停留所</th><td><b>No.${hs.board.number} ${hs.board.name.ja}</b>（徒歩約${hs.boardMin}分）</td></tr>
-          <tr><th>帰りに降りる</th><td><b>No.${hs.alight.number} ${hs.alight.name.ja}</b>（徒歩約${hs.alightMin}分）</td></tr>
-        </table>
-        <p class="note">シティビューは一方向の循環路線のため、行きと帰りで停留所が異なる場合があります。QRを読むと、この2か所と道順がお客様の言語で表示されます。</p>
+    ? `<div class="stops">
+        <div><small>乗る停留所</small><b>No.${hs.board.number} ${hs.board.name.ja.replace(/（.*?）/g, '')}</b><span>徒歩約${hs.boardMin}分</span></div>
+        <i>→</i>
+        <div><small>帰りに降りる停留所</small><b>No.${hs.alight.number} ${hs.alight.name.ja.replace(/（.*?）/g, '')}</b><span>徒歩約${hs.alightMin}分</span></div>
       </div>`
-    : `<div class="box personal">
-        <div class="boxTitle">宿泊施設ごとの専用QR</div>
-        <p class="note">施設ごとに「乗る停留所」「帰りに降りる停留所」と道順を表示する専用QRをお作りします。シティビューは一方向の循環路線のため、行きと帰りで停留所が異なる場合があります。</p>
-      </div>`
+    : `<div class="stops"><div><small>施設ごとに</small><b>乗る停留所・帰りに降りる停留所</b><span>専用QRでご案内します</span></div></div>`
   const previewUrl = h ? `${BASE}/map?hotel=${h.slug}` : `${BASE}/map`
   return `<!DOCTYPE html><html lang="ja"><head><meta charset="utf-8"><title>シティビュー停留所案内 卓上POPのご案内</title>
 <style>
-  @page { size: A4 portrait; margin: 11mm 14mm 9mm; }
+  @page { size: A4 portrait; margin: 13mm 16mm 11mm; }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Yu Gothic', Meiryo, sans-serif; font-size: 8.6pt; line-height: 1.5; color: #333; }
-  .top { display: flex; justify-content: space-between; font-size: 8pt; color: #666; margin-bottom: 2mm; }
-  .to { font-size: 10.5pt; color: #1a1a1a; margin-bottom: 2mm; line-height: 1.35; }
-  .to .sub { font-size: 8.5pt; color: #666; }
-  h1 { font-size: 14pt; line-height: 1.35; color: #1a1a1a; letter-spacing: 0.01em; margin-bottom: 1.5mm; }
-  .tagline { display: inline-block; font-size: 8.8pt; font-weight: 700; color: #8B4513; border: 1px solid #8B4513; border-radius: 2px; padding: 0.3mm 2.5mm; margin-bottom: 3mm; }
-  .lead { margin-bottom: 3mm; }
-  h2 { font-size: 10pt; color: #1a1a1a; border-left: 3px solid #8B4513; padding-left: 2.5mm; margin: 0 0 1.5mm; line-height: 1.3; }
-  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4mm; margin-bottom: 3mm; }
-  .grid.prob { grid-template-columns: 1.05fr 1fr; }
-  .box { border: 1px solid #ddd; border-radius: 2px; padding: 2mm 3mm; }
-  .boxTitle { font-weight: 700; margin-bottom: 1.5mm; color: #1a1a1a; }
-  ul { padding-left: 4.5mm; }
-  li { margin-bottom: 0.8mm; }
-  .fig { width: 100%; height: 34mm; object-fit: cover; object-position: 45% 40%; border: 1px solid #ddd; display: block; }
-  .cap { font-size: 7.3pt; color: #666; margin-top: 0.8mm; line-height: 1.4; }
-  .feat { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 3mm; margin-bottom: 3mm; }
-  .feat div { border-top: 2px solid #8B4513; padding-top: 1.5mm; }
-  .feat b { display: block; margin-bottom: 0.5mm; color: #1a1a1a; }
-  .feat small { font-size: 8pt; color: #444; line-height: 1.45; display: block; }
-  .main { display: grid; grid-template-columns: 1fr 84.5mm; gap: 6mm; margin-bottom: 2.5mm; align-items: start; }
-  .lrow { display: grid; grid-template-columns: 1fr 43mm; gap: 3mm; align-items: start; }
-  .figwrap { height: 62mm; overflow: hidden; border: 1px solid #bbb; border-radius: 2px; }
-  .main .fig { width: 100%; height: 100%; object-fit: cover; object-position: 52% 50%; border: 0; margin: 0; }
-  .lrow .cap { margin-top: 2mm; font-size: 7.6pt; }
-  .shots { display: grid; grid-template-columns: 45mm 35.5mm; gap: 4mm; align-items: start; }
+  body { font-family: 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Yu Gothic', Meiryo, sans-serif; font-size: 9.8pt; line-height: 1.65; color: #333; }
+  b { color: #1a1a1a; }
+  .top { display: flex; justify-content: space-between; font-size: 8.5pt; color: #777; margin-bottom: 3mm; }
+  .to { font-size: 11.5pt; color: #1a1a1a; margin-bottom: 4mm; line-height: 1.4; }
+  .to .sub { font-size: 9pt; color: #666; }
+  h1 { font-size: 17pt; line-height: 1.4; color: #1a1a1a; margin-bottom: 4mm; }
+  .lead { font-size: 10.3pt; margin-bottom: 6mm; }
+  h2 { font-size: 11.5pt; color: #1a1a1a; margin: 0 0 3.5mm; line-height: 1.3; }
+  .hero2 { display: grid; grid-template-columns: 84mm 1fr; gap: 8mm; align-items: start; margin-bottom: 6mm; }
+  .shots { display: grid; grid-template-columns: 46mm 34mm; gap: 4mm; align-items: start; }
   .shots figure { margin: 0; }
-  .shots img { width: 100%; display: block; border: 1px solid #bbb; border-radius: 2px; } /* 그림자는 PDF 뷰어에 따라 회색 띠로 보여서 쓰지 않는다 */
-  .shots figcaption { font-size: 7.3pt; color: #555; line-height: 1.4; margin-top: 1.5mm; text-align: center; }
-  .kv { width: 100%; border-collapse: collapse; margin-bottom: 1.5mm; }
-  .kv th { text-align: left; font-weight: 400; color: #666; width: 26mm; padding: 0.6mm 0; vertical-align: top; }
-  .kv td { padding: 0.6mm 0; }
-  .note { font-size: 8pt; color: #555; line-height: 1.45; }
-  .personal { background: #FBF7F1; border-color: #D9C8B2; margin-bottom: 3mm; display: grid; grid-template-columns: auto 1fr 1.25fr; gap: 1mm 6mm; align-items: center; }
-  .personal .boxTitle { margin: 0; white-space: nowrap; }
-  .personal .kv { margin: 0; }
-  .personal .note { margin: 0; }
-  .cond { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2mm; margin-bottom: 1.5mm; }
-  .cond div { padding: 0.8mm 2mm; }
-  .cond small { line-height: 1.35; display: block; }
-  .cond div { background: #F4EFE9; border-radius: 2px; padding: 1.5mm 2mm; text-align: center; }
-  .cond b { display: block; font-size: 10pt; color: #1a1a1a; }
-  .cond small { font-size: 7.5pt; color: #666; }
-  .steps { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2.5mm; }
-  .steps div { border: 1px solid #ddd; border-radius: 2px; padding: 1.5mm 2.5mm; }
-  .steps .n { font-size: 7.5pt; font-weight: 700; color: #8B4513; letter-spacing: 0.1em; }
-  .steps b { display: block; color: #1a1a1a; margin-bottom: 0.5mm; }
-  .steps small { font-size: 8pt; color: #555; line-height: 1.4; display: block; }
-  .cta { margin: 2.5mm 0; padding: 2mm 4mm; background: #1F1E1A; color: #fff; border-radius: 2px; display: flex; justify-content: space-between; align-items: center; gap: 4mm; }
-  .cta b { font-size: 10.5pt; }
-  .cta small { font-size: 8.3pt; color: #ddd; display: block; }
-  .foot { border-top: 1px solid #ccc; padding-top: 2mm; margin-top: 1mm; display: flex; justify-content: space-between; align-items: flex-end; font-size: 8.3pt; color: #444; }
-  .foot b { color: #1a1a1a; }
-  .foot .credit { font-size: 7.5pt; color: #777; }
-  .qr { width: 20mm; height: 20mm; }
+  .shots img { width: 100%; display: block; border: 1px solid #bbb; border-radius: 2px; }
+  .shots figcaption { font-size: 8pt; color: #666; line-height: 1.45; margin-top: 2mm; text-align: center; }
+  .stops { display: flex; align-items: center; gap: 3mm; background: #FBF7F1; border: 1px solid #D9C8B2; border-radius: 3px; padding: 4mm; margin-bottom: 5mm; }
+  .stops > div { flex: 1; display: flex; flex-direction: column; gap: 0.5mm; }
+  .stops small { font-size: 8pt; color: #777; line-height: 1.3; }
+  .stops b { font-size: 11.5pt; line-height: 1.35; }
+  .stops span { font-size: 8.5pt; color: #555; line-height: 1.3; }
+  .stops i { font-style: normal; color: #8B4513; font-size: 12pt; }
+  .pts { list-style: none; }
+  .pts li { padding: 2.2mm 0 2.2mm 5mm; border-top: 1px solid #e5e0d8; position: relative; font-size: 9.6pt; line-height: 1.6; }
+  .pts li::before { content: ""; position: absolute; left: 0; top: 4.6mm; width: 2mm; height: 2mm; border-radius: 50%; background: #8B4513; }
+  .why { display: grid; grid-template-columns: 72mm 1fr; gap: 8mm; align-items: center; margin-bottom: 6mm; }
+  .figwrap { height: 39mm; overflow: hidden; border: 1px solid #bbb; border-radius: 2px; }
+  .fig { width: 100%; height: 100%; object-fit: cover; object-position: 50% 45%; display: block; }
+  .why p { font-size: 9.6pt; line-height: 1.75; } .why p + p { margin-top: 2mm; }
+  .cond { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3mm; margin-bottom: 2.5mm; }
+  .cond div { background: #F4EFE9; border-radius: 3px; padding: 3mm 2mm; text-align: center; }
+  .cond b { display: block; font-size: 12pt; line-height: 1.4; }
+  .cond small { font-size: 8.3pt; color: #666; line-height: 1.4; display: block; }
+  .note { font-size: 8.5pt; color: #666; line-height: 1.6; margin-bottom: 5mm; }
+  .cta { padding: 4.5mm 6mm; background: #1F1E1A; color: #fff; border-radius: 3px; margin-bottom: 5mm; }
+  .cta b { font-size: 11pt; color: #fff; display: block; line-height: 1.5; }
+  .cta small { font-size: 8.6pt; color: #ddd; display: block; line-height: 1.6; margin-top: 1mm; }
+  .foot { border-top: 1px solid #ccc; padding-top: 3mm; display: flex; justify-content: space-between; align-items: flex-end; font-size: 8.6pt; color: #444; line-height: 1.7; }
+  .foot .credit { font-size: 7.6pt; color: #888; }
+  .qr { width: 21mm; height: 21mm; }
 </style></head><body>
   <div class="top"><span>${dateJa}</span><span>MAKORO（マコロ）｜ 鹿児島シティビューバスガイド 運営</span></div>
   <div class="to">${addressee}</div>
   <h1>外国人のお客様向け「シティビュー停留所案内」<br>卓上POPのご案内</h1>
-  <div class="tagline">日英韓繁の4か国語 ・ 現地でGPS確認した全20停留所</div>
-  <p class="lead">シティビューバス全20停留所の正確な位置、次のバスまでの時間、ホテルからの道順をスマートフォンで案内する無料サービスです。フロントに卓上POP（A6）を1枚置いていただくだけで、お客様がQRから最寄りの停留所を確認できます。</p>
+  <p class="lead">フロントに卓上POP（A6）を1枚置いていただくと、外国人のお客様がQRを読むだけで、<b>ホテルからシティビューバスの乗り場までの道順</b>と<b>次のバスまでの時間</b>を、ご自身の言語で確認できます。</p>
 
-  <!-- 제품(POP·스마트폰 화면)을 가장 크게 — 담당자가 '무엇을 프런트에 두는지' 한눈에 알아보게 -->
-  <div class="main">
-    <div class="left">
-      <h2>こんなお困りごとはありませんか</h2>
-      <div class="lrow">
-        <div>
-          <div class="box">
-            <ul>
-              <li>外国人のお客様に「シティビューの乗り場はどこですか」と聞かれる</li>
-              <li>Googleマップの停留所表示が実際の乗り場とずれている</li>
-              <li>帰りに降りる停留所が行きと違うことを、言葉の壁で伝えにくい</li>
-            </ul>
-          </div>
-          <div class="cap">右図は天文館の例です。地図アプリのピン（赤）は1か所ですが、実際の停留所は No.3 と No.19 の2か所で、ピンから86m・74m離れています（${audit.auditedAt} 調査）。</div>
-        </div>
-        <!-- 지도는 핀 3개(빨강·3·19)와 거리 라벨이 모두 보이는 세로 창으로 잘라 보여준다 -->
-        <div class="figwrap"><img class="fig" src="${img(resolve(ROOT, 'public/images/home/tenmonkan-map.jpg'))}" alt=""></div>
-      </div>
+  <div class="hero2">
+    <div class="shots">
+      <figure><img src="${shots.pop}" alt=""><figcaption>フロントに置く卓上POP（A6）${THEME_QS ? '<br>貴館のイメージに合わせた配色例' : ''}</figcaption></figure>
+      <figure><img src="${shots.phone}" alt=""><figcaption>QRを読んだ画面</figcaption></figure>
     </div>
-    <div class="right">
-      <h2>フロントに置く卓上POPと、QRを読んだ画面</h2>
-      <div class="shots">
-        <figure><img src="${shots.pop}" alt=""><figcaption>卓上POP（A6・施設名入り${THEME_QS ? '・貴館のイメージに合わせた配色例' : ''}）</figcaption></figure>
-        <figure><img src="${shots.phone}" alt=""><figcaption>QRを読んだ画面（道順・乗る／降りる停留所・次のバス）</figcaption></figure>
-      </div>
+    <div class="say">
+      <h2>${h ? h.nameJa + ' 様の場合' : 'QRを読むと'}</h2>
+      ${personal}
+      <ul class="pts">
+        <li>日本語・英語・韓国語・繁体字中国語の<b>4か国語</b>。アプリは不要です</li>
+        <li>POPの<b>色やデザイン</b>は、貴館のイメージに合わせてお作りします</li>
+        <li>行きと帰りで停留所が違う場合も、地図で両方をご案内します</li>
+      </ul>
     </div>
   </div>
 
-  ${personal}
-
-  <div class="feat">
-    <div><b>① 現地でGPS確認した20停留所</b><small>${verifiedAt}に全停留所を歩いて確認。Googleマップでは${audit.stops.length}か所中${offCount}か所が50m以上ずれていました（最大${worst.errorMeters}m）。</small></div>
-    <div><b>② ホテルから乗り場までを案内</b><small>施設ごとの専用QRで、道順・乗る停留所・帰りに降りる停留所・次のバスまでの時間を表示します。</small></div>
-    <div><b>③ 貴館のイメージに合わせて</b><small>POP・ポスターの色やデザインは貴館のイメージカラーに合わせてお作りします。日英韓繁の4言語、アプリ不要です。</small></div>
+  <div class="why">
+    <div class="figwrap"><img class="fig" src="${img(resolve(ROOT, 'public/images/home/tenmonkan-map.jpg'))}" alt=""></div>
+    <div>
+      <h2>なぜ必要か</h2>
+      <p>Googleマップでは、天文館の停留所は<b>1か所</b>（赤いピン）しか表示されません。実際の乗り場は方面別に<b>2か所</b>（No.3・No.19）あり、ピンから86m・74m離れています。</p>
+      <p>全${audit.stops.length}停留所を現地で確認したところ、${offCount}か所で50m以上のずれがありました（${audit.auditedAt} 調査）。</p>
+    </div>
   </div>
 
-  <h2>ご利用条件</h2>
   <div class="cond">
     <div><b>無料</b><small>費用は一切かかりません</small></div>
-    <div><b>広告なし</b><small>画面にも印刷物にも広告はありません</small></div>
-    <div><b>契約・申込不要</b><small>POPを置くだけ。やめたいときは外すだけ</small></div>
-    <div><b>公式データ</b><small>鹿児島市オープンデータ（CC BY 4.0）を加工</small></div>
+    <div><b>広告なし</b><small>画面にも印刷物にもありません</small></div>
+    <div><b>契約・申込不要</b><small>置くだけ。やめるときは外すだけ</small></div>
   </div>
-  <p class="note" style="margin-bottom:3mm">無料の理由：鹿児島市観光課による公式採用を目指しており、宿泊施設様でのご利用実績を積み重ねるためです。設置後は、個人を特定しない利用状況（QRの読み取り数など）を月1回ご報告します。</p>
-
-  <h2>ご設置までの流れ</h2>
-  <div class="steps">
-    <div><span class="n">STEP 1</span><b>一言ご返信</b><small>「送ってください」で結構です。</small></div>
-    <div><span class="n">STEP 2</span><b>PDFをお送りします</b><small>卓上POP（A6）とポスター（A4）。ご希望なら印刷したものを郵送します。</small></div>
-    <div><span class="n">STEP 3</span><b>フロントに置くだけ</b><small>カードスタンドに立てていただければ完了。1か月後に利用状況をご報告します。</small></div>
-  </div>
+  <p class="note">無料でご提供する理由：鹿児島市観光課による公式採用を目指しており、宿泊施設様でのご利用実績を積み重ねるためです。</p>
 
   <div class="cta">
-    <div><b>ご関心をお持ちいただけましたら、son@makoro.dev までご返信いただけますと幸いです。</b><small>置くかどうか、置く場所は貴館のご判断にお任せします。</small></div>
+    <div><b>ご関心をお持ちいただけましたら、son@makoro.dev までご返信ください。</b><small>POPとポスターのPDFをお送りします（印刷したものの郵送も可能です）。置くかどうかは貴館のご判断にお任せします。</small></div>
   </div>
 
   <div class="foot">
@@ -235,7 +190,7 @@ for (const h of targets) {
   const out = resolve(OUT, PUBLIC ? `KagoshimaCityView_Annai_${key}.pdf` : `KagoshimaCityView_Annai_${key}_${ymdCompact}.pdf`)
   // 반드시 한 장 — 호텔 이름이 길어 줄이 늘면 넘칠 수 있으므로, 한 장에 들어올 때까지 배율을 조금씩 낮춘다
   let used = null
-  for (const scale of [0.95, 0.93, 0.91, 0.89, 0.87]) {
+  for (const scale of [1, 0.97, 0.94, 0.91, 0.88]) {
     const buf = await pdf.pdf({ format: 'A4', printBackground: true, preferCSSPageSize: true, scale })
     if ((buf.toString('latin1').match(/\/Type\s*\/Page[^s]/g) || []).length === 1) { writeFileSync(out, buf); used = scale; break }
   }
