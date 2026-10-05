@@ -95,12 +95,15 @@ function html(h, shots) {
   h2 span { margin-right: 3mm; color: #1D3C6E; }
 
   .s1 { display: grid; grid-template-columns: 90mm 1fr; gap: 9mm; align-items: start; }
-  .shots { display: grid; grid-template-columns: 52mm 34mm; gap: 4mm; align-items: end; }
-  .shots figure { margin: 0; } .shots img { width: 100%; height: auto; display: block; border: 0.25mm solid #999; }
+  /* 두 그림은 높이를 똑같이 맞춘다(위·아래 선 일치). 폭은 각 캡처 비율(397:560, 390:700)에서 계산 */
+  .shots { display: grid; grid-template-columns: 48.2mm 37.9mm; gap: 4mm; align-items: start; }
+  .shots figure { margin: 0; } .shots img { width: 100%; height: 68mm; object-fit: cover; object-position: top; display: block; border: 0.25mm solid #999; }
   figcaption { margin-top: 1.5mm; font-size: 8pt; line-height: 1.5; color: #444; text-align: center; }
-  .steps { list-style: none; }
-  .steps li { padding: 0 0 3.2mm; }
-  .steps li + li { border-top: 0.25mm dotted #888; padding-top: 3.2mm; }
+  .steps { list-style: none; height: 68mm; display: flex; flex-direction: column; justify-content: space-between; }
+  .steps li { padding: 0; line-height: 1.6; }
+  .steps li:first-child { margin-top: -0.6mm; }
+  .steps li:last-child { margin-bottom: -1mm; }
+  .steps li + li { border-top: 0.25mm dotted #888; padding-top: 3mm; }
   .steps b { white-space: nowrap; }
   .steps .k { display: inline-block; background: #1D3C6E; color: #fff; font-size: 8pt; font-weight: 700; letter-spacing: 0.08em; padding: 0.3mm 2.4mm; margin-right: 2.5mm; vertical-align: 0.3mm; }
   .steps b { font-size: 11pt; color: #111; }
@@ -117,8 +120,10 @@ function html(h, shots) {
   .pts li::before { content: "■"; position: absolute; left: 0; top: 0.9mm; font-size: 5.5pt; color: #1D3C6E; }
   .pts b { color: #111; }
 
-  .s3 { display: grid; grid-template-columns: 68mm 1fr; gap: 7mm; align-items: start; }
-  .figwrap { height: 40mm; overflow: hidden; border: 0.25mm solid #999; }
+  .s3 { display: grid; grid-template-columns: 68mm 1fr; gap: 7mm; align-items: stretch; }
+  .s3 figure { display: flex; flex-direction: column; }
+  .s3 figcaption, .s3 .note { margin-top: 1.5mm; font-size: 8pt; line-height: 1.5; }
+  .figwrap { flex: 1; min-height: 40mm; overflow: hidden; border: 0.25mm solid #999; }
   .fig { width: 100%; height: 100%; object-fit: cover; object-position: 50% 45%; display: block; }
   .s3 p + p { margin-top: 1.5mm; }
   .s3 table { margin-top: 2.5mm; }
@@ -264,6 +269,15 @@ for (const h of targets) {
   const out = resolve(OUT, PUBLIC ? `KagoshimaCityView_Annai_${key}.pdf` : `KagoshimaCityView_Annai_${key}_${ymdCompact}.pdf`)
   // 앞뒤 2쪽 고정. 각 쪽 안에서 내용이 넘치면(잘리면) 실패로 처리한다
   const over = await pdf.evaluate(() => [...document.querySelectorAll('.page')].map(pg => { const tail = pg.querySelector('.tail'); const limit = tail ? tail.getBoundingClientRect().top - 15 : pg.querySelector('.pno').getBoundingClientRect().top - 15; const last = pg.querySelector('.body > section:last-of-type'); return Math.round(last.getBoundingClientRect().bottom - limit) }))
+  const shotEdges = await pdf.evaluate(() => [...document.querySelectorAll('.shots img')].map(i => { const r = i.getBoundingClientRect(); return [r.top, r.bottom] }))
+  if (Math.abs(shotEdges[0][0] - shotEdges[1][0]) > 0.5 || Math.abs(shotEdges[0][1] - shotEdges[1][1]) > 0.5) throw new Error(`${key}: 그림 위·아래 선이 맞지 않습니다 ${JSON.stringify(shotEdges)}`)
+  // 균형 검사: STEP 열과 그림의 위·아래, 3번 섹션 좌우 열의 아래 선
+  const bal = await pdf.evaluate(() => {
+    const r = sel => document.querySelector(sel).getBoundingClientRect()
+    const img = r('.shots img'), k = r('.steps li:first-child .k'), last = r('.steps li:last-child p')
+    return { stepTop: k.top - img.top, stepBottom: last.bottom - img.bottom - 4 /* 마지막 줄의 행간 여백만큼은 글자 아래가 비어 있다 */, s3Bottom: r('.s3 figcaption').bottom - r('.s3 .note').bottom }
+  })
+  if (Object.values(bal).some(v => Math.abs(v) > 3)) throw new Error(`${key}: 좌우 균형이 맞지 않습니다 ${JSON.stringify(bal)}`)
   if (over.some(v => v > 0)) throw new Error(`${key}: 쪽 안에서 내용이 넘칩니다 ${JSON.stringify(over)}`)
   const buf = await pdf.pdf({ format: 'A4', printBackground: true, preferCSSPageSize: true })
   const used = (buf.toString('latin1').match(/\/Type\s*\/Page[^s]/g) || []).length
