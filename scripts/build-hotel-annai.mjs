@@ -94,13 +94,20 @@ function html(h, shots) {
   .feat div { border-top: 2px solid #8B4513; padding-top: 1.5mm; }
   .feat b { display: block; margin-bottom: 0.5mm; color: #1a1a1a; }
   .feat small { font-size: 8pt; color: #444; line-height: 1.45; display: block; }
-  .shots { display: flex; gap: 3mm; align-items: flex-start; }
-  .shots img { border: 1px solid #ddd; border-radius: 2px; }
+  .main { display: grid; grid-template-columns: 1fr 84.5mm; gap: 6mm; margin-bottom: 2.5mm; align-items: start; }
+  .main .fig { margin-top: 2mm; height: 25mm; }
+  .shots { display: grid; grid-template-columns: 45mm 35.5mm; gap: 4mm; align-items: start; }
+  .shots figure { margin: 0; }
+  .shots img { width: 100%; display: block; border: 1px solid #bbb; border-radius: 2px; } /* 그림자는 PDF 뷰어에 따라 회색 띠로 보여서 쓰지 않는다 */
+  .shots figcaption { font-size: 7.3pt; color: #555; line-height: 1.4; margin-top: 1.5mm; text-align: center; }
   .kv { width: 100%; border-collapse: collapse; margin-bottom: 1.5mm; }
   .kv th { text-align: left; font-weight: 400; color: #666; width: 26mm; padding: 0.6mm 0; vertical-align: top; }
   .kv td { padding: 0.6mm 0; }
   .note { font-size: 8pt; color: #555; line-height: 1.45; }
-  .personal { background: #FBF7F1; border-color: #D9C8B2; }
+  .personal { background: #FBF7F1; border-color: #D9C8B2; margin-bottom: 3mm; display: grid; grid-template-columns: auto 1fr 1.25fr; gap: 1mm 6mm; align-items: center; }
+  .personal .boxTitle { margin: 0; white-space: nowrap; }
+  .personal .kv { margin: 0; }
+  .personal .note { margin: 0; }
   .cond { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2mm; margin-bottom: 1.5mm; }
   .cond div { padding: 0.8mm 2mm; }
   .cond small { line-height: 1.35; display: block; }
@@ -112,7 +119,7 @@ function html(h, shots) {
   .steps .n { font-size: 7.5pt; font-weight: 700; color: #8B4513; letter-spacing: 0.1em; }
   .steps b { display: block; color: #1a1a1a; margin-bottom: 0.5mm; }
   .steps small { font-size: 8pt; color: #555; line-height: 1.4; display: block; }
-  .cta { margin: 3mm 0; padding: 2.2mm 4mm; background: #1F1E1A; color: #fff; border-radius: 2px; display: flex; justify-content: space-between; align-items: center; gap: 4mm; }
+  .cta { margin: 2.5mm 0; padding: 2mm 4mm; background: #1F1E1A; color: #fff; border-radius: 2px; display: flex; justify-content: space-between; align-items: center; gap: 4mm; }
   .cta b { font-size: 10.5pt; }
   .cta small { font-size: 8.3pt; color: #ddd; display: block; }
   .foot { border-top: 1px solid #ccc; padding-top: 2mm; margin-top: 1mm; display: flex; justify-content: space-between; align-items: flex-end; font-size: 8.3pt; color: #444; }
@@ -126,8 +133,9 @@ function html(h, shots) {
   <div class="tagline">日英韓繁の4か国語 ・ 現地でGPS確認した全20停留所</div>
   <p class="lead">シティビューバス全20停留所の正確な位置、次のバスまでの時間、ホテルからの道順をスマートフォンで案内する無料サービスです。フロントに卓上POP（A6）を1枚置いていただくだけで、お客様がQRから最寄りの停留所を確認できます。</p>
 
-  <div class="grid prob">
-    <div>
+  <!-- 제품(POP·스마트폰 화면)을 가장 크게 — 담당자가 '무엇을 프런트에 두는지' 한눈에 알아보게 -->
+  <div class="main">
+    <div class="left">
       <h2>こんなお困りごとはありませんか</h2>
       <div class="box">
         <ul>
@@ -136,27 +144,24 @@ function html(h, shots) {
           <li>帰りに降りる停留所が行きと違うことを、言葉の壁で伝えにくい</li>
         </ul>
       </div>
-    </div>
-    <div>
       <img class="fig" src="${img(resolve(ROOT, 'public/images/home/tenmonkan-map.jpg'))}" alt="">
-      <div class="cap">天文館：地図アプリのピン（赤）は1か所。実際の停留所は No.3（仙巌園方面）・No.19（中央駅方面）で、ピンから86m・74m離れています（${audit.auditedAt} 調査）。</div>
+      <div class="cap">天文館：地図アプリのピン（赤）は1か所。実際の停留所は No.3・No.19 で、ピンから86m・74m離れています（${audit.auditedAt} 調査）。</div>
+    </div>
+    <div class="right">
+      <h2>フロントに置く卓上POPと、QRを読んだ画面</h2>
+      <div class="shots">
+        <figure><img src="${shots.pop}" alt=""><figcaption>卓上POP（A6・施設名入り${THEME_QS ? '・貴館のイメージに合わせた配色例' : ''}）</figcaption></figure>
+        <figure><img src="${shots.phone}" alt=""><figcaption>QRを読んだ画面（道順・乗る／降りる停留所・次のバス）</figcaption></figure>
+      </div>
     </div>
   </div>
 
-  <h2>サービスの特徴</h2>
+  ${personal}
+
   <div class="feat">
-    <div><b>① 現地でGPS確認した20停留所</b><small>${verifiedAt}に全停留所を歩いて確認。Googleマップとの比較では${audit.stops.length}か所中${offCount}か所が50m以上ずれていました（最大${worst.errorMeters}m）。</small></div>
+    <div><b>① 現地でGPS確認した20停留所</b><small>${verifiedAt}に全停留所を歩いて確認。Googleマップでは${audit.stops.length}か所中${offCount}か所が50m以上ずれていました（最大${worst.errorMeters}m）。</small></div>
     <div><b>② ホテルから乗り場までを案内</b><small>施設ごとの専用QRで、道順・乗る停留所・帰りに降りる停留所・次のバスまでの時間を表示します。</small></div>
     <div><b>③ 貴館のイメージに合わせて</b><small>POP・ポスターの色やデザインは貴館のイメージカラーに合わせてお作りします。日英韓繁の4言語、アプリ不要です。</small></div>
-  </div>
-
-  <div class="grid">
-    <div class="shots">
-      <img src="${shots.phone}" alt="" style="width:23mm">
-      <img src="${shots.pop}" alt="" style="width:23mm">
-      <div class="cap" style="margin-top:0">左：QRを読んだ画面。ホテルから乗り場までの道順と、乗る／帰りに降りる停留所<br><br>右：フロントに置く卓上POP（A6・施設名入り${THEME_QS ? '・貴館のイメージに合わせた配色例' : ''}）</div>
-    </div>
-    ${personal}
   </div>
 
   <h2>ご利用条件</h2>
