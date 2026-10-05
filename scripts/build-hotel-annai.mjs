@@ -20,7 +20,7 @@ const company = existsSync(COMPANY_FILE) ? JSON.parse(readFileSync(COMPANY_FILE,
 // ANNAI_PUBLIC=1 이면 사이트에 올리는 공개판(문의 폼처럼 첨부가 안 될 때 링크로 보낸다): 도시까지만, public/downloads/annai/ 에 날짜 없는 이름으로
 const PUBLIC = process.env.ANNAI_PUBLIC === '1'
 const ADDRESS = PUBLIC ? '大韓民国 仁川広域市' : (company.addressJa ?? '大韓民国 仁川広域市')
-const today = new Date(Date.now() + 9 * 3600e3) // JST
+const today = process.env.ANNAI_DATE ? new Date(process.env.ANNAI_DATE + 'T00:00:00Z') : new Date(Date.now() + 9 * 3600e3) // JST. ANNAI_DATE=YYYY-MM-DD 로 발송일을 지정
 const ymd = today.toISOString().slice(0, 10)
 const ymdCompact = ymd.replaceAll('-', '')
 const dateJa = `${today.getUTCFullYear()}年${today.getUTCMonth() + 1}月${today.getUTCDate()}日`
