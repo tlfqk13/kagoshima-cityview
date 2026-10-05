@@ -349,9 +349,8 @@
   .srch { background: #F4F8FB; gap: 10px; padding: 46px 14px 18px; } /* .s2{padding:0}은 지도 화면용 — 검색 화면은 노치 아래에서 시작 */
   .srch .bar { display: flex; align-items: center; gap: 8px; background: #fff; border: 1.5px solid #0099D9; border-radius: 22px; padding: 8px 12px; color: #0099D9; font-size: 12px; }
   .type { display: inline-block; overflow: hidden; white-space: nowrap; color: #12263C; width: 0; border-right: 1.5px solid #0099D9; }
-  .scase[data-step="2"] .type { animation: typeW 0.8s steps(5) 0.2s forwards; }
+  .scase[data-step="2"] .type { animation: typeW 0.9s steps(10) 0.2s forwards; }
   @keyframes typeW { to { width: var(--tw, 5.2em); } }
-  html[data-ui="en"] .type { --tw: 6.4em; }
   .srch ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
   .srch li { background: #fff; border-radius: 10px; padding: 9px 11px; box-shadow: 0 4px 12px rgba(14,42,71,0.07); opacity: 0; display: flex; flex-direction: column; gap: 2px; }
   .scase[data-step="2"] .srch li { animation: msg 0.5s var(--ease) var(--d) forwards; }
@@ -366,6 +365,10 @@
   .scase[data-step="3"] .score { animation: msg 0.5s var(--ease) 3s forwards; }
   .scase[data-step="3"] .score .ring { animation: ring 1s var(--ease) 3.2s forwards; }
   @keyframes ring { to { stroke-dashoffset: 0.2; } }
+  .bridge { margin: 120px auto 0; text-align: center; font-family: "Zen Old Mincho", serif; font-weight: 700; font-size: clamp(18px, 2.2vw, 28px); letter-spacing: 0.18em; line-height: 2; color: var(--head); }
+  .bridge + .scase { margin-top: 60px; }
+  .scase.rev .type { --tw: 10.6em; } html[data-ui="en"] .scase.rev .type { --tw: 7.6em; }
+  .imgnote { max-width: 300px; text-align: center; line-height: 1.6; }
   .dots { display: flex; gap: 8px; } .dots i { width: 22px; height: 3px; border-radius: 2px; background: rgba(14,42,71,0.18); transition: background 0.4s, width 0.4s var(--ease); } .dots i.on { background: var(--blue); width: 40px; }
   .imgnote { font-size: 10px; letter-spacing: 0.1em; color: var(--sub); }
   .story { padding-top: 6vh; }
@@ -703,33 +706,35 @@
           </div>
         </div>
 
+        <p class="bridge" data-reveal><span class="inl" data-lang="ja">同じフロントから。<br>お客様には道案内を、スタッフにはマニュアルを。</span><span class="inl" data-lang="en">From the same front desk:<br>directions for guests, manuals for staff.</span></p>
+
         <div class="scase rev" data-step="1">
           <div class="stage">
             <div class="device" aria-hidden="true">
               <div class="scr s1 paperbg">
-                <span class="cap"><span class="inl" data-lang="ja">紙のマニュアル</span><span class="inl" data-lang="en">Paper manuals</span></span>
+                <span class="cap"><span class="inl" data-lang="ja">フロント業務マニュアル</span><span class="inl" data-lang="en">Front-desk manual</span></span>
                 <div class="pages"><i></i><i></i><i><u></u><u></u><u></u><u class="s"></u><u></u><u class="s"></u></i><em><span class="inl" data-lang="ja">先輩が口頭で<br>教えてきたこと</span><span class="inl" data-lang="en">What seniors<br>taught by mouth</span></em></div>
               </div>
               <div class="scr s2 srch">
-                <div class="bar"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.5-4.5"/></svg><span class="type"><span class="inl" data-lang="ja">返品の手順</span><span class="inl" data-lang="en">Return policy</span></span></div>
-                <ul><li style="--d:.9s"><b><span class="inl" data-lang="ja">返品・交換の受付</span><span class="inl" data-lang="en">Returns and exchanges</span></b><small><span class="inl" data-lang="ja">マニュアル p.12 · 2026.04版</span><span class="inl" data-lang="en">Manual p.12 · Apr 2026 ed.</span></small></li><li style="--d:1.1s"><b><span class="inl" data-lang="ja">レシートがない場合</span><span class="inl" data-lang="en">Without a receipt</span></b><small><span class="inl" data-lang="ja">マニュアル p.13 · 2026.04版</span><span class="inl" data-lang="en">Manual p.13 · Apr 2026 ed.</span></small></li><li style="--d:1.3s"><b><span class="inl" data-lang="ja">返金の方法</span><span class="inl" data-lang="en">Refund methods</span></b><small><span class="inl" data-lang="ja">マニュアル p.14 · 2026.04版</span><span class="inl" data-lang="en">Manual p.14 · Apr 2026 ed.</span></small></li></ul>
+                <div class="bar"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.5-4.5"/></svg><span class="type"><span class="inl" data-lang="ja">レイトチェックアウト</span><span class="inl" data-lang="en">Late check-out</span></span></div>
+                <ul><li style="--d:.9s"><b><span class="inl" data-lang="ja">レイトチェックアウトの受付</span><span class="inl" data-lang="en">Late check-out requests</span></b><small><span class="inl" data-lang="ja">マニュアル p.12 · 2026.04版</span><span class="inl" data-lang="en">Manual p.12 · Apr 2026 ed.</span></small></li><li style="--d:1.1s"><b><span class="inl" data-lang="ja">満室日の対応</span><span class="inl" data-lang="en">On fully booked days</span></b><small><span class="inl" data-lang="ja">マニュアル p.13 · 2026.04版</span><span class="inl" data-lang="en">Manual p.13 · Apr 2026 ed.</span></small></li><li style="--d:1.3s"><b><span class="inl" data-lang="ja">追加料金のご案内</span><span class="inl" data-lang="en">Explaining the extra charge</span></b><small><span class="inl" data-lang="ja">マニュアル p.14 · 2026.04版</span><span class="inl" data-lang="en">Manual p.14 · Apr 2026 ed.</span></small></li></ul>
               </div>
               <div class="scr s3 chat">
                 <span class="cap"><span class="inl" data-lang="ja">AI問答 → クイズ → 評価</span><span class="inl" data-lang="en">AI Q&amp;A → quiz → assessment</span></span>
-                <p class="me"><span class="inl" data-lang="ja">返品は何日以内？</span><span class="inl" data-lang="en">How many days for returns?</span></p>
-                <div class="ans"><b><span class="inl" data-lang="ja">レシートがあれば30日以内です。</span><span class="inl" data-lang="en">Within 30 days with a receipt.</span></b><small><span class="inl" data-lang="ja">出典：マニュアル p.12</span><span class="inl" data-lang="en">Source: manual p.12</span></small></div>
-                <div class="quiz"><b><span class="inl" data-lang="ja">Q. レシートがない場合は？</span><span class="inl" data-lang="en">Q. And without a receipt?</span></b><i><span class="inl" data-lang="ja">そのまま返金</span><span class="inl" data-lang="en">Refund anyway</span></i><i class="ok"><span class="inl" data-lang="ja">責任者に確認</span><span class="inl" data-lang="en">Check with the manager</span></i><i><span class="inl" data-lang="ja">受付不可</span><span class="inl" data-lang="en">Refuse</span></i></div>
+                <p class="me"><span class="inl" data-lang="ja">レイトチェックアウトは何時まで？</span><span class="inl" data-lang="en">Until when is late check-out?</span></p>
+                <div class="ans"><b><span class="inl" data-lang="ja">最長13時までです。先に空室状況をご確認ください。</span><span class="inl" data-lang="en">Up to 1 p.m. Check availability first.</span></b><small><span class="inl" data-lang="ja">出典：マニュアル p.12</span><span class="inl" data-lang="en">Source: manual p.12</span></small></div>
+                <div class="quiz"><b><span class="inl" data-lang="ja">Q. 満室日に依頼されたら？</span><span class="inl" data-lang="en">Q. Asked on a fully booked day?</span></b><i><span class="inl" data-lang="ja">そのまま延長</span><span class="inl" data-lang="en">Extend anyway</span></i><i class="ok"><span class="inl" data-lang="ja">責任者に確認</span><span class="inl" data-lang="en">Check with the manager</span></i><i><span class="inl" data-lang="ja">理由を伝えずお断り</span><span class="inl" data-lang="en">Decline with no reason</span></i></div>
                 <div class="score"><svg viewBox="0 0 44 44"><circle cx="22" cy="22" r="18" fill="none" stroke="#E6ECF2" stroke-width="5"/><circle class="ring" cx="22" cy="22" r="18" fill="none" stroke="#0099D9" stroke-width="5" pathLength="1" stroke-dasharray="1" transform="rotate(-90 22 22)"/></svg><span><span class="inl" data-lang="ja">理解度 8/10</span><span class="inl" data-lang="en">Score 8/10</span></span></div>
               </div>
             </div>
             <div class="dots" aria-hidden="true"><i></i><i></i><i></i></div>
-            <small class="imgnote"><span class="inl" data-lang="ja">画面はイメージです（準備中）</span><span class="inl" data-lang="en">Screens are illustrative (in preparation)</span></small>
+            <small class="imgnote"><span class="inl" data-lang="ja">ホテルでの利用例（イメージ・準備中）。マニュアルの内容は架空の例です</span><span class="inl" data-lang="en">Hotel example (illustrative, in preparation). The manual content is fictional</span></small>
           </div>
           <div class="story">
-            <div class="shead" data-reveal><span class="pill"><span class="inl" data-lang="ja">準備中</span><span class="inl" data-lang="en">In preparation</span></span><h3><span class="hl"><span class="inl" data-lang="ja">社内マニュアル学習・評価</span><span class="inl" data-lang="en">Manual-based learning &amp; assessment</span></span></h3><p><span class="inl" data-lang="ja">社内マニュアル × 学習。紙と口伝えを、聞ける・学べる・測れる仕組みに。</span><span class="inl" data-lang="en">Manuals × learning. Paper and word of mouth, made askable, learnable and measurable.</span></p></div>
-            <div class="st"><span class="k">01 ANALOG</span><h4><span class="inl" data-lang="ja">紙と、口伝えから</span><span class="inl" data-lang="en">From paper and word of mouth</span></h4><p><span class="inl" data-lang="ja">紙やPDFのマニュアル、先輩が口頭で教えてきたこと。現場の知恵は、そこにあります。</span><span class="inl" data-lang="en">Paper and PDF manuals, and what seniors taught by word of mouth. That is where the know-how lives.</span></p></div>
+            <div class="shead" data-reveal><span class="pill"><span class="inl" data-lang="ja">準備中</span><span class="inl" data-lang="en">In preparation</span></span><h3><span class="hl"><span class="inl" data-lang="ja">社内マニュアル学習・評価</span><span class="inl" data-lang="en">Manual-based learning &amp; assessment</span></span></h3><p><span class="inl" data-lang="ja">社内マニュアル × 学習。マニュアルが多く、読んでもらうことが大切な現場のために。宿泊・飲食・介護・小売・製造など、業種は問いません。</span><span class="inl" data-lang="en">Manuals × learning. For workplaces with many manuals, where getting them read matters: hotels, restaurants, care, retail, manufacturing and more.</span></p></div>
+            <div class="st"><span class="k">01 ANALOG</span><h4><span class="inl" data-lang="ja">紙と、口伝えから</span><span class="inl" data-lang="en">From paper and word of mouth</span></h4><p><span class="inl" data-lang="ja">たとえばホテルのフロント。紙やPDFのマニュアル、先輩が口頭で教えてきたこと。現場の知恵は、そこにあります。</span><span class="inl" data-lang="en">Take a hotel front desk. Paper and PDF manuals, and what seniors taught by word of mouth. That is where the know-how lives.</span></p></div>
             <div class="st"><span class="k">02 DIGITAL</span><h4><span class="inl" data-lang="ja">検索できるデータに</span><span class="inl" data-lang="en">Into searchable data</span></h4><p><span class="inl" data-lang="ja">版と出典を残したまま、探せる形に整えます。どのページの、いつの版かが分かります。</span><span class="inl" data-lang="en">Made searchable while keeping version and source, so you know which page and which edition.</span></p></div>
-            <div class="st"><span class="k">03 AI</span><h4><span class="inl" data-lang="ja">聞ける・学べる・測れる</span><span class="inl" data-lang="en">Ask, learn, assess</span></h4><p><span class="inl" data-lang="ja">AIへの問答、理解度クイズの自動生成、評価への反映まで。マニュアルにない答えはしません。</span><span class="inl" data-lang="en">AI Q&amp;A, auto-generated quizzes, assessment. No answers that are not in the manual.</span></p>
+            <div class="st"><span class="k">03 AI</span><h4><span class="inl" data-lang="ja">聞ける・学べる・測れる</span><span class="inl" data-lang="en">Ask, learn, assess</span></h4><p><span class="inl" data-lang="ja">新人でも、外国人スタッフでも、その場でAIに聞けます。理解度クイズを自動で作り、評価に反映。マニュアルにない答えはしません。</span><span class="inl" data-lang="en">New hires and international staff can ask the AI on the spot. Quizzes are generated automatically and feed into assessment. No answers that are not in the manual.</span></p>
               <a class="more" href="#contact"><span class="inl" data-lang="ja">先行してご相談</span><span class="inl" data-lang="en">Ask about early access</span></a></div>
           </div>
         </div>
