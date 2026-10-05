@@ -225,8 +225,14 @@ for (const h of targets) {
   await pdf.goto(`file://${htmlPath}`, { waitUntil: 'networkidle' })
   const pages = await pdf.evaluate(() => Math.ceil(document.documentElement.scrollHeight / (297 * 96 / 25.4)))
   const out = resolve(OUT, PUBLIC ? `KagoshimaCityView_Annai_${key}.pdf` : `KagoshimaCityView_Annai_${key}_${ymdCompact}.pdf`)
-  await pdf.pdf({ path: out, format: 'A4', printBackground: true, preferCSSPageSize: true, scale: 0.95 })
+  // 반드시 한 장 — 호텔 이름이 길어 줄이 늘면 넘칠 수 있으므로, 한 장에 들어올 때까지 배율을 조금씩 낮춘다
+  let used = null
+  for (const scale of [0.95, 0.93, 0.91, 0.89, 0.87]) {
+    const buf = await pdf.pdf({ format: 'A4', printBackground: true, preferCSSPageSize: true, scale })
+    if ((buf.toString('latin1').match(/\/Type\s*\/Page[^s]/g) || []).length === 1) { writeFileSync(out, buf); used = scale; break }
+  }
+  if (!used) throw new Error(`${key}: 한 장에 들어가지 않습니다`)
   await pdf.close()
-  console.log('pdf', out.replace(ROOT + '/', ''), `(${(readFileSync(out).length / 1024).toFixed(0)} KB, approx pages ${pages})`)
+  console.log('pdf', out.replace(ROOT + '/', ''), `(${(readFileSync(out).length / 1024).toFixed(0)} KB, 1 page, scale ${used})`)
 }
 await b.close()
